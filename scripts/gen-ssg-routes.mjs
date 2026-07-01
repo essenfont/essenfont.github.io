@@ -7,6 +7,9 @@
 // Dynamic routes (one per block / per plane / per character / per property value)
 // are derived from the committed public/unicode* data so the build is
 // hermetic — no network calls, no upstream dependencies.
+//
+// With --shards=N, also writes per-shard route files for parallel
+// matrix builds. Round-robin distribution balances work across shards.
 
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve, dirname } from 'node:path'
@@ -115,13 +118,13 @@ function main() {
   const entries = buildEntries()
   const paths = entries.map((e) => e.path)
 
-  // ssg-routes.json — vite-ssg reads this from public/.
+  // Full route list (for backward compat / local dev).
   writeFileSync(
     resolve(pub, 'ssg-routes.json'),
     JSON.stringify(paths, null, 2),
   )
 
-  // sitemap.xml
+  // Sitemap (always all routes, for SEO).
   const today = new Date().toISOString().slice(0, 10)
   const urls = entries.map((e) =>
     `  <url>\n    <loc>https://essenfont.github.io${e.path}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${e.path === '/' ? 'weekly' : 'monthly'}</changefreq>\n    <priority>${e.path === '/' ? '1.0' : '0.6'}</priority>\n  </url>`
@@ -129,7 +132,32 @@ function main() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
   writeFileSync(resolve(pub, 'sitemap.xml'), xml)
 
-  console.log(`gen-ssg-routes: ${paths.length} routes`)
+  // Per-shard route files for parallel matrix builds.
+  // Round-robin distributes work evenly across shards (avoids hot spots
+  // where all CJK char pages land in one shard).
+  const shardCount = parseShardCount(process.argv)
+  if (shardCount > 1) {
+    for (let s = 0; s < shardCount; s++) {
+      const shardRoutes = paths.filter((_, i) => i % shardCount === s)
+      writeFileSync(
+        resolve(pub, `ssg-routes-${s}.json`),
+        JSON.stringify(shardRoutes, null, 2),
+      )
+    }
+    console.log(`gen-ssg-routes: ${paths.length} routes split into ${shardCount} shards (~${Math.ceil(paths.length / shardCount)} each)`)
+  } else {
+    console.log(`gen-ssg-routes: ${paths.length} routes`)
+  }
+}
+
+function parseShardCount(argv) {
+  for (const arg of argv.slice(2)) {
+    if (arg.startsWith('--shards=')) {
+      const n = parseInt(arg.slice(9), 10)
+      return n > 1 ? n : 1
+    }
+  }
+  return 1
 }
 
 main()

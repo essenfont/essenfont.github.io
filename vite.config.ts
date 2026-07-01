@@ -5,8 +5,12 @@ import { resolve, normalize } from 'node:path'
 import { readFileSync as readSsgRoutes } from 'node:fs'
 
 function readSsgRoutesFile(): string[] {
+  // When SHARD env is set (parallel matrix build), read only that
+  // shard's routes. Otherwise read the full list.
+  const shard = process.env.SHARD
+  const filename = shard != null ? `ssg-routes-${shard}.json` : 'ssg-routes.json'
   try {
-    const p = resolve(process.cwd(), 'public/ssg-routes.json')
+    const p = resolve(process.cwd(), 'public', filename)
     return JSON.parse(readSsgRoutes(p, 'utf8'))
   } catch {
     return ['/']

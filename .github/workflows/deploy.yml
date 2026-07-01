@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5]
     steps:
       - uses: actions/checkout@v4
 
@@ -27,22 +30,77 @@ jobs:
 
       - run: npm ci
 
+      - name: Cache Unihan data
+        id: unihan-cache
+        uses: actions/cache@v4
+        with:
+          path: data/unihan
+          key: unihan-v17-${{ hashFiles('scripts/gen-unihan-data.mjs') }}
+
       - name: Generate Unihan data
+        if: steps.unihan-cache.outputs.cache-hit != 'true'
         run: node scripts/gen-unihan-data.mjs
 
-      - name: Generate SSG routes
-        run: node scripts/gen-ssg-routes.mjs
+      - name: Generate SSG route shards
+        run: node scripts/gen-ssg-routes.mjs --shards=6
 
-      - name: Build site
+      - name: Build shard ${{ matrix.shard }}
+        env:
+          SHARD: ${{ matrix.shard }}
         run: npx vite-ssg build
 
-      - name: Upload artifact
+      - name: Upload shard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-shard-${{ matrix.shard }}
+          path: dist
+          retention-days: 1
+
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all shard artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: dist-shard-*
+          path: shards
+          merge-multiple: false
+
+      - name: Merge into single dist
+        run: |
+          mkdir -p dist
+          for d in shards/dist-shard-*/; do
+            cp -a "$d/." dist/
+          done
+          echo "Merged dist/ contents:"
+          find dist -type f | wc -l | xargs echo "  files:"
+
+      - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
+      - name: Delete shard artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: { artifacts } } = await github.rest.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+            })
+            for (const a of artifacts.filter(a => a.name.startsWith('dist-shard-'))) {
+              await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: a.id,
+              })
+              core.info(`Deleted ${a.name}`)
+            }
+
   deploy:
-    needs: build
+    needs: merge
     runs-on: ubuntu-latest
     environment:
       name: github-pages
