@@ -33,13 +33,18 @@ interface CoverageRow {
   source?: string
 }
 
-// Pull every coverage entry — from per-file all_coverage or family parsed_coverage.
+// Pull every coverage entry — only entries with numeric data
+// (covered/total/pct). The raw `covers` list from the manifest
+// has block names only, without counts — those go in the
+// "Unicode ranges covered" section below, not the coverage bars.
 const coverageRows = computed<CoverageRow[]>(() => {
   if (!donor.value) return []
   const rows: CoverageRow[] = []
   for (const f of donor.value.files) {
     for (const c of (f as any).all_coverage || []) {
-      rows.push({ ...(c as CoverageRow), file_label: f.label })
+      if (typeof c.covered === 'number' && typeof c.total === 'number') {
+        rows.push({ ...(c as CoverageRow), file_label: f.label })
+      }
     }
   }
   // Deduplicate by block (keep highest coverage)
