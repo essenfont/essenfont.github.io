@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansSoyombo",
+  "slug": "noto-sans-soyombo",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSoyombo/hinted/ttf/NotoSansSoyombo-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11A50..U+11AAF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Soyombo"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-soyombo",
+      "file": "references/input-fonts/NotoSansSoyombo-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "31a5e5997360e6d1d574af04da3eefaeb3db18831df795c145634e517e554e1b",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSoyombo/hinted/ttf/NotoSansSoyombo-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Soyombo"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Soyombo",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11A50..U+11AAF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Soyombo"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

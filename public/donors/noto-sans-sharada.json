@@ -1,0 +1,93 @@
+{
+  "family": "Noto Sans Sharada",
+  "slug": "noto-sans-sharada",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSharada",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers main Sharada block (U+11180..U+111CD) 96/96. Does NOT cover Sharada Supplement (U+11B60..U+11B7F; Unicode 16.0+ — no Noto version includes it).",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sharada"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sharada",
+      "file": "references/input-fonts/NotoSansSharada-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "8350a4cf4b5bdc0707aa5077075b0885a4f3f0f08ed6b49b8e5d142aef4032da",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSharada",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Sharada"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Sharada",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+11180–U+111DF",
+          "start": "U+11180",
+          "end": "U+111DF",
+          "covered": 96,
+          "total": 96,
+          "pct": 100.0
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Sharada",
+          "source": "manifest"
+        },
+        {
+          "block": "Sharada",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+11180–U+111DF",
+          "start": "U+11180",
+          "end": "U+111DF",
+          "covered": 96,
+          "total": 96,
+          "pct": 100.0,
+          "source": "notes"
+        }
+      ],
+      "notes": "Covers main Sharada block (U+11180..U+111CD) 96/96. Does NOT cover Sharada Supplement (U+11B60..U+11B7F; Unicode 16.0+ — no Noto version includes it).",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Sharada"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Sharada",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+11180–U+111DF",
+      "start": "U+11180",
+      "end": "U+111DF",
+      "covered": 96,
+      "total": 96,
+      "pct": 100.0
+    }
+  ]
+}

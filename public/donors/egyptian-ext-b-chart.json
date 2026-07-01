@@ -1,0 +1,52 @@
+{
+  "family": "egyptian-ext-b-chart",
+  "slug": "egyptian-ext-b-chart",
+  "license": null,
+  "author": null,
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "No OFL donor for Unicode 17 Egyptian Hieroglyphs Ext-B (U+16A40..U+16A8F, 80 cps). Glyphs from https://www.unicode.org/charts/PDF/U16A40.pdf.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Egyptian_Hieroglyphs_Extended-B"
+  ],
+  "files": [
+    {
+      "label": "egyptian-ext-b-chart",
+      "file": null,
+      "style": null,
+      "version": null,
+      "sha256": null,
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Egyptian Hieroglyphs Extended-B"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Egyptian Hieroglyphs Extended-B",
+          "source": "manifest"
+        }
+      ],
+      "notes": "No OFL donor for Unicode 17 Egyptian Hieroglyphs Ext-B (U+16A40..U+16A8F, 80 cps). Glyphs from https://www.unicode.org/charts/PDF/U16A40.pdf.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "unknown",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Egyptian Hieroglyphs Extended-B"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

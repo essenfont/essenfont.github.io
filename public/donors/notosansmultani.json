@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansMultani",
+  "slug": "noto-sans-multani",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMultani/hinted/ttf/NotoSansMultani-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11280..U+112AF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Multani"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-multani",
+      "file": "references/input-fonts/NotoSansMultani-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "12c2437f98173dbff98fa18bcc73c6a44896634fb6d55d8f6d028394af4fc9b9",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMultani/hinted/ttf/NotoSansMultani-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Multani"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Multani",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11280..U+112AF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Multani"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

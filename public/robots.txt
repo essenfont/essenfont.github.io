@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://essenfont.github.io/sitemap.xml

@@ -1,0 +1,80 @@
+{
+  "family": "Noto Sans Math",
+  "slug": "noto-sans-math",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansMath",
+  "url_mirror": null,
+  "web": null,
+  "notes": null,
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Mathematical_Operators",
+    "Supplemental_Mathematical_Operators",
+    "Mathematical_Alphanumeric_Symbols",
+    "Miscellaneous_Mathematical_Symbols-A",
+    "Miscellaneous_Mathematical_Symbols-B"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-math",
+      "file": "references/input-fonts/NotoSansMath-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "d51afd5739c7ba6c44fcab35a88160e25dfb69a2d4ad0bd99533f8d894af1f96",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansMath",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Mathematical Operators",
+        "Supplemental Mathematical Operators",
+        "Mathematical Alphanumeric Symbols",
+        "Miscellaneous Mathematical Symbols-A",
+        "Miscellaneous Mathematical Symbols-B"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Mathematical Operators",
+          "source": "manifest"
+        },
+        {
+          "block": "Supplemental Mathematical Operators",
+          "source": "manifest"
+        },
+        {
+          "block": "Mathematical Alphanumeric Symbols",
+          "source": "manifest"
+        },
+        {
+          "block": "Miscellaneous Mathematical Symbols-A",
+          "source": "manifest"
+        },
+        {
+          "block": "Miscellaneous Mathematical Symbols-B",
+          "source": "manifest"
+        }
+      ],
+      "notes": null,
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Mathematical Operators",
+    "Supplemental Mathematical Operators",
+    "Mathematical Alphanumeric Symbols",
+    "Miscellaneous Mathematical Symbols-A",
+    "Miscellaneous Mathematical Symbols-B"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

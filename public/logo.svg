@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Essenfont">
+  <title>Essenfont</title>
+  <defs>
+    <linearGradient id="ef-bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#1c1a18"/>
+      <stop offset="1" stop-color="#1c1a18"/>
+    </linearGradient>
+  </defs>
+  <!-- Background tile -->
+  <rect width="64" height="64" rx="12" fill="#f1ece1"/>
+  <!-- "E" letterform — three horizontal strokes, vertical spine -->
+  <g fill="#1c1a18">
+    <!-- Top stroke -->
+    <rect x="12" y="14" width="38" height="6"/>
+    <!-- Middle stroke (slightly shorter, holds "17") -->
+    <rect x="12" y="29" width="38" height="6"/>
+    <!-- Bottom stroke -->
+    <rect x="12" y="44" width="38" height="6"/>
+    <!-- Vertical spine -->
+    <rect x="12" y="14" width="6" height="36"/>
+  </g>
+  <!-- "17" inside the middle bar, in rose accent -->
+  <g fill="#bf4e6a" font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace" font-weight="800" font-size="6" letter-spacing="0.2">
+    <text x="22" y="34">17</text>
+  </g>
+</svg>

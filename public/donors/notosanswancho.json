@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansWancho",
+  "slug": "noto-sans-wancho",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansWancho/hinted/ttf/NotoSansWancho-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1E2C0..U+1E2FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Wancho"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-wancho",
+      "file": "references/input-fonts/NotoSansWancho-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "fb2e48d59128cdea1cee0ba24373bd5ff085a72cf98e53bc1674770c8ac67d9a",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansWancho/hinted/ttf/NotoSansWancho-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Wancho"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Wancho",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1E2C0..U+1E2FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Wancho"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

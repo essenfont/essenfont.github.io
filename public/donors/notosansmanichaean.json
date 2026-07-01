@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansManichaean",
+  "slug": "noto-sans-manichaean",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansManichaean/hinted/ttf/NotoSansManichaean-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10AC0..U+10AFF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Manichaean"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-manichaean",
+      "file": "references/input-fonts/NotoSansManichaean-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "29b281b63ca0d2478017a72abcb6c0b44d36af52a0e4eec2b5622be7c3a9442f",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansManichaean/hinted/ttf/NotoSansManichaean-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Manichaean"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Manichaean",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10AC0..U+10AFF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Manichaean"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

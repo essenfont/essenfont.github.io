@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="Essenfont">
+  <title>Essenfont</title>
+  <g font-family="Georgia, 'Spectral', serif" font-weight="500">
+    <!-- "E" mark, stylised -->
+    <g transform="translate(8, 16)">
+      <rect x="0" y="0" width="56" height="64" fill="#1c1a18" rx="2"/>
+      <rect x="8" y="0" width="40" height="14" fill="#f1ece1"/>
+      <rect x="8" y="25" width="40" height="14" fill="#f1ece1"/>
+      <rect x="8" y="50" width="40" height="14" fill="#f1ece1"/>
+      <!-- accent: a small "17" in the lower-right cutout area -->
+      <text x="50" y="74" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-weight="800" font-size="14" fill="#bf4e6a" text-anchor="end" letter-spacing="0.5">17</text>
+    </g>
+    <!-- Wordmark -->
+    <text x="80" y="48" font-size="28" fill="#1c1a18" letter-spacing="-0.5">Essenfont</text>
+    <text x="80" y="68" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#75716c" letter-spacing="2">UNIVERSAL · UNICODE 17</text>
+  </g>
+</svg>

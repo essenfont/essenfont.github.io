@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sidetic.woff") format("woff"),
+      url("/fonts/sidetic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10940-1095F;
+}

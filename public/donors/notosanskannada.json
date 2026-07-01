@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansKannada",
+  "slug": "noto-sans-kannada",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKannada/hinted/ttf/NotoSansKannada-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Kannada block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kannada"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kannada",
+      "file": "references/input-fonts/NotoSansKannada-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "9ad74dc64838c6855b96f671fc08e425a58921b9d0c71712ea79c328a27e6e38",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKannada/hinted/ttf/NotoSansKannada-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Kannada"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Kannada",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Kannada block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Kannada"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

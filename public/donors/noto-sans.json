@@ -1,0 +1,108 @@
+{
+  "family": "Noto Sans",
+  "slug": "noto-sans",
+  "license": "OFL",
+  "author": "Google + Monotype + Adobe",
+  "url": "https://github.com/notofonts/notofonts.github.io",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Universal fallback for Latin/Cyrillic/Greek/symbols and any block without a specialist entry.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Basic_Latin",
+    "Latin-1_Supplement",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "IPA_Extensions",
+    "Spacing_Modifier_Letters",
+    "Combining_Diacritical_Marks",
+    "Greek_and_Coptic",
+    "Cyrillic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans",
+      "file": "references/input-fonts/NotoSans-Regular.ttf",
+      "style": "Regular",
+      "version": "2.0",
+      "sha256": "478c558ea716033cd60c03438f628dfa75694dcf6b5f6d505a2f05fd2b4f3823",
+      "url": "https://github.com/notofonts/notofonts.github.io",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Basic Latin",
+        "Latin-1 Supplement",
+        "Latin Extended-A",
+        "Latin Extended-B",
+        "IPA Extensions",
+        "Spacing Modifier Letters",
+        "Combining Diacritical Marks",
+        "Greek and Coptic",
+        "Cyrillic"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Basic Latin",
+          "source": "manifest"
+        },
+        {
+          "block": "Latin-1 Supplement",
+          "source": "manifest"
+        },
+        {
+          "block": "Latin Extended-A",
+          "source": "manifest"
+        },
+        {
+          "block": "Latin Extended-B",
+          "source": "manifest"
+        },
+        {
+          "block": "IPA Extensions",
+          "source": "manifest"
+        },
+        {
+          "block": "Spacing Modifier Letters",
+          "source": "manifest"
+        },
+        {
+          "block": "Combining Diacritical Marks",
+          "source": "manifest"
+        },
+        {
+          "block": "Greek and Coptic",
+          "source": "manifest"
+        },
+        {
+          "block": "Cyrillic",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Universal fallback for Latin/Cyrillic/Greek/symbols and any block without a specialist entry.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Basic Latin",
+    "Latin-1 Supplement",
+    "Latin Extended-A",
+    "Latin Extended-B",
+    "IPA Extensions",
+    "Spacing Modifier Letters",
+    "Combining Diacritical Marks",
+    "Greek and Coptic",
+    "Cyrillic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

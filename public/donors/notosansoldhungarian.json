@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansOldHungarian",
+  "slug": "noto-sans-old-hungarian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldHungarian/hinted/ttf/NotoSansOldHungarian-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10C80..U+10CFF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Hungarian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-hungarian",
+      "file": "references/input-fonts/NotoSansOldHungarian-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "18d354e16832c85da1cfbcc2a13f95f375955fcab69428b03b566d8ab26959e9",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldHungarian/hinted/ttf/NotoSansOldHungarian-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Old Hungarian"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Old Hungarian",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10C80..U+10CFF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Old Hungarian"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

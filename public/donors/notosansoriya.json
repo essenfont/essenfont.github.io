@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansOriya",
+  "slug": "noto-sans-oriya",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOriya/hinted/ttf/NotoSansOriya-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Oriya block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Oriya"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-oriya",
+      "file": "references/input-fonts/NotoSansOriya-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "a16645d056017927406546aa78e4ce15e782fd8783467267b75450453d007415",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOriya/hinted/ttf/NotoSansOriya-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Oriya"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Oriya",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Oriya block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Oriya"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

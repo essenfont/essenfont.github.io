@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansOldTurkic",
+  "slug": "noto-sans-old-turkic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldTurkic/hinted/ttf/NotoSansOldTurkic-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10C00..U+10C4F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Turkic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-turkic",
+      "file": "references/input-fonts/NotoSansOldTurkic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "2bdea6041ab232cb5d88e719dac536d387b0830b690c83d4a501d06265d89d84",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldTurkic/hinted/ttf/NotoSansOldTurkic-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Old Turkic"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Old Turkic",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10C00..U+10C4F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Old Turkic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansLao",
+  "slug": "noto-sans-lao",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansLao/hinted/ttf/NotoSansLao-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Lao block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Lao"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lao",
+      "file": "references/input-fonts/NotoSansLao-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "0a86e5e1ccfe34ca78c43fac6829dc751b42bcc469272a9a55325aae587bfbe7",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansLao/hinted/ttf/NotoSansLao-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Lao"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Lao",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Lao block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Lao"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

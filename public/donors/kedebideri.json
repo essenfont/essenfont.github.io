@@ -1,0 +1,93 @@
+{
+  "family": "Kedebideri",
+  "slug": "kedebideri",
+  "license": "OFL",
+  "author": "SIL International",
+  "url": "https://software.sil.org/downloads/r/kedebideri/Kedebideri-3.001.zip",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Beria script font. v3.001 (2025-09-12) covers Unicode 17 Beria Erfe (U+16EA0..U+16EDF) 50/64. Reclaim as primary Beria Erfe donor. Does NOT cover Sidetic (U+10940..U+1095F); Lentariso is the active Sidetic donor.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Beria_Erfe"
+  ],
+  "files": [
+    {
+      "label": "kedebideri",
+      "file": "references/input-fonts/Kedebideri-Regular.ttf",
+      "style": "Regular",
+      "version": "3.001",
+      "sha256": "f95907a8c39c68d557c2264fcf593a858eb4751cd5e0c3c7c53e1ef354444064",
+      "url": "https://software.sil.org/downloads/r/kedebideri/Kedebideri-3.001.zip",
+      "url_extract": "https://software.sil.org/downloads/r/kedebideri/Kedebideri-3.001.zip",
+      "url_extract_member": "Kedebideri-3.001/Kedebideri-Regular.ttf",
+      "url_mirror": null,
+      "covers": [
+        "Beria Erfe"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Beria Erfe",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+16EA0–U+16EDF",
+          "start": "U+16EA0",
+          "end": "U+16EDF",
+          "covered": 50,
+          "total": 64,
+          "pct": 78.1
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Beria Erfe",
+          "source": "manifest"
+        },
+        {
+          "block": "Beria Erfe",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+16EA0–U+16EDF",
+          "start": "U+16EA0",
+          "end": "U+16EDF",
+          "covered": 50,
+          "total": 64,
+          "pct": 78.1,
+          "source": "notes"
+        }
+      ],
+      "notes": "Beria script font. v3.001 (2025-09-12) covers Unicode 17 Beria Erfe (U+16EA0..U+16EDF) 50/64. Reclaim as primary Beria Erfe donor. Does NOT cover Sidetic (U+10940..U+1095F); Lentariso is the active Sidetic donor.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Beria Erfe"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Beria Erfe",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+16EA0–U+16EDF",
+      "start": "U+16EA0",
+      "end": "U+16EDF",
+      "covered": 50,
+      "total": 64,
+      "pct": 78.1
+    }
+  ]
+}

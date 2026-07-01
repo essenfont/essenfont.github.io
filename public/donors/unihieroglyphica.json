@@ -1,0 +1,133 @@
+{
+  "family": "UniHieroglyphica",
+  "slug": "uni-hieroglyphica",
+  "license": "OFL",
+  "author": "Michel Suignard (suignard.com)",
+  "url": "https://suignard.com/Ptolemaic/UniHieroglyphica.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Egyptian Hieroglyphs Ext-A Extended (U+13460..U+143FF) 3995/4000 — primary Ext-A Extended donor. Also covers core 1072/1072 and Format Controls 38/48 (redundant with eot.ttf). Does NOT cover Ext-B (U+16A40..U+16A8F).",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Egyptian_Hieroglyphs_Extended-A"
+  ],
+  "files": [
+    {
+      "label": "uni-hieroglyphica",
+      "file": "references/input-fonts/UniHieroglyphica.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "ad60bb2f469697837b556388d47b500a21d866370a49a8be770b206108aaf664",
+      "url": "https://suignard.com/Ptolemaic/UniHieroglyphica.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Egyptian Hieroglyphs Extended-A"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Egyptian Hieroglyphs Extended-A",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13460–U+143FF",
+          "start": "U+13460",
+          "end": "U+143FF",
+          "covered": 3995,
+          "total": 4000,
+          "pct": 99.9
+        },
+        {
+          "block": "Egyptian Hieroglyphs",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13000–U+1342F",
+          "start": "U+13000",
+          "end": "U+1342F",
+          "covered": 1072,
+          "total": 1072,
+          "pct": 100.0
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Egyptian Hieroglyphs Extended-A",
+          "source": "manifest"
+        },
+        {
+          "block": "Egyptian Hieroglyphs Extended-A",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13460–U+143FF",
+          "start": "U+13460",
+          "end": "U+143FF",
+          "covered": 3995,
+          "total": 4000,
+          "pct": 99.9,
+          "source": "notes"
+        },
+        {
+          "block": "Egyptian Hieroglyphs",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13000–U+1342F",
+          "start": "U+13000",
+          "end": "U+1342F",
+          "covered": 1072,
+          "total": 1072,
+          "pct": 100.0,
+          "source": "notes"
+        }
+      ],
+      "notes": "Covers Egyptian Hieroglyphs Ext-A Extended (U+13460..U+143FF) 3995/4000 — primary Ext-A Extended donor. Also covers core 1072/1072 and Format Controls 38/48 (redundant with eot.ttf). Does NOT cover Ext-B (U+16A40..U+16A8F).",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Egyptian Hieroglyphs Extended-A"
+  ],
+  "role": "primary",
+  "relationship": {
+    "kind": "redundant",
+    "primary": "eot"
+  },
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Egyptian Hieroglyphs Extended-A",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+13460–U+143FF",
+      "start": "U+13460",
+      "end": "U+143FF",
+      "covered": 3995,
+      "total": 4000,
+      "pct": 99.9
+    },
+    {
+      "block": "Egyptian Hieroglyphs",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+13000–U+1342F",
+      "start": "U+13000",
+      "end": "U+1342F",
+      "covered": 1072,
+      "total": 1072,
+      "pct": 100.0
+    }
+  ]
+}

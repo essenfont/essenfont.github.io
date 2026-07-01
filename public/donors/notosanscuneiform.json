@@ -1,0 +1,66 @@
+{
+  "family": "NotoSansCuneiform",
+  "slug": "noto-sans-cuneiform",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCuneiform/hinted/ttf/NotoSansCuneiform-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 3 block(s): U+12000..U+123FF, U+12400..U+1247F, U+12480..U+1254F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cuneiform",
+    "Cuneiform_Numbers_and_Punctuation",
+    "Early_Dynastic_Cuneiform"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cuneiform",
+      "file": "references/input-fonts/NotoSansCuneiform-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "aad6f345a2f3150aeb51706ecf1d6f62eec299ee215cb77e76f0c33e1419bba2",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCuneiform/hinted/ttf/NotoSansCuneiform-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Cuneiform",
+        "Cuneiform Numbers and Punctuation",
+        "Early Dynastic Cuneiform"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Cuneiform",
+          "source": "manifest"
+        },
+        {
+          "block": "Cuneiform Numbers and Punctuation",
+          "source": "manifest"
+        },
+        {
+          "block": "Early Dynastic Cuneiform",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 3 block(s): U+12000..U+123FF, U+12400..U+1247F, U+12480..U+1254F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Cuneiform",
+    "Cuneiform Numbers and Punctuation",
+    "Early Dynastic Cuneiform"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

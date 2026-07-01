@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansSamaritan",
+  "slug": "noto-sans-samaritan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSamaritan/hinted/ttf/NotoSansSamaritan-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+800..U+83F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Samaritan"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-samaritan",
+      "file": "references/input-fonts/NotoSansSamaritan-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "430aa9e70b6c500c4267e9ecc5165d15bfefc761d86650101deeb7e07260d5ed",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSamaritan/hinted/ttf/NotoSansSamaritan-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Samaritan"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Samaritan",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+800..U+83F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Samaritan"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansRunic",
+  "slug": "noto-sans-runic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansRunic/hinted/ttf/NotoSansRunic-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Runic block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Runic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-runic",
+      "file": "references/input-fonts/NotoSansRunic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "c43f941ef6c8a4f8217e7ffb332fce74f760140a7fd5919f86347e5e2a10b5c9",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansRunic/hinted/ttf/NotoSansRunic-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Runic"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Runic",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Runic block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Runic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansInscriptionalPahlavi",
+  "slug": "noto-sans-inscriptional-pahlavi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansInscriptionalPahlavi/hinted/ttf/NotoSansInscriptionalPahlavi-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10B60..U+10B7F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Inscriptional_Pahlavi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-inscriptional-pahlavi",
+      "file": "references/input-fonts/NotoSansInscriptionalPahlavi-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "1776a4a688e99a5c9720058e798fb82775b5763d57553f8912ef0fed3433ccbc",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansInscriptionalPahlavi/hinted/ttf/NotoSansInscriptionalPahlavi-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Inscriptional Pahlavi"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Inscriptional Pahlavi",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10B60..U+10B7F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Inscriptional Pahlavi"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

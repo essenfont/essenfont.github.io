@@ -1,0 +1,107 @@
+{
+  "family": "Noto Serif Tangut",
+  "slug": "noto-serif-tangut",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://notofonts.github.io/tangut/fonts/NotoSerifTangut/full/otf/NotoSerifTangut-Regular.otf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Serif variant (Noto never published a Sans Tangut). OTF (CFF outlines). Covers 6136/6144 Tangut, 768/768 Components, 9/128 Supplement.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tangut",
+    "Tangut_Components",
+    "Tangut_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-tangut",
+      "file": "references/input-fonts/NotoSerifTangut-Regular.otf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "4aa621e035fc1aefbc5c44b8925ac37ca26d18c215dab87e6349ab24aada71f1",
+      "url": "https://notofonts.github.io/tangut/fonts/NotoSerifTangut/full/otf/NotoSerifTangut-Regular.otf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tangut",
+        "Tangut Components",
+        "Tangut Supplement"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Tangut",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+17000–U+187FF",
+          "start": "U+17000",
+          "end": "U+187FF",
+          "covered": 6136,
+          "total": 6144,
+          "pct": 99.9
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Tangut",
+          "source": "manifest"
+        },
+        {
+          "block": "Tangut Components",
+          "source": "manifest"
+        },
+        {
+          "block": "Tangut Supplement",
+          "source": "manifest"
+        },
+        {
+          "block": "Tangut",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+17000–U+187FF",
+          "start": "U+17000",
+          "end": "U+187FF",
+          "covered": 6136,
+          "total": 6144,
+          "pct": 99.9,
+          "source": "notes"
+        }
+      ],
+      "notes": "Serif variant (Noto never published a Sans Tangut). OTF (CFF outlines). Covers 6136/6144 Tangut, 768/768 Components, 9/128 Supplement.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tangut",
+    "Tangut Components",
+    "Tangut Supplement"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Tangut",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+17000–U+187FF",
+      "start": "U+17000",
+      "end": "U+187FF",
+      "covered": 6136,
+      "total": 6144,
+      "pct": 99.9
+    }
+  ]
+}

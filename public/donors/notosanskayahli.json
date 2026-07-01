@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansKayahLi",
+  "slug": "noto-sans-kayah-li",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKayahLi/hinted/ttf/NotoSansKayahLi-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Kayah Li block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kayah_Li"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kayah-li",
+      "file": "references/input-fonts/NotoSansKayahLi-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "71235e4d51c4e591b20717c525997c72ee906a9d39ce55f8f8bb8c60e96ab807",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKayahLi/hinted/ttf/NotoSansKayahLi-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Kayah Li"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Kayah Li",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Kayah Li block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Kayah Li"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

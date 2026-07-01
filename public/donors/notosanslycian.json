@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansLycian",
+  "slug": "noto-sans-lycian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansLycian/hinted/ttf/NotoSansLycian-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10280..U+1029F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Lycian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lycian",
+      "file": "references/input-fonts/NotoSansLycian-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "2c580772ad04d8ba4eb63e16432615a43762ca59d7b59b43dec25b239ca38986",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansLycian/hinted/ttf/NotoSansLycian-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Lycian"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Lycian",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10280..U+1029F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Lycian"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,87 @@
+{
+  "family": "Noto Sans Symbols 2",
+  "slug": "noto-sans-symbols-2",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSymbols2",
+  "url_mirror": null,
+  "web": null,
+  "notes": null,
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Miscellaneous_Symbols_and_Pictographs",
+    "Supplemental_Symbols_and_Pictographs",
+    "Transport_and_Map_Symbols",
+    "Chess_Symbols",
+    "Symbols_and_Pictographs_Extended-A",
+    "Symbols_for_Legacy_Computing"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-symbols-2",
+      "file": "references/input-fonts/NotoSansSymbols2-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "c4a0a80f0041ce4be81e2478faad22776d23edb98ae3f0d19bd37044820ecf9d",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSymbols2",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Miscellaneous Symbols and Pictographs",
+        "Supplemental Symbols and Pictographs",
+        "Transport and Map Symbols",
+        "Chess Symbols",
+        "Symbols and Pictographs Extended-A",
+        "Symbols for Legacy Computing"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Miscellaneous Symbols and Pictographs",
+          "source": "manifest"
+        },
+        {
+          "block": "Supplemental Symbols and Pictographs",
+          "source": "manifest"
+        },
+        {
+          "block": "Transport and Map Symbols",
+          "source": "manifest"
+        },
+        {
+          "block": "Chess Symbols",
+          "source": "manifest"
+        },
+        {
+          "block": "Symbols and Pictographs Extended-A",
+          "source": "manifest"
+        },
+        {
+          "block": "Symbols for Legacy Computing",
+          "source": "manifest"
+        }
+      ],
+      "notes": null,
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Miscellaneous Symbols and Pictographs",
+    "Supplemental Symbols and Pictographs",
+    "Transport and Map Symbols",
+    "Chess Symbols",
+    "Symbols and Pictographs Extended-A",
+    "Symbols for Legacy Computing"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

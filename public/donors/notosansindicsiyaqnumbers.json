@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansIndicSiyaqNumbers",
+  "slug": "noto-sans-indic-siyaq-numbers",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansIndicSiyaqNumbers/hinted/ttf/NotoSansIndicSiyaqNumbers-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1EC70..U+1ECBF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Indic_Siyaq_Numbers"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-indic-siyaq-numbers",
+      "file": "references/input-fonts/NotoSansIndicSiyaqNumbers-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "68f41d31c85653a9c45d6d7e903c4329a791aee3a8559c2d19ecc88fa28090ae",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansIndicSiyaqNumbers/hinted/ttf/NotoSansIndicSiyaqNumbers-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Indic Siyaq Numbers"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Indic Siyaq Numbers",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1EC70..U+1ECBF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Indic Siyaq Numbers"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

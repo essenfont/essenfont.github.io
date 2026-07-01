@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansZanabazarSquare",
+  "slug": "noto-sans-zanabazar-square",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansZanabazarSquare/hinted/ttf/NotoSansZanabazarSquare-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11A00..U+11A4F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Zanabazar_Square"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-zanabazar-square",
+      "file": "references/input-fonts/NotoSansZanabazarSquare-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "4a42d77e15f8f6a295a682369fb941afca2c494bd4f4341882d5562f1ed5ed23",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansZanabazarSquare/hinted/ttf/NotoSansZanabazarSquare-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Zanabazar Square"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Zanabazar Square",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11A00..U+11A4F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Zanabazar Square"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

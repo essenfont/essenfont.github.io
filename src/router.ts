@@ -1,0 +1,22 @@
+import type { RouteRecordRaw } from 'vue-router'
+
+export const routes: RouteRecordRaw[] = [
+  { path: '/', name: 'home', component: () => import('./pages/HomePage.vue') },
+  { path: '/about', name: 'about', component: () => import('./pages/AboutPage.vue') },
+  { path: '/donors', name: 'donors', component: () => import('./pages/DonorsIndexPage.vue') },
+  { path: '/donors/:slug', name: 'donor', component: () => import('./pages/DonorDetailPage.vue') },
+  { path: '/download', name: 'download', component: () => import('./pages/DownloadPage.vue') },
+  { path: '/unicode', name: 'unicode', component: () => import('./pages/UnicodePage.vue') },
+  { path: '/unicode/plane/:planeId', name: 'unicode-plane', component: () => import('./pages/UnicodePlanePage.vue') },
+  { path: '/unicode/block/:blockSlug', name: 'unicode-block', component: () => import('./pages/UnicodeBlockPage.vue') },
+  { path: '/unicode/char/:hex', name: 'unicode-char', component: () => import('./pages/UnicodeCharPage.vue') },
+  { path: '/unicode/scripts', name: 'unicode-scripts', component: () => import('./pages/PropertyListPage.vue'), props: { property: 'scripts', title: 'Scripts', label: 'scripts' } },
+  { path: '/unicode/scripts/:code', name: 'unicode-script', component: () => import('./pages/PropertyDetailPage.vue'), props: { property: 'scripts', title: 'Script' } },
+  { path: '/unicode/category', name: 'unicode-categories', component: () => import('./pages/PropertyListPage.vue'), props: { property: 'category', title: 'Character Categories', label: 'categories' } },
+  { path: '/unicode/category/:code', name: 'unicode-category', component: () => import('./pages/PropertyDetailPage.vue'), props: { property: 'category', title: 'Category' } },
+  { path: '/unicode/bidiclass', name: 'unicode-bidiclasses', component: () => import('./pages/PropertyListPage.vue'), props: { property: 'bidiclass', title: 'Bidirectional Classes', label: 'classes' } },
+  { path: '/unicode/bidiclass/:code', name: 'unicode-bidiclass', component: () => import('./pages/PropertyDetailPage.vue'), props: { property: 'bidiclass', title: 'Bidirectional Class' } },
+  { path: '/unicode/combining', name: 'unicode-combining', component: () => import('./pages/PropertyListPage.vue'), props: { property: 'combining', title: 'Combining Classes', label: 'classes' } },
+  { path: '/unicode/combining/:code', name: 'unicode-combining-class', component: () => import('./pages/PropertyDetailPage.vue'), props: { property: 'combining', title: 'Combining Class' } },
+  { path: '/:path(.*)*', name: 'not-found', component: () => import('./pages/NotFound.vue') },
+]

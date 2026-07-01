@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansMandaic",
+  "slug": "noto-sans-mandaic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMandaic/hinted/ttf/NotoSansMandaic-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+840..U+85F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Mandaic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-mandaic",
+      "file": "references/input-fonts/NotoSansMandaic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "0ecb2440205b9fe02fce714ddda98bb59892d4f7eacce2c1f12028b172a34de8",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMandaic/hinted/ttf/NotoSansMandaic-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Mandaic"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Mandaic",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+840..U+85F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Mandaic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

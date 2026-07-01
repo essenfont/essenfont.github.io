@@ -1,0 +1,66 @@
+{
+  "family": "Noto Sans Symbols",
+  "slug": "noto-sans-symbols",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSymbols",
+  "url_mirror": null,
+  "web": null,
+  "notes": null,
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Miscellaneous_Symbols",
+    "Miscellaneous_Technical",
+    "Alchemical_Symbols"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-symbols",
+      "file": "references/input-fonts/NotoSansSymbols-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "d0e98e9a2c046594c5021437273943be7e79e0fd980fde125279e22302212595",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansSymbols",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Miscellaneous Symbols",
+        "Miscellaneous Technical",
+        "Alchemical Symbols"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Miscellaneous Symbols",
+          "source": "manifest"
+        },
+        {
+          "block": "Miscellaneous Technical",
+          "source": "manifest"
+        },
+        {
+          "block": "Alchemical Symbols",
+          "source": "manifest"
+        }
+      ],
+      "notes": null,
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Miscellaneous Symbols",
+    "Miscellaneous Technical",
+    "Alchemical Symbols"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSerifTodhri",
+  "slug": "noto-serif-todhri",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSerifTodhri/hinted/ttf/NotoSerifTodhri-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+105C0..U+105FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Todhri"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-todhri",
+      "file": "references/input-fonts/NotoSerifTodhri-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "4ded6e98752b13363cf01dad267efdd9481d556b9f2d5291ddcbda7fc7342727",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSerifTodhri/hinted/ttf/NotoSerifTodhri-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Todhri"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Todhri",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+105C0..U+105FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Todhri"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

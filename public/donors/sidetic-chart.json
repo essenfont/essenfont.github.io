@@ -1,0 +1,93 @@
+{
+  "family": "sidetic-chart",
+  "slug": "sidetic-chart",
+  "license": null,
+  "author": null,
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "No OFL donor for Unicode 17 Sidetic (U+10940..U+1095F, 32 cps). Lentariso covers 26/32; this donor covers the remaining 6 + provides authoritative glyphs for all 32. Glyphs from https://www.unicode.org/charts/PDF/U10940.pdf.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sidetic"
+  ],
+  "files": [
+    {
+      "label": "sidetic-chart",
+      "file": null,
+      "style": null,
+      "version": null,
+      "sha256": null,
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Sidetic"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Sidetic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10940–U+1095F",
+          "start": "U+10940",
+          "end": "U+1095F",
+          "covered": 26,
+          "total": 32,
+          "pct": 81.3
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Sidetic",
+          "source": "manifest"
+        },
+        {
+          "block": "Sidetic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10940–U+1095F",
+          "start": "U+10940",
+          "end": "U+1095F",
+          "covered": 26,
+          "total": 32,
+          "pct": 81.3,
+          "source": "notes"
+        }
+      ],
+      "notes": "No OFL donor for Unicode 17 Sidetic (U+10940..U+1095F, 32 cps). Lentariso covers 26/32; this donor covers the remaining 6 + provides authoritative glyphs for all 32. Glyphs from https://www.unicode.org/charts/PDF/U10940.pdf.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "unknown",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Sidetic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Sidetic",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+10940–U+1095F",
+      "start": "U+10940",
+      "end": "U+1095F",
+      "covered": 26,
+      "total": 32,
+      "pct": 81.3
+    }
+  ]
+}

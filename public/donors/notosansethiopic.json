@@ -1,0 +1,73 @@
+{
+  "family": "NotoSansEthiopic",
+  "slug": "noto-sans-ethiopic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansEthiopic/hinted/ttf/NotoSansEthiopic-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 4 block(s): U+1380..U+139F, U+2D80..U+2DDF, U+AB00..U+AB2F, U+1E7E0..U+1E7FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ethiopic_Supplement",
+    "Ethiopic_Extended",
+    "Ethiopic_Extended-A",
+    "Ethiopic_Extended-B"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-ethiopic",
+      "file": "references/input-fonts/NotoSansEthiopic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "f6f7fc379db9438959a2b0527e7a2cf36ea9c84626d56ec444fff37fc24c3c10",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansEthiopic/hinted/ttf/NotoSansEthiopic-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Ethiopic Supplement",
+        "Ethiopic Extended",
+        "Ethiopic Extended-A",
+        "Ethiopic Extended-B"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Ethiopic Supplement",
+          "source": "manifest"
+        },
+        {
+          "block": "Ethiopic Extended",
+          "source": "manifest"
+        },
+        {
+          "block": "Ethiopic Extended-A",
+          "source": "manifest"
+        },
+        {
+          "block": "Ethiopic Extended-B",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 4 block(s): U+1380..U+139F, U+2D80..U+2DDF, U+AB00..U+AB2F, U+1E7E0..U+1E7FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Ethiopic Supplement",
+    "Ethiopic Extended",
+    "Ethiopic Extended-A",
+    "Ethiopic Extended-B"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansInscriptionalParthian",
+  "slug": "noto-sans-inscriptional-parthian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansInscriptionalParthian/hinted/ttf/NotoSansInscriptionalParthian-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10B40..U+10B5F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Inscriptional_Parthian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-inscriptional-parthian",
+      "file": "references/input-fonts/NotoSansInscriptionalParthian-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "70c2c24e5442cf4ae70af6b8274fccedc4807317fa7c3cf78272349c35bfb506",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansInscriptionalParthian/hinted/ttf/NotoSansInscriptionalParthian-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Inscriptional Parthian"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Inscriptional Parthian",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10B40..U+10B5F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Inscriptional Parthian"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

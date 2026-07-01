@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansSoraSompeng",
+  "slug": "noto-sans-sora-sompeng",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSoraSompeng/hinted/ttf/NotoSansSoraSompeng-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+110D0..U+110FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sora_Sompeng"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sora-sompeng",
+      "file": "references/input-fonts/NotoSansSoraSompeng-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "3499f8e787031f75771e481a53ca41f6c0b65dbdf149dac3cb319c29c53c28c2",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSoraSompeng/hinted/ttf/NotoSansSoraSompeng-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Sora Sompeng"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Sora Sompeng",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+110D0..U+110FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Sora Sompeng"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

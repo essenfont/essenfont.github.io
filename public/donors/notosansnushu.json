@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansNushu",
+  "slug": "noto-sans-nushu",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNushu/hinted/ttf/NotoSansNushu-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Nushu block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Nushu"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nushu",
+      "file": "references/input-fonts/NotoSansNushu-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "12f749af9fdd185ac807d325499f7c9e04896c4f8ee7ca3c96e96ed8c130b181",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNushu/hinted/ttf/NotoSansNushu-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Nushu"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Nushu",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Nushu block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Nushu"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

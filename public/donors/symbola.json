@@ -1,0 +1,41 @@
+{
+  "family": "Symbola",
+  "slug": "symbola",
+  "license": "OFL",
+  "author": "George Douros",
+  "url": "https://raw.githubusercontent.com/zhm/symbola/master/fonts/Symbola.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "George Douros's comprehensive symbol/historical-script font. Adds breadth to several pictographic and arrow ranges; Supplemental Arrows-C is covered by Noto Sans Symbols 2.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [],
+  "files": [
+    {
+      "label": "symbola",
+      "file": "references/input-fonts/Symbola.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "6f7b0eca56d1e9fbc57f7e60a52fd3bd761a7953ec31c13d7247e142e310604d",
+      "url": "https://raw.githubusercontent.com/zhm/symbola/master/fonts/Symbola.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [],
+      "parsed_coverage": [],
+      "all_coverage": [],
+      "notes": "George Douros's comprehensive symbol/historical-script font. Adds breadth to several pictographic and arrow ranges; Supplemental Arrows-C is covered by Noto Sans Symbols 2.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [],
+  "role": "unknown",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

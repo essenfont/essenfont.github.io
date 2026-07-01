@@ -1,0 +1,93 @@
+{
+  "family": "Noto Serif Tai Yo",
+  "slug": "noto-serif-tai-yo",
+  "license": "OFL",
+  "author": "Google (Noto Project) / translationcommons.org",
+  "url": "https://langtools2024.appspot.com/static/fonts/TaiYo/NotoSerifTaiYo-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Tai Yo (U+1E6C0..U+1E6FF) 64/64. Earlier analysis incorrectly identified Tai Yo as U+16E40 (which is Medefaidrin); the actual Unicode 17 Tai Yo assignment is U+1E6C0..U+1E6FF. The font's cmap covers this range perfectly. No remap needed.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tai_Yo"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-tai-yo",
+      "file": "references/input-fonts/NotoSerifTaiYo-Regular.ttf",
+      "style": "Regular",
+      "version": "draft-2025-09",
+      "sha256": "980924d6e1935c8d82323692fdc0bb0f2a0d85ac09efa422aa27e9f9460ee860",
+      "url": "https://langtools2024.appspot.com/static/fonts/TaiYo/NotoSerifTaiYo-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tai Yo"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Tai Yo",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+1E6C0–U+1E6FF",
+          "start": "U+1E6C0",
+          "end": "U+1E6FF",
+          "covered": 64,
+          "total": 64,
+          "pct": 100.0
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Tai Yo",
+          "source": "manifest"
+        },
+        {
+          "block": "Tai Yo",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+1E6C0–U+1E6FF",
+          "start": "U+1E6C0",
+          "end": "U+1E6FF",
+          "covered": 64,
+          "total": 64,
+          "pct": 100.0,
+          "source": "notes"
+        }
+      ],
+      "notes": "Covers Tai Yo (U+1E6C0..U+1E6FF) 64/64. Earlier analysis incorrectly identified Tai Yo as U+16E40 (which is Medefaidrin); the actual Unicode 17 Tai Yo assignment is U+1E6C0..U+1E6FF. The font's cmap covers this range perfectly. No remap needed.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tai Yo"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Tai Yo",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+1E6C0–U+1E6FF",
+      "start": "U+1E6C0",
+      "end": "U+1E6FF",
+      "covered": 64,
+      "total": 64,
+      "pct": 100.0
+    }
+  ]
+}

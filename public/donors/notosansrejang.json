@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansRejang",
+  "slug": "noto-sans-rejang",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansRejang/hinted/ttf/NotoSansRejang-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+A930..U+A95F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Rejang"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-rejang",
+      "file": "references/input-fonts/NotoSansRejang-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "ac84f549caba39e85d0d22a62f4fcf7dcacdf263d01527eb44388e96ce58d785",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansRejang/hinted/ttf/NotoSansRejang-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Rejang"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Rejang",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+A930..U+A95F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Rejang"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

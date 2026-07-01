@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansGrantha",
+  "slug": "noto-sans-grantha",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansGrantha/hinted/ttf/NotoSansGrantha-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11300..U+1137F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Grantha"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-grantha",
+      "file": "references/input-fonts/NotoSansGrantha-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "41dd39f2f16e9539751c732f8d276079b98277bec2ea5945232a7ac594198000",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansGrantha/hinted/ttf/NotoSansGrantha-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Grantha"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Grantha",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11300..U+1137F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Grantha"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

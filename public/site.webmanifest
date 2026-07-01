@@ -1,0 +1,12 @@
+{
+  "name": "Essenfont",
+  "short_name": "Essenfont",
+  "description": "Universal Unicode 17 font — every assigned codepoint.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f1ece1",
+  "theme_color": "#bf4e6a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

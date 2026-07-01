@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansOldSouthArabian",
+  "slug": "noto-sans-old-south-arabian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldSouthArabian/hinted/ttf/NotoSansOldSouthArabian-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10A60..U+10A7F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_South_Arabian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-south-arabian",
+      "file": "references/input-fonts/NotoSansOldSouthArabian-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "b8e196d9c4f8b634aa599fd8914179df7a00dce5da61a69762931b0c9cbef603",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldSouthArabian/hinted/ttf/NotoSansOldSouthArabian-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Old South Arabian"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Old South Arabian",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10A60..U+10A7F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Old South Arabian"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

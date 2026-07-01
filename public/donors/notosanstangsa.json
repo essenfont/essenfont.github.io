@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansTangsa",
+  "slug": "noto-sans-tangsa",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansTangsa/hinted/ttf/NotoSansTangsa-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+16A70..U+16ACF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tangsa"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tangsa",
+      "file": "references/input-fonts/NotoSansTangsa-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "38d92ec4dbba7a23966c2de72736224f94d02e5fb2b4d839344e732cdf3a4cad",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansTangsa/hinted/ttf/NotoSansTangsa-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tangsa"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Tangsa",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+16A70..U+16ACF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tangsa"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

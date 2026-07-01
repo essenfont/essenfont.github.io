@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansOldSogdian",
+  "slug": "noto-sans-old-sogdian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldSogdian/hinted/ttf/NotoSansOldSogdian-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10F00..U+10F2F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Sogdian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-sogdian",
+      "file": "references/input-fonts/NotoSansOldSogdian-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "a3b8c9799aab7b9b9170b6eb4955e8d8c58e52c37266faaca168d9fbaea65fec",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansOldSogdian/hinted/ttf/NotoSansOldSogdian-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Old Sogdian"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Old Sogdian",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10F00..U+10F2F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Old Sogdian"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

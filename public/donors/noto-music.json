@@ -1,0 +1,52 @@
+{
+  "family": "Noto Music",
+  "slug": "noto-music",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoMusic",
+  "url_mirror": null,
+  "web": null,
+  "notes": null,
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Musical_Symbols"
+  ],
+  "files": [
+    {
+      "label": "noto-music",
+      "file": "references/input-fonts/NotoMusic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "fda9c3dcd4164edd5af283b581f17458ef55dc205b6e0607aa0fbfbf99ed5704",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoMusic",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Musical Symbols"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Musical Symbols",
+          "source": "manifest"
+        }
+      ],
+      "notes": null,
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Musical Symbols"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

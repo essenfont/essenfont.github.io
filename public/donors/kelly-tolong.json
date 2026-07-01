@@ -1,0 +1,52 @@
+{
+  "family": "Kelly Tolong",
+  "slug": "kelly-tolong-4",
+  "license": "OFL",
+  "author": "Tolong Siki community (tolongsiki.com)",
+  "url": "https://www.tolongsiki.com/downloads/kellytolong4.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Keyboard-mapping font (105 cps all in U+20..U+B7). Remap derived from published keyboard layout (kurukhtimes.com documentation PDF); 51/54 assigned Tolong Siki codepoints mapped. The 3 signs (SELA, HECAKA, UNGGA — Unicode 17 additions) have no documented ASCII mapping in Kelly Tolong 4 and may not exist in the font.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tolong_Siki"
+  ],
+  "files": [
+    {
+      "label": "kelly-tolong-4",
+      "file": "references/input-fonts/kellytolong4.ttf",
+      "style": "Regular",
+      "version": "4",
+      "sha256": "3708d2fa03f801a435fa87a08a318981848e97e56ab67ad9a94a21359fa09c23",
+      "url": "https://www.tolongsiki.com/downloads/kellytolong4.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tolong Siki"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Tolong Siki",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Keyboard-mapping font (105 cps all in U+20..U+B7). Remap derived from published keyboard layout (kurukhtimes.com documentation PDF); 51/54 assigned Tolong Siki codepoints mapped. The 3 signs (SELA, HECAKA, UNGGA — Unicode 17 additions) have no documented ASCII mapping in Kelly Tolong 4 and may not exist in the font.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tolong Siki"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

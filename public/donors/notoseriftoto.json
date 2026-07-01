@@ -1,0 +1,52 @@
+{
+  "family": "NotoSerifToto",
+  "slug": "noto-serif-toto",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSerifToto/hinted/ttf/NotoSerifToto-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1E290..U+1E2BF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Toto"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-toto",
+      "file": "references/input-fonts/NotoSerifToto-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "882a1aebfc4f1824a413628859bdabb1e3a49ba90c2e023b0dd6bbe550c7332c",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSerifToto/hinted/ttf/NotoSerifToto-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Toto"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Toto",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1E290..U+1E2BF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Toto"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansCypriot",
+  "slug": "noto-sans-cypriot",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCypriot/hinted/ttf/NotoSansCypriot-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10800..U+1083F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cypriot_Syllabary"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cypriot",
+      "file": "references/input-fonts/NotoSansCypriot-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "0b276172afb0624c811c62daf4b8fb6ce3fa018fef94cbae59f4bbbae367988e",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCypriot/hinted/ttf/NotoSansCypriot-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Cypriot Syllabary"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Cypriot Syllabary",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10800..U+1083F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Cypriot Syllabary"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

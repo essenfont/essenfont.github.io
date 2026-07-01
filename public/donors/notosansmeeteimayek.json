@@ -1,0 +1,59 @@
+{
+  "family": "NotoSansMeeteiMayek",
+  "slug": "noto-sans-meetei-mayek",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMeeteiMayek/hinted/ttf/NotoSansMeeteiMayek-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 2 block(s): U+AAE0..U+AAFF, U+ABC0..U+ABFF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Meetei_Mayek_Extensions",
+    "Meetei_Mayek"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-meetei-mayek",
+      "file": "references/input-fonts/NotoSansMeeteiMayek-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "66dd434ad6211990d95ba598ad8e44dee30fb32556cb2310bc7f246e00c40990",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMeeteiMayek/hinted/ttf/NotoSansMeeteiMayek-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Meetei Mayek Extensions",
+        "Meetei Mayek"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Meetei Mayek Extensions",
+          "source": "manifest"
+        },
+        {
+          "block": "Meetei Mayek",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 2 block(s): U+AAE0..U+AAFF, U+ABC0..U+ABFF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Meetei Mayek Extensions",
+    "Meetei Mayek"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

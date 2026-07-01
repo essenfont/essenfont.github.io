@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansNagMundari",
+  "slug": "noto-sans-nag-mundari",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNagMundari/hinted/ttf/NotoSansNagMundari-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1E4D0..U+1E4FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Nag_Mundari"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nag-mundari",
+      "file": "references/input-fonts/NotoSansNagMundari-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "e822d0cc7998d8e94f73a734016b6882d9f8d570244cba9a29a1447bda708d26",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNagMundari/hinted/ttf/NotoSansNagMundari-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Nag Mundari"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Nag Mundari",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1E4D0..U+1E4FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Nag Mundari"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

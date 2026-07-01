@@ -1,0 +1,59 @@
+{
+  "family": "NotoSansCanadianAboriginal",
+  "slug": "noto-sans-canadian-aboriginal",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCanadianAboriginal/hinted/ttf/NotoSansCanadianAboriginal-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 2 block(s): U+18B0..U+18FF, U+11AB0..U+11ABF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Unified_Canadian_Aboriginal_Syllabics_Extended",
+    "Unified_Canadian_Aboriginal_Syllabics_Extended-A"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-canadian-aboriginal",
+      "file": "references/input-fonts/NotoSansCanadianAboriginal-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "6f489ba696faff1d96f8ace395c0d22fe3b82621f69bf50b337112fb47ff1f17",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCanadianAboriginal/hinted/ttf/NotoSansCanadianAboriginal-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Unified Canadian Aboriginal Syllabics Extended",
+        "Unified Canadian Aboriginal Syllabics Extended-A"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Unified Canadian Aboriginal Syllabics Extended",
+          "source": "manifest"
+        },
+        {
+          "block": "Unified Canadian Aboriginal Syllabics Extended-A",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 2 block(s): U+18B0..U+18FF, U+11AB0..U+11ABF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Unified Canadian Aboriginal Syllabics Extended",
+    "Unified Canadian Aboriginal Syllabics Extended-A"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

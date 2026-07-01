@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansSinhala",
+  "slug": "noto-sans-sinhala",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSinhala/hinted/ttf/NotoSansSinhala-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+111E0..U+111FF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sinhala_Archaic_Numbers"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sinhala",
+      "file": "references/input-fonts/NotoSansSinhala-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "9e32612d47004552f3125e78648a9e2e7899a216ccd3cefbb93a9b5f4c809feb",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSinhala/hinted/ttf/NotoSansSinhala-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Sinhala Archaic Numbers"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Sinhala Archaic Numbers",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+111E0..U+111FF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Sinhala Archaic Numbers"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansMalayalam",
+  "slug": "noto-sans-malayalam",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMalayalam/hinted/ttf/NotoSansMalayalam-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Malayalam block.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Malayalam"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-malayalam",
+      "file": "references/input-fonts/NotoSansMalayalam-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "c08de7fa8d032a5d6a4d120fb82c78cec60b362a4e73fa26360d89759ff2a7f9",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansMalayalam/hinted/ttf/NotoSansMalayalam-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Malayalam"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Malayalam",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Covers Malayalam block.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Malayalam"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

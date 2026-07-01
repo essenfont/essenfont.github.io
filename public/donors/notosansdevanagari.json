@@ -1,0 +1,66 @@
+{
+  "family": "NotoSansDevanagari",
+  "slug": "noto-sans-devanagari",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 3 block(s): U+A830..U+A83F, U+A8E0..U+A8FF, U+11B00..U+11B5F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari_Extended",
+    "Devanagari_Extended-A"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-devanagari",
+      "file": "references/input-fonts/NotoSansDevanagari-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "306b53ecfb182a504dd8a7446093c316387d2fd8dc350d0792ed1753fe0996cd",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansDevanagari/hinted/ttf/NotoSansDevanagari-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Common Indic Number Forms",
+        "Devanagari Extended",
+        "Devanagari Extended-A"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Common Indic Number Forms",
+          "source": "manifest"
+        },
+        {
+          "block": "Devanagari Extended",
+          "source": "manifest"
+        },
+        {
+          "block": "Devanagari Extended-A",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 3 block(s): U+A830..U+A83F, U+A8E0..U+A8FF, U+11B00..U+11B5F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Common Indic Number Forms",
+    "Devanagari Extended",
+    "Devanagari Extended-A"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

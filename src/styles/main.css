@@ -1,0 +1,224 @@
+/* ===================================================================
+   Essenfont — site-wide design system.
+   Inspired by fontist.org (paper, ink, rose accent) and metfont
+   (typographic grid, glyph display tokens).
+   =================================================================== */
+
+/* ── Brand palette ────────────────────────────────────────────── */
+:root {
+  --ef-rose: #bf4e6a;
+  --ef-rose-light: #d4718a;
+  --ef-dark: #1c1a18;
+  --ef-gray: #676565;
+
+  /* Light tokens (default) */
+  --spec-paper: #f1ece1;
+  --spec-paper-deep: #e7e0d1;
+  --spec-ink: #1c1a18;
+  --spec-ink-soft: #4a4744;
+  --spec-mute: #75716c;
+  --spec-rose: #b8475f;
+  --spec-rose-soft: #d4718a;
+  --spec-rule: rgba(28, 26, 24, 0.16);
+  --spec-rule-strong: rgba(28, 26, 24, 0.5);
+  --spec-term-bg: #1c1a18;
+  --spec-term-ink: #ecdfd0;
+
+  /* VitePress-compat tokens — kept so component CSS still resolves */
+  --vp-c-brand-1: var(--spec-rose);
+  --vp-c-brand-2: #a3435a;
+  --vp-c-brand-3: var(--spec-ink);
+  --vp-c-brand-soft: rgba(184, 71, 95, 0.12);
+  --vp-c-text-1: var(--spec-ink);
+  --vp-c-text-2: var(--spec-ink-soft);
+  --vp-c-text-3: var(--spec-mute);
+  --vp-c-bg: var(--spec-paper);
+  --vp-c-bg-soft: var(--spec-paper-deep);
+  --vp-c-bg-alt: var(--spec-paper-deep);
+  --vp-c-divider: var(--spec-rule);
+  --vp-c-gutter: var(--spec-rule);
+
+  /* Type */
+  --spec-font-display: "Spectral", Georgia, serif;
+  --spec-font-body: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --spec-font-mono: "IBM Plex Mono", ui-monospace, "JetBrains Mono", "SF Mono", monospace;
+
+  --vp-font-family-base: var(--spec-font-body);
+  --vp-font-family-mono: var(--spec-font-mono);
+
+  /* Glyph rendering uses essenfont ONLY — no system fallback.
+     This is deliberate: if essenfont doesn't have a codepoint, the
+     browser shows .notdef (tofu) instead of silently substituting
+     a system font. Without this, the site would claim coverage it
+     doesn't have — visitors would see system-rendered glyphs and
+     think essenfont produced them. Tofu is the honest answer. */
+  --spec-font-glyph: "Essenfont";
+
+  --vp-nav-height: 60px;
+}
+
+html.dark {
+  --spec-paper: #161513;
+  --spec-paper-deep: #211f1c;
+  --spec-ink: #ecdfd0;
+  --spec-ink-soft: #b8ada0;
+  --spec-mute: #8a857f;
+  --spec-rose: #d4718a;
+  --spec-rose-soft: #e08a9e;
+  --spec-rule: rgba(236, 223, 208, 0.14);
+  --spec-rule-strong: rgba(236, 223, 208, 0.42);
+  --spec-term-bg: #0d0c0c;
+  --spec-term-ink: #ecdfd0;
+
+  --vp-c-brand-1: var(--spec-rose);
+  --vp-c-brand-2: var(--ef-rose);
+  --vp-c-brand-3: var(--spec-ink);
+  --vp-c-brand-soft: rgba(212, 113, 138, 0.14);
+  --vp-c-text-1: var(--spec-ink);
+  --vp-c-text-2: var(--spec-ink-soft);
+  --vp-c-text-3: var(--spec-mute);
+  --vp-c-bg: var(--spec-paper);
+  --vp-c-bg-soft: var(--spec-paper-deep);
+  --vp-c-bg-alt: var(--spec-paper-deep);
+  --vp-c-divider: var(--spec-rule);
+  --vp-c-gutter: var(--spec-rule);
+}
+
+/* ===================================================================
+   Reset & base
+   =================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--spec-paper);
+  font-family: var(--spec-font-body);
+  color: var(--spec-ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--spec-rose);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+a:hover { text-decoration: underline; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--spec-rose);
+  color: #fff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--spec-rule-strong) transparent;
+}
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: var(--spec-rule-strong); border-radius: 4px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* ===================================================================
+   Utility classes
+   =================================================================== */
+.mono { font-family: var(--spec-font-mono); }
+.display { font-family: var(--spec-font-display); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.container-narrow { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--spec-font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  background: var(--spec-rose);
+  color: #fff;
+  border: 1px solid var(--spec-rose);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+.btn-primary:hover {
+  background: #a3435a;
+  border-color: #a3435a;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--spec-font-body);
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--spec-ink);
+  border: 1px solid var(--spec-rule-strong);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, transform 0.1s;
+}
+.btn-ghost:hover {
+  color: var(--spec-rose);
+  border-color: var(--spec-rose);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--vp-c-brand-soft);
+  color: var(--spec-rose);
+  border-radius: 3px;
+  border: 1px solid var(--spec-rule);
+}
+
+.label-text {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--spec-mute);
+}
+
+.section-rule {
+  border: 0;
+  border-top: 1px solid var(--spec-rule);
+  margin: 3rem 0;
+}
+
+.glyph-cell {
+  font-family: var(--spec-font-glyph);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) { color-scheme: dark; }
+}
+html:not(.dark) { color-scheme: light; }

@@ -1,0 +1,93 @@
+{
+  "family": "Noto Color Emoji",
+  "slug": "noto-color-emoji",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/googlefonts/noto-emoji/raw/refs/heads/main/fonts/NotoColorEmoji.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Color bitmap emoji (CBDT/CBLC). fontisan 0.4+ required for Stitcher passthrough. Provides Emoticons (U+1F600..U+1F64F, 80/80).",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Emoticons"
+  ],
+  "files": [
+    {
+      "label": "noto-color-emoji",
+      "file": "references/input-fonts/NotoColorEmoji.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "72a635cb3d2f3524c51620cdde406b217204e8a6a06c6a096ff8ed4b5fd6e27b",
+      "url": "https://github.com/googlefonts/noto-emoji/raw/refs/heads/main/fonts/NotoColorEmoji.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Emoticons"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Emoticons",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+1F600–U+1F64F",
+          "start": "U+1F600",
+          "end": "U+1F64F",
+          "covered": 80,
+          "total": 80,
+          "pct": 100.0
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Emoticons",
+          "source": "manifest"
+        },
+        {
+          "block": "Emoticons",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+1F600–U+1F64F",
+          "start": "U+1F600",
+          "end": "U+1F64F",
+          "covered": 80,
+          "total": 80,
+          "pct": 100.0,
+          "source": "notes"
+        }
+      ],
+      "notes": "Color bitmap emoji (CBDT/CBLC). fontisan 0.4+ required for Stitcher passthrough. Provides Emoticons (U+1F600..U+1F64F, 80/80).",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Emoticons"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Emoticons",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+1F600–U+1F64F",
+      "start": "U+1F600",
+      "end": "U+1F64F",
+      "covered": 80,
+      "total": 80,
+      "pct": 100.0
+    }
+  ]
+}

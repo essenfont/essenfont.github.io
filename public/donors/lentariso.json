@@ -1,0 +1,218 @@
+{
+  "family": "Lentariso",
+  "slug": "lentariso",
+  "license": "OFL",
+  "author": "Bryndan W. Meyerholt (Bry10022)",
+  "url": "https://github.com/Bry10022/Lentariso",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Covers Imperial Aramaic (U+10840..U+1085F) 31/32, Phoenician (U+10900..U+1091F) 29/32, and partial Sidetic (U+10940..U+1095F) 26/32 — all Unicode 5.1/17 additions. Does NOT cover Beria Erfe (U+16EA0..U+16EDF; Unicode 17, 0/64 — no OFL donor exists). The 6 missing Sidetic codepoints need code-chart extraction in v0.2.0.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Imperial_Aramaic",
+    "Phoenician",
+    "Sidetic"
+  ],
+  "files": [
+    {
+      "label": "lentariso",
+      "file": "references/input-fonts/Lentariso-Regular.ttf",
+      "style": "Regular",
+      "version": "1.033",
+      "sha256": "514ac442c9c5c361625da0755e84baaee36bbafe098138312f5285c3bd2fa0d3",
+      "url": "https://github.com/Bry10022/Lentariso",
+      "url_extract": "https://codeload.github.com/Bry10022/Lentariso/zip/refs/heads/master",
+      "url_extract_member": "Lentariso-master/TTFs/Lentariso-Regular.ttf",
+      "url_mirror": null,
+      "covers": [
+        "Imperial Aramaic",
+        "Phoenician",
+        "Sidetic"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Imperial Aramaic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10840–U+1085F",
+          "start": "U+10840",
+          "end": "U+1085F",
+          "covered": 31,
+          "total": 32,
+          "pct": 96.9
+        },
+        {
+          "block": "Phoenician",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10900–U+1091F",
+          "start": "U+10900",
+          "end": "U+1091F",
+          "covered": 29,
+          "total": 32,
+          "pct": 90.6
+        },
+        {
+          "block": "Sidetic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10940–U+1095F",
+          "start": "U+10940",
+          "end": "U+1095F",
+          "covered": 26,
+          "total": 32,
+          "pct": 81.3
+        },
+        {
+          "block": "Beria Erfe",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+16EA0–U+16EDF",
+          "start": "U+16EA0",
+          "end": "U+16EDF",
+          "covered": 0,
+          "total": 64,
+          "pct": 0.0
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Imperial Aramaic",
+          "source": "manifest"
+        },
+        {
+          "block": "Phoenician",
+          "source": "manifest"
+        },
+        {
+          "block": "Sidetic",
+          "source": "manifest"
+        },
+        {
+          "block": "Imperial Aramaic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10840–U+1085F",
+          "start": "U+10840",
+          "end": "U+1085F",
+          "covered": 31,
+          "total": 32,
+          "pct": 96.9,
+          "source": "notes"
+        },
+        {
+          "block": "Phoenician",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10900–U+1091F",
+          "start": "U+10900",
+          "end": "U+1091F",
+          "covered": 29,
+          "total": 32,
+          "pct": 90.6,
+          "source": "notes"
+        },
+        {
+          "block": "Sidetic",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+10940–U+1095F",
+          "start": "U+10940",
+          "end": "U+1095F",
+          "covered": 26,
+          "total": 32,
+          "pct": 81.3,
+          "source": "notes"
+        },
+        {
+          "block": "Beria Erfe",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+16EA0–U+16EDF",
+          "start": "U+16EA0",
+          "end": "U+16EDF",
+          "covered": 0,
+          "total": 64,
+          "pct": 0.0,
+          "source": "notes"
+        }
+      ],
+      "notes": "Covers Imperial Aramaic (U+10840..U+1085F) 31/32, Phoenician (U+10900..U+1091F) 29/32, and partial Sidetic (U+10940..U+1095F) 26/32 — all Unicode 5.1/17 additions. Does NOT cover Beria Erfe (U+16EA0..U+16EDF; Unicode 17, 0/64 — no OFL donor exists). The 6 missing Sidetic codepoints need code-chart extraction in v0.2.0.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Imperial Aramaic",
+    "Phoenician",
+    "Sidetic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Imperial Aramaic",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+10840–U+1085F",
+      "start": "U+10840",
+      "end": "U+1085F",
+      "covered": 31,
+      "total": 32,
+      "pct": 96.9
+    },
+    {
+      "block": "Phoenician",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+10900–U+1091F",
+      "start": "U+10900",
+      "end": "U+1091F",
+      "covered": 29,
+      "total": 32,
+      "pct": 90.6
+    },
+    {
+      "block": "Sidetic",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+10940–U+1095F",
+      "start": "U+10940",
+      "end": "U+1095F",
+      "covered": 26,
+      "total": 32,
+      "pct": 81.3
+    },
+    {
+      "block": "Beria Erfe",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+16EA0–U+16EDF",
+      "start": "U+16EA0",
+      "end": "U+16EDF",
+      "covered": 0,
+      "total": 64,
+      "pct": 0.0
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "family": "Egyptian Text",
+  "slug": "egyptian-text",
+  "license": "OFL",
+  "author": "Microsoft Corporation",
+  "url": "https://github.com/microsoft/font-tools",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Repo is MIT-licensed; the font file itself is OFL. Covers Egyptian Hieroglyphs core (U+13000..U+1342F) 1072/1072, Format Controls (U+13430..U+1345F) 38/48, and a tail of Ext-A Extended (21/4000).",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Egyptian_Hieroglyphs",
+    "Egyptian_Hieroglyph_Format_Controls"
+  ],
+  "files": [
+    {
+      "label": "egyptian-text",
+      "file": "references/input-fonts/eot.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "33aa615f2a44bea78392bd6cf2c1d94f61dae7ca54fc37287c564908191999e9",
+      "url": "https://github.com/microsoft/font-tools",
+      "url_extract": "https://codeload.github.com/microsoft/font-tools/zip/refs/heads/main",
+      "url_extract_member": "font-tools-main/EgyptianOpenType/EgyptianText-Regular.ttf",
+      "url_mirror": null,
+      "covers": [
+        "Egyptian Hieroglyphs",
+        "Egyptian Hieroglyph Format Controls"
+      ],
+      "parsed_coverage": [
+        {
+          "block": "Egyptian Hieroglyphs",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13000–U+1342F",
+          "start": "U+13000",
+          "end": "U+1342F",
+          "covered": 1072,
+          "total": 1072,
+          "pct": 100.0
+        },
+        {
+          "block": "Egyptian Hieroglyphs Extended-A",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13460–U+143FF",
+          "start": "U+13460",
+          "end": "U+143FF",
+          "covered": 21,
+          "total": 4000,
+          "pct": 0.5
+        }
+      ],
+      "all_coverage": [
+        {
+          "block": "Egyptian Hieroglyphs",
+          "source": "manifest"
+        },
+        {
+          "block": "Egyptian Hieroglyph Format Controls",
+          "source": "manifest"
+        },
+        {
+          "block": "Egyptian Hieroglyphs",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13000–U+1342F",
+          "start": "U+13000",
+          "end": "U+1342F",
+          "covered": 1072,
+          "total": 1072,
+          "pct": 100.0,
+          "source": "notes"
+        },
+        {
+          "block": "Egyptian Hieroglyphs Extended-A",
+          "plane": "SMP",
+          "plane_index": 1,
+          "plane_full": "Plane 1",
+          "range": "U+13460–U+143FF",
+          "start": "U+13460",
+          "end": "U+143FF",
+          "covered": 21,
+          "total": 4000,
+          "pct": 0.5,
+          "source": "notes"
+        }
+      ],
+      "notes": "Repo is MIT-licensed; the font file itself is OFL. Covers Egyptian Hieroglyphs core (U+13000..U+1342F) 1072/1072, Format Controls (U+13430..U+1345F) 38/48, and a tail of Ext-A Extended (21/4000).",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Egyptian Hieroglyphs",
+    "Egyptian Hieroglyph Format Controls"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [
+    "SMP"
+  ],
+  "parsed_coverage": [
+    {
+      "block": "Egyptian Hieroglyphs",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+13000–U+1342F",
+      "start": "U+13000",
+      "end": "U+1342F",
+      "covered": 1072,
+      "total": 1072,
+      "pct": 100.0
+    },
+    {
+      "block": "Egyptian Hieroglyphs Extended-A",
+      "plane": "SMP",
+      "plane_index": 1,
+      "plane_full": "Plane 1",
+      "range": "U+13460–U+143FF",
+      "start": "U+13460",
+      "end": "U+143FF",
+      "covered": 21,
+      "total": 4000,
+      "pct": 0.5
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansCyproMinoan",
+  "slug": "noto-sans-cypro-minoan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCyproMinoan/hinted/ttf/NotoSansCyproMinoan-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+12F90..U+12FFF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cypro-Minoan"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cypro-minoan",
+      "file": "references/input-fonts/NotoSansCyproMinoan-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "c21895c2edc7c89dfd02a5298539260bc2174fa6d13acb188cfc76b9f215a7cd",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansCyproMinoan/hinted/ttf/NotoSansCyproMinoan-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Cypro-Minoan"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Cypro-Minoan",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+12F90..U+12FFF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Cypro-Minoan"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

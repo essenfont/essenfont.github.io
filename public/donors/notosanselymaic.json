@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansElymaic",
+  "slug": "noto-sans-elymaic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansElymaic/hinted/ttf/NotoSansElymaic-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+10FE0..U+10FFF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Elymaic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-elymaic",
+      "file": "references/input-fonts/NotoSansElymaic-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "29571749fede39715b09cbadbfedcac089acf33475137a0aac7addd91d333181",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansElymaic/hinted/ttf/NotoSansElymaic-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Elymaic"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Elymaic",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+10FE0..U+10FFF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Elymaic"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansSignWriting",
+  "slug": "noto-sans-sign-writing",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSignWriting/hinted/ttf/NotoSansSignWriting-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1D800..U+1DAAF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sutton_SignWriting"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sign-writing",
+      "file": "references/input-fonts/NotoSansSignWriting-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "3c18f0954681566082860d468c1232dacbdf59d22f061a019095772e3d7cfdd2",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansSignWriting/hinted/ttf/NotoSansSignWriting-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Sutton SignWriting"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Sutton SignWriting",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1D800..U+1DAAF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Sutton SignWriting"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

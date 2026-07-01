@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansKhojki",
+  "slug": "noto-sans-khojki",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKhojki/hinted/ttf/NotoSansKhojki-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11200..U+1124F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Khojki"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-khojki",
+      "file": "references/input-fonts/NotoSansKhojki-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "4cdcae034430ea2b5695d39c1b1fcb8fac1d8c32ef7d66615248e72d41781367",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansKhojki/hinted/ttf/NotoSansKhojki-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Khojki"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Khojki",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11200..U+1124F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Khojki"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

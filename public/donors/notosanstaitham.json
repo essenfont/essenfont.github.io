@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansTaiTham",
+  "slug": "noto-sans-tai-tham",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansTaiTham/hinted/ttf/NotoSansTaiTham-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+1A20..U+1AAF.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tai_Tham"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tai-tham",
+      "file": "references/input-fonts/NotoSansTaiTham-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "b94134811a2f8c26631a728837bb72f74dad87402810fc46b34c310312a6b369",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansTaiTham/hinted/ttf/NotoSansTaiTham-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tai Tham"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Tai Tham",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+1A20..U+1AAF.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tai Tham"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

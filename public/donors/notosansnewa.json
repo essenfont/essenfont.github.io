@@ -1,0 +1,52 @@
+{
+  "family": "NotoSansNewa",
+  "slug": "noto-sans-newa",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNewa/hinted/ttf/NotoSansNewa-Regular.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "Bulk-fetched. Covers 1 block(s): U+11400..U+1147F.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Newa"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-newa",
+      "file": "references/input-fonts/NotoSansNewa-Regular.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "3aede9a3ab5740babffe75f7c0d97e2329734b8cb470c999be1871362084a8bd",
+      "url": "https://github.com/notofonts/notofonts.github.io/raw/main/fonts/NotoSansNewa/hinted/ttf/NotoSansNewa-Regular.ttf",
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Newa"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Newa",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Bulk-fetched. Covers 1 block(s): U+11400..U+1147F.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Newa"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}
