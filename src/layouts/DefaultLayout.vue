@@ -119,11 +119,14 @@ onMounted(() => {
   position: sticky; top: 0; z-index: 100;
   background: var(--spec-paper);
   border-bottom: 1px solid var(--spec-rule);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 .nav-inner {
   max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px);
   display: flex; align-items: center; justify-content: space-between;
   height: var(--vp-nav-height);
+  animation: ef-fade-in 0.4s ease-out both;
 }
 .nav-logo {
   display: flex; align-items: center; gap: 0.6rem;
@@ -157,9 +160,22 @@ onMounted(() => {
   text-decoration: none;
   color: var(--spec-ink-soft);
   transition: color 0.2s;
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1.5px;
+  background: var(--spec-rose);
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-link:hover { color: var(--spec-rose); text-decoration: none; }
+.nav-link:hover::after { background-size: 100% 100%; }
 .nav-link.router-link-active { color: var(--spec-rose); }
+.nav-link.router-link-active::after { background-size: 100% 100%; }
 
 .nav-icon-btn {
   background: none;

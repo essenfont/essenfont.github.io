@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHead } from '@unhead/vue'
 import { loadUnicodeVersion } from '../lib/unicode'
-import CoverageMap from '../components/CoverageMap.vue'
 
 const unicodeInfo = ref<{ version: string; charCount: number; blockCount: number } | null>(null)
 
@@ -16,7 +15,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'One font, every Unicode 17 codepoint. Real outlines for ~160,000 assigned characters, drawn from canonical OFL-licensed donor fonts. Install once, render everything.',
+      content: 'One font, every Unicode 17 codepoint. Real outlines for ~160,000 assigned characters, drawn from canonical OFL-licensed donor fonts.',
     },
     { property: 'og:title', content: 'Essenfont — Universal Unicode 17 Font' },
     { property: 'og:type', content: 'website' },
@@ -24,43 +23,82 @@ useHead({
   link: [{ rel: 'canonical', href: 'https://essenfont.github.io/' }],
 })
 
-const specimens = [
-  { cp: 0x1F4DA, label: '📚 Books' },
-  { cp: 0x1F600, label: '😀 Face' },
-  { cp: 0x269B, label: '⚛ Atom' },
-  { cp: 0x211D, label: 'ℝ Real' },
-  { cp: 0x4E00, label: '一 One' },
-  { cp: 0x0623, label: 'أ Hamza' },
-  { cp: 0x0939, label: 'ह Ha' },
-  { cp: 0x3042, label: 'あ A' },
-  { cp: 0x13000 | 0x1A, label: '𓀚 Glyph' },
-  { cp: 0x1E6C0 | 0x10, label: '𛇐 Tai Yo' },
-  { cp: 0x2FF0, label: '⿰ IDC' },
-  { cp: 0x1F340, label: '🌱 Four-leaf' },
+// ── Interactive type tester ──
+const DEFAULT_SAMPLE = 'The quick brown fox 快速的棕色狐狸 📚⚛🌱'
+const testText = ref(DEFAULT_SAMPLE)
+
+const SAMPLES = [
+  { label: 'Latin',     text: 'Pack my box with five dozen liquor jugs.' },
+  { label: 'CJK',       text: '人人生而自由，在尊嚴和權利上一律平等。' },
+  { label: 'Korean',    text: '모든 인간은 태어날 때부터 자유로우며' },
+  { label: 'Arabic',    text: 'كل البشر يولدون أحراراً ومتساوون' },
+  { label: 'Hieroglyph', text: '𓀀𓀁𓀂𓀃𓀄𓀅𓀆𓀇' },
+  { label: 'Math',      text: '∀x∈ℝ: ∑∂ƒ(x) = ∫√π dθ' },
+  { label: 'Emoji',     text: '😀📚⚛🌱🎓🎵𓂀' },
+] as const
+
+function setSample(s: string) {
+  testText.value = s
+}
+
+const displayText = computed(() => testText.value || DEFAULT_SAMPLE)
+
+const features = [
+  {
+    num: '01',
+    title: 'Unicode 17 fallback',
+    body: 'Install once, get Unicode 17 rendering everywhere. Every assigned codepoint, every plane, every block — from Basic Latin through Unicode 17 newcomers like Tolong Siki, Sidetic, and Beria Erfe.',
+  },
+  {
+    num: '02',
+    title: 'No more tofu',
+    body: 'Rare and historic scripts — Tai Yo, Sidetic, Egyptian Hieroglyphs Extended-B, Sunuwar — render as real outlines, not blank boxes. The Last Resort font, but with actual glyphs.',
+  },
+  {
+    num: '03',
+    title: 'Donor-derived',
+    body: 'Every glyph is extracted from a canonical Tier 1 donor font (Noto, Full-Sung, Lentariso, Kedebideri, UniHieroglyphica). No hand-designed UFO source. Fixes flow upstream.',
+  },
+  {
+    num: '04',
+    title: 'OFL, single file',
+    body: 'One TTF, redistributable under the SIL Open Font License 1.1. Embed in PDFs, bundle with software, ship as a browser @font-face fallback. Replaces 10+ script-specific fonts.',
+  },
 ]
 
-function charOf(cp: number): string {
-  try { return String.fromCodePoint(cp) } catch { return '' }
-}
+const pipelineStages = [
+  { num: 'α', label: 'Donor fonts',     sub: 'Noto · Full-Sung · 138 more' },
+  { num: 'β', label: 'Build',           sub: 'Ruby + fontisan' },
+  { num: 'γ', label: 'TTF',             sub: '~46 MB · 154k glyphs' },
+  { num: 'δ', label: 'Subsets',         sub: '~214 WOFF2 · ~80 KB ea.' },
+  { num: 'ε', label: 'Browser',         sub: 'you · no install' },
+]
+
+const steps = [
+  { num: '01', title: 'Donor registry',     body: 'sources/manifest.yml declares which OFL-licensed font covers each Unicode block — Noto for Latin, Full-Sung for CJK, UniHieroglyphica for Egyptian Hieroglyphs, and ~138 more.' },
+  { num: '02', title: 'Glyph extraction',   body: 'A pure-Ruby build script reads each donor via fontisan and pulls the relevant glyph outlines. No hand-designed UFO source — corrections flow upstream to the donor, then back via the next version bump.' },
+  { num: '03', title: 'Assembly + subsetting', body: 'Glyphs are stitched into Essenfont-Regular.ttf (~46 MB, ~154k glyphs), then re-subsetted into per-block WOFF2 files (~80 KB each) for web delivery.' },
+  { num: '04', title: 'In your browser',    body: 'This site loads each slice via @font-face + unicode-range. Your browser fetches only the block you\'re viewing — so every codepoint renders here without you installing anything.' },
+]
 </script>
 
 <template>
   <div class="home">
-    <!-- Hero -->
+    <!-- ── Hero ── -->
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
-          <span class="label-text">One font · every Unicode 17 codepoint</span>
-          <h1 class="hero-title">
+          <span class="label-text ef-animate-up">One font · every Unicode 17 codepoint</span>
+          <h1 class="hero-title ef-animate-up ef-delay-1">
             Essenfont renders<br />
             <span class="hero-accent">every assigned character.</span>
           </h1>
-          <p class="hero-lede">
+          <p class="hero-lede ef-animate-up ef-delay-2">
             A single redistributable OpenType font built from canonical OFL-licensed
-            donor fonts — Noto, Full-Sung, UniHieroglyphica, and more. Install once and
-            never see tofu again.
+            donor fonts — Noto, Full-Sung, UniHieroglyphica, and 138 more.
+            Install once and never see tofu again.
           </p>
-          <div class="hero-cta">
+          <div class="hero-cta ef-animate-up ef-delay-3">
             <RouterLink to="/download" class="btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               Download TTF
@@ -70,7 +108,7 @@ function charOf(cp: number): string {
               Browse Unicode
             </RouterLink>
           </div>
-          <div class="hero-meta" v-if="unicodeInfo">
+          <div class="hero-meta ef-animate-in ef-delay-4" v-if="unicodeInfo">
             <span class="badge">Unicode {{ unicodeInfo.version }}</span>
             <span class="badge">{{ unicodeInfo.blockCount }} blocks</span>
             <span class="badge">{{ unicodeInfo.charCount.toLocaleString() }} glyphs</span>
@@ -78,144 +116,77 @@ function charOf(cp: number): string {
           </div>
         </div>
 
-        <div class="hero-specimen" aria-hidden="true">
-          <div class="specimen-grid">
-            <div v-for="(s, i) in specimens" :key="i" class="specimen-cell">
-              <span class="specimen-char">{{ charOf(s.cp) }}</span>
-              <span class="specimen-label">{{ s.label }}</span>
-            </div>
+        <!-- ── Type tester — the interactive showpiece ── -->
+        <div class="type-tester ef-animate-up ef-delay-4">
+          <div class="tt-head">
+            <span class="tt-label">Type tester</span>
+            <span class="tt-hint">renders in essenfont — tofu = not covered</span>
+          </div>
+          <input
+            class="tt-input"
+            type="text"
+            v-model="testText"
+            placeholder="Type anything…"
+            spellcheck="false"
+            autocomplete="off"
+          />
+          <div class="tt-output">
+            <span class="tt-text">{{ displayText }}</span>
+          </div>
+          <div class="tt-samples">
+            <button
+              v-for="s in SAMPLES"
+              :key="s.label"
+              class="tt-sample-btn"
+              :class="{ active: testText === s.text }"
+              @click="setSample(s.text)"
+            >{{ s.label }}</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Why -->
+    <!-- ── Features ── -->
     <section class="container section">
-      <h2 class="section-heading">Why essenfont</h2>
+      <h2 class="section-heading ef-animate-up">Why essenfont</h2>
       <div class="features">
-        <div class="feature">
-          <div class="feature-num">01</div>
-          <h3>Unicode 17 fallback</h3>
-          <p>
-            Install once, get Unicode 17 rendering everywhere. Every assigned codepoint,
-            every plane, every block — from Basic Latin through Unicode 17 newcomers
-            like Tolong Siki, Sidetic, and Beria Erfe.
-          </p>
-        </div>
-        <div class="feature">
-          <div class="feature-num">02</div>
-          <h3>No more tofu</h3>
-          <p>
-            Rare and historic scripts — Tai Yo, Sidetic, Egyptian Hieroglyphs Extended-B,
-            Sunuwar — render as real outlines, not blank boxes. The Last Resort font,
-            but with actual glyphs.
-          </p>
-        </div>
-        <div class="feature">
-          <div class="feature-num">03</div>
-          <h3>Donor-derived</h3>
-          <p>
-            Every glyph is extracted from a canonical Tier 1 donor font (Noto, Full-Sung,
-            Lentariso, Kedebideri, UniHieroglyphica). No hand-designed UFO source.
-            Fixes flow upstream.
-          </p>
-        </div>
-        <div class="feature">
-          <div class="feature-num">04</div>
-          <h3>OFL, single file</h3>
-          <p>
-            One TTF, redistributable under the SIL Open Font License 1.1. Embed in PDFs,
-            bundle with software, ship as a browser <code>@font-face</code> fallback.
-            Replaces 10+ script-specific fonts.
-          </p>
+        <div
+          v-for="(f, i) in features"
+          :key="f.num"
+          class="feature ef-animate-up"
+          :style="{ animationDelay: (0.1 + i * 0.08) + 's' }"
+        >
+          <div class="feature-num">{{ f.num }}</div>
+          <h3>{{ f.title }}</h3>
+          <p>{{ f.body }}</p>
         </div>
       </div>
     </section>
 
-    <!-- How -->
+    <!-- ── How it works ── -->
     <section class="container section">
-      <h2 class="section-heading">How it works</h2>
+      <h2 class="section-heading ef-animate-up">How it works</h2>
 
-      <!-- Pipeline overview: donor fonts → browser, at a glance -->
-      <div class="pipeline" aria-hidden="true">
-        <div class="pipeline-stage">
-          <span class="pipeline-num">α</span>
-          <span class="pipeline-label">Donor fonts</span>
-          <span class="pipeline-sub">Noto · Full-Sung · 17 more</span>
-        </div>
-        <span class="pipeline-arrow">→</span>
-        <div class="pipeline-stage">
-          <span class="pipeline-num">β</span>
-          <span class="pipeline-label">Build</span>
-          <span class="pipeline-sub">Ruby + fontisan</span>
-        </div>
-        <span class="pipeline-arrow">→</span>
-        <div class="pipeline-stage">
-          <span class="pipeline-num">γ</span>
-          <span class="pipeline-label">TTF</span>
-          <span class="pipeline-sub">~45 MB · 300k glyphs</span>
-        </div>
-        <span class="pipeline-arrow">→</span>
-        <div class="pipeline-stage">
-          <span class="pipeline-num">δ</span>
-          <span class="pipeline-label">Subsets</span>
-          <span class="pipeline-sub">~340 WOFF2 · ~80 KB ea.</span>
-        </div>
-        <span class="pipeline-arrow">→</span>
-        <div class="pipeline-stage pipeline-stage--final">
-          <span class="pipeline-num">ε</span>
-          <span class="pipeline-label">Browser</span>
-          <span class="pipeline-sub">you · no install</span>
+      <div class="pipeline ef-animate-up" aria-hidden="true">
+        <div class="pipeline-stage" v-for="(s, i) in pipelineStages" :key="s.label">
+          <span class="pipeline-num">{{ s.num }}</span>
+          <span class="pipeline-label">{{ s.label }}</span>
+          <span class="pipeline-sub">{{ s.sub }}</span>
+          <span class="pipeline-arrow" v-if="i < pipelineStages.length - 1">→</span>
         </div>
       </div>
 
-      <!-- Detailed steps -->
       <ol class="how">
-        <li class="how-step">
-          <div class="how-num">01</div>
+        <li
+          v-for="(step, i) in steps"
+          :key="step.num"
+          class="how-step ef-animate-up"
+          :style="{ animationDelay: (0.15 + i * 0.1) + 's' }"
+        >
+          <div class="how-num">{{ step.num }}</div>
           <div class="how-content">
-            <h3 class="how-title">Donor registry</h3>
-            <p class="how-body">
-              <code>sources/manifest.yml</code> declares which OFL-licensed font
-              covers each Unicode block — Noto for Latin, Full-Sung for CJK,
-              UniHieroglyphica for Egyptian Hieroglyphs, and ~17 more.
-            </p>
-          </div>
-        </li>
-        <li class="how-step">
-          <div class="how-num">02</div>
-          <div class="how-content">
-            <h3 class="how-title">Glyph extraction</h3>
-            <p class="how-body">
-              A pure-Ruby build script reads each donor via
-              <code>fontisan</code> and pulls the relevant glyph outlines.
-              No hand-designed UFO source — corrections flow upstream to the
-              donor, then back via the next version bump.
-            </p>
-          </div>
-        </li>
-        <li class="how-step">
-          <div class="how-num">03</div>
-          <div class="how-content">
-            <h3 class="how-title">Assembly + subsetting</h3>
-            <p class="how-body">
-              Glyphs are stitched into <code>Essenfont-Regular.ttf</code>
-              (~45 MB, ~300k glyphs), then re-subsetted into per-block WOFF2
-              files (~80 KB each) for web delivery. One TTF becomes ~340
-              browser-friendly slices.
-            </p>
-          </div>
-        </li>
-        <li class="how-step">
-          <div class="how-num">04</div>
-          <div class="how-content">
-            <h3 class="how-title">In your browser</h3>
-            <p class="how-body">
-              This site loads each slice via <code>@font-face</code> +
-              <code>unicode-range</code>. Your browser fetches only the block
-              you're viewing — so every codepoint renders here without you
-              installing anything.
-            </p>
+            <h3 class="how-title">{{ step.title }}</h3>
+            <p class="how-body" v-html="step.body"></p>
           </div>
         </li>
       </ol>
@@ -224,34 +195,39 @@ function charOf(cp: number): string {
       </p>
     </section>
 
-    <!-- Footer CTA -->
+    <!-- ── Coverage map ── -->
+    <CoverageMap />
+
+    <!-- ── CTA ── -->
     <section class="cta">
       <div class="container cta-inner">
-        <h2 class="cta-heading">Stop shipping tofu.</h2>
-        <p class="cta-lede">Install Essenfont on your system or embed it as a CSS fallback.</p>
-        <div class="cta-buttons">
+        <h2 class="cta-heading ef-animate-up">Stop shipping tofu.</h2>
+        <p class="cta-lede ef-animate-up ef-delay-1">Install Essenfont on your system or embed it as a CSS fallback.</p>
+        <div class="cta-buttons ef-animate-up ef-delay-2">
           <RouterLink to="/download" class="btn-primary">Download</RouterLink>
           <RouterLink to="/unicode" class="btn-ghost">Browse the font</RouterLink>
         </div>
       </div>
     </section>
-
-    <!-- Coverage Map (auto-generated from build/coverage_report.rb) -->
-    <CoverageMap />
   </div>
 </template>
+
+<script lang="ts">
+import CoverageMap from '../components/CoverageMap.vue'
+export default { components: { CoverageMap } }
+</script>
 
 <style scoped>
 .home { padding-bottom: 0; }
 
-/* Hero */
+/* ── Hero ── */
 .hero {
   padding: 3rem 0 4rem;
   border-bottom: 1px solid var(--spec-rule);
 }
 .hero-inner {
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: 1.1fr 1fr;
   gap: 3rem;
   align-items: center;
 }
@@ -259,12 +235,13 @@ function charOf(cp: number): string {
 .hero-copy .label-text { display: block; margin-bottom: 0.75rem; }
 .hero-title {
   font-family: var(--spec-font-display);
-  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.025em;
   color: var(--spec-ink);
   margin: 0 0 1rem;
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "salt" 1;
 }
 .hero-accent {
   color: var(--spec-rose);
@@ -284,53 +261,114 @@ function charOf(cp: number): string {
   display: flex; gap: 0.5rem; flex-wrap: wrap;
 }
 
-.hero-specimen {
-  display: flex; justify-content: center;
-}
-.specimen-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  padding: 1rem;
+/* ── Type tester ── */
+.type-tester {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.5rem;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--spec-rule);
   border-radius: 12px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 4px 14px rgba(0, 0, 0, 0.06);
 }
-.specimen-cell {
-  display: flex; flex-direction: column;
-  align-items: center; gap: 0.3rem;
-  padding: 0.75rem 0.5rem;
-  background: var(--vp-c-bg);
-  border-radius: 8px;
-  border: 1px solid var(--spec-rule);
-  min-width: 80px;
+.tt-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
 }
-.specimen-char {
-  font-family: var(--spec-font-glyph);
-  font-size: 1.8rem;
-  line-height: 1;
-  color: var(--spec-ink);
-}
-.specimen-label {
+.tt-label {
   font-family: var(--spec-font-mono);
-  font-size: 0.65rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--spec-rose);
+}
+.tt-hint {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
   color: var(--spec-mute);
-  letter-spacing: 0.04em;
+}
+.tt-input {
+  width: 100%;
+  padding: 0.6rem 0.85rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  color: var(--spec-ink);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--spec-rule);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.tt-input:focus {
+  border-color: var(--spec-rose);
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
+}
+.tt-input::placeholder { color: var(--spec-mute); }
+.tt-output {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+  padding: 1.25rem 1rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--spec-rule);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.tt-text {
+  font-family: var(--spec-font-glyph);
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  line-height: 1.3;
+  color: var(--spec-ink);
+  text-align: center;
+  word-break: break-word;
+  transition: opacity 0.1s;
+}
+.tt-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.tt-sample-btn {
+  padding: 0.3rem 0.6rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--spec-ink-soft);
+  background: var(--vp-c-bg);
+  border: 1px solid var(--spec-rule);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.tt-sample-btn:hover {
+  border-color: var(--spec-rose);
+  color: var(--spec-rose);
+}
+.tt-sample-btn.active {
+  background: var(--vp-c-brand-soft);
+  border-color: var(--spec-rose);
+  color: var(--spec-rose);
 }
 
-/* Sections */
-.section {
-  padding: 3.5rem 1.5rem;
-}
+/* ── Sections ── */
+.section { padding: 3.5rem 1.5rem; }
 .section-heading {
   font-family: var(--spec-font-display);
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   font-weight: 500;
   color: var(--spec-ink);
   margin: 0 0 1.5rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--spec-rose);
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
 }
 
 .features {
@@ -343,6 +381,12 @@ function charOf(cp: number): string {
   background: var(--vp-c-bg-soft);
   border-radius: 8px;
   border: 1px solid var(--spec-rule);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.feature:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
 }
 .feature-num {
   font-family: var(--spec-font-mono);
@@ -354,10 +398,11 @@ function charOf(cp: number): string {
 }
 .feature h3 {
   font-family: var(--spec-font-display);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 500;
   margin: 0 0 0.5rem;
   color: var(--spec-ink);
+  letter-spacing: -0.005em;
 }
 .feature p {
   font-size: 0.9rem;
@@ -365,33 +410,86 @@ function charOf(cp: number): string {
   color: var(--spec-ink-soft);
   margin: 0;
 }
-.feature code {
-  font-family: var(--spec-font-mono);
-  font-size: 0.82rem;
-  background: var(--vp-c-bg);
-  padding: 0.1rem 0.3rem;
-  border-radius: 3px;
-  border: 1px solid var(--spec-rule);
-}
 
-.how {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ── Pipeline ── */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0.4rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--spec-rule);
+  border-radius: 10px;
+}
+.pipeline-stage {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.85rem 0.5rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--spec-rule);
+  border-radius: 6px;
+  text-align: center;
+  position: relative;
+}
+.pipeline-stage--final {
+  border-color: var(--spec-rose);
+  background: var(--vp-c-brand-soft);
+}
+.pipeline-num {
+  font-family: var(--spec-font-display);
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--spec-rose);
+  line-height: 1;
+}
+.pipeline-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--spec-ink);
+}
+.pipeline-sub {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
+  color: var(--spec-mute);
+  line-height: 1.3;
+}
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  font-family: var(--spec-font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--spec-rose);
+  opacity: 0.6;
+  padding: 0 0.1rem;
+}
+
+/* ── Steps ── */
+.how {
+  list-style: none;
+  counter-reset: how-counter;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
 }
 .how-step {
+  counter-increment: how-counter;
   display: grid;
   grid-template-columns: 4rem 1fr;
   gap: 1.5rem;
   align-items: start;
   padding: 1.5rem 1.75rem;
   background: var(--vp-c-bg-soft);
+  border-radius: 10px;
   border: 1px solid var(--spec-rule);
   border-left: 3px solid var(--spec-rose);
-  border-radius: 10px;
   transition: border-left-color 0.15s, transform 0.15s, box-shadow 0.15s;
 }
 .how-step:hover {
@@ -428,7 +526,7 @@ function charOf(cp: number): string {
   color: var(--spec-ink-soft);
   margin: 0;
 }
-.how-body code {
+.how-body :deep(code) {
   font-family: var(--spec-font-mono);
   font-size: 0.84rem;
   background: var(--vp-c-bg);
@@ -441,105 +539,10 @@ function charOf(cp: number): string {
   font-family: var(--spec-font-mono);
   font-size: 0.9rem;
 }
-.how-cta a {
-  color: var(--spec-rose);
-  text-decoration: none;
-}
+.how-cta a { color: var(--spec-rose); text-decoration: none; }
 .how-cta a:hover { text-decoration: underline; }
 
-/* Pipeline overview — horizontal flow at the top of the section */
-.pipeline {
-  display: flex;
-  align-items: stretch;
-  gap: 0.4rem;
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--spec-rule);
-  border-radius: 10px;
-}
-.pipeline-stage {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-  padding: 0.85rem 0.5rem;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--spec-rule);
-  border-radius: 6px;
-  text-align: center;
-}
-.pipeline-stage--final {
-  border-color: var(--spec-rose);
-  background: var(--vp-c-brand-soft);
-}
-.pipeline-num {
-  font-family: var(--spec-font-display);
-  font-size: 1.1rem;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--spec-rose);
-  line-height: 1;
-}
-.pipeline-label {
-  font-family: var(--spec-font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--spec-ink);
-  letter-spacing: 0.02em;
-}
-.pipeline-sub {
-  font-family: var(--spec-font-mono);
-  font-size: 0.65rem;
-  color: var(--spec-mute);
-  line-height: 1.3;
-}
-.pipeline-arrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--spec-font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--spec-rose);
-  opacity: 0.6;
-  padding: 0 0.1rem;
-}
-
-@media (max-width: 900px) {
-  .pipeline {
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-  .pipeline-arrow {
-    transform: rotate(90deg);
-    padding: 0.15rem 0;
-  }
-  .pipeline-stage {
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 0.75rem;
-    text-align: left;
-    padding: 0.6rem 0.85rem;
-  }
-  .pipeline-num { font-size: 0.95rem; }
-  .pipeline-label { font-size: 0.72rem; }
-  .pipeline-sub { font-size: 0.6rem; }
-}
-
-@media (max-width: 640px) {
-  .how-step {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-    padding: 1.25rem 1.25rem;
-  }
-  .how-num { font-size: 1.1rem; padding-top: 0; }
-  .how-title { font-size: 1.05rem; }
-}
-
-/* CTA */
+/* ── CTA ── */
 .cta {
   padding: 4rem 0;
   margin-top: 2rem;
@@ -554,7 +557,7 @@ function charOf(cp: number): string {
   font-weight: 500;
   margin: 0 0 0.5rem;
   color: var(--spec-ink);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 .cta-lede {
   font-size: 1rem;
@@ -570,10 +573,11 @@ function charOf(cp: number): string {
 
 @media (max-width: 900px) {
   .hero-inner { grid-template-columns: 1fr; }
-  .hero-specimen { order: -1; }
-  .specimen-grid { width: 100%; max-width: 360px; }
+  .type-tester { order: -1; }
 }
-@media (max-width: 480px) {
-  .specimen-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 640px) {
+  .pipeline { flex-direction: column; gap: 0.25rem; }
+  .pipeline-arrow { transform: rotate(90deg); }
+  .how-step { grid-template-columns: 1fr; gap: 0.4rem; }
 }
 </style>

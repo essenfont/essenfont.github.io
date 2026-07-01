@@ -101,10 +101,43 @@ html {
 body {
   background-color: var(--spec-paper);
   font-family: var(--spec-font-body);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
   color: var(--spec-ink);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Paper grain overlay (every page) ── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.95 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  mix-blend-mode: multiply;
+}
+html.dark body::before {
+  opacity: 0.07;
+  mix-blend-mode: screen;
+}
+
+/* ── Decorative registration crosshair (bottom-right corner) ── */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  z-index: 201;
+  pointer-events: none;
+  opacity: 0.12;
+  background:
+    linear-gradient(var(--spec-ink), var(--spec-ink)) center / 1px 100% no-repeat,
+    linear-gradient(var(--spec-ink), var(--spec-ink)) center / 100% 1px no-repeat;
 }
 
 a {
@@ -206,6 +239,77 @@ button {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--spec-mute);
+}
+
+/* ── Press shadow — subtle letterpress card depth ── */
+.press-shadow {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.press-shadow-lg {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Display typography — oldstyle figures + optical sizing ── */
+.display,
+[class*="spec-font-display"] {
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "salt" 1;
+  font-optical-sizing: auto;
+}
+
+/* ── Mono — tabular figures by default for data tables ── */
+.mono,
+code,
+pre,
+[class*="spec-font-mono"] {
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+/* ── Animation utilities ── */
+@keyframes ef-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes ef-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ef-glyph-reveal {
+  from { opacity: 0; transform: scale(0.85) rotate(-2deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+@keyframes ef-underline-sweep {
+  from { background-size: 0% 1px; }
+  to { background-size: 100% 1px; }
+}
+
+.ef-animate-up {
+  animation: ef-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ef-animate-in {
+  animation: ef-fade-in 0.5s ease-out both;
+}
+.ef-animate-glyph {
+  animation: ef-glyph-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.ef-delay-1 { animation-delay: 0.08s; }
+.ef-delay-2 { animation-delay: 0.16s; }
+.ef-delay-3 { animation-delay: 0.24s; }
+.ef-delay-4 { animation-delay: 0.32s; }
+.ef-delay-5 { animation-delay: 0.40s; }
+.ef-delay-6 { animation-delay: 0.48s; }
+.ef-delay-7 { animation-delay: 0.56s; }
+.ef-delay-8 { animation-delay: 0.64s; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .section-rule {
