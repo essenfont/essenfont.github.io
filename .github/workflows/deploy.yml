@@ -47,6 +47,7 @@ jobs:
       - name: Build shard ${{ matrix.shard }}
         env:
           SHARD: ${{ matrix.shard }}
+          NODE_OPTIONS: --max-old-space-size=4096
         run: npx vite-ssg build
 
       - name: Upload shard artifact
