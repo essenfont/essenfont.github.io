@@ -11,6 +11,7 @@
 
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { fetchBuildData } from '../lib/ssr-fetch'
 
 interface BlockCoverage {
   id: string
@@ -42,9 +43,15 @@ const mouseY = ref(0)
 const planeFilter = ref<number | null>(null)
 const statusFilter = ref<string | null>(null)
 
+// Load coverage data. During SSG, read from filesystem (fetchBuildData);
+// during client navigation, fetch from public/ (fetch).
 try {
-  const res = await fetch(`${import.meta.env.BASE_URL}coverage.json`)
-  data.value = await res.json()
+  if (import.meta.env.SSR) {
+    data.value = await fetchBuildData<CoverageData>('coverage.json')
+  } else {
+    const res = await fetch(`${import.meta.env.BASE_URL}coverage.json`)
+    data.value = await res.json()
+  }
 } catch (e) {
   console.error('Failed to load coverage.json', e)
 }
