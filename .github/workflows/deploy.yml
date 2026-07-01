@@ -27,6 +27,9 @@ jobs:
 
       - run: npm ci
 
+      - name: Generate Unihan data
+        run: node scripts/gen-unihan-data.mjs
+
       - name: Generate SSG routes
         run: node scripts/gen-ssg-routes.mjs
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { UnicodeBlock, UnicodeCharacter, GridMode } from '..'
 import { isControlChar, controlAbbrev, controlName, displayChar } from '..'
 
@@ -20,17 +20,31 @@ const emit = defineEmits<{
   (e: 'select', cp: number): void
 }>()
 
+// ── Pagination ──
+// Large blocks (CJK Extension A = 6,592, Extension B = 42,720,
+// Hangul Syllables = 11,184) would render thousands of DOM nodes
+// at once. Paginate at maxChars per page.
+const currentPage = ref(0)
+const pageSize = computed(() => props.maxChars)
+
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(props.block.characters.length / pageSize.value))
+)
+
+// Reset to page 0 when the block changes (navigation between blocks)
+watch(() => props.block.name, () => { currentPage.value = 0 })
+
+const pageStart = computed(() => currentPage.value * pageSize.value)
+const pageEnd = computed(() => Math.min(pageStart.value + pageSize.value, props.block.characters.length))
+
 const visibleChars = computed(() =>
-  props.block.characters.slice(0, props.maxChars)
+  props.block.characters.slice(pageStart.value, pageEnd.value)
 )
 
 const missingInVisible = computed(() =>
   visibleChars.value.filter(c => isMissing(c.cp)).length
 )
 
-// A character is "missing" if the coverage data is loaded AND the
-// codepoint isn't in the font's cmap. When no coverage data is loaded
-// (e.g. no coverage file for this block), nothing is marked missing.
 function isMissing(cp: number): boolean {
   if (!props.coveredSet) return false
   return !props.coveredSet.has(cp)
@@ -41,6 +55,12 @@ function displayName(char: UnicodeCharacter): string {
     return controlName(char.cp) || char.name
   }
   return char.name
+}
+
+function goToPage(p: number) {
+  if (p >= 0 && p < totalPages.value) {
+    currentPage.value = p
+  }
 }
 </script>
 
@@ -87,9 +107,41 @@ function displayName(char: UnicodeCharacter): string {
       </button>
     </div>
 
-    <div class="ub-foot" v-if="block.characters.length > visibleChars.length">
-      Showing {{ visibleChars.length.toLocaleString() }} of
-      {{ block.characters.length.toLocaleString() }} assigned characters.
+    <!-- Pager — only shows when the block has more chars than one page -->
+    <div class="ub-pager" v-if="totalPages > 1">
+      <div class="ub-pager-info">
+        Showing
+        <strong>{{ (pageStart + 1).toLocaleString() }}</strong>–<strong>{{ pageEnd.toLocaleString() }}</strong>
+        of <strong>{{ block.characters.length.toLocaleString() }}</strong>
+      </div>
+      <div class="ub-pager-controls">
+        <button
+          class="ub-page-btn"
+          :disabled="currentPage === 0"
+          @click="goToPage(currentPage - 1)"
+          aria-label="Previous page"
+        >←</button>
+        <span class="ub-page-current">
+          {{ currentPage + 1 }} <span class="ub-page-of">/</span> {{ totalPages }}
+        </span>
+        <button
+          class="ub-page-btn"
+          :disabled="currentPage >= totalPages - 1"
+          @click="goToPage(currentPage + 1)"
+          aria-label="Next page"
+        >→</button>
+      </div>
+      <div class="ub-pager-jump" v-if="totalPages > 3">
+        <input
+          type="number"
+          min="1"
+          :max="totalPages"
+          :value="currentPage + 1"
+          @change="(e) => goToPage(parseInt(($event.target as HTMLInputElement).value) - 1)"
+          class="ub-page-input"
+        />
+        <span class="ub-page-jump-label">/ {{ totalPages }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -221,6 +273,102 @@ function displayName(char: UnicodeCharacter): string {
   font-size: 0.72rem;
   color: var(--spec-mute);
   margin-left: auto;
+}
+
+/* ── Pager ── */
+.ub-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--vp-c-bg-soft, #f8f7f4);
+  border: 1px solid var(--spec-rule, #e8e6e0);
+  border-radius: 6px;
+  flex-wrap: wrap;
+}
+.ub-pager-info {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--spec-mute, #75716c);
+}
+.ub-pager-info strong {
+  color: var(--spec-ink, #1c1a18);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ub-pager-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.ub-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-family: var(--spec-font-mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  background: var(--vp-c-bg, #fff);
+  color: var(--spec-ink, #1c1a18);
+  border: 1px solid var(--spec-rule, rgba(28, 26, 24, 0.16));
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+}
+.ub-page-btn:hover:not(:disabled) {
+  border-color: var(--spec-rose, #b8475f);
+  color: var(--spec-rose, #b8475f);
+  background: var(--vp-c-brand-soft, rgba(184, 71, 95, 0.12));
+}
+.ub-page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.ub-page-current {
+  font-family: var(--spec-font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--spec-ink, #1c1a18);
+  font-variant-numeric: tabular-nums;
+  min-width: 3.5rem;
+  text-align: center;
+}
+.ub-page-of {
+  color: var(--spec-mute, #75716c);
+  font-weight: 400;
+}
+.ub-pager-jump {
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+}
+.ub-page-input {
+  width: 3rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  text-align: center;
+  padding: 0.2rem 0.3rem;
+  background: var(--vp-c-bg, #fff);
+  color: var(--spec-ink, #1c1a18);
+  border: 1px solid var(--spec-rule, rgba(28, 26, 24, 0.16));
+  border-radius: 3px;
+}
+.ub-page-input:focus {
+  outline: none;
+  border-color: var(--spec-rose, #b8475f);
+}
+.ub-page-jump-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--spec-mute, #75716c);
+}
+
+@media (max-width: 640px) {
+  .ub-pager { flex-direction: column; gap: 0.5rem; }
 }
 
 .ub-cp {

@@ -1,9 +1,2139 @@
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/basic-latin.woff") format("woff"),
+      url("/fonts/basic-latin.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-007F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-1-supplement.woff") format("woff"),
+      url("/fonts/latin-1-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0080-00FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-a.woff") format("woff"),
+      url("/fonts/latin-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-017F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-b.woff") format("woff"),
+      url("/fonts/latin-extended-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0180-024F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ipa-extensions.woff") format("woff"),
+      url("/fonts/ipa-extensions.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0250-02AF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/spacing-modifier-letters.woff") format("woff"),
+      url("/fonts/spacing-modifier-letters.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+02B0-02FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/combining-diacritical-marks.woff") format("woff"),
+      url("/fonts/combining-diacritical-marks.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0300-036F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/greek-and-coptic.woff") format("woff"),
+      url("/fonts/greek-and-coptic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0370-03FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic.woff") format("woff"),
+      url("/fonts/cyrillic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0400-04FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic-supplement.woff") format("woff"),
+      url("/fonts/cyrillic-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0500-052F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/armenian.woff") format("woff"),
+      url("/fonts/armenian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0530-058F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hebrew.woff") format("woff"),
+      url("/fonts/hebrew.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0590-05FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic.woff") format("woff"),
+      url("/fonts/arabic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0600-06FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/syriac.woff") format("woff"),
+      url("/fonts/syriac.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0700-074F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-supplement.woff") format("woff"),
+      url("/fonts/arabic-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0750-077F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/thaana.woff") format("woff"),
+      url("/fonts/thaana.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0780-07BF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/nko.woff") format("woff"),
+      url("/fonts/nko.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+07C0-07FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/samaritan.woff") format("woff"),
+      url("/fonts/samaritan.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0800-083F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mandaic.woff") format("woff"),
+      url("/fonts/mandaic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0840-085F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-extended-b.woff") format("woff"),
+      url("/fonts/arabic-extended-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0870-089F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-extended-a.woff") format("woff"),
+      url("/fonts/arabic-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+08A0-08FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/devanagari.woff") format("woff"),
+      url("/fonts/devanagari.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0900-097F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/bengali.woff") format("woff"),
+      url("/fonts/bengali.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0980-09FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/gurmukhi.woff") format("woff"),
+      url("/fonts/gurmukhi.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0A00-0A7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/gujarati.woff") format("woff"),
+      url("/fonts/gujarati.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0A80-0AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/oriya.woff") format("woff"),
+      url("/fonts/oriya.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0B00-0B7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tamil.woff") format("woff"),
+      url("/fonts/tamil.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0B80-0BFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/telugu.woff") format("woff"),
+      url("/fonts/telugu.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0C00-0C7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kannada.woff") format("woff"),
+      url("/fonts/kannada.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0C80-0CFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/malayalam.woff") format("woff"),
+      url("/fonts/malayalam.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0D00-0D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sinhala.woff") format("woff"),
+      url("/fonts/sinhala.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0D80-0DFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/thai.woff") format("woff"),
+      url("/fonts/thai.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0E00-0E7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/lao.woff") format("woff"),
+      url("/fonts/lao.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0E80-0EFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tibetan.woff") format("woff"),
+      url("/fonts/tibetan.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0F00-0FFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/myanmar.woff") format("woff"),
+      url("/fonts/myanmar.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1000-109F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/georgian.woff") format("woff"),
+      url("/fonts/georgian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10A0-10FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hangul-jamo.woff") format("woff"),
+      url("/fonts/hangul-jamo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1100-11FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ethiopic.woff") format("woff"),
+      url("/fonts/ethiopic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1200-137F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ethiopic-supplement.woff") format("woff"),
+      url("/fonts/ethiopic-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1380-139F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cherokee.woff") format("woff"),
+      url("/fonts/cherokee.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+13A0-13FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/unified-canadian-aboriginal-syllabics.woff") format("woff"),
+      url("/fonts/unified-canadian-aboriginal-syllabics.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1400-167F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ogham.woff") format("woff"),
+      url("/fonts/ogham.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1680-169F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/runic.woff") format("woff"),
+      url("/fonts/runic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16A0-16FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tagalog.woff") format("woff"),
+      url("/fonts/tagalog.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1700-171F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hanunoo.woff") format("woff"),
+      url("/fonts/hanunoo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1720-173F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/buhid.woff") format("woff"),
+      url("/fonts/buhid.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1740-175F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tagbanwa.woff") format("woff"),
+      url("/fonts/tagbanwa.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1760-177F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/khmer.woff") format("woff"),
+      url("/fonts/khmer.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1780-17FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mongolian.woff") format("woff"),
+      url("/fonts/mongolian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1800-18AF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/unified-canadian-aboriginal-syllabics-extended.woff") format("woff"),
+      url("/fonts/unified-canadian-aboriginal-syllabics-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+18B0-18FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/limbu.woff") format("woff"),
+      url("/fonts/limbu.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1900-194F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tai-le.woff") format("woff"),
+      url("/fonts/tai-le.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1950-197F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/new-tai-lue.woff") format("woff"),
+      url("/fonts/new-tai-lue.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1980-19DF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/khmer-symbols.woff") format("woff"),
+      url("/fonts/khmer-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+19E0-19FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/buginese.woff") format("woff"),
+      url("/fonts/buginese.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1A00-1A1F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tai-tham.woff") format("woff"),
+      url("/fonts/tai-tham.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1A20-1AAF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/combining-diacritical-marks-extended.woff") format("woff"),
+      url("/fonts/combining-diacritical-marks-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1AB0-1AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/balinese.woff") format("woff"),
+      url("/fonts/balinese.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1B00-1B7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sundanese.woff") format("woff"),
+      url("/fonts/sundanese.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1B80-1BBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/batak.woff") format("woff"),
+      url("/fonts/batak.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1BC0-1BFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/lepcha.woff") format("woff"),
+      url("/fonts/lepcha.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1C00-1C4F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ol-chiki.woff") format("woff"),
+      url("/fonts/ol-chiki.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1C50-1C7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic-extended-c.woff") format("woff"),
+      url("/fonts/cyrillic-extended-c.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1C80-1C8F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/georgian-extended.woff") format("woff"),
+      url("/fonts/georgian-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1C90-1CBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sundanese-supplement.woff") format("woff"),
+      url("/fonts/sundanese-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1CC0-1CCF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/vedic-extensions.woff") format("woff"),
+      url("/fonts/vedic-extensions.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1CD0-1CFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/phonetic-extensions.woff") format("woff"),
+      url("/fonts/phonetic-extensions.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D00-1D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/phonetic-extensions-supplement.woff") format("woff"),
+      url("/fonts/phonetic-extensions-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D80-1DBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/combining-diacritical-marks-supplement.woff") format("woff"),
+      url("/fonts/combining-diacritical-marks-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1DC0-1DFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-additional.woff") format("woff"),
+      url("/fonts/latin-extended-additional.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1E00-1EFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/greek-extended.woff") format("woff"),
+      url("/fonts/greek-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F00-1FFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/general-punctuation.woff") format("woff"),
+      url("/fonts/general-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2000-206F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/superscripts-and-subscripts.woff") format("woff"),
+      url("/fonts/superscripts-and-subscripts.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2070-209F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/currency-symbols.woff") format("woff"),
+      url("/fonts/currency-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20A0-20CF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/combining-diacritical-marks-for-symbols.woff") format("woff"),
+      url("/fonts/combining-diacritical-marks-for-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20D0-20FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/letterlike-symbols.woff") format("woff"),
+      url("/fonts/letterlike-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2100-214F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/number-forms.woff") format("woff"),
+      url("/fonts/number-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2150-218F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arrows.woff") format("woff"),
+      url("/fonts/arrows.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2190-21FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mathematical-operators.woff") format("woff"),
+      url("/fonts/mathematical-operators.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2200-22FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-technical.woff") format("woff"),
+      url("/fonts/miscellaneous-technical.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2300-23FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/control-pictures.woff") format("woff"),
+      url("/fonts/control-pictures.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2400-243F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/optical-character-recognition.woff") format("woff"),
+      url("/fonts/optical-character-recognition.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2440-245F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/enclosed-alphanumerics.woff") format("woff"),
+      url("/fonts/enclosed-alphanumerics.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2460-24FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/box-drawing.woff") format("woff"),
+      url("/fonts/box-drawing.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2500-257F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/block-elements.woff") format("woff"),
+      url("/fonts/block-elements.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2580-259F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/geometric-shapes.woff") format("woff"),
+      url("/fonts/geometric-shapes.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+25A0-25FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-symbols.woff") format("woff"),
+      url("/fonts/miscellaneous-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2600-26FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/dingbats.woff") format("woff"),
+      url("/fonts/dingbats.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2700-27BF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-mathematical-symbols-a.woff") format("woff"),
+      url("/fonts/miscellaneous-mathematical-symbols-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+27C0-27EF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-arrows-a.woff") format("woff"),
+      url("/fonts/supplemental-arrows-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+27F0-27FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/braille-patterns.woff") format("woff"),
+      url("/fonts/braille-patterns.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2800-28FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-arrows-b.woff") format("woff"),
+      url("/fonts/supplemental-arrows-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2900-297F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-mathematical-symbols-b.woff") format("woff"),
+      url("/fonts/miscellaneous-mathematical-symbols-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2980-29FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-mathematical-operators.woff") format("woff"),
+      url("/fonts/supplemental-mathematical-operators.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2A00-2AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-symbols-and-arrows.woff") format("woff"),
+      url("/fonts/miscellaneous-symbols-and-arrows.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2B00-2BFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/glagolitic.woff") format("woff"),
+      url("/fonts/glagolitic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2C00-2C5F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-c.woff") format("woff"),
+      url("/fonts/latin-extended-c.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2C60-2C7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/coptic.woff") format("woff"),
+      url("/fonts/coptic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2C80-2CFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/georgian-supplement.woff") format("woff"),
+      url("/fonts/georgian-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2D00-2D2F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tifinagh.woff") format("woff"),
+      url("/fonts/tifinagh.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2D30-2D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ethiopic-extended.woff") format("woff"),
+      url("/fonts/ethiopic-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2D80-2DDF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic-extended-a.woff") format("woff"),
+      url("/fonts/cyrillic-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2DE0-2DFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-punctuation.woff") format("woff"),
+      url("/fonts/supplemental-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2E00-2E7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-radicals-supplement.woff") format("woff"),
+      url("/fonts/cjk-radicals-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2E80-2EFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kangxi-radicals.woff") format("woff"),
+      url("/fonts/kangxi-radicals.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2F00-2FDF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ideographic-description-characters.woff") format("woff"),
+      url("/fonts/ideographic-description-characters.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2FF0-2FFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-symbols-and-punctuation.woff") format("woff"),
+      url("/fonts/cjk-symbols-and-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3000-303F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hiragana.woff") format("woff"),
+      url("/fonts/hiragana.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3040-309F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/katakana.woff") format("woff"),
+      url("/fonts/katakana.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+30A0-30FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/bopomofo.woff") format("woff"),
+      url("/fonts/bopomofo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3100-312F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hangul-compatibility-jamo.woff") format("woff"),
+      url("/fonts/hangul-compatibility-jamo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3130-318F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kanbun.woff") format("woff"),
+      url("/fonts/kanbun.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3190-319F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/bopomofo-extended.woff") format("woff"),
+      url("/fonts/bopomofo-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+31A0-31BF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-strokes.woff") format("woff"),
+      url("/fonts/cjk-strokes.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+31C0-31EF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/katakana-phonetic-extensions.woff") format("woff"),
+      url("/fonts/katakana-phonetic-extensions.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+31F0-31FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/enclosed-cjk-letters-and-months.woff") format("woff"),
+      url("/fonts/enclosed-cjk-letters-and-months.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3200-32FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-compatibility.woff") format("woff"),
+      url("/fonts/cjk-compatibility.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3300-33FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-a.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3400-4DBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/yijing-hexagram-symbols.woff") format("woff"),
+      url("/fonts/yijing-hexagram-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4DC0-4DFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+4E00-9FFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/yi-syllables.woff") format("woff"),
+      url("/fonts/yi-syllables.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A000-A48F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/yi-radicals.woff") format("woff"),
+      url("/fonts/yi-radicals.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A490-A4CF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/lisu.woff") format("woff"),
+      url("/fonts/lisu.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A4D0-A4FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic-extended-b.woff") format("woff"),
+      url("/fonts/cyrillic-extended-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A640-A69F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/modifier-tone-letters.woff") format("woff"),
+      url("/fonts/modifier-tone-letters.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A700-A71F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-d.woff") format("woff"),
+      url("/fonts/latin-extended-d.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kayah-li.woff") format("woff"),
+      url("/fonts/kayah-li.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A900-A92F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hangul-jamo-extended-a.woff") format("woff"),
+      url("/fonts/hangul-jamo-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A960-A97F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-e.woff") format("woff"),
+      url("/fonts/latin-extended-e.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+AB30-AB6F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hangul-syllables.woff") format("woff"),
+      url("/fonts/hangul-syllables.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+AC00-D7AF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hangul-jamo-extended-b.woff") format("woff"),
+      url("/fonts/hangul-jamo-extended-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+D7B0-D7FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/private-use-area.woff") format("woff"),
+      url("/fonts/private-use-area.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+E000-F8FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-compatibility-ideographs.woff") format("woff"),
+      url("/fonts/cjk-compatibility-ideographs.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+F900-FAFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/alphabetic-presentation-forms.woff") format("woff"),
+      url("/fonts/alphabetic-presentation-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FB00-FB4F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-presentation-forms-a.woff") format("woff"),
+      url("/fonts/arabic-presentation-forms-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FB50-FDFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/variation-selectors.woff") format("woff"),
+      url("/fonts/variation-selectors.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE00-FE0F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/vertical-forms.woff") format("woff"),
+      url("/fonts/vertical-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE10-FE1F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/combining-half-marks.woff") format("woff"),
+      url("/fonts/combining-half-marks.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE20-FE2F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-compatibility-forms.woff") format("woff"),
+      url("/fonts/cjk-compatibility-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE30-FE4F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/small-form-variants.woff") format("woff"),
+      url("/fonts/small-form-variants.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE50-FE6F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-presentation-forms-b.woff") format("woff"),
+      url("/fonts/arabic-presentation-forms-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FE70-FEFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/halfwidth-and-fullwidth-forms.woff") format("woff"),
+      url("/fonts/halfwidth-and-fullwidth-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FF00-FFEF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/specials.woff") format("woff"),
+      url("/fonts/specials.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+FFF0-FFFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ancient-greek-numbers.woff") format("woff"),
+      url("/fonts/ancient-greek-numbers.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10140-1018F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ancient-symbols.woff") format("woff"),
+      url("/fonts/ancient-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10190-101CF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/phaistos-disc.woff") format("woff"),
+      url("/fonts/phaistos-disc.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+101D0-101FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/coptic-epact-numbers.woff") format("woff"),
+      url("/fonts/coptic-epact-numbers.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+102E0-102FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/old-italic.woff") format("woff"),
+      url("/fonts/old-italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10300-1032F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/gothic.woff") format("woff"),
+      url("/fonts/gothic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10330-1034F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/deseret.woff") format("woff"),
+      url("/fonts/deseret.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10400-1044F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/shavian.woff") format("woff"),
+      url("/fonts/shavian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10450-1047F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/osmanya.woff") format("woff"),
+      url("/fonts/osmanya.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10480-104AF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/elbasan.woff") format("woff"),
+      url("/fonts/elbasan.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10500-1052F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/caucasian-albanian.woff") format("woff"),
+      url("/fonts/caucasian-albanian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10530-1056F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/vithkuqi.woff") format("woff"),
+      url("/fonts/vithkuqi.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10570-105BF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-f.woff") format("woff"),
+      url("/fonts/latin-extended-f.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10780-107BF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/imperial-aramaic.woff") format("woff"),
+      url("/fonts/imperial-aramaic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10840-1085F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/hatran.woff") format("woff"),
+      url("/fonts/hatran.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+108E0-108FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/phoenician.woff") format("woff"),
+      url("/fonts/phoenician.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10900-1091F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/sidetic.woff") format("woff"),
       url("/fonts/sidetic.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+10940-1095F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/rumi-numeral-symbols.woff") format("woff"),
+      url("/fonts/rumi-numeral-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10E60-10E7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sharada.woff") format("woff"),
+      url("/fonts/sharada.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11180-111DF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/pau-cin-hau.woff") format("woff"),
+      url("/fonts/pau-cin-hau.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11AC0-11AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sunuwar.woff") format("woff"),
+      url("/fonts/sunuwar.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11BC0-11BFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tolong-siki.woff") format("woff"),
+      url("/fonts/tolong-siki.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11DB0-11DEF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/lisu-supplement.woff") format("woff"),
+      url("/fonts/lisu-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11FB0-11FBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/egyptian-hieroglyphs.woff") format("woff"),
+      url("/fonts/egyptian-hieroglyphs.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+13000-1342F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/egyptian-hieroglyph-format-controls.woff") format("woff"),
+      url("/fonts/egyptian-hieroglyph-format-controls.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+13430-1345F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/egyptian-hieroglyphs-extended-a.woff") format("woff"),
+      url("/fonts/egyptian-hieroglyphs-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+13460-143FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/beria-erfe.woff") format("woff"),
+      url("/fonts/beria-erfe.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16EA0-16EDF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ideographic-symbols-and-punctuation.woff") format("woff"),
+      url("/fonts/ideographic-symbols-and-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16FE0-16FFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tangut.woff") format("woff"),
+      url("/fonts/tangut.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+17000-187FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tangut-components.woff") format("woff"),
+      url("/fonts/tangut-components.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+18800-18AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tangut-supplement.woff") format("woff"),
+      url("/fonts/tangut-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+18D00-18D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/symbols-for-legacy-computing-supplement.woff") format("woff"),
+      url("/fonts/symbols-for-legacy-computing-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1CC00-1CEBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-symbols-supplement.woff") format("woff"),
+      url("/fonts/miscellaneous-symbols-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1CEC0-1CEFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/byzantine-musical-symbols.woff") format("woff"),
+      url("/fonts/byzantine-musical-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D000-1D0FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/musical-symbols.woff") format("woff"),
+      url("/fonts/musical-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D100-1D1FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ancient-greek-musical-notation.woff") format("woff"),
+      url("/fonts/ancient-greek-musical-notation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D200-1D24F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kaktovik-numerals.woff") format("woff"),
+      url("/fonts/kaktovik-numerals.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D2C0-1D2DF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mayan-numerals.woff") format("woff"),
+      url("/fonts/mayan-numerals.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D2E0-1D2FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tai-xuan-jing-symbols.woff") format("woff"),
+      url("/fonts/tai-xuan-jing-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D300-1D35F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/counting-rod-numerals.woff") format("woff"),
+      url("/fonts/counting-rod-numerals.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D360-1D37F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mathematical-alphanumeric-symbols.woff") format("woff"),
+      url("/fonts/mathematical-alphanumeric-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1D400-1D7FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/latin-extended-g.woff") format("woff"),
+      url("/fonts/latin-extended-g.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1DF00-1DFFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cyrillic-extended-d.woff") format("woff"),
+      url("/fonts/cyrillic-extended-d.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1E030-1E08F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tai-yo.woff") format("woff"),
+      url("/fonts/tai-yo.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1E6C0-1E6FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/arabic-mathematical-alphabetic-symbols.woff") format("woff"),
+      url("/fonts/arabic-mathematical-alphabetic-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1EE00-1EEFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/mahjong-tiles.woff") format("woff"),
+      url("/fonts/mahjong-tiles.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F000-1F02F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/domino-tiles.woff") format("woff"),
+      url("/fonts/domino-tiles.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F030-1F09F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/playing-cards.woff") format("woff"),
+      url("/fonts/playing-cards.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F0A0-1F0FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/enclosed-alphanumeric-supplement.woff") format("woff"),
+      url("/fonts/enclosed-alphanumeric-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F100-1F1FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/enclosed-ideographic-supplement.woff") format("woff"),
+      url("/fonts/enclosed-ideographic-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F200-1F2FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/miscellaneous-symbols-and-pictographs.woff") format("woff"),
+      url("/fonts/miscellaneous-symbols-and-pictographs.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F300-1F5FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/emoticons.woff") format("woff"),
+      url("/fonts/emoticons.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F600-1F64F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ornamental-dingbats.woff") format("woff"),
+      url("/fonts/ornamental-dingbats.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F650-1F67F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/transport-and-map-symbols.woff") format("woff"),
+      url("/fonts/transport-and-map-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F680-1F6FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/alchemical-symbols.woff") format("woff"),
+      url("/fonts/alchemical-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F700-1F77F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/geometric-shapes-extended.woff") format("woff"),
+      url("/fonts/geometric-shapes-extended.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F780-1F7FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-arrows-c.woff") format("woff"),
+      url("/fonts/supplemental-arrows-c.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F800-1F8FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplemental-symbols-and-pictographs.woff") format("woff"),
+      url("/fonts/supplemental-symbols-and-pictographs.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1F900-1F9FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/chess-symbols.woff") format("woff"),
+      url("/fonts/chess-symbols.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1FA00-1FA6F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/symbols-and-pictographs-extended-a.woff") format("woff"),
+      url("/fonts/symbols-and-pictographs-extended-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1FA70-1FAFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/symbols-for-legacy-computing.woff") format("woff"),
+      url("/fonts/symbols-for-legacy-computing.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1FB00-1FBFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-b.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+20000-2A6DF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-c.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-c.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2A700-2B73F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-d.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-d.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2B740-2B81F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-e.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-e.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2B820-2CEAF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-g.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-g.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+30000-3134F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-h.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-h.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+31350-323AF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-j.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-j.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+323B0-3347F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tags.woff") format("woff"),
+      url("/fonts/tags.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+E0000-E007F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplementary-private-use-area-a.woff") format("woff"),
+      url("/fonts/supplementary-private-use-area-a.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+F0000-FFFFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/supplementary-private-use-area-b.woff") format("woff"),
+      url("/fonts/supplementary-private-use-area-b.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+100000-10FFFF;
 }
