@@ -28,11 +28,15 @@ const entries = []
 
 // Blocks → blk entries
 for (const b of blocks) {
+  // Site uses two block ID conventions: `id` (snake_case, e.g., "Basic_Latin")
+  // or `name` (display). Some files have one, some the other.
+  const id = b.id || b.name.replace(/\s+/g, '_')
+  const slug = id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
   entries.push({
     t: 'blk',
-    q: b.id,
-    n: b.name || b.id.replace(/_/g, ' '),
-    u: `/unicode/block/${b.id.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+    q: id,
+    n: b.name || id.replace(/_/g, ' '),
+    u: `/unicode/block/${slug}`,
   })
 }
 
