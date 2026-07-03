@@ -1,0 +1,55 @@
+{
+  "family": "Gurung Khema (synthetic)",
+  "slug": "gurung-khema",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "Synthetic donor from ucode code-chart extracted SVGs. 8396 bytes. See scripts/build-svg-donor.rb.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Gurung_Khema"
+  ],
+  "files": [
+    {
+      "label": "gurung--khema",
+      "file": "references/input-fonts/.generated/svg-donors/Gurung_Khema.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "db5f14a7f01ac6fdb34fce06e6978bd2b3cdb3720ee7be4282e54bbeef6e8084",
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Gurung Khema"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Gurung Khema",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Synthetic donor from ucode code-chart extracted SVGs. 8396 bytes. See scripts/build-svg-donor.rb.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "source_type": "code-chart",
+  "vendor": "Unicode Consortium",
+  "enabled": true,
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Gurung Khema"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 96" role="img" aria-label="Essenfont">
   <title>Essenfont</title>
-  <g>
-    <g transform="translate(8, 16)">
-      <rect x="0" y="0" width="56" height="64" fill="#e8e3d9" rx="2"/>
-      <rect x="8" y="0" width="40" height="14" fill="#1f1c18"/>
-      <rect x="8" y="25" width="40" height="14" fill="#1f1c18"/>
-      <rect x="8" y="50" width="40" height="14" fill="#1f1c18"/>
-      <text x="50" y="74" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-weight="800" font-size="14" fill="#d4a534" text-anchor="end" letter-spacing="0.5">17</text>
-    </g>
-    <text x="80" y="48" font-family="Instrument Serif, Georgia, serif" font-size="28" fill="#e8e3d9" letter-spacing="-0.5">Essenfont</text>
-    <text x="80" y="68" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#a09a8e" letter-spacing="2">UNIVERSAL · UNICODE 17</text>
+  <g transform="translate(8, 16)">
+    <rect x="0" y="0" width="56" height="64" fill="#1a1815" rx="2"/>
+    <rect x="8" y="0" width="40" height="14" fill="#faf8f5"/>
+    <rect x="8" y="25" width="40" height="14" fill="#faf8f5"/>
+    <rect x="8" y="50" width="40" height="14" fill="#faf8f5"/>
+    <text x="50" y="74" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-weight="800" font-size="14" fill="#0d7377" text-anchor="end" letter-spacing="0.5">17</text>
   </g>
+  <text x="80" y="48" font-family="Fraunces, Georgia, serif" font-weight="500" font-size="28" fill="#1a1815" letter-spacing="-0.5">Essenfont</text>
+  <text x="80" y="68" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="10" fill="#8a8478" letter-spacing="2">UNIVERSAL · UNICODE 17</text>
 </svg>

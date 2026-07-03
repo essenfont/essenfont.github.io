@@ -1,0 +1,55 @@
+{
+  "family": "Nyiakeng Puachue Hmong (synthetic)",
+  "slug": "nyiakeng-puachue-hmong",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "Synthetic donor from ucode code-chart extracted SVGs. 27488 bytes. See scripts/build-svg-donor.rb.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Nyiakeng_Puachue_Hmong"
+  ],
+  "files": [
+    {
+      "label": "nyiakeng--puachue--hmong",
+      "file": "references/input-fonts/.generated/svg-donors/Nyiakeng_Puachue_Hmong.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "60becf7779097ca5c6131292be20dab6616552f3381879121b36ce485eb46ff6",
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Nyiakeng Puachue Hmong"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Nyiakeng Puachue Hmong",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Synthetic donor from ucode code-chart extracted SVGs. 27488 bytes. See scripts/build-svg-donor.rb.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "source_type": "code-chart",
+  "vendor": "Unicode Consortium",
+  "enabled": true,
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Nyiakeng Puachue Hmong"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

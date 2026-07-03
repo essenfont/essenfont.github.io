@@ -9,20 +9,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..600,30..100,0..1;1,9..144,300..600,30..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/fonts.css" />
     <title>Essenfont — Universal Unicode 17 Font</title>
     <script>
-      // No-flash theme bootstrap — dark-first (essenfont default)
+      // No-flash theme bootstrap — light-first (essenfont default)
       (function () {
         try {
           var k = 'essenfont-theme';
           var s = localStorage.getItem(k);
-          // Default: dark. Only go light if user explicitly chose it.
-          var t = s === 'light' ? 'light' : 'dark';
-          if (t === 'light') document.documentElement.classList.add('light');
+          var t = s === 'dark' ? 'dark' : 'light';
+          if (t === 'dark') document.documentElement.classList.add('dark');
         } catch (e) {}
       })();
     </script>

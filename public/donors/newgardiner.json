@@ -98,6 +98,9 @@
       "enabled": true
     }
   ],
+  "source_type": "font",
+  "vendor": "Mark Jan Nederhof",
+  "enabled": true,
   "license_category": "ofl_compatible",
   "license_restriction": null,
   "license_summary": null,

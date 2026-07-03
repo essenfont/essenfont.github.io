@@ -34,6 +34,29 @@ def donor_slug(label)
   label.to_s.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-|-$/, "")
 end
 
+# Detect if a donor is a real font (Tier 1) or extracted from Unicode
+# Code Charts (Tier 2). Code-chart donors are synthetic glyphs from
+# the Unicode PDF charts, not from a redistributable font file.
+def detect_source_type(family_name, files)
+  type = files.find { |f| f["type"] }&.dig("type")
+  return "code-chart" if type == "code_chart"
+  return "code-chart" if /chart/i.match?(family_name)
+  "font"
+end
+
+# Group donors by vendor for the index page. Noto is a huge family
+# (130+ sub-fonts) — collapse them into one "Noto (Google)" card.
+def detect_vendor(family_name, author)
+  name = family_name.to_s.downcase
+  return "Noto (Google)" if name.start_with?("noto")
+  return "SIL International" if author&.include?("SIL")
+  return "Microsoft" if author&.include?("Microsoft")
+  return "F.G. Wang" if /full.?sung/i.match?(name)
+  return "Unicode Consortium" if author&.include?("Unicode")
+  return "Google" if author&.include?("Google")
+  author&.split("(").first&.strip || family_name
+end
+
 # Common shortforms in the manifest's free-form notes. Sorted by length
 # descending when used so longer matches win over prefixes.
 SHORTFORMS = {
@@ -193,8 +216,6 @@ def group_by_family(donors)
     families[key] << d
   end
   families.map do |family, files|
-    # Pick the "primary" file — the one with the most covered blocks,
-    # or the first if all are equal. The detail page lists all files.
     primary = files.max_by { |f| (f["covers"] || []).size }
     {
       "family" => family,
@@ -207,9 +228,11 @@ def group_by_family(donors)
       "notes" => primary["notes"],
       "author_note" => primary["author_note"],
       "file_count" => files.size,
-      # Union of all blocks covered by any file in the family
       "covers" => files.flat_map { |f| f["covers"] || [] }.uniq,
       "files" => files.map { |f| f["label"] },
+      "source_type" => detect_source_type(family, files),
+      "vendor" => detect_vendor(family, primary["author"]),
+      "enabled" => files.all? { |f| f["enabled"].nil? ? true : f["enabled"] },
     }
   end
 end
@@ -303,14 +326,34 @@ def main
 
   FileUtils.mkdir_p(DONORS_DIR)
 
-  # Per-family detail files
+  # Clean stale files
+  Dir.glob("#{DONORS_DIR}/*.json").each { |f| File.delete(f) }
+
+  # Per-family detail files — skip non-donors (zero coverage + disabled)
+  active_families = []
   families.each do |family|
     detail = build_family_detail(family, manifest)
-    path = File.join(DONORS_DIR, "#{family[:slug] || donor_slug(family['family'])}.json")
-    File.write(path, JSON.pretty_generate(detail))
+
+    # A donor must actually contribute: at least one covered block
+    # from covers, parsed_coverage, or file-level all_coverage.
+    has_coverage = detail["covers_blocks"].any? ||
+                   (detail["parsed_coverage"] || []).any? ||
+                   detail["files"].any? { |f| (f["all_coverage"] || []).any? }
+    is_enabled = family["enabled"] != false
+
+    if has_coverage && is_enabled
+      detail["source_type"] = family["source_type"]
+      detail["vendor"] = family["vendor"]
+      path = File.join(DONORS_DIR, "#{family[:slug] || donor_slug(family['family'])}.json")
+      File.write(path, JSON.pretty_generate(detail))
+      active_families << family
+    else
+      warn "  skip non-donor: #{family['family']} (no coverage)" unless has_coverage
+      warn "  skip disabled: #{family['family']}" unless is_enabled
+    end
   end
 
-  # Index file
+  # Index file — only active (contributing) families
   index = {
     "essenfont_version" => manifest["essenfont_version"],
     "ucd_version" => manifest["ucd_version"],
@@ -319,8 +362,7 @@ def main
       "ofl_compatible" => manifest["ofl_compatible_licenses"] || [],
       "accepted_with_conditions" => (manifest["accepted_with_conditions"] || []).map { |a| a["id"] },
     },
-    "families" => families.map do |f|
-      # Re-load the per-family detail to get role + parsed_coverage
+    "families" => active_families.map do |f|
       detail_path = File.join(DONORS_DIR, "#{f[:slug] || donor_slug(f['family'])}.json")
       detail = File.exist?(detail_path) ? JSON.parse(File.read(detail_path)) : {}
       {
@@ -334,12 +376,14 @@ def main
         "role" => detail["role"] || "unknown",
         "planes" => detail["planes"] || [],
         "parsed_coverage_count" => (detail["parsed_coverage"] || []).size,
+        "source_type" => f["source_type"],
+        "vendor" => f["vendor"],
       }
     end,
   }
   File.write(DONORS_JSON, JSON.pretty_generate(index))
 
-  warn "Wrote #{families.size} donor families → public/donors/"
+  warn "Wrote #{active_families.size} donor families → public/donors/"
   warn "Wrote index → #{DONORS_JSON}"
 end
 

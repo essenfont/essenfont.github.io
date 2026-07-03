@@ -1,0 +1,55 @@
+{
+  "family": "Khitan Small Script (synthetic)",
+  "slug": "khitan-small-script",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "Synthetic donor from ucode code-chart extracted SVGs. 126680 bytes. See scripts/build-svg-donor.rb.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Khitan_Small_Script"
+  ],
+  "files": [
+    {
+      "label": "khitan--small--script",
+      "file": "references/input-fonts/.generated/svg-donors/Khitan_Small_Script.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "f662e532b19a258d94fd7bd814d7ca8847d29fa7f53ebe21f576daabdec9002c",
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Khitan Small Script"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Khitan Small Script",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Synthetic donor from ucode code-chart extracted SVGs. 126680 bytes. See scripts/build-svg-donor.rb.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "source_type": "code-chart",
+  "vendor": "Unicode Consortium",
+  "enabled": true,
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Khitan Small Script"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}
