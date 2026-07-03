@@ -16,6 +16,22 @@ const router = useRouter()
 const hex = computed(() => route.params.hex as string)
 const cp = computed(() => parseInt(hex.value, 16))
 
+// ── "Without essenfont" comparison toggle ──
+// Shows the glyph with the system font stack (rare scripts → tofu).
+const showSystemComparison = ref(false)
+
+// ── Copy-to-clipboard feedback ──
+const lastCopied = ref<string | null>(null)
+async function copyText(label: string, text: string) {
+  try {
+    await navigator.clipboard.writeText(text)
+    lastCopied.value = label
+    setTimeout(() => { if (lastCopied.value === label) lastCopied.value = null }, 1200)
+  } catch {
+    // SSR or insecure context — silent fail
+  }
+}
+
 const allBlocks = ref<UnicodeBlock[]>([])
 const charData = ref<any>(null)
 const allCharsInBlock = ref<any[]>([])
@@ -53,6 +69,11 @@ const utf16 = computed(() => {
 })
 
 const urlEncoded = computed(() => encodeURIComponent(String.fromCodePoint(cp.value)))
+
+// Python escape — kept in a computed because backticks in template attributes confuse Vue's parser.
+const pythonEscape = computed(() => `"\\u${hex.value}"`)
+const jsEscape = computed(() => `\\u${hex.value}`)
+const cssEscape = computed(() => `\\${hex.value}`)
 
 function navigateToCp(targetCp: number) {
   router.push(charRoute(targetCp))
@@ -118,13 +139,25 @@ useHead(() => ({
     </div>
 
     <div class="ucp-glyph-area">
+      <button
+        class="ucp-compare-toggle"
+        :class="{ active: showSystemComparison }"
+        @click="showSystemComparison = !showSystemComparison"
+        :title="showSystemComparison ? 'Showing system font (may tofu)' : 'Showing essenfont rendering'"
+      >
+        <span class="ucp-compare-dot"></span>
+        {{ showSystemComparison ? 'system font' : 'essenfont' }}
+      </button>
       <div class="ucp-glyph-stage" v-if="!isControl">
         <div class="ucp-guides">
           <span class="ucp-guide ucp-guide--cap" title="Cap height"></span>
           <span class="ucp-guide ucp-guide--xheight" title="x-height"></span>
           <span class="ucp-guide ucp-guide--baseline" title="Baseline"></span>
         </div>
-        <span class="ucp-glyph">{{ displayChar(cp, charData.category) }}</span>
+        <span
+          class="ucp-glyph"
+          :class="{ 'ucp-glyph-system': showSystemComparison }"
+        >{{ displayChar(cp, charData.category) }}</span>
       </div>
       <span v-else class="ucp-control-box">{{ abbrev }}</span>
     </div>
@@ -164,15 +197,47 @@ useHead(() => ({
         <h2>Encodings</h2>
         <dl>
           <dt>HTML Decimal</dt>
-          <dd><code>&amp;#{{ cp }};</code></dd>
+          <dd>
+            <code>&amp;#{{ cp }};</code>
+            <button class="ucp-copy" @click="copyText('html-dec', `&#${cp};`)">
+              {{ lastCopied === 'html-dec' ? '✓' : 'copy' }}
+            </button>
+          </dd>
           <dt>HTML Hex</dt>
-          <dd><code>&amp;#x{{ hex }};</code></dd>
+          <dd>
+            <code>&amp;#x{{ hex }};</code>
+            <button class="ucp-copy" @click="copyText('html-hex', `&#x${hex};`)">
+              {{ lastCopied === 'html-hex' ? '✓' : 'copy' }}
+            </button>
+          </dd>
           <dt>CSS Escape</dt>
-          <dd><code>\{{ hex }}</code></dd>
+          <dd>
+            <code>\{{ hex }}</code>
+            <button class="ucp-copy" @click="copyText('css', cssEscape)">
+              {{ lastCopied === 'css' ? '✓' : 'copy' }}
+            </button>
+          </dd>
           <dt>JavaScript</dt>
-          <dd><code>\\u{{ hex }}</code></dd>
+          <dd>
+            <code>\\u{{ hex }}</code>
+            <button class="ucp-copy" @click="copyText('js', jsEscape)">
+              {{ lastCopied === 'js' ? '✓' : 'copy' }}
+            </button>
+          </dd>
+          <dt>Python</dt>
+          <dd>
+            <code>{{ pythonEscape }}</code>
+            <button class="ucp-copy" @click="copyText('py', pythonEscape)">
+              {{ lastCopied === 'py' ? '✓' : 'copy' }}
+            </button>
+          </dd>
           <dt>URL Encoded</dt>
-          <dd><code>{{ urlEncoded }}</code></dd>
+          <dd>
+            <code>{{ urlEncoded }}</code>
+            <button class="ucp-copy" @click="copyText('url', urlEncoded)">
+              {{ lastCopied === 'url' ? '✓' : 'copy' }}
+            </button>
+          </dd>
           <dt>UTF-8</dt>
           <dd><code>{{ utf8 }}</code></dd>
           <dt>UTF-16</dt>
@@ -180,6 +245,37 @@ useHead(() => ({
           <dt>UTF-32</dt>
           <dd><code>0x{{ cp.toString(16).toUpperCase().padStart(8, '0') }}</code></dd>
         </dl>
+      </section>
+
+      <section class="ucp-section ucp-provenance">
+        <h2>Provenance</h2>
+        <dl>
+          <dt>Sourced from</dt>
+          <dd>
+            <RouterLink to="/donors" class="ucp-donor-link">
+              Donor font for {{ blockDisplayName(block.name) }} →
+            </RouterLink>
+          </dd>
+          <dt>SVG outline</dt>
+          <dd>
+            <a
+              :href="`https://github.com/essenfont/essenfont/releases/latest/download/svg/U+${hex.toUpperCase()}.svg`"
+              class="ucp-svg-link"
+            >Download .svg <span class="ucp-link-arrow">↗</span></a>
+          </dd>
+          <dt>Share</dt>
+          <dd>
+            <button class="ucp-copy" @click="copyText('url', `https://essenfont.github.io/unicode/char/${hex}`)">
+              {{ lastCopied === 'url' ? '✓ copied' : 'copy link' }}
+            </button>
+          </dd>
+        </dl>
+        <p class="ucp-provenance-note">
+          Every glyph in essenfont is vector-extracted from a canonical
+          OFL-licensed donor font. The donor attribution per block lives
+          in <RouterLink to="/donors">/donors</RouterLink>; per-codepoint
+          donor mapping is coming in a future release.
+        </p>
       </section>
 
       <section class="ucp-section" v-if="charData.simpleUppercase || charData.simpleLowercase || charData.simpleTitlecase">
@@ -301,6 +397,7 @@ useHead(() => ({
   background: var(--vp-c-bg-soft);
   border-radius: 12px;
   margin-bottom: 1.5rem;
+  position: relative;
 }
 .ucp-glyph-stage {
   position: relative;
@@ -381,9 +478,87 @@ useHead(() => ({
   color: var(--spec-mute);
   white-space: nowrap;
 }
-.ucp-section dd { margin: 0; font-size: 0.85rem; color: var(--spec-ink); }
+.ucp-section dd { margin: 0; font-size: 0.85rem; color: var(--spec-ink); display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
 .ucp-section dd a { color: var(--spec-rose); text-decoration: none; }
 .ucp-section dd a:hover { text-decoration: underline; }
+
+/* ── Copy buttons + provenance + comparison toggle ── */
+.ucp-copy {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--spec-rule);
+  border-radius: 2px;
+  color: var(--spec-ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ucp-copy:hover { border-color: var(--spec-rose); color: var(--spec-rose); }
+
+.ucp-provenance-note {
+  grid-column: 1 / -1;
+  font-family: var(--spec-font-display);
+  font-size: 0.82rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--spec-ink-soft);
+  margin: 1rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--spec-rule);
+}
+.ucp-provenance-note a { color: var(--spec-rose); text-decoration: none; }
+.ucp-provenance-note a:hover { text-decoration: underline; }
+
+.ucp-donor-link, .ucp-svg-link {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--spec-rose) !important;
+  text-decoration: none;
+}
+.ucp-donor-link:hover, .ucp-svg-link:hover { text-decoration: underline; }
+.ucp-link-arrow { opacity: 0.6; margin-left: 0.2em; }
+
+.ucp-glyph-system {
+  font-family: -apple-system, system-ui, sans-serif !important;
+}
+
+.ucp-compare-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--spec-rule);
+  border-radius: 999px;
+  color: var(--spec-ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+  z-index: 2;
+}
+.ucp-compare-toggle:hover { border-color: var(--spec-rose); color: var(--spec-rose); }
+.ucp-compare-toggle.active {
+  background: var(--spec-ink);
+  color: var(--vp-c-bg);
+  border-color: var(--spec-ink);
+}
+.ucp-compare-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
 .ucp-section dd code {
   font-family: var(--spec-font-mono);
   font-size: 0.75rem;

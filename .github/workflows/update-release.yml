@@ -1,0 +1,134 @@
+name: Update release data
+
+# Polls essenfont/essenfont for new releases, downloads the latest
+# OTC + per-plane TTFs, regenerates coverage data, and commits to
+# main. The existing deploy.yml then rebuilds the site.
+#
+# Triggers:
+#   - schedule: every 6 hours (catch up if dispatch missed)
+#   - workflow_dispatch: manual
+#   - repository_dispatch: fired by essenfont release.yml (event_type
+#     must match ESSENFONT_RELEASE_EVENT below)
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [essenfont-release]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-release
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    if: github.repository == 'essenfont/essenfont.github.io'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest release manifest
+        id: latest
+        run: |
+          set -euo pipefail
+          LATEST=$(curl -fsSL https://api.github.com/repos/essenfont/essenfont/releases/latest)
+          TAG=$(echo "$LATEST" | jq -r .tag_name)
+          PUBLISHED=$(echo "$LATEST" | jq -r .published_at)
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "published=$PUBLISHED" >> "$GITHUB_OUTPUT"
+          echo "$LATEST" > /tmp/release.json
+
+          # Detect change vs last-seen tag
+          if [ -f .release-cache/tag ]; then
+            PREV=$(cat .release-cache/tag)
+            if [ "$TAG" = "$PREV" ]; then
+              echo "No change ($TAG == $PREV). Skipping."
+              echo "changed=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if no change
+        if: steps.latest.outputs.changed != 'true'
+        run: echo "Nothing to do."
+
+      - name: Set up Ruby
+        if: steps.latest.outputs.changed == 'true'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Install fontisan
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          gem install fontisan --pre || gem install fontisan
+
+      - name: Download release assets
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          TAG="${{ steps.latest.outputs.tag }}"
+          mkdir -p "public/releases/${TAG}"
+          cd "public/releases/${TAG}"
+
+          for asset in Essenfont-Regular.otc \
+                       Essenfont-BMP.ttf Essenfont-SMP.ttf Essenfont-SIP.ttf \
+                       Essenfont-TIP.ttf Essenfont-SSP.ttf \
+                       Essenfont-BMP.woff2 Essenfont-SMP.woff2 Essenfont-SIP.woff2 \
+                       Essenfont-TIP.woff2 Essenfont-SSP.woff2 \
+                       coverage.json; do
+            url="https://github.com/essenfont/essenfont/releases/download/${TAG}/${asset}"
+            echo "  fetching $asset"
+            curl -fsSL -o "$asset" "$url" || echo "    skip (not found)"
+          done
+
+      - name: Symlink latest release
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          cd public/releases
+          rm -f latest
+          ln -s "${{ steps.latest.outputs.tag }}" latest
+
+      - name: Regenerate coverage data
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          TAG="${{ steps.latest.outputs.tag }}"
+          ESSENFONT_TTF="public/releases/${TAG}/Essenfont-BMP.ttf" \
+            ruby scripts/gen-coverage-detail.rb || true
+
+      - name: Regenerate planes + donors data
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          node scripts/gen-planes-data.mjs || true
+          ruby scripts/gen-donors-data.rb || true
+
+      - name: Build releases.json (version history)
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          curl -fsSL https://api.github.com/repos/essenfont/essenfont/releases \
+            | jq '[.[] | {tag: .tag_name, name: (.name // .tag_name),
+                          date: .published_at[:10],
+                          url: .html_url,
+                          otc_url: (.assets[] | select(.name == "Essenfont-Regular.otc") | .browser_download_url),
+                          coverage_url: (.assets[] | select(.name == "coverage.json") | .browser_download_url)}]' \
+            > public/releases.json
+
+      - name: Persist cache
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          mkdir -p .release-cache
+          echo "${{ steps.latest.outputs.tag }}" > .release-cache/tag
+
+      - name: Commit changes
+        if: steps.latest.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/releases/ public/releases.json public/coverage.json public/coverage/ public/planes.json public/donors.json public/donors/ .release-cache
+          git commit -m "chore: update to ${{ steps.latest.outputs.tag }}" || echo "no changes"
+          git push

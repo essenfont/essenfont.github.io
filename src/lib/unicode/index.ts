@@ -21,12 +21,13 @@ export {
   cEscape,
   UNIHAN_CATEGORIES,
 } from './constants'
-export type { UnihanRenderMode, UnihanCategorySpec } from './constants'
+export type { PlaneMeta, UnihanRenderMode, UnihanCategorySpec } from './constants'
 export {
   loadAllBlocks,
   loadBlock,
   loadBlockCharacters,
   loadUnicodeVersion,
+  loadPlanes,
   getPlanes,
   getBlocksByPlane,
   getBlocksByScriptGroup,

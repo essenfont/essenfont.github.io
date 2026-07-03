@@ -1,4 +1,4 @@
-import type { UnicodeBlock, UnicodeCharacter, PlaneKey, UnicodePlane, CodepointUnihan } from '../types'
+import type { UnicodeBlock, UnicodeCharacter, PlaneKey, UnicodePlane, CodepointUnihan, PlaneInfo } from '../types'
 import { PLANES, planeForCodepoint, blockDisplayName, scriptGroup, hexCp, safeChar, blockSlug } from '../constants'
 import { fetchJson, fetchBuildData } from '../../ssr-fetch'
 
@@ -153,4 +153,12 @@ export async function loadUnihanForCodepoint(blockSlug: string, cp: number): Pro
   const block = await loadUnihanBlock(blockSlug)
   if (!block) return null
   return block.entries[String(cp)] ?? null
+}
+
+// ── Plane info (from public/planes.json) ──
+// The single source of truth for plane metadata across the entire site.
+// SubfontsPage, DownloadPage, and CoverageMap all load from this.
+export async function loadPlanes(): Promise<PlaneInfo[]> {
+  const data = await fetchJson<{ planes: PlaneInfo[] }>('planes.json')
+  return data.planes
 }

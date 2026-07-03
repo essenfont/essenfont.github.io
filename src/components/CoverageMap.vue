@@ -12,6 +12,7 @@
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { fetchBuildData } from '../lib/ssr-fetch'
+import { PLANES } from '../lib/unicode'
 
 interface BlockCoverage {
   id: string
@@ -112,6 +113,7 @@ function effectiveStatus(b: BlockCoverage): string {
 }
 
 function color(b: BlockCoverage): string {
+  if (colorMode.value === 'plane') return PLANE_COLORS[blockPlane(b)] ?? '#888'
   return STATUS_COLORS[effectiveStatus(b)] ?? '#888'
 }
 
@@ -121,15 +123,18 @@ function statusClass(s: string): string {
 
 // ── Plane geometry ──
 const PLANE_ORDER = [0, 1, 2, 3, 14, 15, 16]
-const PLANE_LABELS: Record<number, { short: string; full: string; roman: string }> = {
-  0:  { short: 'BMP',    full: 'Basic Multilingual',     roman: 'I' },
-  1:  { short: 'SMP',    full: 'Supplementary Multilingual', roman: 'II' },
-  2:  { short: 'SIP',    full: 'Supplementary Ideographic', roman: 'III' },
-  3:  { short: 'TIP',    full: 'Tertiary Ideographic',   roman: 'IV' },
-  14: { short: 'SSP',    full: 'Special-purpose',        roman: 'XIV' },
-  15: { short: 'PUA-A',  full: 'Private Use Area-A',     roman: 'XV' },
-  16: { short: 'PUA-B',  full: 'Private Use Area-B',     roman: 'XVI' },
-}
+
+// Derive PLANE_LABELS and PLANE_COLORS from the unified PLANES constant
+// (src/lib/unicode/constants.ts). Single source of truth — no duplication.
+const PLANE_LABELS: Record<number, { short: string; full: string; roman: string }> =
+  Object.fromEntries(PLANES.map(p => [p.index, { short: p.shortName, full: p.name, roman: p.roman }]))
+
+const PLANE_COLORS: Record<number, string> =
+  Object.fromEntries(PLANES.map(p => [p.index, p.color]))
+
+// Two color modes: "coverage" (default) colors by % covered,
+// "plane" colors by which subfont carries the block.
+const colorMode = ref<'coverage' | 'plane'>('coverage')
 
 function blockPlane(b: BlockCoverage): number {
   return b.first >> 16
@@ -244,16 +249,40 @@ const STATUS_FILTERS = ['COMPLETE', 'FULL', 'MOSTLY', 'PARTIAL', 'EMPTY', 'RESER
 
     <!-- Legend -->
     <div class="cm-legend">
-      <button
-        v-for="s in STATUS_FILTERS"
-        :key="s"
-        :class="['legend-chip', statusClass(s), { active: statusFilter === s }]"
-        :style="{ '--chip-color': STATUS_COLORS[s] }"
-        @click="statusFilter = statusFilter === s ? null : s"
-      >
-        <span class="legend-swatch"></span>
-        <span class="legend-label">{{ STATUS_LABEL[s] }}</span>
-      </button>
+      <div class="cm-color-mode">
+        <span class="cm-mode-label">color by</span>
+        <button
+          :class="['mode-toggle', { active: colorMode === 'coverage' }]"
+          @click="colorMode = 'coverage'"
+        >coverage</button>
+        <button
+          :class="['mode-toggle', { active: colorMode === 'plane' }]"
+          @click="colorMode = 'plane'"
+        >subfont</button>
+      </div>
+      <template v-if="colorMode === 'coverage'">
+        <button
+          v-for="s in STATUS_FILTERS"
+          :key="s"
+          :class="['legend-chip', statusClass(s), { active: statusFilter === s }]"
+          :style="{ '--chip-color': STATUS_COLORS[s] }"
+          @click="statusFilter = statusFilter === s ? null : s"
+        >
+          <span class="legend-swatch"></span>
+          <span class="legend-label">{{ STATUS_LABEL[s] }}</span>
+        </button>
+      </template>
+      <template v-else>
+        <span
+          v-for="p in [0, 1, 2, 3, 14]"
+          :key="p"
+          class="legend-chip plane-legend"
+          :style="{ '--chip-color': PLANE_COLORS[p] }"
+        >
+          <span class="legend-swatch"></span>
+          <span class="legend-label">{{ PLANE_LABELS[p].short }} subfont</span>
+        </span>
+      </template>
     </div>
 
     <!-- Plane filter -->
@@ -435,6 +464,41 @@ const STATUS_FILTERS = ['COMPLETE', 'FULL', 'MOSTLY', 'PARTIAL', 'EMPTY', 'RESER
   flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 0.75rem;
+  align-items: center;
+}
+.cm-color-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-right: 0.8rem;
+  padding-right: 0.8rem;
+  border-right: 1px solid var(--spec-rule);
+}
+.cm-mode-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--spec-ink-soft);
+  opacity: 0.7;
+}
+.mode-toggle {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.55rem;
+  background: transparent;
+  border: 1px solid var(--spec-rule);
+  border-radius: 2px;
+  color: var(--spec-ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.mode-toggle:hover { border-color: var(--spec-rose); color: var(--spec-rose); }
+.mode-toggle.active {
+  background: var(--spec-ink);
+  color: var(--vp-c-bg);
+  border-color: var(--spec-ink);
 }
 .legend-chip {
   display: inline-flex;
@@ -450,6 +514,8 @@ const STATUS_FILTERS = ['COMPLETE', 'FULL', 'MOSTLY', 'PARTIAL', 'EMPTY', 'RESER
   color: var(--spec-ink-soft);
   transition: border-color 0.15s, background 0.15s;
 }
+.plane-legend { cursor: default; }
+.plane-legend:hover { border-color: var(--spec-rule); }
 .legend-chip:hover {
   border-color: var(--chip-color, var(--spec-rose));
 }

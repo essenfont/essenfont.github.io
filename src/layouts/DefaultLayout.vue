@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import SiteSearch from '../components/SiteSearch.vue'
 
 const theme = ref<'light' | 'dark'>('light')
 
@@ -35,9 +36,13 @@ onMounted(() => {
         </RouterLink>
         <div class="nav-links">
           <RouterLink to="/unicode" class="nav-link">Browse</RouterLink>
+          <RouterLink to="/subfonts" class="nav-link">Subfonts</RouterLink>
           <RouterLink to="/donors" class="nav-link">Donors</RouterLink>
+          <RouterLink to="/changelog" class="nav-link">Changelog</RouterLink>
+          <RouterLink to="/docs/install" class="nav-link">Docs</RouterLink>
           <RouterLink to="/download" class="nav-link">Download</RouterLink>
           <RouterLink to="/about" class="nav-link">About</RouterLink>
+          <SiteSearch />
           <a
             href="https://github.com/essenfont/essenfont"
             class="nav-link"
