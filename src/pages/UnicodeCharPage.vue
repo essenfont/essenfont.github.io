@@ -8,6 +8,7 @@ import {
   isControlChar, controlAbbrev, controlName, cEscape,
   displayChar, combiningClassName, scriptDisplayName, UNIHAN_CATEGORIES,
 } from '../lib/unicode'
+import * as E from '../lib/unicode/escapes'
 import type { UnicodeBlock, CodepointUnihan } from '../lib/unicode'
 import UnihanCategorySection from '../lib/unicode/components/UnihanCategorySection.vue'
 
@@ -32,6 +33,15 @@ async function copyText(label: string, text: string) {
   }
 }
 
+// ── Escapes (computed wrappers around lib/unicode/escapes) ──
+const utf8 = computed(() => E.utf8(cp.value))
+const utf16 = computed(() => E.utf16(cp.value))
+const utf32 = computed(() => E.utf32(cp.value))
+const urlEncoded = computed(() => E.urlEncoded(cp.value))
+const pythonEscape = computed(() => E.pythonEscape(cp.value))
+const jsEscape = computed(() => E.jsEscape(cp.value))
+const cssEscape = computed(() => E.cssEscape(cp.value))
+
 const allBlocks = ref<UnicodeBlock[]>([])
 const charData = ref<any>(null)
 const allCharsInBlock = ref<any[]>([])
@@ -54,26 +64,8 @@ const charIndex = computed(() => allCharsInBlock.value.findIndex((c: any) => c.c
 const prevCp = computed(() => charIndex.value > 0 ? allCharsInBlock.value[charIndex.value - 1] : null)
 const nextCp = computed(() => charIndex.value >= 0 && charIndex.value < allCharsInBlock.value.length - 1 ? allCharsInBlock.value[charIndex.value + 1] : null)
 
-const utf8 = computed(() => {
-  const buf = new TextEncoder().encode(String.fromCodePoint(cp.value))
-  return Array.from(buf).map(b => '0x' + b.toString(16).toUpperCase().padStart(2, '0')).join(' ')
-})
-
-const utf16 = computed(() => {
-  const cpVal = cp.value
-  if (cpVal <= 0xFFFF) return '0x' + cpVal.toString(16).toUpperCase().padStart(4, '0')
-  const offset = cpVal - 0x10000
-  const hi = 0xD800 + (offset >> 10)
-  const lo = 0xDC00 + (offset & 0x3FF)
-  return '0x' + hi.toString(16).toUpperCase().padStart(4, '0') + ' 0x' + lo.toString(16).toUpperCase().padStart(4, '0')
-})
-
-const urlEncoded = computed(() => encodeURIComponent(String.fromCodePoint(cp.value)))
-
-// Python escape — kept in a computed because backticks in template attributes confuse Vue's parser.
-const pythonEscape = computed(() => `"\\u${hex.value}"`)
-const jsEscape = computed(() => `\\u${hex.value}`)
-const cssEscape = computed(() => `\\${hex.value}`)
+// Encoding escapes (utf8/utf16/urlEncoded/python/js/css) are now imported
+// from lib/unicode/escapes — see top of file.
 
 function navigateToCp(targetCp: number) {
   router.push(charRoute(targetCp))

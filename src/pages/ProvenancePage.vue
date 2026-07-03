@@ -34,17 +34,9 @@ type ProvenanceData = {
 const data = ref<ProvenanceData | null>(null)
 const filterDonor = ref<string>('')
 
-try {
-  if (import.meta.env.SSR) {
-    const { fetchBuildData } = await import('../lib/ssr-fetch')
-    data.value = await fetchBuildData<ProvenanceData>('provenance.json')
-  } else {
-    const res = await fetch(`${import.meta.env.BASE_URL}provenance.json`)
-    data.value = await res.json()
-  }
-} catch {
-  data.value = null
-}
+// useBuildJson handles the SSR-vs-client fetch centrally.
+const { useBuildJson } = await import('../composables/useBuildJson')
+data.value = (await useBuildJson<ProvenanceData>('provenance.json')).value
 
 const blocks = computed(() => {
   if (!data.value) return []

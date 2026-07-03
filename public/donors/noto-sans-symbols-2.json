@@ -86,5 +86,6 @@
   "role": "primary",
   "relationship": null,
   "planes": [],
-  "parsed_coverage": []
+  "parsed_coverage": [],
+  "code_chart_urls": []
 }

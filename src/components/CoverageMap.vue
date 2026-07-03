@@ -11,7 +11,6 @@
 
 import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { fetchBuildData } from '../lib/ssr-fetch'
 import { PLANES } from '../lib/unicode'
 
 interface BlockCoverage {
@@ -44,18 +43,10 @@ const mouseY = ref(0)
 const planeFilter = ref<number | null>(null)
 const statusFilter = ref<string | null>(null)
 
-// Load coverage data. During SSG, read from filesystem (fetchBuildData);
-// during client navigation, fetch from public/ (fetch).
-try {
-  if (import.meta.env.SSR) {
-    data.value = await fetchBuildData<CoverageData>('coverage.json')
-  } else {
-    const res = await fetch(`${import.meta.env.BASE_URL}coverage.json`)
-    data.value = await res.json()
-  }
-} catch (e) {
-  console.error('Failed to load coverage.json', e)
-}
+// Load coverage data via the shared useBuildJson composable.
+const { useBuildJson } = await import('../composables/useBuildJson')
+data.value = (await useBuildJson<CoverageData>('coverage.json')).value
+if (!data.value) console.error('Failed to load coverage.json')
 
 // ── Reserved-block detection ──
 // PUA + Specials + Surrogates are "empty by Unicode design". Essenfont

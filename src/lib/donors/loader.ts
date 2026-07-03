@@ -58,6 +58,13 @@ export interface DonorFamilyDetail {
   covers: string[]
   covers_blocks: string[]
   files: DonorFile[]
+  role: string
+  relationship?: { kind: string; primary: string }
+  planes: string[]
+  parsed_coverage: any[]
+  source_type?: string
+  vendor?: string
+  code_chart_urls?: { block: string; url: string; index_url: string }[]
 }
 
 let _indexCache: DonorsIndex | null = null

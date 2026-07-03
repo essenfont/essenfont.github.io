@@ -118,6 +118,39 @@ function relationshipLabel(rel: { kind: string; primary: string } | undefined): 
         </p>
       </header>
 
+      <!-- Code chart source banner (Tier 2 donors only) -->
+      <div class="dd-codechart" v-if="donor.source_type === 'code-chart'">
+        <div class="dd-cc-head">
+          <span class="dd-cc-badge">Code Chart Symbol</span>
+          <span class="dd-cc-tag">Tier 2 — not a font file</span>
+        </div>
+        <p class="dd-cc-desc">{{ donor.notes }}</p>
+        <div class="dd-cc-links" v-if="donor.code_chart_urls?.length">
+          <a
+            v-for="cc in donor.code_chart_urls"
+            :key="cc.block"
+            :href="cc.url"
+            target="_blank"
+            rel="noopener"
+            class="dd-cc-link"
+          >
+            <span class="dd-cc-link-label">Unicode Code Chart PDF</span>
+            <span class="dd-cc-link-block">{{ cc.block }}</span>
+            <span class="dd-cc-link-arrow">↗</span>
+          </a>
+          <a
+            v-if="donor.code_chart_urls?.[0]?.index_url"
+            :href="donor.code_chart_urls[0].index_url"
+            target="_blank"
+            rel="noopener"
+            class="dd-cc-link dd-cc-link-secondary"
+          >
+            <span class="dd-cc-link-label">Unicode Block Index</span>
+            <span class="dd-cc-link-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+
       <!-- Coverage — the editorial specimen tray -->
       <section class="dd-section dd-coverage" v-if="coverageRows.length">
         <div class="dd-section-head">
@@ -703,5 +736,87 @@ function relationshipLabel(rel: { kind: string; primary: string } | undefined): 
   }
   .coverage-pct { display: none; }
   .accession-inner { flex-wrap: wrap; }
+}
+
+/* ── Code chart source banner ── */
+.dd-codechart {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--ef-accent-soft, rgba(13, 115, 119, 0.04));
+  border: 1px solid var(--ef-rule);
+  border-left: 3px solid var(--ef-accent);
+  border-radius: 8px;
+}
+.dd-cc-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+.dd-cc-badge {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-accent);
+  padding: 0.2rem 0.5rem;
+  background: var(--ef-accent-muted);
+  border-radius: 3px;
+}
+.dd-cc-tag {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  color: var(--ef-text-3);
+}
+.dd-cc-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ef-text-2);
+  margin: 0 0 0.75rem;
+}
+.dd-cc-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.dd-cc-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--ef-raised);
+  border: 1px solid var(--ef-rule);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dd-cc-link:hover {
+  border-color: var(--ef-accent);
+  text-decoration: none;
+}
+.dd-cc-link-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ef-text-3);
+}
+.dd-cc-link-block {
+  font-family: var(--spec-font-display);
+  font-size: 0.92rem;
+  color: var(--ef-text);
+  flex: 1;
+}
+.dd-cc-link-arrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-accent);
+}
+.dd-cc-link-secondary {
+  background: transparent;
+  border-style: dashed;
 }
 </style>
