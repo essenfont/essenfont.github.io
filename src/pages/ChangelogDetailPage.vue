@@ -24,15 +24,9 @@ const release = ref<Release | null>(null)
 
 async function load() {
   try {
-    if (import.meta.env.SSR) {
-      const { fetchBuildData } = await import('../lib/ssr-fetch')
-      const all = (await fetchBuildData<Release[]>('releases-full.json')) ?? []
-      release.value = all.find((r) => r.tag === tag.value) ?? null
-    } else {
-      const res = await fetch(`${import.meta.env.BASE_URL}releases-full.json`)
-      const all: Release[] = await res.json()
-      release.value = all.find((r) => r.tag === tag.value) ?? null
-    }
+    const { useBuildJson } = await import('../composables/useBuildJson')
+    const all = (await useBuildJson<Release[]>('releases-full.json')).value ?? []
+    release.value = all.find((r) => r.tag === tag.value) ?? null
   } catch {
     release.value = null
   }

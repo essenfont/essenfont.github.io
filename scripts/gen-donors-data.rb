@@ -304,6 +304,31 @@ def build_family_detail(family_entry, manifest)
   # Plane distribution across all covered blocks
   planes = file_details.flat_map { |f| f["parsed_coverage"] }.map { |c| c[:plane] }.uniq
 
+  # For code-chart donors: construct the Unicode Code Chart URL and
+  # clean up the notes (remove build-script references).
+  source_type = family_entry["source_type"]
+  code_chart_urls = []
+  clean_notes = family_entry["notes"]
+
+  if source_type == "code-chart"
+    # Construct chart URL from the first covered block
+    block_index = BlockIndex.new(JSON.parse(File.read(BLOCKS_JSON)))
+    family_entry["covers"].each do |block_id|
+      block_name = block_id_to_name(block_id)
+      block = block_index.lookup(block_name)
+      next unless block
+      hex = block["start"].to_s(16).upcase.rjust(4, "0")
+      code_chart_urls << {
+        block: block_name,
+        url: "https://www.unicode.org/charts/PDF/U#{hex}.html",
+        index_url: "https://www.unicode.org/charts/blockindex.htm##{block_name.gsub(/\s+/, "")}",
+      }
+    end
+    # For code-chart donors, the notes are build logs — replace entirely
+    # with a clean, user-facing description.
+    clean_notes = "Glyphs extracted from the official Unicode Code Chart PDF for this block. Not a redistributable font file — synthesized as vector outlines from the Unicode reference chart so essenfont can cover blocks where no OFL-licensed donor font exists."
+  end
+
   {
     **family_entry,
     "license_category" => license_category,
@@ -316,6 +341,8 @@ def build_family_detail(family_entry, manifest)
     "relationship" => family_relationship,
     "planes" => planes,
     "parsed_coverage" => file_details.flat_map { |f| f["parsed_coverage"] }.uniq { |c| c[:block] },
+    "notes" => clean_notes,
+    "code_chart_urls" => code_chart_urls,
   }
 end
 

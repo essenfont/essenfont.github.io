@@ -23,18 +23,9 @@ type Release = {
 const releases = ref<Release[]>([])
 const loadError = ref<string | null>(null)
 
-try {
-  if (import.meta.env.SSR) {
-    const { fetchBuildData } = await import('../lib/ssr-fetch')
-    releases.value = (await fetchBuildData<Release[]>('releases.json')) ?? []
-  } else {
-    const res = await fetch(`${import.meta.env.BASE_URL}releases.json`)
-    releases.value = await res.json()
-  }
-} catch (e: any) {
-  loadError.value = e?.message ?? String(e)
-  releases.value = []
-}
+// useBuildJson handles the SSR-vs-client fetch centrally.
+const { useBuildJson } = await import('../composables/useBuildJson')
+releases.value = (await useBuildJson<Release[]>('releases.json')).value ?? []
 
 const hasReleases = computed(() => releases.value.length > 0)
 </script>
