@@ -3,12 +3,14 @@ import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import SiteSearch from '../components/SiteSearch.vue'
 
-const theme = ref<'light' | 'dark'>('light')
+// Dark-first: default is dark. The index.html bootstrap adds
+// .light to <html> if the user previously chose light.
+const theme = ref<'light' | 'dark'>('dark')
 
 function applyTheme(t: 'light' | 'dark') {
   theme.value = t
-  if (t === 'dark') document.documentElement.classList.add('dark')
-  else document.documentElement.classList.remove('dark')
+  if (t === 'light') document.documentElement.classList.add('light')
+  else document.documentElement.classList.remove('light')
   try { localStorage.setItem('essenfont-theme', t) } catch {}
 }
 
@@ -19,8 +21,8 @@ function toggleTheme() {
 onMounted(() => {
   try {
     const s = localStorage.getItem('essenfont-theme')
-    if (s === 'light' || s === 'dark') applyTheme(s)
-    else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark')
+    if (s === 'light') applyTheme('light')
+    else applyTheme('dark')
   } catch {}
 })
 </script>

@@ -1,97 +1,115 @@
 /* ===================================================================
    Essenfont — site-wide design system.
-   Inspired by fontist.org (paper, ink, rose accent) and metfont
-   (typographic grid, glyph display tokens).
+   Dark-first, amber-gold accent, modern type-foundry gallery aesthetic.
    =================================================================== */
 
-/* ── Brand palette ────────────────────────────────────────────── */
+/* ── Brand ── */
 :root {
-  --ef-rose: #bf4e6a;
-  --ef-rose-light: #d4718a;
-  --ef-dark: #1c1a18;
-  --ef-gray: #676565;
+  --ef-amber: #d4a534;
+  --ef-amber-light: #e0b542;
 
-  /* Light tokens (default) */
-  --spec-paper: #f1ece1;
-  --spec-paper-deep: #e7e0d1;
-  --spec-ink: #1c1a18;
-  --spec-ink-soft: #4a4744;
-  --spec-mute: #75716c;
-  --spec-rose: #b8475f;
-  --spec-rose-soft: #d4718a;
-  --spec-rule: rgba(28, 26, 24, 0.16);
-  --spec-rule-strong: rgba(28, 26, 24, 0.5);
-  --spec-term-bg: #1c1a18;
-  --spec-term-ink: #ecdfd0;
+  /* Dark-first (default) */
+  --ef-bg: #0e0d0c;
+  --ef-surface: #161412;
+  --ef-raised: #1f1c18;
+  --ef-text: #e8e3d9;
+  --ef-text-2: #a09a8e;
+  --ef-text-3: #6b6660;
+  --ef-accent: #d4a534;
+  --ef-accent-hover: #e0b542;
+  --ef-accent-muted: rgba(212, 165, 52, 0.12);
+  --ef-accent-soft: rgba(212, 165, 52, 0.06);
+  --ef-rule: rgba(232, 227, 217, 0.07);
+  --ef-rule-strong: rgba(232, 227, 217, 0.16);
+  --ef-radius: 10px;
+  --ef-radius-sm: 6px;
+  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+  --ef-shadow-glow: 0 0 24px rgba(212, 165, 52, 0.15);
 
-  /* VitePress-compat tokens — kept so component CSS still resolves */
-  --vp-c-brand-1: var(--spec-rose);
-  --vp-c-brand-2: #a3435a;
-  --vp-c-brand-3: var(--spec-ink);
-  --vp-c-brand-soft: rgba(184, 71, 95, 0.12);
-  --vp-c-text-1: var(--spec-ink);
-  --vp-c-text-2: var(--spec-ink-soft);
-  --vp-c-text-3: var(--spec-mute);
-  --vp-c-bg: var(--spec-paper);
-  --vp-c-bg-soft: var(--spec-paper-deep);
-  --vp-c-bg-alt: var(--spec-paper-deep);
-  --vp-c-divider: var(--spec-rule);
-  --vp-c-gutter: var(--spec-rule);
+  /* Legacy compatibility — remap vp-c-* to ef-* */
+  --spec-paper: var(--ef-bg);
+  --spec-paper-deep: var(--ef-surface);
+  --spec-ink: var(--ef-text);
+  --spec-ink-soft: var(--ef-text-2);
+  --spec-mute: var(--ef-text-3);
+  --spec-rose: var(--ef-accent);
+  --spec-rose-soft: var(--ef-accent-hover);
+  --spec-rule: var(--ef-rule);
+  --spec-rule-strong: var(--ef-rule-strong);
+  --spec-term-bg: var(--ef-raised);
+  --spec-term-ink: var(--ef-text);
+  --vp-c-brand-1: var(--ef-accent);
+  --vp-c-brand-2: var(--ef-amber);
+  --vp-c-brand-3: var(--ef-text);
+  --vp-c-brand-soft: var(--ef-accent-muted);
+  --vp-c-text-1: var(--ef-text);
+  --vp-c-text-2: var(--ef-text-2);
+  --vp-c-text-3: var(--ef-text-3);
+  --vp-c-bg: var(--ef-bg);
+  --vp-c-bg-soft: var(--ef-surface);
+  --vp-c-bg-alt: var(--ef-raised);
+  --vp-c-divider: var(--ef-rule);
+  --vp-c-gutter: var(--ef-rule);
 
-  /* Type */
-  --spec-font-display: "Spectral", Georgia, serif;
-  --spec-font-body: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  --spec-font-mono: "IBM Plex Mono", ui-monospace, "JetBrains Mono", "SF Mono", monospace;
+  /* Typography */
+  --spec-font-display: "Instrument Serif", Georgia, serif;
+  --spec-font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --spec-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --vp-font-family-base: var(--spec-font-body);
   --vp-font-family-mono: var(--spec-font-mono);
 
-  /* Glyph rendering uses essenfont ONLY — no system fallback.
-     This is deliberate: if essenfont doesn't have a codepoint, the
-     browser shows .notdef (tofu) instead of silently substituting
-     a system font. Without this, the site would claim coverage it
-     doesn't have — visitors would see system-rendered glyphs and
-     think essenfont produced them. Tofu is the honest answer. */
+  /* Glyph rendering — essenfont ONLY, no system fallback */
   --spec-font-glyph: "Essenfont";
 
-  --vp-nav-height: 60px;
+  --vp-nav-height: 64px;
 }
 
-html.dark {
-  --spec-paper: #161513;
-  --spec-paper-deep: #211f1c;
-  --spec-ink: #ecdfd0;
-  --spec-ink-soft: #b8ada0;
-  --spec-mute: #8a857f;
-  --spec-rose: #d4718a;
-  --spec-rose-soft: #e08a9e;
-  --spec-rule: rgba(236, 223, 208, 0.14);
-  --spec-rule-strong: rgba(236, 223, 208, 0.42);
-  --spec-term-bg: #0d0c0c;
-  --spec-term-ink: #ecdfd0;
+/* ── Light mode ── */
+html.light {
+  --ef-bg: #f7f5f1;
+  --ef-surface: #efece5;
+  --ef-raised: #ffffff;
+  --ef-text: #1a1815;
+  --ef-text-2: #4a4540;
+  --ef-text-3: #8a8478;
+  --ef-accent: #a67d1f;
+  --ef-accent-hover: #8e6a18;
+  --ef-accent-muted: rgba(166, 125, 31, 0.10);
+  --ef-accent-soft: rgba(166, 125, 31, 0.05);
+  --ef-rule: rgba(26, 24, 21, 0.08);
+  --ef-rule-strong: rgba(26, 24, 21, 0.18);
+  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10);
+  --ef-shadow-glow: 0 0 24px rgba(166, 125, 31, 0.10);
 
-  --vp-c-brand-1: var(--spec-rose);
-  --vp-c-brand-2: var(--ef-rose);
-  --vp-c-brand-3: var(--spec-ink);
-  --vp-c-brand-soft: rgba(212, 113, 138, 0.14);
-  --vp-c-text-1: var(--spec-ink);
-  --vp-c-text-2: var(--spec-ink-soft);
-  --vp-c-text-3: var(--spec-mute);
-  --vp-c-bg: var(--spec-paper);
-  --vp-c-bg-soft: var(--spec-paper-deep);
-  --vp-c-bg-alt: var(--spec-paper-deep);
-  --vp-c-divider: var(--spec-rule);
-  --vp-c-gutter: var(--spec-rule);
+  --spec-paper: var(--ef-bg);
+  --spec-paper-deep: var(--ef-surface);
+  --spec-ink: var(--ef-text);
+  --spec-ink-soft: var(--ef-text-2);
+  --spec-mute: var(--ef-text-3);
+  --spec-rose: var(--ef-accent);
+  --spec-rose-soft: var(--ef-accent-hover);
+  --spec-rule: var(--ef-rule);
+  --spec-rule-strong: var(--ef-rule-strong);
+  --vp-c-brand-1: var(--ef-accent);
+  --vp-c-brand-2: var(--ef-amber);
+  --vp-c-text-1: var(--ef-text);
+  --vp-c-text-2: var(--ef-text-2);
+  --vp-c-text-3: var(--ef-text-3);
+  --vp-c-bg: var(--ef-bg);
+  --vp-c-bg-soft: var(--ef-surface);
+  --vp-c-bg-alt: var(--ef-raised);
+  --vp-c-divider: var(--ef-rule);
 }
 
 /* ===================================================================
    Reset & base
    =================================================================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
@@ -99,70 +117,33 @@ html {
 }
 
 body {
-  background-color: var(--spec-paper);
+  background-color: var(--ef-bg);
   font-family: var(--spec-font-body);
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "ss01" 1;
-  color: var(--spec-ink);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  color: var(--ef-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/* ── Paper grain overlay (every page) ── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  pointer-events: none;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.95 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  mix-blend-mode: multiply;
-}
-html.dark body::before {
-  opacity: 0.07;
-  mix-blend-mode: screen;
-}
-
-/* ── Decorative registration crosshair (bottom-right corner) ── */
-body::after {
-  content: "";
-  position: fixed;
-  bottom: 12px;
-  right: 12px;
-  width: 14px;
-  height: 14px;
-  z-index: 201;
-  pointer-events: none;
-  opacity: 0.12;
-  background:
-    linear-gradient(var(--spec-ink), var(--spec-ink)) center / 1px 100% no-repeat,
-    linear-gradient(var(--spec-ink), var(--spec-ink)) center / 100% 1px no-repeat;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 a {
-  color: var(--spec-rose);
+  color: var(--ef-accent);
   text-decoration: none;
   transition: color 0.15s;
 }
 a:hover { text-decoration: underline; }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
+button { font-family: inherit; cursor: pointer; }
 
 ::selection {
-  background: var(--spec-rose);
-  color: #fff;
+  background: var(--ef-accent);
+  color: var(--ef-bg);
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--spec-rule-strong) transparent;
-}
+* { scrollbar-width: thin; scrollbar-color: var(--ef-rule-strong) transparent; }
 *::-webkit-scrollbar { width: 8px; height: 8px; }
-*::-webkit-scrollbar-thumb { background: var(--spec-rule-strong); border-radius: 4px; }
+*::-webkit-scrollbar-thumb { background: var(--ef-rule-strong); border-radius: 4px; }
 *::-webkit-scrollbar-track { background: transparent; }
 
 /* ===================================================================
@@ -177,42 +158,42 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.4rem;
   font-family: var(--spec-font-body);
   font-weight: 600;
-  font-size: 0.9rem;
-  background: var(--spec-rose);
-  color: #fff;
-  border: 1px solid var(--spec-rose);
-  border-radius: 6px;
+  font-size: 0.88rem;
+  background: var(--ef-accent);
+  color: var(--ef-bg);
+  border: none;
+  border-radius: var(--ef-radius-sm);
   text-decoration: none;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
 .btn-primary:hover {
-  background: #a3435a;
-  border-color: #a3435a;
+  background: var(--ef-accent-hover);
   text-decoration: none;
   transform: translateY(-1px);
+  box-shadow: var(--ef-shadow-glow);
 }
 
 .btn-ghost {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
+  padding: 0.7rem 1.4rem;
   font-family: var(--spec-font-body);
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   background: transparent;
-  color: var(--spec-ink);
-  border: 1px solid var(--spec-rule-strong);
-  border-radius: 6px;
+  color: var(--ef-text);
+  border: 1px solid var(--ef-rule-strong);
+  border-radius: var(--ef-radius-sm);
   text-decoration: none;
   transition: color 0.15s, border-color 0.15s, transform 0.1s;
 }
 .btn-ghost:hover {
-  color: var(--spec-rose);
-  border-color: var(--spec-rose);
+  color: var(--ef-accent);
+  border-color: var(--ef-accent);
   text-decoration: none;
   transform: translateY(-1px);
 }
@@ -220,51 +201,37 @@ button {
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.2rem 0.6rem;
+  padding: 0.2rem 0.55rem;
   font-family: var(--spec-font-mono);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: var(--vp-c-brand-soft);
-  color: var(--spec-rose);
-  border-radius: 3px;
-  border: 1px solid var(--spec-rule);
+  background: var(--ef-accent-muted);
+  color: var(--ef-accent);
+  border-radius: 4px;
+  border: 1px solid var(--ef-rule);
 }
 
 .label-text {
   font-family: var(--spec-font-mono);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--spec-mute);
+  color: var(--ef-text-3);
 }
 
-/* ── Press shadow — subtle letterpress card depth ── */
-.press-shadow {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.03),
-    0 2px 6px rgba(0, 0, 0, 0.04);
-}
-.press-shadow-lg {
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 4px 14px rgba(0, 0, 0, 0.06);
+.press-shadow { box-shadow: var(--ef-shadow-sm); }
+.press-shadow-lg { box-shadow: var(--ef-shadow-md); }
+
+.display, [class*="spec-font-display"] {
+  font-feature-settings: "kern" 1, "liga" 1;
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 
-/* ── Display typography — oldstyle figures + optical sizing ── */
-.display,
-[class*="spec-font-display"] {
-  font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "salt" 1;
-  font-optical-sizing: auto;
-}
-
-/* ── Mono — tabular figures by default for data tables ── */
-.mono,
-code,
-pre,
-[class*="spec-font-mono"] {
+.mono, code, pre, [class*="spec-font-mono"] {
   font-feature-settings: "tnum" 1, "zero" 1;
 }
 
@@ -277,24 +244,9 @@ pre,
   from { opacity: 0; }
   to { opacity: 1; }
 }
-@keyframes ef-glyph-reveal {
-  from { opacity: 0; transform: scale(0.85) rotate(-2deg); }
-  to { opacity: 1; transform: scale(1) rotate(0); }
-}
-@keyframes ef-underline-sweep {
-  from { background-size: 0% 1px; }
-  to { background-size: 100% 1px; }
-}
 
-.ef-animate-up {
-  animation: ef-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.ef-animate-in {
-  animation: ef-fade-in 0.5s ease-out both;
-}
-.ef-animate-glyph {
-  animation: ef-glyph-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
+.ef-animate-up { animation: ef-fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ef-animate-in { animation: ef-fade-in 0.5s ease-out both; }
 .ef-delay-1 { animation-delay: 0.08s; }
 .ef-delay-2 { animation-delay: 0.16s; }
 .ef-delay-3 { animation-delay: 0.24s; }
@@ -314,15 +266,12 @@ pre,
 
 .section-rule {
   border: 0;
-  border-top: 1px solid var(--spec-rule);
+  border-top: 1px solid var(--ef-rule);
   margin: 3rem 0;
 }
 
-.glyph-cell {
-  font-family: var(--spec-font-glyph);
-}
+.glyph-cell { font-family: var(--spec-font-glyph); }
 
-@media (prefers-color-scheme: dark) {
-  html:not(.light) { color-scheme: dark; }
+@media (prefers-color-scheme: light) {
+  html:not(.dark):not(.light) { color-scheme: dark; }
 }
-html:not(.dark) { color-scheme: light; }

@@ -238,7 +238,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0.15rem 0.45rem; border-radius: 999px; min-width: 38px; text-align: center;
 }
-.type-cp { background: rgba(184, 71, 95, 0.12); color: var(--spec-rose); }
+.type-cp { background: var(--ef-accent-muted); color: var(--ef-accent); }
 .type-blk { background: rgba(94, 124, 78, 0.12); color: #5e7c4e; }
 .type-don { background: rgba(125, 78, 166, 0.12); color: #7d4ea6; }
 .type-scr { background: rgba(193, 154, 62, 0.15); color: #c19a3e; }
