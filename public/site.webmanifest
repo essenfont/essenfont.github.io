@@ -4,8 +4,8 @@
   "description": "Universal Unicode 17 font — every assigned codepoint.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f1ece1",
-  "theme_color": "#bf4e6a",
+  "background_color": "#0e0d0c",
+  "theme_color": "#d4a534",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
