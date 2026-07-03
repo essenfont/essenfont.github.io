@@ -8,13 +8,13 @@
 # characters that essenfont doesn't cover (and would silently fall back
 # to the system font).
 #
-# Reads:  ESSENFONT_TTF (env or ../essenfont/Essenfont-Regular.ttf)
+# Reads:  ESSENFONT_TTF (env or sibling-repo Essenfont-Regular.ttf)
 #         public/unicode-blocks.json
 # Writes: public/coverage/<slug>.json   (one per non-empty block)
 #         public/coverage.json          (aggregate summary)
 #
-# Run via fontisan's bundler context:
-#   cd ../fontisan && bundle exec ruby ../essenfont.github.io/scripts/gen-coverage-detail.rb
+# Run from this repo's directory:
+#   bundle exec ruby scripts/gen-coverage-detail.rb
 
 require "fontisan"
 require "json"
@@ -27,9 +27,12 @@ BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 COVERAGE_DIR = File.join(PUBLIC, "coverage")
 COVERAGE_JSON = File.join(PUBLIC, "coverage.json")
 
+# Default: search the sibling essenfont repo for any Essenfont-Regular.ttf*,
+# preferring the plain .ttf and falling back to the newest backup. Override
+# with ESSENFONT_TTF env var.
+DEFAULT_TTF_PATTERN = File.expand_path("../../essenfont/Essenfont-Regular.ttf*", __dir__)
 ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF") do
-  candidates = Dir.glob("/Users/mulgogi/src/essenfont/essenfont/Essenfont-Regular.ttf*")
-  # Prefer the plain .ttf, fall back to the newest backup
+  candidates = Dir.glob(DEFAULT_TTF_PATTERN)
   candidates.find { |p| p.end_with?(".ttf") } || candidates.max_by { |p| File.mtime(p) }
 end
 
