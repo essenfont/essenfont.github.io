@@ -40,7 +40,7 @@ onMounted(() => {
           <RouterLink to="/subfonts" class="nav-link">Subfonts</RouterLink>
           <RouterLink to="/donors" class="nav-link">Donors</RouterLink>
           <RouterLink to="/changelog" class="nav-link">Changelog</RouterLink>
-          <RouterLink to="/docs/install" class="nav-link">Docs</RouterLink>
+          <RouterLink to="/docs" class="nav-link">Docs</RouterLink>
           <RouterLink to="/download" class="nav-link">Download</RouterLink>
           <RouterLink to="/about" class="nav-link">About</RouterLink>
           <RouterLink to="/engineering" class="nav-link">Engineering</RouterLink>

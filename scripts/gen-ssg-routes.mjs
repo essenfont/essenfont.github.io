@@ -25,6 +25,9 @@ const STATIC_ROUTES = [
   '/download',
   '/subfonts',
   '/changelog',
+  '/changelog/v0.1.0',  // placeholder; real entries added when releases ship
+  '/docs',
+  '/docs/architecture',
   '/docs/install',
   '/docs/css',
   '/docs/api',
