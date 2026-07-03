@@ -53,7 +53,7 @@
   --vp-c-gutter: var(--ef-rule);
 
   /* Typography */
-  --spec-font-display: "Fraunces", Georgia, serif;
+  --spec-font-display: "Newsreader", Georgia, serif;
   --spec-font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --spec-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --vp-font-family-base: var(--spec-font-body);
