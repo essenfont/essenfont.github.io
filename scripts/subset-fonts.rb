@@ -9,16 +9,14 @@
 # large blocks (CJK Unified Ideographs = 20,992 cp, Hangul Syllables =
 # 11,184 cp) subsettable in one call.
 #
-# Run via fontisan's bundler context:
+# Run from this repo's directory:
 #
-#   cd /Users/mulgogi/src/fontist/fontisan
-#   bundle exec ruby /Users/mulgogi/src/essenfont/essenfont.github.io/scripts/subset-fonts.rb
-#   bundle exec ruby .../subset-fonts.rb --all       # every block
-#   bundle exec ruby .../subset-fonts.rb --block=Tai\ Yo
+#   bundle exec ruby scripts/subset-fonts.rb
+#   bundle exec ruby scripts/subset-fonts.rb --all       # every block
+#   bundle exec ruby scripts/subset-fonts.rb --block=Tai\ Yo
 #
-# Reads:  public/unicode-blocks.json  (committed)
-# Writes: public/fonts/<slug>.woff2   (one per block)
-#         public/fonts.css            (@font-face rules)
+# Set ESSENFONT_TTF env var to point at the source TTF (defaults to
+# a sibling-repo path that works in dev).
 
 require "json"
 require "fileutils"
@@ -30,8 +28,10 @@ BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 FONTS_DIR = File.join(PUBLIC, "fonts")
 FONTS_CSS = File.join(PUBLIC, "fonts.css")
 
-ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF",
-  "/Users/mulgogi/src/essenfont/essenfont/Essenfont-Regular.ttf")
+# Default: search the sibling essenfont repo for the TTF, walking up
+# one directory level. Override with ESSENFONT_TTF env var.
+DEFAULT_ESSENFONT_TTF = File.expand_path("../../essenfont/Essenfont-Regular.ttf", __dir__)
+ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF", DEFAULT_ESSENFONT_TTF)
 
 # Curated demo set: covers the scripts visitors are most likely to be
 # surprised by. Pass --all to do every block in unicode-blocks.json.
