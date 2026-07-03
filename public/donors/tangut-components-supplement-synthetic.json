@@ -1,0 +1,55 @@
+{
+  "family": "Tangut Components Supplement (synthetic)",
+  "slug": "tangut-components-supplement",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "Synthetic donor from ucode code-chart extracted SVGs. 70668 bytes. See scripts/build-svg-donor.rb.",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tangut_Components_Supplement"
+  ],
+  "files": [
+    {
+      "label": "tangut--components--supplement",
+      "file": "references/input-fonts/.generated/svg-donors/Tangut_Components_Supplement.ttf",
+      "style": "Regular",
+      "version": null,
+      "sha256": "caed6fe77a78922944d7799fc83eb0cf28959ac217c1bb72e67e0eefc2fbc8d2",
+      "url": null,
+      "url_extract": null,
+      "url_extract_member": null,
+      "url_mirror": null,
+      "covers": [
+        "Tangut Components Supplement"
+      ],
+      "parsed_coverage": [],
+      "all_coverage": [
+        {
+          "block": "Tangut Components Supplement",
+          "source": "manifest"
+        }
+      ],
+      "notes": "Synthetic donor from ucode code-chart extracted SVGs. 70668 bytes. See scripts/build-svg-donor.rb.",
+      "path_local_only": null,
+      "enabled": true
+    }
+  ],
+  "source_type": "code-chart",
+  "vendor": "Unicode Consortium",
+  "enabled": true,
+  "license_category": "ofl_compatible",
+  "license_restriction": null,
+  "license_summary": null,
+  "license_statement": null,
+  "covers_blocks": [
+    "Tangut Components Supplement"
+  ],
+  "role": "primary",
+  "relationship": null,
+  "planes": [],
+  "parsed_coverage": []
+}

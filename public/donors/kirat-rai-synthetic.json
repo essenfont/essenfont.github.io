@@ -1,52 +1,52 @@
 {
-  "family": "Noto Music",
-  "slug": "noto-music",
+  "family": "Kirat Rai (synthetic)",
+  "slug": "kirat-rai",
   "license": "OFL",
-  "author": "Google (Noto Project)",
-  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoMusic",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
   "url_mirror": null,
   "web": null,
-  "notes": null,
+  "notes": "Synthetic donor from ucode code-chart extracted SVGs. 16176 bytes. See scripts/build-svg-donor.rb.",
   "author_note": null,
   "file_count": 1,
   "covers": [
-    "Musical_Symbols"
+    "Kirat_Rai"
   ],
   "files": [
     {
-      "label": "noto-music",
-      "file": "references/input-fonts/NotoMusic-Regular.ttf",
+      "label": "kirat--rai",
+      "file": "references/input-fonts/.generated/svg-donors/Kirat_Rai.ttf",
       "style": "Regular",
       "version": null,
-      "sha256": "fda9c3dcd4164edd5af283b581f17458ef55dc205b6e0607aa0fbfbf99ed5704",
-      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoMusic",
+      "sha256": "8ca235e14b39b9e6c5c850b16dfd11cd0037b2e2d8d64eb1de3555f60d005fac",
+      "url": null,
       "url_extract": null,
       "url_extract_member": null,
       "url_mirror": null,
       "covers": [
-        "Musical Symbols"
+        "Kirat Rai"
       ],
       "parsed_coverage": [],
       "all_coverage": [
         {
-          "block": "Musical Symbols",
+          "block": "Kirat Rai",
           "source": "manifest"
         }
       ],
-      "notes": null,
+      "notes": "Synthetic donor from ucode code-chart extracted SVGs. 16176 bytes. See scripts/build-svg-donor.rb.",
       "path_local_only": null,
       "enabled": true
     }
   ],
-  "source_type": "font",
-  "vendor": "Noto (Google)",
+  "source_type": "code-chart",
+  "vendor": "Unicode Consortium",
   "enabled": true,
   "license_category": "ofl_compatible",
   "license_restriction": null,
   "license_summary": null,
   "license_statement": null,
   "covers_blocks": [
-    "Musical Symbols"
+    "Kirat Rai"
   ],
   "role": "primary",
   "relationship": null,

@@ -1,12 +1,12 @@
 {
   "family": "Full-Sung",
-  "slug": "fsung-m",
+  "slug": "fsung-2",
   "license": "FSung-NC",
   "author": "F.G. Wang (fgwang.blogspot.com) — initial style + sources from Taiwan MOE 教育部",
   "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
   "url_mirror": "https://github.com/lxs602/FSung-font",
   "web": "https://fgwang.blogspot.com/2025/09/unicode-17.html",
-  "notes": "BMP font. Primary CJK Unified Ideographs donor (Traditional-first). ~40k cps across ~435 ranges.",
+  "notes": "SIP font. Covers CJK Ext B/C/D/E/F/I + CJK Compat Ideographs Supplement (U+20000..U+2FA1F).",
   "author_note": "FSung was assembled + is maintained by F.G. Wang; Taiwan Ministry of Education (教育部) provided the original 全宋體 style + glyph sources. lxs602 maintains the GitHub mirror.",
   "file_count": 4,
   "covers": [
@@ -19,6 +19,9 @@
     "CJK_Unified_Ideographs_Extension_C",
     "CJK_Unified_Ideographs_Extension_D",
     "CJK_Unified_Ideographs_Extension_E",
+    "CJK_Unified_Ideographs_Extension_F",
+    "CJK_Unified_Ideographs_Extension_I",
+    "CJK_Compatibility_Ideographs_Supplement",
     "CJK_Unified_Ideographs_Extension_G",
     "CJK_Unified_Ideographs_Extension_H",
     "CJK_Unified_Ideographs_Extension_J"
@@ -82,7 +85,10 @@
         "CJK Unified Ideographs Extension B",
         "CJK Unified Ideographs Extension C",
         "CJK Unified Ideographs Extension D",
-        "CJK Unified Ideographs Extension E"
+        "CJK Unified Ideographs Extension E",
+        "CJK Unified Ideographs Extension F",
+        "CJK Unified Ideographs Extension I",
+        "CJK Compatibility Ideographs Supplement"
       ],
       "parsed_coverage": [],
       "all_coverage": [
@@ -101,9 +107,21 @@
         {
           "block": "CJK Unified Ideographs Extension E",
           "source": "manifest"
+        },
+        {
+          "block": "CJK Unified Ideographs Extension F",
+          "source": "manifest"
+        },
+        {
+          "block": "CJK Unified Ideographs Extension I",
+          "source": "manifest"
+        },
+        {
+          "block": "CJK Compatibility Ideographs Supplement",
+          "source": "manifest"
         }
       ],
-      "notes": "SIP font. Covers CJK Ext B/C/D/E (U+20000..U+2B81D).",
+      "notes": "SIP font. Covers CJK Ext B/C/D/E/F/I + CJK Compat Ideographs Supplement (U+20000..U+2FA1F).",
       "path_local_only": true,
       "enabled": true
     },
@@ -159,6 +177,9 @@
       "enabled": true
     }
   ],
+  "source_type": "font",
+  "vendor": "F.G. Wang",
+  "enabled": true,
   "license_category": "accepted_with_conditions",
   "license_restriction": "no-commercial-use",
   "license_summary": "Commercial use of FSung-derived glyphs is prohibited. Academic research, educational work, and personal reading are permitted.",
@@ -173,6 +194,9 @@
     "CJK Unified Ideographs Extension C",
     "CJK Unified Ideographs Extension D",
     "CJK Unified Ideographs Extension E",
+    "CJK Unified Ideographs Extension F",
+    "CJK Unified Ideographs Extension I",
+    "CJK Compatibility Ideographs Supplement",
     "CJK Unified Ideographs Extension G",
     "CJK Unified Ideographs Extension H",
     "CJK Unified Ideographs Extension J"
