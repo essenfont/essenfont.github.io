@@ -43,7 +43,9 @@ jobs:
         run: node scripts/gen-unihan-data.mjs
 
       - name: Generate SSG route shards
-        run: node scripts/gen-ssg-routes.mjs --shards=6
+        run: |
+          node scripts/gen-planes-data.mjs
+          node scripts/gen-ssg-routes.mjs --shards=6
 
       - name: Build shard ${{ matrix.shard }}
         env:

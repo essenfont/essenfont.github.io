@@ -1,11 +1,40 @@
-export const PLANES: { key: PlaneKey; name: string; shortName: string; range: string; start: number; end: number }[] = [
-  { key: 'bmp', name: 'Basic Multilingual Plane', shortName: 'BMP', range: 'U+0000–U+FFFF', start: 0x0000, end: 0xFFFF },
-  { key: 'smp', name: 'Supplementary Multilingual Plane', shortName: 'SMP', range: 'U+10000–U+1FFFF', start: 0x10000, end: 0x1FFFF },
-  { key: 'sip', name: 'Supplementary Ideographic Plane', shortName: 'SIP', range: 'U+20000–U+2FFFF', start: 0x20000, end: 0x2FFFF },
-  { key: 'tip', name: 'Tertiary Ideographic Plane', shortName: 'TIP', range: 'U+30000–U+3FFFF', start: 0x30000, end: 0x3FFFF },
-  { key: 'ssp', name: 'Special-purpose Plane', shortName: 'SSP', range: 'U+E0000–U+EFFFF', start: 0xE0000, end: 0xEFFFF },
-  { key: 'pua-a', name: 'Supplementary Private Use Area-A', shortName: 'PUA-A', range: 'U+F0000–U+FFFFF', start: 0xF0000, end: 0xFFFFF },
-  { key: 'pua-b', name: 'Supplementary Private Use Area-B', shortName: 'PUA-B', range: 'U+100000–U+10FFFF', start: 0x100000, end: 0x10FFFF },
+export interface PlaneMeta {
+  key: PlaneKey
+  name: string
+  shortName: string
+  range: string
+  start: number
+  end: number
+  index: number
+  code: string
+  roman: string
+  color: string
+  isReserved: boolean
+  notable: string[]
+}
+
+export const PLANES: PlaneMeta[] = [
+  { key: 'bmp', name: 'Basic Multilingual Plane', shortName: 'BMP', range: 'U+0000–U+FFFF', start: 0x0000, end: 0xFFFF,
+    index: 0, code: '0', roman: 'I', color: '#b8475f', isReserved: false,
+    notable: ['Latin', 'Greek', 'Cyrillic', 'Arabic', 'Hebrew', 'Devanagari', 'CJK Unified Ideographs', 'Egyptian Hieroglyphs'] },
+  { key: 'smp', name: 'Supplementary Multilingual Plane', shortName: 'SMP', range: 'U+10000–U+1FFFF', start: 0x10000, end: 0x1FFFF,
+    index: 1, code: '1', roman: 'II', color: '#3d8b8b', isReserved: false,
+    notable: ['Linear B', 'Ogham', 'Braille', 'Musical Symbols', 'Mathematical Alphanumeric', 'Emoji', 'Tolong Siki', 'Tai Yo'] },
+  { key: 'sip', name: 'Supplementary Ideographic Plane', shortName: 'SIP', range: 'U+20000–U+2FFFF', start: 0x20000, end: 0x2FFFF,
+    index: 2, code: '2', roman: 'III', color: '#7d4ea6', isReserved: false,
+    notable: ['CJK Extension B', 'CJK Extension C', 'CJK Extension D', 'CJK Extension E', 'CJK Extension F', 'CJK Extension I'] },
+  { key: 'tip', name: 'Tertiary Ideographic Plane', shortName: 'TIP', range: 'U+30000–U+3FFFF', start: 0x30000, end: 0x3FFFF,
+    index: 3, code: '3', roman: 'IV', color: '#d97757', isReserved: false,
+    notable: ['CJK Extension G', 'CJK Extension H', 'CJK Extension J', 'Tangut', 'Khitan Small Script', 'Nushu'] },
+  { key: 'ssp', name: 'Special-purpose Plane', shortName: 'SSP', range: 'U+E0000–U+EFFFF', start: 0xE0000, end: 0xEFFFF,
+    index: 14, code: 'E', roman: 'XIV', color: '#c19a3e', isReserved: false,
+    notable: ['Tags', 'Variation Selectors Supplement'] },
+  { key: 'pua-a', name: 'Supplementary Private Use Area-A', shortName: 'PUA-A', range: 'U+F0000–U+FFFFF', start: 0xF0000, end: 0xFFFFF,
+    index: 15, code: 'F', roman: 'XV', color: '#a8a8a8', isReserved: true,
+    notable: [] },
+  { key: 'pua-b', name: 'Supplementary Private Use Area-B', shortName: 'PUA-B', range: 'U+100000–U+10FFFF', start: 0x100000, end: 0x10FFFF,
+    index: 16, code: '10', roman: 'XVI', color: '#a8a8a8', isReserved: true,
+    notable: [] },
 ]
 
 export function planeForCodepoint(cp: number): PlaneKey {

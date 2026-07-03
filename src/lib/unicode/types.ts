@@ -56,3 +56,28 @@ export interface CodepointUnihan {
   irg_sources?: UnihanField[]
   other_mappings?: UnihanField[]
 }
+
+// ── Plane info (single source of truth) ──
+// The PLANES constant in constants.ts has the static metadata.
+// public/planes.json has the derived data (coverage, donors).
+// This interface is the union — what pages consume.
+export interface PlaneInfo {
+  key: PlaneKey
+  index: number
+  code: string
+  label: string
+  full: string
+  range: string
+  start: number
+  end: number
+  roman: string
+  color: string
+  isReserved: boolean
+  notable: string[]
+  // Derived from coverage data
+  glyphCount: number
+  assignedCount: number
+  blockCount: number
+  coveredPct: number
+  donors: string[]
+}
