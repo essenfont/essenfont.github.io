@@ -2,6 +2,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { useHead } from '@unhead/vue'
+import { fetchJson } from '../lib/ssr-fetch'
 
 useHead(() => ({
   title: `v${tag.value} — Changelog — Essenfont`,
@@ -24,8 +25,7 @@ const release = ref<Release | null>(null)
 
 async function load() {
   try {
-    const { useBuildJson } = await import('../composables/useBuildJson')
-    const all = (await useBuildJson<Release[]>('releases-full.json')).value ?? []
+    const all = await fetchJson<Release[]>('releases-full.json')
     release.value = all.find((r) => r.tag === tag.value) ?? null
   } catch {
     release.value = null
@@ -35,7 +35,7 @@ async function load() {
 await load()
 watch(tag, load)
 
-const prettyBody = computed(() => release.value?.body ?? '_(no release notes)_')
+const prettyBody = computed(() => release.value?.body ?? '<p><em>No release notes.</em></p>')
 </script>
 
 <template>
