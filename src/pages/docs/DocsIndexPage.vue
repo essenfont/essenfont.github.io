@@ -10,6 +10,15 @@ useHead({
   link: [{ rel: 'canonical', href: 'https://essenfont.github.io/docs' }],
 })
 
+const CDN_BASE = 'https://github.com/essenfont/essenfont/releases/latest/download'
+const PLANES = [
+  { code: 'BMP', range: 'U+0000-FFFF',   file: 'Essenfont-BMP.woff2' },
+  { code: 'SMP', range: 'U+10000-1FFFF', file: 'Essenfont-SMP.woff2' },
+  { code: 'SIP', range: 'U+20000-2FFFF', file: 'Essenfont-SIP.woff2' },
+  { code: 'TIP', range: 'U+30000-3FFFF', file: 'Essenfont-TIP.woff2' },
+  { code: 'SSP', range: 'U+E0000-EFFFF', file: 'Essenfont-SSP.woff2' },
+]
+
 const cards = [
   {
     num: 'I',
@@ -47,15 +56,56 @@ const cards = [
       </p>
     </header>
 
-    <section class="di-quick">
-      <h2 class="di-section-title">Easiest way: 3 lines of CSS</h2>
-      <pre class="di-code"><code>body &#123;
-  font-family: -apple-system, sans-serif, 'essenfont';
+    <section class="di-cdn">
+      <h2 class="di-section-title">Use on your website — CDN URL</h2>
+      <p class="di-cdn-lede">
+        Every Essenfont release publishes per-plane WOFF2 files to GitHub
+        Releases. Use these URLs directly in your <code>@font-face</code> —
+        no npm install, no self-hosting, no build step.
+      </p>
+      <div class="di-cdn-grid">
+        <div v-for="p in PLANES" :key="p.code" class="di-cdn-card">
+          <div class="di-cdn-head">
+            <span class="di-cdn-plane">{{ p.code }}</span>
+            <code class="di-cdn-range">{{ p.range }}</code>
+          </div>
+          <code class="di-cdn-url">{{ CDN_BASE }}/{{ p.file }}</code>
+        </div>
+      </div>
+      <pre class="di-code"><code>&lt;!-- Essenfont as fallback — fills every glyph your main font misses --&gt;
+@font-face &#123;
+  font-family: 'essenfont';
+  src: url('{{ CDN_BASE }}/Essenfont-BMP.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0000-FFFF;
+&#125;
+
+body &#123;
+  font-family: -apple-system, 'Segoe UI', sans-serif, 'essenfont';
 &#125;</code></pre>
+      <p class="di-cdn-note">
+        Add a separate <code>@font-face</code> rule for each plane your page
+        actually uses. The browser skips any plane whose
+        <code>unicode-range</code> doesn't appear on the page — so a Latin-only
+        page downloads only the 6&nbsp;MB BMP file, not the 50&nbsp;MB OTC.
+        See <RouterLink to="/docs/css">CSS embedding</RouterLink> for the
+        full strategy and <RouterLink to="/docs/architecture">Architecture</RouterLink>
+        for why the font is split across five planes.
+      </p>
+    </section>
+
+    <section class="di-quick">
+      <h2 class="di-section-title">Install on your computer</h2>
+      <pre class="di-code"><code># macOS / Linux
+brew install --cask essenfont
+
+# Or download the OTC directly:
+curl -L {{ CDN_BASE }}/Essenfont-Regular.otc -o Essenfont-Regular.otc</code></pre>
       <p class="di-quick-note">
-        Add an <code>@font-face</code> rule pointing at the CDN for any plane
-        your page needs. The browser fetches only those planes. See
-        <RouterLink to="/docs/css">CSS embedding</RouterLink> for details.
+        The OTC is one file containing all five plane subfonts. Drop it into
+        Font Book (macOS), Fonts (Windows), or Font Manager (Linux) and every
+        app picks up Unicode&nbsp;17 coverage. Full instructions in
+        <RouterLink to="/docs/install">Install</RouterLink>.
       </p>
     </section>
 
@@ -141,6 +191,82 @@ const cards = [
   background: var(--ef-surface);
   border: 1px solid var(--ef-rule);
   border-radius: var(--ef-radius);
+}
+.di-cdn {
+  margin-bottom: 2.5rem;
+  padding: 1.75rem;
+  background: var(--ef-surface);
+  border: 1px solid var(--ef-rule);
+  border-left: 3px solid var(--ef-accent);
+  border-radius: var(--ef-radius);
+}
+.di-cdn-lede {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ef-text-2);
+  margin: 0 0 1.25rem;
+  max-width: 64ch;
+}
+.di-cdn-lede code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.84rem;
+  background: var(--ef-raised);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+}
+.di-cdn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+.di-cdn-card {
+  padding: 0.85rem 1rem;
+  background: var(--ef-raised);
+  border: 1px solid var(--ef-rule);
+  border-radius: var(--ef-radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.di-cdn-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.di-cdn-plane {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ef-accent);
+}
+.di-cdn-range {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  color: var(--ef-text-3);
+}
+.di-cdn-url {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--ef-text-2);
+  word-break: break-all;
+  line-height: 1.4;
+}
+.di-cdn-note {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--ef-text-2);
+  margin: 0.75rem 0 0;
+}
+.di-cdn-note a { color: var(--ef-accent); }
+.di-cdn-note code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.8rem;
+  background: var(--ef-raised);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
 }
 .di-section-title {
   font-family: var(--spec-font-display);

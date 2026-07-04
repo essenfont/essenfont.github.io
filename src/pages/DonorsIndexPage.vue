@@ -78,6 +78,72 @@ function roleLabel(role: string): string {
       </div>
     </section>
 
+    <section class="di-flow">
+      <h2>How donors become Essenfont</h2>
+      <p class="di-flow-lede">
+        Every glyph in Essenfont comes from one of two donor paths. The
+        build pipeline rejects anything not on the OFL allowlist and
+        partitions every codepoint into one of five plane subfonts.
+      </p>
+      <div class="di-flow-diagram">
+        <div class="flow-col">
+          <div class="flow-col-head">
+            <span class="flow-roman">α</span>
+            <span class="flow-col-title">manifest.yml</span>
+          </div>
+          <div class="flow-cell flow-cell--source">
+            <span class="flow-cell-label">sources/</span>
+            <span class="flow-cell-meta">138 declared donors · OFL allowlist</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-col">
+          <div class="flow-col-head">
+            <span class="flow-roman">β</span>
+            <span class="flow-col-title">Two extraction paths</span>
+          </div>
+          <div class="flow-cell flow-cell--font">
+            <span class="flow-tag">Tier I · font</span>
+            <span class="flow-cell-body">Noto · Full-Sung · UniHieroglyphica · Lentariso · Kedebideri</span>
+            <span class="flow-cell-meta">fontisan reads cmap + glyf</span>
+          </div>
+          <div class="flow-cell flow-cell--chart">
+            <span class="flow-tag">Tier II · code chart</span>
+            <span class="flow-cell-body">Gurung Khema · Khitan Small · Kirat Rai · Tulu Tigalari</span>
+            <span class="flow-cell-meta">Unicode Consortium PDF → synthetic outlines</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-col">
+          <div class="flow-col-head">
+            <span class="flow-roman">γ</span>
+            <span class="flow-col-title">Essenfont OTC</span>
+          </div>
+          <div class="flow-cell flow-cell--otc">
+            <span class="flow-planes">
+              <span class="flow-plane">BMP</span>
+              <span class="flow-plane">SMP</span>
+              <span class="flow-plane">SIP</span>
+              <span class="flow-plane">TIP</span>
+              <span class="flow-plane">SSP</span>
+            </span>
+            <span class="flow-cell-meta">5 plane subfonts · 65,535 glyphs each</span>
+          </div>
+        </div>
+      </div>
+      <p class="di-flow-foot">
+        Corrections never land in Essenfont directly — they flow upstream
+        to the donor, then back via the next version bump. See
+        <RouterLink to="/docs/architecture">Architecture</RouterLink> for the
+        build pipeline and <RouterLink to="/about">About</RouterLink> for the
+        rationale.
+      </p>
+    </section>
+
     <section class="di-grid">
       <RouterLink
         v-for="fam in families"
@@ -333,6 +399,173 @@ function roleLabel(role: string): string {
   padding: 0.05rem 0.3rem;
   border-radius: 2px;
   border: 1px solid var(--spec-rule);
+}
+
+/* ── Build flow diagram ── */
+.di-flow {
+  margin-bottom: 3rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--spec-rule);
+  border-radius: 8px;
+}
+.di-flow h2 {
+  font-family: var(--spec-font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem;
+  color: var(--spec-ink);
+  letter-spacing: -0.015em;
+}
+.di-flow-lede {
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--spec-ink-soft);
+  max-width: 70ch;
+  margin: 0 0 1.5rem;
+}
+.di-flow-diagram {
+  display: grid;
+  grid-template-columns: 1fr auto 1.4fr auto 1fr;
+  align-items: stretch;
+  gap: 0.6rem;
+  margin: 1rem 0 0.5rem;
+}
+.flow-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.flow-col-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--spec-rule);
+  margin-bottom: 0.3rem;
+}
+.flow-roman {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--spec-rose);
+  line-height: 1;
+}
+.flow-col-title {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--spec-ink);
+}
+.flow-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.85rem 1rem;
+  border-radius: 4px;
+  border: 1px solid var(--spec-rule);
+  background: var(--vp-c-bg);
+  min-height: 90px;
+}
+.flow-cell--source {
+  border-left: 3px solid var(--spec-rose);
+}
+.flow-cell--font {
+  border-left: 3px solid #2a7a3f;
+}
+.flow-cell--chart {
+  border-left: 3px solid #b8762a;
+}
+.flow-cell--otc {
+  border-left: 3px solid var(--spec-rose);
+  background: rgba(184, 71, 95, 0.04);
+  flex: 1;
+}
+.flow-cell-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--spec-ink);
+}
+.flow-tag {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--spec-rose);
+  padding: 0.15rem 0.4rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+.flow-cell--font .flow-tag { color: #2a7a3f; }
+.flow-cell--chart .flow-tag { color: #b8762a; }
+.flow-cell-body {
+  font-family: var(--spec-font-display);
+  font-size: 0.84rem;
+  line-height: 1.4;
+  color: var(--spec-ink);
+}
+.flow-cell-meta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.66rem;
+  color: var(--spec-mute);
+  line-height: 1.4;
+}
+.flow-planes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+.flow-plane {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.45rem;
+  border-radius: 2px;
+  background: rgba(184, 71, 95, 0.12);
+  color: var(--spec-rose);
+  border: 1px solid rgba(184, 71, 95, 0.4);
+}
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  font-family: var(--spec-font-mono);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--spec-rose);
+  opacity: 0.5;
+  padding: 0 0.1rem;
+}
+.di-flow-foot {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--spec-ink-soft);
+  margin: 1rem 0 0;
+  font-style: italic;
+}
+.di-flow-foot a {
+  color: var(--spec-rose);
+  text-decoration: none;
+}
+.di-flow-foot a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .di-flow-diagram {
+    grid-template-columns: 1fr;
+  }
+  .flow-arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+    padding: 0.4rem 0;
+  }
 }
 
 .di-policy { margin-top: 2rem; }
