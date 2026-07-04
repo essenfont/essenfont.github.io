@@ -62,13 +62,28 @@ const hasReleases = computed(() => releases.value.length > 0)
     </section>
 
     <section v-else class="release-empty">
-      <p v-if="loadError">Couldn't load releases: {{ loadError }}</p>
-      <p v-else>No releases published yet.</p>
-      <p>
-        <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">
-          View GitHub Releases ↗
-        </a>
+      <div class="empty-mark">v0.1.0</div>
+      <h2 class="empty-title">First release not shipped yet.</h2>
+      <p class="empty-body">
+        Essenfont is in active development. The first tagged release
+        (<code>v0.1.0</code>) will publish the OTC, per-plane TTFs, and
+        per-plane WOFF2/WOFF files to GitHub Releases. Once shipped, every
+        version will be listed here in reverse chronological order —
+        each linking to its full notes, downloads, and coverage report.
       </p>
+      <p class="empty-body">
+        Watch the source repo to get a notification the moment <code>v0.1.0</code>
+        lands, or browse the live build's coverage in the meantime.
+      </p>
+      <div class="empty-actions">
+        <a class="empty-cta" href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">
+          GitHub Releases ↗
+        </a>
+        <a class="empty-cta empty-cta--ghost" href="https://github.com/essenfont/essenfont/watchers" target="_blank" rel="noopener">
+          Watch repo for releases
+        </a>
+        <RouterLink class="empty-cta empty-cta--ghost" to="/unicode">Browse current coverage →</RouterLink>
+      </div>
     </section>
   </div>
 </template>
@@ -158,12 +173,82 @@ const hasReleases = computed(() => releases.value.length > 0)
   color: var(--spec-rose);
 }
 .release-empty {
-  padding: 3rem 2rem;
+  padding: 3.5rem 2rem;
   text-align: center;
   font-family: var(--spec-font-display);
-  font-size: 1rem;
   color: var(--spec-ink-soft);
+  border: 1px dashed var(--spec-rule);
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft);
 }
-.release-empty a { color: var(--spec-rose); text-decoration: none; }
-.release-empty a:hover { text-decoration: underline; }
+.empty-mark {
+  display: inline-block;
+  font-family: var(--spec-font-mono);
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  color: var(--spec-rose);
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--spec-rose);
+  border-radius: 2px;
+  margin-bottom: 1.2rem;
+}
+.empty-title {
+  font-family: var(--spec-font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin: 0 0 1rem;
+  color: var(--spec-ink);
+  letter-spacing: -0.02em;
+  font-style: italic;
+}
+.empty-body {
+  font-family: var(--spec-font-body, var(--spec-font-display));
+  font-size: 0.95rem;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.65;
+  color: var(--spec-ink-soft);
+  max-width: 56ch;
+  margin: 0 auto 1rem;
+}
+.empty-body code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  background: var(--vp-c-bg);
+  padding: 0.05rem 0.3rem;
+  border-radius: 3px;
+  border: 1px solid var(--spec-rule);
+}
+.empty-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+.empty-cta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  padding: 0.55rem 1rem;
+  border-radius: 3px;
+  background: var(--spec-rose);
+  color: var(--vp-c-bg);
+  border: 1px solid var(--spec-rose);
+  transition: opacity 0.15s, background 0.15s;
+}
+.empty-cta:hover { opacity: 0.88; text-decoration: none; }
+.empty-cta--ghost {
+  background: transparent;
+  color: var(--spec-ink-soft);
+  border-color: var(--spec-rule-strong, var(--spec-rule));
+}
+.empty-cta--ghost:hover {
+  color: var(--spec-rose);
+  border-color: var(--spec-rose);
+  opacity: 1;
+}
 </style>
