@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHead } from '@unhead/vue'
+import { fetchJson } from '../lib/ssr-fetch'
 
 useHead({
   title: 'Changelog — Essenfont',
@@ -23,9 +24,14 @@ type Release = {
 const releases = ref<Release[]>([])
 const loadError = ref<string | null>(null)
 
-// useBuildJson handles the SSR-vs-client fetch centrally.
-const { useBuildJson } = await import('../composables/useBuildJson')
-releases.value = (await useBuildJson<Release[]>('releases.json')).value ?? []
+// Releases data lives in public/ so it ships with the deployed site
+// (not data/, which is build-time-only). update-release.yml also writes
+// here — these are the same files GitHub Releases would produce.
+try {
+  releases.value = await fetchJson<Release[]>('releases.json')
+} catch (e) {
+  loadError.value = e instanceof Error ? e.message : String(e)
+}
 
 const hasReleases = computed(() => releases.value.length > 0)
 </script>

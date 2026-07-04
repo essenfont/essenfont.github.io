@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useHead } from '@unhead/vue'
+import { fetchJson } from '../lib/ssr-fetch'
 import { loadUnicodeVersion } from '../lib/unicode'
 
 const unicodeInfo = ref<{ version: string; charCount: number; blockCount: number } | null>(null)
@@ -22,9 +23,12 @@ type Release = {
 const releases = ref<Release[]>([])
 const latest = computed<Release | null>(() => releases.value[0] ?? null)
 
-// useBuildJson handles the SSR-vs-client fetch centrally.
-const { useBuildJson } = await import('../composables/useBuildJson')
-releases.value = (await useBuildJson<Release[]>('releases.json')).value ?? []
+// Releases data ships with the site (public/releases.json). When no
+// GitHub Releases exist yet, the committed seed file keeps the strip
+// populated; once a release lands, update-release.yml overwrites it.
+try {
+  releases.value = await fetchJson<Release[]>('releases.json')
+} catch {}
 
 useHead({
   title: 'Essenfont — Universal Unicode 17 Font',

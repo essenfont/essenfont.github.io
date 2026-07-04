@@ -25,7 +25,6 @@ const STATIC_ROUTES = [
   '/download',
   '/subfonts',
   '/changelog',
-  '/changelog/v0.1.0',  // placeholder; real entries added when releases ship
   '/docs/install',
   '/docs/css',
   '/docs/api',
@@ -38,6 +37,13 @@ const STATIC_ROUTES = [
   '/unicode/bidiclass',
   '/unicode/combining',
 ]
+
+// Per-release changelog routes — derived from public/releases.json so
+// the route list stays in sync with what the page actually shows.
+// When update-release.yml writes a fresh releases.json, this picks up
+// the new tags on the next build.
+const releases = readJson(resolve(pub, 'releases.json'), [])
+const RELEASE_ROUTES = releases.map((r) => `/changelog/${r.tag}`).filter(Boolean)
 
 const PLANES = ['bmp', 'smp', 'sip', 'tip', 'ssp', 'pua-a', 'pua-b']
 
@@ -62,6 +68,11 @@ function buildEntries() {
 
   for (const r of STATIC_ROUTES) {
     entries.push({ path: r, title: staticTitle(r) })
+  }
+
+  for (const r of RELEASE_ROUTES) {
+    const tag = r.split('/').pop()
+    entries.push({ path: r, title: `Essenfont ${tag} — Changelog` })
   }
 
   for (const p of PLANES) {
