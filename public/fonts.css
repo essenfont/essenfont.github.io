@@ -140,72 +140,12 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/arabic-supplement.woff") format("woff"),
-      url("/fonts/arabic-supplement.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0750-077F;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/thaana.woff") format("woff"),
       url("/fonts/thaana.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+0780-07BF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/nko.woff") format("woff"),
-      url("/fonts/nko.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+07C0-07FF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/samaritan.woff") format("woff"),
-      url("/fonts/samaritan.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0800-083F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/mandaic.woff") format("woff"),
-      url("/fonts/mandaic.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0840-085F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/arabic-extended-b.woff") format("woff"),
-      url("/fonts/arabic-extended-b.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0870-089F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/arabic-extended-a.woff") format("woff"),
-      url("/fonts/arabic-extended-a.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+08A0-08FF;
 }
 
 @font-face {
@@ -380,16 +320,6 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/ethiopic-supplement.woff") format("woff"),
-      url("/fonts/ethiopic-supplement.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1380-139F;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/cherokee.woff") format("woff"),
       url("/fonts/cherokee.woff2") format("woff2");
   font-weight: 100 900;
@@ -490,16 +420,6 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/unified-canadian-aboriginal-syllabics-extended.woff") format("woff"),
-      url("/fonts/unified-canadian-aboriginal-syllabics-extended.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+18B0-18FF;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/limbu.woff") format("woff"),
       url("/fonts/limbu.woff2") format("woff2");
   font-weight: 100 900;
@@ -520,42 +440,12 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/new-tai-lue.woff") format("woff"),
-      url("/fonts/new-tai-lue.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1980-19DF;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/khmer-symbols.woff") format("woff"),
       url("/fonts/khmer-symbols.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+19E0-19FF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/buginese.woff") format("woff"),
-      url("/fonts/buginese.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1A00-1A1F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/tai-tham.woff") format("woff"),
-      url("/fonts/tai-tham.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1A20-1AAF;
 }
 
 @font-face {
@@ -570,72 +460,12 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/balinese.woff") format("woff"),
-      url("/fonts/balinese.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1B00-1B7F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/sundanese.woff") format("woff"),
-      url("/fonts/sundanese.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1B80-1BBF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/batak.woff") format("woff"),
-      url("/fonts/batak.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1BC0-1BFF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/lepcha.woff") format("woff"),
-      url("/fonts/lepcha.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1C00-1C4F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/ol-chiki.woff") format("woff"),
-      url("/fonts/ol-chiki.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1C50-1C7F;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/cyrillic-extended-c.woff") format("woff"),
       url("/fonts/cyrillic-extended-c.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+1C80-1C8F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/georgian-extended.woff") format("woff"),
-      url("/fonts/georgian-extended.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+1C90-1CBF;
 }
 
 @font-face {
@@ -950,16 +780,6 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/glagolitic.woff") format("woff"),
-      url("/fonts/glagolitic.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+2C00-2C5F;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/latin-extended-c.woff") format("woff"),
       url("/fonts/latin-extended-c.woff2") format("woff2");
   font-weight: 100 900;
@@ -980,32 +800,12 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/georgian-supplement.woff") format("woff"),
-      url("/fonts/georgian-supplement.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+2D00-2D2F;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/tifinagh.woff") format("woff"),
       url("/fonts/tifinagh.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+2D30-2D7F;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/ethiopic-extended.woff") format("woff"),
-      url("/fonts/ethiopic-extended.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+2D80-2DDF;
 }
 
 @font-face {
@@ -1310,16 +1110,6 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/private-use-area.woff") format("woff"),
-      url("/fonts/private-use-area.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+E000-F8FF;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/cjk-compatibility-ideographs.woff") format("woff"),
       url("/fonts/cjk-compatibility-ideographs.woff2") format("woff2");
   font-weight: 100 900;
@@ -1416,16 +1206,6 @@
   font-style: normal;
   font-display: swap;
   unicode-range: U+FF00-FFEF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/specials.woff") format("woff"),
-      url("/fonts/specials.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+FFF0-FFFF;
 }
 
 @font-face {
@@ -1620,12 +1400,32 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/tulu-tigalari.woff") format("woff"),
+      url("/fonts/tulu-tigalari.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11380-113FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/pau-cin-hau.woff") format("woff"),
       url("/fonts/pau-cin-hau.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+11AC0-11AFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/sharada-supplement.woff") format("woff"),
+      url("/fonts/sharada-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11B60-11B7F;
 }
 
 @font-face {
@@ -1690,6 +1490,26 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/gurung-khema.woff") format("woff"),
+      url("/fonts/gurung-khema.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16100-1613F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/kirat-rai.woff") format("woff"),
+      url("/fonts/kirat-rai.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16D40-16D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/beria-erfe.woff") format("woff"),
       url("/fonts/beria-erfe.woff2") format("woff2");
   font-weight: 100 900;
@@ -1730,12 +1550,32 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/khitan-small-script.woff") format("woff"),
+      url("/fonts/khitan-small-script.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+18B00-18CFF;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/tangut-supplement.woff") format("woff"),
       url("/fonts/tangut-supplement.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+18D00-18D7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/tangut-components-supplement.woff") format("woff"),
+      url("/fonts/tangut-components-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+18D80-18DFF;
 }
 
 @font-face {
@@ -1860,12 +1700,32 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/nyiakeng-puachue-hmong.woff") format("woff"),
+      url("/fonts/nyiakeng-puachue-hmong.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1E100-1E14F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/tai-yo.woff") format("woff"),
       url("/fonts/tai-yo.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+1E6C0-1E6FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ottoman-siyaq-numbers.woff") format("woff"),
+      url("/fonts/ottoman-siyaq-numbers.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+1ED00-1ED4F;
 }
 
 @font-face {
@@ -2080,6 +1940,36 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-f.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-f.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2CEB0-2EBEF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs-extension-i.woff") format("woff"),
+      url("/fonts/cjk-unified-ideographs-extension-i.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2EBF0-2EE5F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-compatibility-ideographs-supplement.woff") format("woff"),
+      url("/fonts/cjk-compatibility-ideographs-supplement.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2F800-2FA1F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/cjk-unified-ideographs-extension-g.woff") format("woff"),
       url("/fonts/cjk-unified-ideographs-extension-g.woff2") format("woff2");
   font-weight: 100 900;
@@ -2126,14 +2016,4 @@
   font-style: normal;
   font-display: swap;
   unicode-range: U+F0000-FFFFF;
-}
-
-@font-face {
-  font-family: "Essenfont";
-  src: url("/fonts/supplementary-private-use-area-b.woff") format("woff"),
-      url("/fonts/supplementary-private-use-area-b.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+100000-10FFFF;
 }
