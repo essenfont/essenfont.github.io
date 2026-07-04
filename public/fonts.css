@@ -1060,6 +1060,16 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/common-indic-number-forms.woff") format("woff"),
+      url("/fonts/common-indic-number-forms.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+A830-A83F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/kayah-li.woff") format("woff"),
       url("/fonts/kayah-li.woff2") format("woff2");
   font-weight: 100 900;
@@ -1270,6 +1280,26 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/ugaritic.woff") format("woff"),
+      url("/fonts/ugaritic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10380-1039F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/old-persian.woff") format("woff"),
+      url("/fonts/old-persian.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+103A0-103DF;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/deseret.woff") format("woff"),
       url("/fonts/deseret.woff2") format("woff2");
   font-weight: 100 900;
@@ -1380,12 +1410,32 @@
 
 @font-face {
   font-family: "Essenfont";
+  src: url("/fonts/avestan.woff") format("woff"),
+      url("/fonts/avestan.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+10B00-10B3F;
+}
+
+@font-face {
+  font-family: "Essenfont";
   src: url("/fonts/rumi-numeral-symbols.woff") format("woff"),
       url("/fonts/rumi-numeral-symbols.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
   unicode-range: U+10E60-10E7F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/brahmi.woff") format("woff"),
+      url("/fonts/brahmi.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11000-1107F;
 }
 
 @font-face {
@@ -1406,6 +1456,16 @@
   font-style: normal;
   font-display: swap;
   unicode-range: U+11380-113FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/modi.woff") format("woff"),
+      url("/fonts/modi.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+11600-1165F;
 }
 
 @font-face {
@@ -1456,6 +1516,36 @@
   font-style: normal;
   font-display: swap;
   unicode-range: U+11FB0-11FBF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cuneiform.woff") format("woff"),
+      url("/fonts/cuneiform.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+12000-123FF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cuneiform-numbers-and-punctuation.woff") format("woff"),
+      url("/fonts/cuneiform-numbers-and-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+12400-1247F;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/early-dynastic-cuneiform.woff") format("woff"),
+      url("/fonts/early-dynastic-cuneiform.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+12480-1254F;
 }
 
 @font-face {
