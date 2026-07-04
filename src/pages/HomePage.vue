@@ -70,7 +70,7 @@ const modes: { key: Mode; label: string; sample: string }[] = [
     sample: 'const π = 3.14159\nconst sum = (xs) => xs.reduce((a, b) => a + b, 0)\nconsole.log(`Σ = ${sum([1,2,3])}`)' },
   { key: 'math',  label: 'Math',   sample: '∀x∈ℝ: ∫√(2π)·e^(-x²/2) dx = √(2π)    ∀ε>0 ∃δ>0' },
   { key: 'multi', label: 'Scripts',
-    sample: 'Hello 世界 — 𓀀 𒁲 𐤀 𑱐 — Здравствуйте — مرحبا — こんにちは — 안녕하세요' },
+    sample: 'Hello 世界 — 𓀀 𐤀 𐌰 ꙮ — Здравствуйте — مرحبا — こんにちは — 안녕하세요' },
 ]
 const mode = ref<Mode>('plain')
 
@@ -84,7 +84,10 @@ const displayText = computed(() => testText.value || DEFAULT_SAMPLE)
 
 // ── Tofu before/after demo ──
 // All-rare-script text: nearly every system font tofus this.
-const TOFU_DEMO_TEXT = '𓀀 𒁲 𐤀 𑱐 𑿁 𑣿 𰀀 𱁬 𐎀 𑠀 🯐'
+// Every char below is in a block that has a per-block WOFF2 subset on this
+// site — no upstream TTF gaps, no missing subsets. If you change this list,
+// verify the new codepoint's block has a @font-face rule in /public/fonts.css.
+const TOFU_DEMO_TEXT = '𓀀 𐤀 𐌰 ꙮ 𐐗 𐒀 Ⰰ ᚱ'
 
 // ── Glyph spotlight (rare-script carousel) ──
 type Spotlight = {
@@ -96,13 +99,13 @@ type Spotlight = {
 }
 const SPOTLIGHTS: Spotlight[] = [
   { glyph: '𓀀', hex: '13000', name: 'Egyptian Hieroglyph A001', donor: 'UniHieroglyphica', block: 'Egyptian Hieroglyphs' },
-  { glyph: '𒁲', hex: '12132', name: 'Cuneiform Sign Di', donor: 'Noto Sans Cuneiform', block: 'Cuneiform' },
   { glyph: '𐤀', hex: '10900', name: 'Phoenician Letter Alaph', donor: 'Lentariso', block: 'Phoenician' },
-  { glyph: '𑱐', hex: '11450', name: 'Tolong Siki Digit Zero', donor: 'Noto Sans Tolong Siki', block: 'Tolong Siki' },
+  { glyph: 'ꙮ', hex: 'A66E', name: 'Cyrillic Multiocular O', donor: 'Noto Sans', block: 'Cyrillic Extended-B' },
+  { glyph: 'ᚱ', hex: '16B1', name: 'Runic Letter Raido', donor: 'Noto Sans Runic', block: 'Runic' },
   { glyph: '𝕏', hex: '1D54F', name: 'Mathematical Double-Struck X', donor: 'Noto Sans Math', block: 'Mathematical Alphanumeric' },
-  { glyph: '𰀀', hex: '30000', name: 'CJK Unified Ideograph Ext C-1', donor: 'FSung-3', block: 'CJK Ext C (TIP)' },
-  { glyph: '𑠀', hex: '11600', name: 'Modi Letter A', donor: 'Noto Sans Modi', block: 'Modi' },
-  { glyph: '🯐', hex: '1EEF0', name: 'Ottoman Siyaq Number One', donor: 'Noto Sans Ottoman Siyaq', block: 'Ottoman Siyaq Numbers' },
+  { glyph: '𐌰', hex: '10330', name: 'Gothic Letter Ahsa', donor: 'Noto Sans Gothic', block: 'Gothic' },
+  { glyph: '𐐗', hex: '10417', name: 'Deseret Letter Long E', donor: 'Noto Sans Deseret', block: 'Deseret' },
+  { glyph: '𐒀', hex: '10480', name: 'Osmanya Letter A', donor: 'Noto Sans Osmanya', block: 'Osmanya' },
 ]
 const spotlightIndex = ref(0)
 let spotlightTimer: ReturnType<typeof setInterval> | null = null
@@ -141,11 +144,11 @@ const DONORS: Donor[] = [
     license: 'OFL + FSung-NC', note: 'F.G. Wang / Taiwan MOE' },
   { slug: 'lentariso', name: 'Lentariso',
     covers: 'Sidetic, Imperial Aramaic, Phoenician',
-    sample: '𐤀 𐎁 𐎒',
+    sample: '𐤀 𐤁 𐤒',
     license: 'OFL', note: 'Bry10022' },
   { slug: 'kedebideri', name: 'Kedebideri',
     covers: 'Beria Erfe',
-    sample: '𐦚 𐦛 𐦜',
+    sample: '𖺠 𖺡 𖺢',
     license: 'OFL', note: 'SIL International' },
   { slug: 'unihieroglyphica', name: 'UniHieroglyphica',
     covers: 'Egyptian Hieroglyphs + Extended-A/B',
