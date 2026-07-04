@@ -20,6 +20,7 @@
 
 require "json"
 require "fileutils"
+require "set"
 require "fontisan"
 
 ROOT = File.expand_path("..", __dir__)
@@ -28,10 +29,19 @@ BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 FONTS_DIR = File.join(PUBLIC, "fonts")
 FONTS_CSS = File.join(PUBLIC, "fonts.css")
 
-# Default: search the sibling essenfont repo for the TTF, walking up
-# one directory level. Override with ESSENFONT_TTF env var.
+# Default: search the sibling essenfont repo for the TTC (canonical) or
+# TTF (legacy). Override with ESSENFONT_TTC / ESSENFONT_TTF env vars.
+DEFAULT_ESSENFONT_TTC = File.expand_path("../../essenfont/Essenfont-Regular.ttc", __dir__)
 DEFAULT_ESSENFONT_TTF = File.expand_path("../../essenfont/Essenfont-Regular.ttf", __dir__)
+ESSENFONT_TTC = ENV["ESSENFONT_TTC"] || (File.exist?(DEFAULT_ESSENFONT_TTC) ? DEFAULT_ESSENFONT_TTC : nil)
 ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF", DEFAULT_ESSENFONT_TTF)
+
+# Source font + per-block face index lookup. TTCs contain multiple faces
+# (BMP got sub-split to stay under the 65,535-glyph cap), so each block
+# must be subsetted against the face that actually contains its
+# codepoints.
+SOURCE_FONT = ESSENFONT_TTC || ESSENFONT_TTF
+SOURCE_IS_TTC = File.extname(SOURCE_FONT) == ".ttc"
 
 # Curated demo set: covers the scripts visitors are most likely to be
 # surprised by. Pass --all to do every block in unicode-blocks.json.
@@ -51,7 +61,7 @@ DEMO_BLOCKS = %w[
   Hangul\ Syllables
   Ideographic\ Description\ Characters
   Egyptian\ Hieroglyphs
-  Miscellaneous\ Symbols\ and\ Pictographs
+  Miscellaneous\ Symbols\ and Pictographs
   Tai\ Yo
   Beria\ Erfe
   Sidetic
@@ -60,6 +70,38 @@ DEMO_BLOCKS = %w[
 
 def block_slug(name)
   name.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-|-$/, "")
+end
+
+# Build {block_first_cp => face_index} lookup by scanning every face's
+# cmap. Cached at module level — building it once per process is fine
+# because the TTC doesn't change mid-run.
+def face_lookup
+  return @_face_lookup if @_face_lookup
+
+  lookup = {}
+  reader = Fontisan::Collection::Reader.open(SOURCE_FONT)
+  reader.stats.each do |stat|
+    face = Fontisan::FontLoader.load(SOURCE_FONT, font_index: stat.index)
+    cmap = face.table("cmap").unicode_mappings || {}
+    cps = cmap.keys.to_set
+    cps.each { |cp| lookup[cp] ||= stat.index }
+  end
+  @_face_lookup = lookup
+end
+
+# Find the best face index for a block range: the face containing the
+# most codepoints in [start, end]. Falls back to face 0 if no face has
+# any of the block's chars (fontisan will then produce an empty subset
+# and the rescue below handles it).
+def face_for_block(block)
+  return 0 if SOURCE_IS_TTC == false
+
+  counts = Hash.new(0)
+  (block["start"]..block["end"]).each do |cp|
+    idx = face_lookup[cp]
+    counts[idx] += 1 if idx
+  end
+  counts.max_by { |_, c| c }&.first || 0
 end
 
 def read_blocks
@@ -90,10 +132,10 @@ def select_blocks(all_blocks, opts)
   end
 end
 
-# Subset the TTF to the codepoints in [start, end] and convert to WOFF2.
-# Uses Array<Integer> for :unicode so we bypass CLI argv limits AND the
-# current CLI's silent range-truncation bug (see fontisan's
-# REQ-unicode-range-subset.md).
+# Subset the TTF (or a single face of a TTC) to the codepoints in
+# [start, end] and convert to WOFF2 + WOFF1. Uses Array<Integer> for
+# :unicode so we bypass CLI argv limits AND the CLI's silent range
+# truncation bug (see fontisan's REQ-unicode-range-subset.md).
 def subset_block(block)
   slug = block_slug(block["name"])
   cps = (block["start"]..block["end"]).to_a
@@ -101,12 +143,16 @@ def subset_block(block)
   tmp_ttf = "/tmp/essenfont-subset-#{slug}.ttf"
   woff2_path = File.join(FONTS_DIR, "#{slug}.woff2")
 
-  subset_cmd = Fontisan::Commands::SubsetCommand.new(
-    ESSENFONT_TTF,
+  # Pick the face whose cmap contains the most of the block's codepoints.
+  # For a single TTF, font_index defaults to 0.
+  options = {
     unicode: cps,
     output: tmp_ttf,
     profile: "pdf",
-  )
+  }
+  options[:font_index] = face_for_block(block) if SOURCE_IS_TTC
+
+  subset_cmd = Fontisan::Commands::SubsetCommand.new(SOURCE_FONT, **options)
   subset_cmd.run
 
   convert_cmd = Fontisan::Commands::ConvertCommand.new(
