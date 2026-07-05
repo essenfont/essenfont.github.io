@@ -164,6 +164,18 @@ body {
 function copyEmbed() {
   navigator.clipboard?.writeText(embedSnippet.value)
 }
+
+// ── npm package snippet ──
+const NPM_VERSION = '0.2.0'
+const npmSnippet = `npm install essenfont            # or: pnpm add essenfont / yarn add essenfont
+
+/* then in your app entry: */
+@import 'essenfont/css/all.css';   /* CSS */
+import 'essenfont/css/all.css'     /* JS */`
+
+function copyNpm() {
+  navigator.clipboard?.writeText(npmSnippet)
+}
 </script>
 
 <template>
@@ -176,10 +188,11 @@ function copyEmbed() {
         <span class="flag-sep">·</span>
         <span class="flag-label">Distribution sheet</span>
       </div>
-      <h1 class="catalog-title">The font, in four formats.</h1>
+      <h1 class="catalog-title">The font, in every form you need.</h1>
       <p class="catalog-deck">
         Essenfont ships as a single OpenType Collection of five plane subfonts,
-        with per-plane TTFs and WOFF2s for clients that cannot consume OTC.
+        with per-plane TTFs and WOFF2s for clients that cannot consume OTC,
+        and an npm package for bundler-driven web embeds.
         Per-block WOFF2s drive the inline rendering on this site.
       </p>
     </header>
@@ -362,10 +375,30 @@ function copyEmbed() {
       </div>
     </section>
 
-    <!-- IV. Per-block WOFF2 (this site) -->
+    <!-- IV. npm package -->
     <section class="sheet sheet-muted">
       <div class="sheet-rule">
         <span class="rule-num">IV</span>
+        <span class="rule-name">npm package</span>
+        <span class="rule-meta">essenfont@{{ NPM_VERSION }} · bundler install</span>
+      </div>
+      <p class="sheet-lede">
+        Prefer a package manager? The same per-plane WOFF2s and
+        <code>@font-face</code> CSS are published to npm as
+        <a href="https://www.npmjs.com/package/essenfont" target="_blank" rel="noopener"><code>essenfont</code></a>
+        (from v{{ NPM_VERSION }}). Install and import — no manual URL wiring,
+        and the WOFF2s travel with your bundle.
+      </p>
+      <div class="embed-code">
+        <button class="embed-copy" @click="copyNpm">copy</button>
+        <pre><code>{{ npmSnippet }}</code></pre>
+      </div>
+    </section>
+
+    <!-- V. Per-block WOFF2 (this site) -->
+    <section class="sheet sheet-muted">
+      <div class="sheet-rule">
+        <span class="rule-num">V</span>
         <span class="rule-name">Per-block slices</span>
         <span class="rule-meta">214 files · ~80 KB ea · this site</span>
       </div>
@@ -379,11 +412,11 @@ function copyEmbed() {
       </p>
     </section>
 
-    <!-- V. Install + License -->
+    <!-- VI. Install + License -->
     <section class="sheet sheet-grid">
       <div class="grid-cell">
         <div class="sheet-rule">
-          <span class="rule-num">V</span>
+          <span class="rule-num">VI</span>
           <span class="rule-name">Install</span>
         </div>
         <ol class="install-list">
@@ -404,7 +437,7 @@ function copyEmbed() {
 
       <div class="grid-cell">
         <div class="sheet-rule">
-          <span class="rule-num">VI</span>
+          <span class="rule-num">VII</span>
           <span class="rule-name">License &amp; attribution</span>
         </div>
         <p class="license-blurb">
