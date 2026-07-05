@@ -430,8 +430,18 @@ export default { components: { CoverageMap } }
   grid-template-columns: 1.1fr 1fr;
   gap: 3rem;
   align-items: center;
+  /* Without min-width: 0, grid children expand to their min-content
+     size — which the hero-title's long words can push past narrow
+     viewports. */
+  min-width: 0;
 }
-.hero-copy { max-width: 560px; }
+.hero-copy {
+  max-width: 560px;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
 .hero-copy .label-text { display: block; margin-bottom: 0.75rem; }
 .hero-title {
   font-family: var(--spec-font-display);
@@ -442,6 +452,8 @@ export default { components: { CoverageMap } }
   color: var(--spec-ink);
   margin: 0 0 1rem;
   font-feature-settings: "kern" 1, "liga" 1, "onum" 1, "salt" 1;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .hero-accent {
   color: var(--spec-rose);
@@ -473,6 +485,11 @@ export default { components: { CoverageMap } }
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.05),
     0 4px 14px rgba(0, 0, 0, 0.06);
+  /* Grid item — default min-width: auto lets this column grow past
+     the available track when an <input> child's intrinsic width
+     exceeds the parent's. Force shrinkable. */
+  min-width: 0;
+  box-sizing: border-box;
 }
 .tt-head {
   display: flex;
@@ -495,6 +512,11 @@ export default { components: { CoverageMap } }
 }
 .tt-input {
   width: 100%;
+  /* <input> has an intrinsic min-width of ~20 chars by default
+     (the `size` attribute). At narrow viewports that pushes the
+     grid track wider than the parent. Force shrinkable. */
+  min-width: 0;
+  box-sizing: border-box;
   padding: 0.6rem 0.85rem;
   font-family: var(--spec-font-mono);
   font-size: 0.85rem;
@@ -602,7 +624,14 @@ export default { components: { CoverageMap } }
 }
 
 /* ── Tofu before/after ── */
-.tofu-section { padding: 4rem 0; border-top: 1px solid var(--spec-rule); }
+.tofu-section {
+  padding: 4rem 0;
+  border-top: 1px solid var(--spec-rule);
+  /* Defensive: never let this section contribute to horizontal scroll. */
+  overflow-x: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
+}
 .tofu-lede {
   font-family: var(--spec-font-display);
   font-size: 1.05rem;
@@ -618,10 +647,18 @@ export default { components: { CoverageMap } }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
+  /* Without min-width: 0 on children, grid items size to their
+     content's min-content (which is the widest unbreakable glyph).
+     That pushes the second column past the container. */
+  min-width: 0;
 }
 @media (max-width: 720px) { .tofu-grid { grid-template-columns: 1fr; } }
 
 .tofu-card {
+  /* Critical: min-width: 0 lets the grid child shrink below its
+     min-content size so the wide Egyptian/CJK glyphs can overflow
+     inside instead of pushing the column outward. */
+  min-width: 0;
   padding: 1.5rem 1.8rem 1.2rem;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--spec-rule);
@@ -629,6 +666,7 @@ export default { components: { CoverageMap } }
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  overflow: hidden;
 }
 .tofu-essenfont {
   border-left: 3px solid var(--spec-rose);
@@ -647,12 +685,22 @@ export default { components: { CoverageMap } }
   font-size: clamp(1.4rem, 4vw, 2.4rem);
   line-height: 1.5;
   letter-spacing: 0.08em;
+  /* break-all breaks between any two LETTERS. anywhere breaks between
+     any two CHARACTERS (including SMP/SIP/TIP codepoints), which is
+     what we want for a tofu demo that mixes Egyptian + Phoenician +
+     CJK + Modi in one string. */
   word-break: break-all;
+  overflow-wrap: anywhere;
   min-height: 4em;
+  min-width: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 0.3em;
+  /* If a single codepoint glyph is still wider than the card (rare
+     but possible — Noto Sans Phoenician's chars are ~1.4× em-square),
+     scroll instead of blowing out the layout. */
+  overflow-x: auto;
 }
 .tofu-card-glyph.system-font { font-family: -apple-system, system-ui, sans-serif; }
 .tofu-card-glyph.essenfont-font { font-family: 'Essenfont', -apple-system, sans-serif; }

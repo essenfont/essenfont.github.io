@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
 import { RouterLink } from 'vue-router'
 import SiteSearch from '../components/SiteSearch.vue'
 
 // Light-first: default is light.
 const theme = ref<'light' | 'dark'>('light')
+const menuOpen = ref(false)
+const route = useRoute()
 
 function applyTheme(t: 'light' | 'dark') {
   theme.value = t
@@ -16,6 +19,16 @@ function applyTheme(t: 'light' | 'dark') {
 function toggleTheme() {
   applyTheme(theme.value === 'dark' ? 'light' : 'dark')
 }
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value
+}
+
+// Close the mobile menu whenever the route changes so a navigation
+// from the menu doesn't leave it covering the next page.
+watch(() => route.path, () => {
+  menuOpen.value = false
+})
 
 onMounted(() => {
   try {
@@ -35,7 +48,20 @@ onMounted(() => {
           <span class="nav-word">Essenfont</span>
           <span class="nav-tag">Unicode 17</span>
         </RouterLink>
-        <div class="nav-links">
+        <button
+          type="button"
+          class="nav-menu-toggle"
+          :class="{ open: menuOpen }"
+          :aria-expanded="menuOpen"
+          aria-controls="primary-nav"
+          aria-label="Toggle navigation menu"
+          @click="toggleMenu"
+        >
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+        <div class="nav-links" id="primary-nav" :class="{ open: menuOpen }">
           <RouterLink to="/unicode" class="nav-link">Browse</RouterLink>
           <RouterLink to="/subfonts" class="nav-link">Subfonts</RouterLink>
           <RouterLink to="/donors" class="nav-link">Donors</RouterLink>
@@ -264,9 +290,76 @@ onMounted(() => {
 .footer-bottom a:hover { color: var(--spec-rose); }
 .footer-sep { opacity: 0.5; }
 
+/* ── Mobile hamburger ──
+ * Below 960px the link row would otherwise overflow. Toggle button
+ * is hidden on desktop; nav-links collapses into a dropdown panel.
+ */
+.nav-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  background: none;
+  border: 1px solid var(--spec-rule);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.nav-menu-toggle .menu-bar {
+  display: block;
+  height: 1.5px;
+  background: var(--spec-ink);
+  transition: transform 0.2s, opacity 0.2s;
+}
+.nav-menu-toggle.open .menu-bar:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+.nav-menu-toggle.open .menu-bar:nth-child(2) { opacity: 0; }
+.nav-menu-toggle.open .menu-bar:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
+@media (max-width: 1050px) {
+  .nav-menu-toggle { display: inline-flex; }
+
+  .nav-links {
+    position: absolute;
+    top: var(--vp-nav-height, 64px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+    background: var(--spec-paper);
+    border-bottom: 1px solid var(--spec-rule);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    /* Hidden state: collapsed + pointer-events:none so SiteSearch's
+       Cmd+K trigger isn't focusable while the menu is closed. */
+    max-height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: max-height 0.25s ease-out;
+  }
+  .nav-links.open {
+    max-height: 80vh;
+    overflow-y: auto;
+    pointer-events: auto;
+  }
+  .nav-links .nav-link,
+  .nav-links :deep(.ss-trigger) {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--spec-rule);
+    width: 100%;
+    text-align: left;
+  }
+  .nav-links .nav-link::after { display: none; }
+}
+
 @media (max-width: 768px) {
   .nav-inner { padding: 0 1rem; }
-  .nav-links { gap: 0.75rem; }
   .nav-tag { display: none; }
   .footer-inner { gap: 2rem; }
 }
