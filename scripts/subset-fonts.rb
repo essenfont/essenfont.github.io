@@ -143,12 +143,15 @@ def subset_block(block)
   tmp_ttf = "/tmp/essenfont-subset-#{slug}.ttf"
   woff2_path = File.join(FONTS_DIR, "#{slug}.woff2")
 
-  # Pick the face whose cmap contains the most of the block's codepoints.
-  # For a single TTF, font_index defaults to 0.
+  # Web profile (not PDF): web browsers require the OS/2 table for
+  # line metrics (usWinAscent/usWinDescent) and clip text without it.
+  # The PDF profile drops OS/2 entirely — that's why the previous
+  # build's Modi page rendered nothing even though the glyph data
+  # was correct.
   options = {
     unicode: cps,
     output: tmp_ttf,
-    profile: "pdf",
+    profile: "web",
   }
   options[:font_index] = face_for_block(block) if SOURCE_IS_TTC
 
