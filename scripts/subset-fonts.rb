@@ -157,7 +157,6 @@ def subset_block(block)
 
   subset_cmd = Fontisan::Commands::SubsetCommand.new(SOURCE_FONT, **options)
   subset_cmd.run
-
   convert_cmd = Fontisan::Commands::ConvertCommand.new(
     tmp_ttf,
     to: "woff2",
