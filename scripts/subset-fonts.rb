@@ -43,6 +43,21 @@ ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF", DEFAULT_ESSENFONT_TTF)
 SOURCE_FONT = ESSENFONT_TTC || ESSENFONT_TTF
 SOURCE_IS_TTC = File.extname(SOURCE_FONT) == ".ttc"
 
+# Unicode blocks that have no glyph representation by design. Generating
+# a WOFF2 subset for these produces a degenerate font (every glyph is
+# .notdef) which Chrome's OTS rejects. We skip them outright — they
+# can never render as text and shouldn't appear in @font-face rules.
+#
+# - Tags: language-tag format controls (U+E0000–E007F). Used for
+#   out-of-band language hinting, never rendered.
+# - Supplementary PUA-A/B: Private Use Area. By definition has no
+#   Unicode-assigned meaning; no donor can cover it.
+NON_GRAPHIC_BLOCKS = [
+  "Tags",
+  "Supplementary Private Use Area-A",
+  "Supplementary Private Use Area-B",
+].freeze
+
 # Curated demo set: covers the scripts visitors are most likely to be
 # surprised by. Pass --all to do every block in unicode-blocks.json.
 DEMO_BLOCKS = %w[
@@ -72,21 +87,49 @@ def block_slug(name)
   name.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-|-$/, "")
 end
 
-# Build {block_first_cp => face_index} lookup by scanning every face's
-# cmap. Cached at module level — building it once per process is fine
-# because the TTC doesn't change mid-run.
+# Build {codepoint => face_index} lookup by scanning every face's cmap,
+# counting only codepoints whose glyph is non-empty (i.e. the face has
+# actual outline data for that codepoint).
+#
+# Why non-empty: the Essenfont TTC partitioner populates cmap entries in
+# faces that don't carry the corresponding glyf outlines. Without this
+# check, "first face wins" picks face 0 (BMP) for SMP codepoints even
+# though face 0's cmap points at empty .notdef slots. Picking the face
+# that actually has the outlines turns broken subsets into working ones
+# for Category A blocks (misc-symbols-pictographs, transport-map, etc.).
+#
+# Cached at module level — building it once per process is fine because
+# the TTC doesn't change mid-run.
 def face_lookup
   return @_face_lookup if @_face_lookup
 
-  lookup = {}
+  # codepoint => { face_index => real_glyph_count }
+  cp_face_real = Hash.new { |h, cp| h[cp] = Hash.new(0) }
+
   reader = Fontisan::Collection::Reader.open(SOURCE_FONT)
   reader.stats.each do |stat|
     face = Fontisan::FontLoader.load(SOURCE_FONT, font_index: stat.index)
     cmap = face.table("cmap").unicode_mappings || {}
-    cps = cmap.keys.to_set
-    cps.each { |cp| lookup[cp] ||= stat.index }
+    next if cmap.empty?
+
+    loca = face.table("loca")
+    head = face.table("head")
+    maxp = face.table("maxp")
+    if loca && head && maxp
+      loca.parse_with_context(head.index_to_loc_format, maxp.num_glyphs)
+      cmap.each do |cp, gid|
+        size = loca.size_of(gid)
+        cp_face_real[cp][stat.index] += 1 if size && size.positive?
+      end
+    else
+      # No loca to check emptiness; assume every cmap entry is real.
+      cmap.each_key { |cp| cp_face_real[cp][stat.index] += 1 }
+    end
   end
-  @_face_lookup = lookup
+
+  @_face_lookup = cp_face_real.transform_values do |faces|
+    faces.max_by { |_, count| count }&.first
+  end
 end
 
 # Find the best face index for a block range: the face containing the
@@ -121,14 +164,15 @@ def parse_args(argv)
 end
 
 def select_blocks(all_blocks, opts)
+  filtered = all_blocks.reject { |b| NON_GRAPHIC_BLOCKS.include?(b["name"]) }
   if opts[:block]
-    found = all_blocks.find { |b| b["name"] == opts[:block] }
+    found = filtered.find { |b| b["name"] == opts[:block] }
     abort "Block not found: #{opts[:block]}" unless found
     [found]
   elsif opts[:all]
-    all_blocks
+    filtered
   else
-    all_blocks.select { |b| DEMO_BLOCKS.include?(b["name"]) }
+    filtered.select { |b| DEMO_BLOCKS.include?(b["name"]) }
   end
 end
 
@@ -213,6 +257,22 @@ def main
   selected = select_blocks(blocks, opts)
 
   FileUtils.mkdir_p(FONTS_DIR)
+
+  # Clean up stale WOFF2/WOFF for blocks we now skip (non-graphic blocks
+  # that previously got degenerate subsets). These would otherwise keep
+  # getting served as broken @font-face assets.
+  if opts[:all]
+    NON_GRAPHIC_BLOCKS.each do |name|
+      slug = block_slug(name)
+      %w[woff2 woff].each do |ext|
+        path = File.join(FONTS_DIR, "#{slug}.#{ext}")
+        if File.exist?(path)
+          File.unlink(path)
+          warn "  ✗ removed stale non-graphic subset: #{File.basename(path)}"
+        end
+      end
+    end
+  end
 
   done = []
   selected.each do |block|
