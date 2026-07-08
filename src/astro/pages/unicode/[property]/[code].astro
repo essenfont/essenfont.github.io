@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+export async function getStaticPaths() {
+  const PUBLIC = path.resolve('./public');
+  const PROP_FILE_MAP = {
+    scripts: 'by-script.json',
+    category: 'by-category.json',
+    bidiclass: 'by-bidi.json',
+    combining: 'by-combining.json',
+  };
+  const paths = [];
+  for (const [prop, fileName] of Object.entries(PROP_FILE_MAP)) {
+    const index = JSON.parse(fs.readFileSync(path.join(PUBLIC, 'unicode', 'indexes', fileName), 'utf-8'));
+    for (const code of Object.keys(index)) {
+      paths.push({ params: { property: prop, code }, props: { property: prop, code } });
+    }
+  }
+  return paths;
+}
+
+const { property, code } = Astro.props;
+const dirName = property === 'bidiclass' ? 'bidi' : property;
+const PUBLIC = path.resolve('./public');
+const detailPath = path.join(PUBLIC, 'unicode', 'indexes', dirName, `${code}.json`);
+
+let chars: Array<{cp: number, n: string, b: string}> = [];
+let count = 0;
+try {
+  const data = JSON.parse(fs.readFileSync(detailPath, 'utf-8'));
+  chars = data.characters || [];
+  count = data.count || chars.length;
+} catch { /* file may not exist */ }
+---
+<BaseLayout
+  title={`${code} — ${property} — Essenfont`}
+  description={`${count} Unicode characters with ${property} value ${code}.`}
+  canonical={`/unicode/${property}/${code}`}
+>
+  <div class="prop-detail">
+    <header class="page-head">
+      <p class="eyebrow">
+        <a href={`/unicode/${property}`}>← {property}</a>
+      </p>
+      <h1>{code}</h1>
+      <p>{count.toLocaleString()} characters</p>
+    </header>
+    <div class="char-grid">
+      {chars.slice(0, 500).map(ch => (
+        <a href={`/unicode/char/${ch.cp.toString(16).toUpperCase()}`} class="char-cell">
+          <span class="char-glyph" style="font-family: var(--spec-font-glyph);">
+            {ch.cp < 0x20 || (ch.cp >= 0x7F && ch.cp <= 0x9F) ? '·' : (ch.cp <= 0x10FFFF ? String.fromCodePoint(ch.cp) : '·')}
+          </span>
+          <span class="char-hex">{ch.cp.toString(16).toUpperCase()}</span>
+        </a>
+      ))}
+    </div>
+    {chars.length > 500 && <p class="more">Showing first 500 of {count.toLocaleString()}.</p>}
+  </div>
+</BaseLayout>
+<style>
+.prop-detail { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; opacity: 0.6; }
+.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+h1 { font-family: var(--mono-font, monospace); font-size: 1.75rem; margin: 0.5rem 0 0.25rem; }
+.char-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem; }
+.char-cell { display: flex; flex-direction: column; align-items: center; padding: 0.75rem 0.5rem; border: 1px solid rgba(128,128,128,0.1); border-radius: 4px; text-decoration: none; color: inherit; transition: border-color 0.1s; }
+.char-cell:hover { border-color: var(--ef-rose, #bf4e6a); }
+.char-glyph { font-size: 1.75rem; line-height: 1.2; min-height: 1.2em; }
+.char-hex { font-family: var(--mono-font, monospace); font-size: 0.65rem; opacity: 0.5; }
+.more { text-align: center; padding: 1rem; opacity: 0.5; font-size: 0.875rem; }
+</style>
