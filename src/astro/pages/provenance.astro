@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Provenance — Essenfont" description="Glyph provenance and attribution for every codepoint in the Essenfont." canonical="/provenance">
+  <article class="provenance-page">
+    <header class="page-head">
+      <p class="eyebrow">Provenance</p>
+      <h1>Glyph attribution</h1>
+    </header>
+    <section class="prose">
+      <p>Every glyph in Essenfont is traceable to its donor font. The build pipeline records which donor contributed each codepoint, and this mapping is available as <code>cp_map.json</code> in each GitHub Release.</p>
+      <p>The <a href="/donors">donor registry</a> lists all {38} source fonts and their license terms. For the full per-codepoint attribution, download the release and inspect <code>cp_map.json</code>.</p>
+      <h2>Reproducibility</h2>
+      <p>The build is fully reproducible from the committed manifest:</p>
+      <pre><code>git clone https://github.com/essenfont/essenfont
+cd essenfont
+bundle install
+FONTISAN_PATH=../fontist/fontisan bundle exec ruby scripts/build.rb --format=otc-cff2</code></pre>
+    </section>
+  </article>
+</BaseLayout>
+<style>
+.provenance-page { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
+h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; }
+.prose h2 { font-family: var(--display-font, Spectral, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
+.prose p { line-height: 1.7; }
+.prose code { font-family: var(--mono-font, monospace); background: rgba(0,0,0,0.05); padding: 0.1em 0.4em; border-radius: 3px; }
+.prose pre { background: rgba(0,0,0,0.05); padding: 1rem; border-radius: 4px; overflow-x: auto; }
+.prose a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+</style>
