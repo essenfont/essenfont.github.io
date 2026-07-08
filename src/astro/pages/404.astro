@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="404 — Not found — Essenfont">
+  <section class="not-found">
+    <h1>404</h1>
+    <p>That codepoint is unassigned, or this page doesn't exist.</p>
+    <p>
+      <a href="/">← Back to home</a> ·
+      <a href="/unicode">Browse Unicode</a> ·
+      <a href="/search">Search</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+.not-found {
+  text-align: center;
+  padding: 6rem 1.5rem;
+}
+.not-found h1 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(4rem, 15vw, 8rem);
+  line-height: 1;
+  color: var(--ef-rose, #bf4e6a);
+  margin: 0 0 1rem;
+}
+.not-found p {
+  opacity: 0.7;
+  margin: 0.5rem 0;
+}
+.not-found a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: none;
+}
+</style>
