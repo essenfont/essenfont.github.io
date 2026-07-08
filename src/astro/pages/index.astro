@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
+import { loadStats } from '../lib/stats';
+import { formatBytes, formatNumber } from '../lib/ssr';
+
+const blocks = loadAllBlocks();
+const version = loadUnicodeVersion();
+const stats = loadStats();
+
+function slugify(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+---
+<BaseLayout
+  title="Essenfont — Universal Unicode 17 Font"
+  description="One font, every Unicode 17 codepoint. Real outlines for ~160,000 assigned characters, drawn from canonical OFL-licensed donor fonts."
+  canonical="/"
+>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">Universal Unicode {version.version} Font</p>
+      <h1 class="display">Essenfont</h1>
+      <p class="lede">
+        One redistributable OpenType font covering every assigned Unicode {version.version} codepoint —
+        {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
+        Built from {stats.donorCount} canonical OFL-licensed donor fonts.
+      </p>
+      <div class="cta-row">
+        <a href="/download" class="btn-primary">Download OTC ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
+        <a href="/unicode" class="btn-ghost">Browse Unicode</a>
+        <a href="/engineering" class="btn-ghost">Engineering</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">{formatNumber(version.charCount)}</div>
+      <div class="stat-cap">Assigned Unicode {version.version} codepoints</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{version.blockCount}</div>
+      <div class="stat-cap">Unicode blocks covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{stats.donorCount}</div>
+      <div class="stat-cap">OFL-licensed donor fonts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+      <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
+      <div class="stat-cap">Per-block WOFF2 subsets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{formatBytes(stats.websiteSubsets.woff2TotalBytes)}</div>
+      <div class="stat-cap">Total WOFF2 payload</div>
+    </div>
+  </section>
+
+  <section class="blocks-section">
+    <h2>Browse by block</h2>
+    <p>Every Unicode {version.version} block, one click away.</p>
+    <div class="block-grid">
+      {blocks.slice(0, 30).map(block => (
+        <a href={`/unicode/block/${slugify(block.name)}`} class="block-card">
+          <span class="block-name">{block.name}</span>
+          <span class="block-range">U+{block.start.toString(16).toUpperCase()}–U+{block.end.toString(16).toUpperCase()}</span>
+          <span class="block-count">{block.end - block.start + 1} cp</span>
+        </a>
+      ))}
+    </div>
+    <a href="/unicode" class="see-all">See all {version.blockCount} blocks →</a>
+  </section>
+</BaseLayout>
+
+<style>
+.hero {
+  padding: 5rem 0 3rem;
+  text-align: center;
+}
+.hero-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+}
+.display {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1;
+  margin: 0.5rem 0 1.5rem;
+}
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-ghost {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary {
+  background: var(--ef-rose, #bf4e6a);
+  color: white;
+}
+.btn-ghost {
+  border: 1px solid currentColor;
+  color: var(--spec-ink, #1c1a18);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--spec-ink, #1c1a18);
+  border-bottom: 1px solid var(--spec-ink, #1c1a18);
+  margin: 3rem 0;
+}
+.stat-num {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ef-rose, #bf4e6a);
+}
+.stat-cap {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+.blocks-section {
+  padding: 2rem 0 4rem;
+}
+.blocks-section h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 2rem 0;
+}
+.block-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.block-card:hover {
+  border-color: var(--ef-rose, #bf4e6a);
+}
+.block-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.block-range {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 0.25rem;
+}
+.block-count {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+.see-all {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: none;
+}
+</style>
