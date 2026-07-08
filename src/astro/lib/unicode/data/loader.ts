@@ -53,7 +53,12 @@ export function loadUnicodeVersion(): UnicodeVersion {
 }
 
 export function loadBlockCharacters(blockSlug: string): UnicodeCharacter[] {
-  return readJsonSync<UnicodeCharacter[]>(`unicode/blocks/${blockSlug}.json`);
+  try {
+    const data = readJsonSync<{ chars: UnicodeCharacter[] }>(`unicode/blocks/${blockSlug}.json`);
+    return data.chars || [];
+  } catch {
+    return [];
+  }
 }
 
 export function loadBlock(blockSlug: string): UnicodeBlock | null {
