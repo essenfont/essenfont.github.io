@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const PUBLIC = path.resolve('./public');
+
+export async function getStaticPaths() {
+  const PROPERTIES = [
+    { key: 'scripts', dir: 'scripts', title: 'Scripts', file: 'by-script.json' },
+    { key: 'category', dir: 'category', title: 'Character Categories', file: 'by-category.json' },
+    { key: 'bidiclass', dir: 'bidiclass', title: 'Bidirectional Classes', file: 'by-bidi.json' },
+    { key: 'combining', dir: 'combining', title: 'Combining Classes', file: 'by-combining.json' },
+  ];
+  return PROPERTIES.map(p => ({ params: { property: p.key }, props: { config: p } }));
+}
+
+const { config } = Astro.props;
+const indexData = JSON.parse(fs.readFileSync(path.join(PUBLIC, 'unicode', 'indexes', config.file), 'utf-8'));
+const entries = Object.entries(indexData)
+  .map(([code, count]) => ({ code, count: count as number }))
+  .sort((a, b) => b.count - a.count);
+const totalCount = entries.reduce((sum, e) => sum + e.count, 0);
+---
+<BaseLayout
+  title={`${config.title} — Essenfont`}
+  description={`Browse Unicode characters by ${config.title.toLowerCase()}. ${entries.length} values, ${totalCount.toLocaleString()} codepoints.`}
+  canonical={`/unicode/${config.key}`}
+>
+  <div class="property-page">
+    <header class="page-head">
+      <p class="eyebrow"><a href="/unicode">← Unicode</a></p>
+      <h1>{config.title}</h1>
+      <p>{entries.length} values · {totalCount.toLocaleString()} codepoints</p>
+    </header>
+    <div class="prop-list">
+      {entries.map(e => (
+        <a href={`/unicode/${config.key}/${e.code}`} class="prop-link">
+          <span class="prop-code">{e.code}</span>
+          <span class="prop-count">{e.count.toLocaleString()}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+<style>
+.property-page { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; opacity: 0.6; }
+.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; margin: 0.5rem 0 0.25rem; }
+.prop-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.5rem; }
+.prop-link { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; border: 1px solid rgba(128,128,128,0.15); border-radius: 4px; text-decoration: none; color: inherit; transition: border-color 0.1s; }
+.prop-link:hover { border-color: var(--ef-rose, #bf4e6a); }
+.prop-code { font-family: var(--mono-font, monospace); font-size: 0.85rem; font-weight: 500; }
+.prop-count { font-family: var(--mono-font, monospace); font-size: 0.7rem; opacity: 0.5; }
+</style>
