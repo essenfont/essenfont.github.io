@@ -52,10 +52,60 @@ export function loadUnicodeVersion(): UnicodeVersion {
   return readJsonSync<UnicodeVersion>('unicode-version.json');
 }
 
+// Raw character shape from per-block JSON (short field names from UCD XML extraction).
+interface RawCharacter {
+  cp: number;
+  n?: string;
+  c?: string;
+  s?: string;
+  cc?: number;
+  bc?: string | null;
+  mir?: boolean;
+  up?: string | null;
+  lo?: string | null;
+  ti?: string | null;
+  dm?: string | null;
+}
+
+function hexCp(cp: number): string {
+  return cp.toString(16).toUpperCase().padStart(4, '0');
+}
+
+function safeChar(cp: number): string {
+  try { return String.fromCodePoint(cp); } catch { return ''; }
+}
+
+function enrichChar(raw: RawCharacter): UnicodeCharacter {
+  const cp = raw.cp;
+  let name = raw.n ?? '';
+  if (!name) {
+    if (cp >= 0x3400 && cp <= 0x9FFF || cp >= 0x20000 && cp <= 0x2FFFF) {
+      name = `CJK UNIFIED IDEOGRAPH-${cp.toString(16).toUpperCase().padStart(5, '0')}`;
+    } else {
+      name = `<control-${cp.toString(16).toUpperCase()}>`;
+    }
+  }
+  return {
+    cp,
+    hex: hexCp(cp),
+    char: safeChar(cp),
+    name,
+    category: raw.c ?? '',
+    script: raw.s ?? '',
+    combiningClass: raw.cc ?? 0,
+    bidiClass: raw.bc ?? null,
+    mirrored: raw.mir ?? false,
+    simpleUppercase: raw.up ?? null,
+    simpleLowercase: raw.lo ?? null,
+    simpleTitlecase: raw.ti ?? null,
+    decomposition: raw.dm ?? null,
+  };
+}
+
 export function loadBlockCharacters(blockSlug: string): UnicodeCharacter[] {
   try {
-    const data = readJsonSync<{ chars: UnicodeCharacter[] }>(`unicode/blocks/${blockSlug}.json`);
-    return data.chars || [];
+    const data = readJsonSync<{ chars: RawCharacter[] }>(`unicode/blocks/${blockSlug}.json`);
+    return (data.chars || []).map(enrichChar);
   } catch {
     return [];
   }

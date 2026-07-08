@@ -1,0 +1,211 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { loadAllBlocks, loadBlockCharacters, slugifyBlockName } from '../../../lib/unicode';
+import type { UnicodeBlock, UnicodeCharacter } from '../../../lib/unicode';
+
+interface CharPageProps {
+  char: UnicodeCharacter;
+  block: UnicodeBlock;
+  hex: string;
+}
+
+export async function getStaticPaths() {
+  const blocks = loadAllBlocks();
+  const paths: Array<{ params: { hex: string }; props: CharPageProps }> = [];
+
+  for (const block of blocks) {
+    const slug = slugifyBlockName(block.name);
+    const chars = loadBlockCharacters(slug);
+    for (const ch of chars) {
+      // URL hex is unpadded (matches the Vue site's charRoute):
+      // U+41 → /unicode/char/41, U+1F600 → /unicode/char/1F600
+      const urlHex = ch.cp.toString(16).toUpperCase();
+      paths.push({
+        params: { hex: urlHex },
+        props: { char: ch, block, hex: urlHex },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { char, block, hex } = Astro.props;
+
+// Display helpers
+function displayGlyph(cp: number, ch: string | null): string {
+  if (cp < 0x20 || (cp >= 0x7F && cp <= 0x9F)) return '·';
+  if (ch && ch.trim()) return ch;
+  return '·';
+}
+---
+<BaseLayout
+  title={`U+${hex} ${char.name} — Essenfont`}
+  description={`${char.name} (U+${hex}). Category: ${char.category}. Script: ${char.script}. Rendered with the Essenfont universal Unicode 17 font.`}
+  canonical={`/unicode/char/${hex}`}
+>
+  <article class="char-page">
+    <header class="char-head">
+      <p class="eyebrow">
+        <a href={`/unicode/block/${slugifyBlockName(block.name)}`}>← {block.displayName || block.name}</a>
+      </p>
+      <div class="glyph-display" style="font-family: var(--spec-font-glyph);">
+        {displayGlyph(char.cp, char.char)}
+      </div>
+      <h1>U+{hex}</h1>
+      <p class="char-name">{char.name}</p>
+    </header>
+
+    <section class="props">
+      <dl>
+        <dt>Codepoint</dt>
+        <dd>U+{hex} ({char.cp.toLocaleString()})</dd>
+
+        <dt>Name</dt>
+        <dd>{char.name}</dd>
+
+        <dt>Category</dt>
+        <dd>{char.category}</dd>
+
+        <dt>Script</dt>
+        <dd>{char.script}</dd>
+
+        <dt>Block</dt>
+        <dd>{block.displayName || block.name}</dd>
+
+        {char.combiningClass > 0 && (
+          <>
+            <dt>Combining class</dt>
+            <dd>{char.combiningClass}</dd>
+          </>
+        )}
+
+        {char.bidiClass && (
+          <>
+            <dt>Bidi class</dt>
+            <dd>{char.bidiClass}</dd>
+          </>
+        )}
+
+        {char.mirrored && (
+          <>
+            <dt>Mirrored</dt>
+            <dd>Yes</dd>
+          </>
+        )}
+      </dl>
+    </section>
+
+    {char.simpleUppercase || char.simpleLowercase || char.simpleTitlecase ? (
+      <section class="case-mappings">
+        <h2>Case mappings</h2>
+        <div class="case-grid">
+          {char.simpleUppercase && (
+            <div class="case-cell">
+              <span class="case-label">Uppercase</span>
+              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleUppercase}</span>
+            </div>
+          )}
+          {char.simpleLowercase && (
+            <div class="case-cell">
+              <span class="case-label">Lowercase</span>
+              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleLowercase}</span>
+            </div>
+          )}
+          {char.simpleTitlecase && (
+            <div class="case-cell">
+              <span class="case-label">Titlecase</span>
+              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleTitlecase}</span>
+            </div>
+          )}
+        </div>
+      </section>
+    ) : null}
+
+    {char.decomposition && (
+      <section class="decomposition">
+        <h2>Decomposition</h2>
+        <code>{char.decomposition}</code>
+      </section>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+.char-page { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.char-head { text-align: center; margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin: 0 0 1.5rem;
+}
+.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+.glyph-display {
+  font-size: clamp(6rem, 20vw, 10rem);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.char-head h1 {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 1.5rem;
+  color: var(--ef-rose, #bf4e6a);
+  margin: 0 0 0.25rem;
+}
+.char-name {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.25rem;
+  opacity: 0.8;
+}
+.props dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+}
+.props dt {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  padding-top: 0.15rem;
+}
+.props dd { margin: 0; font-size: 0.95rem; }
+.case-mappings { margin-top: 2rem; }
+.case-mappings h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+.case-grid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.case-cell { text-align: center; }
+.case-label {
+  display: block;
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 0.25rem;
+}
+.case-glyph { font-size: 2.5rem; }
+.decomposition { margin-top: 2rem; }
+.decomposition h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.decomposition code {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  background: rgba(0,0,0,0.05);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+</style>
