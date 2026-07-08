@@ -1,0 +1,140 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadStats } from '../lib/stats';
+import { formatBytes } from '../lib/ssr';
+
+const stats = loadStats();
+const releases = await fetch(`${Astro.site}releases.json`)
+  .then(r => r.ok ? r.json() : [])
+  .catch(() => []);
+
+const LATEST = releases[0] || { tag: 'latest', name: 'Essenfont', url: 'https://github.com/essenfont/essenfont/releases' };
+---
+<BaseLayout
+  title="Download — Essenfont"
+  description="Download the Essenfont OTC (canonical, CFF2) or TTC (fallback, glyf) from GitHub Releases. Install via Fontist or npm."
+  canonical="/download"
+>
+  <div class="download">
+    <header class="page-head">
+      <p class="eyebrow">Download</p>
+      <h1>Get Essenfont</h1>
+    </header>
+
+    <section class="options">
+      <div class="option-card primary">
+        <h2>Canonical OTC</h2>
+        <p class="format">CFF2 outlines · CBDT color emoji · {formatBytes(stats.fontBinaries.otcSizeBytes)}</p>
+        <p>The full universal font. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
+        <a href={LATEST.otc_url || LATEST.url} class="btn-primary">Download OTC</a>
+        <p class="meta">v{LATEST.tag} · OFL 1.1</p>
+      </div>
+
+      <div class="option-card">
+        <h2>Website WOFF2 subsets</h2>
+        <p class="format">{stats.websiteSubsets.woff2Count} per-block subsets · {formatBytes(stats.websiteSubsets.woff2TotalBytes)}</p>
+        <p>Browser-optimized WOFF2 for every Unicode block. Load only what you need.</p>
+        <a href="/unicode" class="btn-ghost">Browse blocks</a>
+      </div>
+
+      <div class="option-card">
+        <h2>Install via Fontist</h2>
+        <p class="format">Ruby · fontist gem</p>
+        <pre><code>gem install fontist
+fontist install "Essenfont"</code></pre>
+      </div>
+    </section>
+
+    {releases.length > 0 && (
+      <section class="releases">
+        <h2>Releases</h2>
+        <ul>
+          {releases.map(r => (
+            <li>
+              <a href={r.url}>{r.tag}</a>
+              <span class="release-name">{r.name}</span>
+              {r.date && <time>{r.date}</time>}
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+.download { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+}
+h1 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+.options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.option-card {
+  padding: 2rem 1.5rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 8px;
+}
+.option-card.primary {
+  border-color: var(--ef-rose, #bf4e6a);
+  border-width: 2px;
+}
+.option-card h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.25rem;
+  margin: 0 0 0.5rem;
+}
+.format {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 0 0 1rem;
+}
+.option-card p { font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; }
+.btn-primary, .btn-ghost {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.btn-primary { background: var(--ef-rose, #bf4e6a); color: white; }
+.btn-ghost { border: 1px solid currentColor; color: var(--spec-ink, #1c1a18); }
+.meta { font-family: var(--mono-font, 'IBM Plex Mono', monospace); font-size: 0.7rem; opacity: 0.5; margin-top: 0.5rem; }
+.option-card pre {
+  background: rgba(0,0,0,0.05);
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  overflow-x: auto;
+}
+.releases h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.releases ul { list-style: none; padding: 0; }
+.releases li {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+}
+.releases a { color: var(--ef-rose, #bf4e6a); text-decoration: none; font-weight: 600; }
+.release-name { flex: 1; font-size: 0.875rem; opacity: 0.7; }
+.releases time { font-family: var(--mono-font, 'IBM Plex Mono', monospace); font-size: 0.75rem; opacity: 0.5; }
+</style>

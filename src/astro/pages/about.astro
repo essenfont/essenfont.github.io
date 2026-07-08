@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadStats } from '../lib/stats';
+import { formatBytes, formatNumber } from '../lib/ssr';
+
+const stats = loadStats();
+---
+<BaseLayout
+  title="About — Essenfont"
+  description="Essenfont is a universal Unicode 17 font — one redistributable OpenType file covering every assigned codepoint, assembled from 38 OFL-licensed donor fonts."
+  canonical="/about"
+>
+  <article class="about">
+    <header class="page-head">
+      <p class="eyebrow">About</p>
+      <h1>One font, every codepoint</h1>
+    </header>
+
+    <section class="prose">
+      <p>
+        <strong>Essenfont</strong> is a real font — not a library or a service. A single
+        redistributable OpenType Collection (OTC) that covers every assigned Unicode 17
+        codepoint ({formatNumber(stats.unicode.assignedCodepointCount)} characters across
+        {stats.unicode.blockCount} blocks), built from {stats.donorCount} canonical
+        OFL-licensed donor fonts.
+      </p>
+      <p>
+        There is no UFO source, no hand-designed glyphs. Every glyph is vector-extracted
+        from canonical donor fonts — Noto, Full-Sung, UniHieroglyphica, and more. The
+        build is purely an assembly pipeline: read donors → partition by plane → stitch
+        into subfonts → pack into a collection.
+      </p>
+
+      <h2>The name</h2>
+      <p>
+        <em>Essen</em> — German for "to eat" — because a universal font is meant to be
+        consumed everywhere. The "font" is the object. Together: a font that eats every
+        script.
+      </p>
+
+      <h2>The technical achievement</h2>
+      <p>
+        The canonical output is <code>Essenfont-Regular.otc</code> ({formatBytes(stats.fontBinaries.otcSizeBytes)}),
+        a 10-face OpenType Collection with CFF2 outlines and CBDT color emoji bitmaps.
+        The website serves {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets ({formatBytes(stats.websiteSubsets.woff2TotalBytes)} total)
+        so visitors don't download the full {formatNumber(stats.unicode.assignedCodepointCount)}-codepoint font just to
+        browse one script.
+      </p>
+      <p>
+        Every WOFF2 subset loads in Chrome's OpenType Sanitizer — a goal that required
+        13 named fixes across three repos. See the <a href="/engineering">engineering story</a>
+        for the full account.
+      </p>
+
+      <h2>License</h2>
+      <p>
+        Essenfont is distributed under the <strong>Open Font License (OFL) 1.1</strong>.
+        Each donor's license terms are preserved in the font's <code>name</code> table and
+        in the auto-generated <code>LICENSE-SOURCES.md</code>. See the
+        <a href="/license">license page</a> for details.
+      </p>
+
+      <h2>Get it</h2>
+      <p>
+        <a href="/download">Download from GitHub Releases</a> or install via Fontist:
+      </p>
+      <pre><code>fontist install "Essenfont"</code></pre>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+.about { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+}
+h1 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.1;
+}
+.prose h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.5rem;
+  margin: 2rem 0 0.75rem;
+}
+.prose p { font-size: 1.0625rem; line-height: 1.7; }
+.prose code {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  background: rgba(0,0,0,0.05);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+.prose pre {
+  background: rgba(0,0,0,0.05);
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.prose pre code { background: none; padding: 0; }
+.prose a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: none;
+}
+</style>
