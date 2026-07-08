@@ -14,4 +14,4 @@ public/search-index.json.gz
 public/releases/
 *.log
 .env
-.env.local
+.env.localTODO.*
