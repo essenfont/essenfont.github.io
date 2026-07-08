@@ -5,12 +5,30 @@ interface Props {
   title: string;
   description?: string;
   canonical?: string;
+  /** Highlights the matching nav item. */
+  active?: 'specimen' | 'browse' | 'install' | 'makers' | 'changelog';
 }
 
-const { title, description = 'Universal Unicode 17 font', canonical } = Astro.props;
+const {
+  title,
+  description = 'One font. Every assigned Unicode 17 codepoint. Real outlines for ~160,000 characters, drawn from canonical OFL-licensed donor fonts.',
+  canonical,
+  active,
+} = Astro.props;
+
 const site = Astro.site ?? 'https://essenfont.github.io';
 const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
+const year = new Date().getFullYear();
+
+const navItems = [
+  { key: 'specimen',  label: 'Specimen',  href: '/' },
+  { key: 'browse',    label: 'Browse',    href: '/unicode' },
+  { key: 'install',   label: 'Install',   href: '/download' },
+  { key: 'makers',    label: 'Makers',    href: '/donors' },
+  { key: 'changelog', label: 'Changelog', href: '/changelog' },
+] as const;
 ---
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -22,31 +40,74 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0a1a1f" />
     <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts.css" />
   </head>
   <body>
-    <header class="site-header">
-      <nav class="container nav">
-        <a href="/" class="brand">
-          <img src="/logo.svg" alt="Essenfont" width="24" height="24" />
+    <header class="masthead">
+      <div class="masthead-inner">
+        <a href="/" class="masthead-brand" aria-label="Essenfont home">
+          <img src="/logo.svg" alt="" class="brand-mark" width="24" height="24" />
           <span>Essenfont</span>
+          <span class="folio" style="margin-left: 0.25rem; align-self: center;">U+17</span>
         </a>
-        <div class="nav-links">
-          <a href="/unicode" class="nav-link">Unicode</a>
-          <a href="/donors" class="nav-link">Donors</a>
-          <a href="/changelog" class="nav-link">Changelog</a>
-          <a href="/engineering" class="nav-link">Engineering</a>
-          <a href="/download" class="nav-link">Download</a>
-        </div>
-      </nav>
+        <nav class="masthead-nav" aria-label="Primary">
+          {navItems.map(item => (
+            <a
+              href={item.href}
+              class:list={[{ active: active === item.key }]}
+            >{item.label}</a>
+          ))}
+        </nav>
+      </div>
     </header>
-    <main class="container">
+
+    <main>
       <slot />
     </main>
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <a href="https://github.com/essenfont/essenfont" target="_blank" rel="noopener">GitHub</a>
-        <span>OFL-1.1 · Essenfont</span>
+
+    <footer class="colophon">
+      <div class="colophon-inner">
+        <div>
+          <a href="/" class="masthead-brand" style="font-size: 1.125rem;">
+            <img src="/logo.svg" alt="" class="brand-mark" width="20" height="20" />
+            <span>Essenfont</span>
+          </a>
+          <p class="text-ink-3" style="font-size: 0.8125rem; margin-top: 1rem; max-width: 32ch; line-height: 1.6;">
+            A universal Unicode 17 font assembled from OFL-licensed donor outlines. Every codepoint, one typeface.
+          </p>
+        </div>
+        <div>
+          <h5>The Font</h5>
+          <ul>
+            <li><a href="/download">Install</a></li>
+            <li><a href="/unicode">Browse</a></li>
+            <li><a href="/changelog">Changelog</a></li>
+            <li><a href="/subfonts">Subfonts</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>The Work</h5>
+          <ul>
+            <li><a href="/donors">Donors</a></li>
+            <li><a href="/engineering">Engineering</a></li>
+            <li><a href="/provenance">Provenance</a></li>
+            <li><a href="/license">License</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Elsewhere</h5>
+          <ul>
+            <li><a href="https://github.com/essenfont/essenfont" target="_blank" rel="noopener">GitHub →</a></li>
+            <li><a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">Releases →</a></li>
+            <li><a href="https://fontist.org" target="_blank" rel="noopener">Fontist →</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="colophon-base">
+        <span>SIL Open Font License 1.1 · Essenfont · {year}</span>
+        <span>Type foundry at the end of the alphabet</span>
       </div>
     </footer>
   </body>

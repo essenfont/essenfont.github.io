@@ -3,37 +3,172 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadReleases } from '../../lib/donors';
 
 const releases = loadReleases();
+const latest = releases[0];
 ---
-<BaseLayout title="Changelog — Essenfont" description="Release history for the Essenfont universal Unicode 17 font." canonical="/changelog">
-  <div class="changelog">
-    <header class="page-head">
-      <p class="eyebrow">Changelog</p>
-      <h1>Release history</h1>
-    </header>
-    {releases.length === 0 ? (
-      <p class="empty">No releases yet. The first release is coming soon.</p>
-    ) : (
-      <ul class="release-list">
-        {releases.map(r => (
-          <li>
-            <a href={`/changelog/${r.tag}`} class="release-tag">{r.tag}</a>
-            <span class="release-name">{r.name}</span>
-            <time>{r.date}</time>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
+
+<BaseLayout
+  title="Changelog — Essenfont"
+  description="Release history for the Essenfont universal Unicode 17 font."
+  canonical="/changelog"
+  active="changelog"
+>
+  <section class="section changelog-head">
+    <div class="container">
+      <div class="changelog-head-grid">
+        <div class="changelog-meta rise-1">
+          <p class="eyebrow">§ History</p>
+          <p class="folio" style="margin-top: 1rem;">No. {releases.length} releases</p>
+        </div>
+        <div class="changelog-pitch rise-2">
+          <h1>The <em class="text-ochre">ledger</em>.</h1>
+          <p class="lede" style="margin-top: 2rem;">
+            Every Essenfont release ships with a regenerated donor registry,
+            coverage report, and per-codepoint provenance manifest. This is
+            the running ledger of what changed, when, and why.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section changelog-list">
+    <div class="container">
+      {releases.length === 0 ? (
+        <div class="empty reveal">
+          <p class="lede">No releases yet.</p>
+          <p class="text-ink-3" style="margin-top: 1rem;">
+            The first release is in preparation. Watch
+            <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">GitHub Releases</a>
+            for the announcement.
+          </p>
+        </div>
+      ) : (
+        <ol class="release-list">
+          {releases.map((r, idx) => (
+            <li class="release-row reveal" class:list={[{ latest: idx === 0 }]}>
+              <div class="release-marker">
+                <span class="release-index mono">{String(idx + 1).padStart(2, '0')}</span>
+                {idx === 0 && <span class="release-flag">latest</span>}
+              </div>
+              <div class="release-body">
+                <h3 class="release-tag">{r.tag}</h3>
+                <p class="release-name">{r.name}</p>
+                <div class="release-meta">
+                  <time class="mono" datetime={r.date}>{r.date}</time>
+                  <a href={`/changelog/${r.tag}`} class="release-link">Read the notes →</a>
+                  {r.otc_url && (
+                    <a href={r.otc_url} class="release-link" target="_blank" rel="noopener">Download OTC →</a>
+                  )}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  </section>
 </BaseLayout>
+
 <style>
-.changelog { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
-h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; }
-.empty { opacity: 0.6; }
-.release-list { list-style: none; padding: 0; }
-.release-list li { display: flex; align-items: baseline; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
-.release-tag { font-family: var(--mono-font, monospace); font-weight: 600; color: var(--ef-rose, #bf4e6a); text-decoration: none; }
-.release-name { flex: 1; font-size: 0.875rem; opacity: 0.7; }
-time { font-family: var(--mono-font, monospace); font-size: 0.75rem; opacity: 0.5; }
+  .changelog-head { padding-block: clamp(3rem, 8vw, 5rem); }
+  .changelog-head-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+  .changelog-meta { grid-column: 1 / span 2; }
+  .changelog-pitch { grid-column: 4 / span 9; padding-top: 1rem; }
+  .changelog-pitch h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 40;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .changelog-pitch h1 em {
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+  }
+
+  /* Release list */
+  .release-list {
+    list-style: none;
+    counter-reset: rel;
+  }
+  .release-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+    padding-block: clamp(1.5rem, 3vw, 2.25rem);
+    border-top: 1px solid var(--ef-rule);
+    counter-increment: rel;
+  }
+  .release-row:last-child { border-bottom: 1px solid var(--ef-rule); }
+  .release-row.latest .release-tag { color: var(--ef-ochre); }
+  .release-marker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .release-index {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    color: var(--ef-ink-3);
+  }
+  .release-flag {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ef-ochre);
+    border: 1px solid var(--ef-ochre);
+    padding: 0.125rem 0.5rem;
+    width: fit-content;
+  }
+  .release-tag {
+    font-family: var(--font-display);
+    font-weight: 350;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ef-ink);
+  }
+  .release-name {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: var(--ef-ink-2);
+    max-width: 64ch;
+    line-height: 1.55;
+  }
+  .release-meta {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .release-meta time {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ef-ink-3);
+  }
+  .release-link {
+    font-size: 0.875rem;
+    color: var(--ef-ochre);
+  }
+
+  .empty {
+    padding-block: 4rem;
+    text-align: center;
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .changelog-meta, .changelog-pitch { grid-column: 1 / span 12; }
+    .release-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  }
 </style>

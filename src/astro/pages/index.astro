@@ -11,189 +11,737 @@ const stats = loadStats();
 function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
+
+// Hand-picked specimens spanning the planes — each tells a story.
+const featured = [
+  { cp: 0x0041,   name: 'Latin A',          plane: 'BMP', note: 'The first letter. Where every font begins.' },
+  { cp: 0x4E00,   name: 'CJK 一',           plane: 'BMP', note: 'CJK Unified Ideograph — ten thousand.' },
+  { cp: 0x1F4A9,  name: 'Pile of Poo',      plane: 'SMP', note: 'Color bitmap glyph from NotoColorEmoji.' },
+  { cp: 0x1D11E,  name: 'Musical G clef',   plane: 'SMP', note: 'One staff position. Drawn by Noto Sans.' },
+  { cp: 0x2000B,  name: 'CJK Ext B',        plane: 'SIP', note: 'A rare ideograph — 4,192 in this plane alone.' },
+  { cp: 0x30F4D,  name: 'CJK Ext G',        plane: 'TIP', note: 'Recovered. 4,939 codepoints, was 1,022.' },
+  { cp: 0x12BAD,  name: 'Cuneiform',        plane: 'SMP', note: 'A wedge of Sumero-Akkadian history.' },
+  { cp: 0x13000,  name: 'Egyptian Hieroglyph', plane: 'SMP', note: 'Gardiner sign list. First dynasty onwards.' },
+  { cp: 0xE0001,  name: 'Language Tag',     plane: 'SSP', note: 'Tags — invisible but defined.' },
+];
 ---
+
 <BaseLayout
   title="Essenfont — Universal Unicode 17 Font"
-  description="One font, every Unicode 17 codepoint. Real outlines for ~160,000 assigned characters, drawn from canonical OFL-licensed donor fonts."
+  description="One redistributable OpenType font covering every assigned Unicode 17 codepoint. Real outlines for ~160,000 characters, drawn from canonical OFL-licensed donor fonts."
   canonical="/"
+  active="specimen"
 >
+  <!-- ═══════════════════════════════════════════════════════════════════
+       MASTHEAD STRIP — folio metadata
+       ═══════════════════════════════════════════════════════════════════ -->
+  <div class="folio-strip">
+    <div class="container folio-strip-inner">
+      <span>Folio 01</span>
+      <span>Specimen Sheet</span>
+      <span>Unicode {version.version}</span>
+      <span class="folio-date">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       HERO — the wordmark + interactive type tester
+       ═══════════════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">Universal Unicode {version.version} Font</p>
-      <h1 class="display">Essenfont</h1>
-      <p class="lede">
-        One redistributable OpenType font covering every assigned Unicode {version.version} codepoint —
-        {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
-        Built from {stats.donorCount} canonical OFL-licensed donor fonts.
-      </p>
-      <div class="cta-row">
-        <a href="/download" class="btn-primary">Download OTC ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
-        <a href="/unicode" class="btn-ghost">Browse Unicode</a>
-        <a href="/engineering" class="btn-ghost">Engineering</a>
+    <div class="container hero-grid">
+      <div class="hero-meta rise-1">
+        <p class="eyebrow">Vol. 17 · Universal Specimen</p>
+        <p class="folio" style="margin-top: 1rem;">No. {formatNumber(version.charCount)}</p>
+      </div>
+
+      <div class="hero-wordmark rise-2">
+        <span class="wordmark-glyph">E</span><span class="wordmark-glyph alt">ε</span><span class="wordmark-glyph">n</span>
+      </div>
+
+      <div class="hero-pitch rise-3">
+        <h1 class="hero-h1">
+          One&nbsp;font.<br/>
+          <em class="text-ochre">Every</em> codepoint.
+        </h1>
+        <p class="lede hero-lede">
+          Essenfont is a single redistributable OpenType file that covers
+          every assigned Unicode&nbsp;{version.version} codepoint —
+          {formatNumber(version.charCount)} characters drawn from
+          <strong>{stats.donorCount} canonical OFL-licensed donor fonts</strong>.
+        </p>
+        <div class="hero-cta rise-4">
+          <a href="/download" class="btn btn-primary btn-arrow">Install the font</a>
+          <a href="/unicode" class="btn btn-ghost btn-arrow">Browse all {version.blockCount} blocks</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live type tester -->
+    <div class="container type-tester rise-5">
+      <div class="tester-header">
+        <p class="eyebrow">Try it · Rendered in Essenfont</p>
+        <p class="folio" id="tester-folio">— characters</p>
+      </div>
+      <textarea
+        id="tester-input"
+        class="tester-input"
+        spellcheck="false"
+        autocomplete="off"
+        placeholder="Type anything — Lorem ipsum, 你好世界, 🦀, 𐎀𐎂, ∮dh, MCMXC…"
+        rows="3">The quick brown fox 你好世界 𓂀 𒀭 ∑∫ 🪬</textarea>
+      <div id="tester-output" class="tester-output" aria-live="polite"></div>
+      <div class="tester-controls">
+        <label class="tester-size">
+          <span class="folio">size</span>
+          <input id="tester-size-input" type="range" min="24" max="160" value="56" />
+          <span id="tester-size-value" class="mono">56px</span>
+        </label>
+        <p class="folio tester-note">
+          Falls back to Noto Sans for codepoints your system can't show.
+          Install Essenfont for true outlines.
+        </p>
       </div>
     </div>
   </section>
 
-  <section class="stats-grid">
-    <div class="stat">
-      <div class="stat-num">{formatNumber(version.charCount)}</div>
-      <div class="stat-cap">Assigned Unicode {version.version} codepoints</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">{version.blockCount}</div>
-      <div class="stat-cap">Unicode blocks covered</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">{stats.donorCount}</div>
-      <div class="stat-cap">OFL-licensed donor fonts</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
-      <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
-      <div class="stat-cap">Per-block WOFF2 subsets</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">{formatBytes(stats.websiteSubsets.woff2TotalBytes)}</div>
-      <div class="stat-cap">Total WOFF2 payload</div>
+  <!-- ═══════════════════════════════════════════════════════════════════
+       THE FURNITURE — five stats, set as a list, not a grid
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section furniture">
+    <div class="container">
+      <div class="furniture-head">
+        <p class="eyebrow reveal">§ I · The Furniture</p>
+        <h2 class="reveal">A font at the scale of the universal character set.</h2>
+      </div>
+      <ol class="furniture-list">
+        <li class="furniture-row reveal">
+          <span class="furniture-num">{formatNumber(version.charCount)}</span>
+          <span class="furniture-label">assigned codepoints covered</span>
+          <span class="furniture-note">across Unicode {version.version}</span>
+        </li>
+        <li class="furniture-row reveal">
+          <span class="furniture-num">{version.blockCount}</span>
+          <span class="furniture-label">Unicode blocks</span>
+          <span class="furniture-note">from Basic Latin to CJK Ext I</span>
+        </li>
+        <li class="furniture-row reveal">
+          <span class="furniture-num">{stats.donorCount}</span>
+          <span class="furniture-label">donor outlines</span>
+          <span class="furniture-note">all OFL-1.1 licensed</span>
+        </li>
+        <li class="furniture-row reveal">
+          <span class="furniture-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</span>
+          <span class="furniture-label">canonical OTC</span>
+          <span class="furniture-note">CFF2 outlines + CBDT color bitmaps</span>
+        </li>
+        <li class="furniture-row reveal">
+          <span class="furniture-num">{stats.websiteSubsets.woff2Count}</span>
+          <span class="furniture-label">per-block WOFF2 subsets</span>
+          <span class="furniture-note">{formatBytes(stats.websiteSubsets.woff2TotalBytes)} total web payload</span>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <section class="blocks-section">
-    <h2>Browse by block</h2>
-    <p>Every Unicode {version.version} block, one click away.</p>
-    <div class="block-grid">
-      {blocks.slice(0, 30).map(block => (
-        <a href={`/unicode/block/${slugify(block.name)}`} class="block-card">
-          <span class="block-name">{block.name}</span>
-          <span class="block-range">U+{block.start.toString(16).toUpperCase()}–U+{block.end.toString(16).toUpperCase()}</span>
-          <span class="block-count">{block.end - block.start + 1} cp</span>
-        </a>
-      ))}
+  <!-- ═══════════════════════════════════════════════════════════════════
+       PLATES — featured specimens across planes
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section plates">
+    <div class="container">
+      <div class="plates-head">
+        <p class="eyebrow reveal">§ II · The Plates</p>
+        <h2 class="reveal">A grand tour — one glyph per plane.</h2>
+        <p class="lede reveal" style="margin-top: 1.5rem;">
+          Each character below is rendered in Essenfont from a real outline
+          drawn by its canonical donor. Click any plate to step into its Unicode block.
+        </p>
+      </div>
+      <div class="plates-grid">
+        {featured.map((item, i) => (
+          <a
+            href={`/unicode/char/${item.cp.toString(16).toUpperCase().padStart(4, '0')}`}
+            class:list={["plate", "reveal", `plate-${(i % 4) + 1}`]}
+          >
+            <span class="plate-glyph glyph">{String.fromCodePoint(item.cp)}</span>
+            <div class="plate-meta">
+              <span class="plate-name">{item.name}</span>
+              <span class="plate-note">{item.note}</span>
+              <span class="plate-folio mono">U+{item.cp.toString(16).toUpperCase()} · {item.plane}</span>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
-    <a href="/unicode" class="see-all">See all {version.blockCount} blocks →</a>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       THE GATHERING — how it's built, condensed
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section gathering">
+    <div class="container">
+      <div class="grid">
+        <div class="gathering-pitch reveal" style="grid-column: span 5;">
+          <p class="eyebrow">§ III · The Gathering</p>
+          <h2 style="margin-top: 1.5rem;">Assembled, not designed.</h2>
+          <p class="lede" style="margin-top: 1rem;">
+            Essenfont doesn't draw a single glyph. It gathers outlines from
+            the canonical OFL-licensed font for each Unicode script — Noto
+            for Latin, Source for CJK, FSung for the rare CJK Extensions,
+            NotoColorEmoji for color bitmaps — and stitches them into one
+            redistributable OpenType collection.
+          </p>
+          <p style="margin-top: 2rem; max-width: 50ch;" class="text-ink-2">
+            Every donor is credited. Every codepoint is traceable to its
+            source. The build pipeline — fontisan's Stitcher, Layer, and
+            Collection::Builder — is itself open source.
+          </p>
+          <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <a href="/donors" class="btn btn-ghost btn-arrow">See every donor</a>
+            <a href="/engineering" class="btn btn-ghost btn-arrow">Read the engineering</a>
+          </div>
+        </div>
+
+        <aside class="gathering-side reveal" style="grid-column: span 6 / -1;">
+          <div class="donor-list">
+            <h5 class="eyebrow" style="margin-bottom: 1.25rem;">Selected donors</h5>
+            <ul>
+              <li>
+                <span class="donor-name">FSung-3</span>
+                <span class="donor-cov mono">CJK Ext G · 4,939 cp</span>
+              </li>
+              <li>
+                <span class="donor-name">Noto Serif Tangut</span>
+                <span class="donor-cov mono">Tangut · 6,892 cp</span>
+              </li>
+              <li>
+                <span class="donor-name">Noto Sans Cuneiform</span>
+                <span class="donor-cov mono">Cuneiform · 1,238 cp</span>
+              </li>
+              <li>
+                <span class="donor-name">NewGardiner</span>
+                <span class="donor-cov mono">Egyptian Hieroglyphs · 4,637 cp</span>
+              </li>
+              <li>
+                <span class="donor-name">Noto Color Emoji</span>
+                <span class="donor-cov mono">Color bitmaps · 1,501 cp</span>
+              </li>
+              <li>
+                <span class="donor-name">Uni-Hieroglyphica</span>
+                <span class="donor-cov mono">Hieroglyphs Ext · 14,906 cp</span>
+              </li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       THE INSTALL — one CDN line, prominent
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section install">
+    <div class="container">
+      <div class="install-card reveal">
+        <div class="install-head">
+          <p class="eyebrow">§ IV · Take it home</p>
+          <h2 style="margin-top: 1rem;">One line. Every glyph.</h2>
+        </div>
+        <p class="lede" style="margin-top: 1rem; max-width: 52ch;">
+          Pull a per-block WOFF2 subset from the CDN, or install the full
+          OTC locally for offline coverage of the entire Unicode repertoire.
+        </p>
+        <div class="install-snippets">
+          <div class="snippet">
+            <div class="snippet-tab">
+              <span class="folio">CDN · per-block subset</span>
+              <button class="snippet-copy" data-copy="essenfont-cdn" aria-label="Copy">copy</button>
+            </div>
+            <pre id="essenfont-cdn" class="snippet-code"><code set:html={`&lt;link
+  rel="stylesheet"
+  href="https://cdn.essenfont.org/subsets/cjk.woff2.css"
+&gt;
+&lt;style&gt;body { font-family: "Essenfont", sans-serif; }&lt;/style&gt;`} /></pre>
+          </div>
+          <div class="snippet">
+            <div class="snippet-tab">
+              <span class="folio">Fontist · install locally</span>
+              <button class="snippet-copy" data-copy="essenfont-cli" aria-label="Copy">copy</button>
+            </div>
+            <pre id="essenfont-cli" class="snippet-code"><code set:html={`$ fontist install "Essenfont"
+# → ~/.fontist/fonts/Essenfont-Regular.otc (105 MB)`} /></pre>
+          </div>
+        </div>
+        <div class="install-cta">
+          <a href="/download" class="btn btn-primary btn-arrow">All install options</a>
+          <a href="/changelog" class="btn btn-ghost btn-arrow">Read the changelog</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       COLOPHON LINE — final beat
+       ═══════════════════════════════════════════════════════════════════ -->
+  <section class="section closing">
+    <div class="container closing-inner">
+      <p class="closing-line reveal">
+        <span class="glyph closing-mark">𓂀</span>
+      </p>
+      <p class="lede reveal closing-quote">
+        “A type foundry at the end of the alphabet, where every character
+        finally has a home.”
+      </p>
+      <p class="folio reveal">— Essenfont · {new Date().getUTCFullYear()}</p>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
-.hero {
-  padding: 5rem 0 3rem;
-  text-align: center;
-}
-.hero-content {
-  max-width: 720px;
-  margin: 0 auto;
-}
-.eyebrow {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a);
-}
-.display {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 1;
-  margin: 0.5rem 0 1.5rem;
-}
-.lede {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 2rem;
-}
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.btn-primary, .btn-ghost {
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.btn-primary {
-  background: var(--ef-rose, #bf4e6a);
-  color: white;
-}
-.btn-ghost {
-  border: 1px solid currentColor;
-  color: var(--spec-ink, #1c1a18);
-}
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-  padding: 3rem 0;
-  border-top: 1px solid var(--spec-ink, #1c1a18);
-  border-bottom: 1px solid var(--spec-ink, #1c1a18);
-  margin: 3rem 0;
-}
-.stat-num {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--ef-rose, #bf4e6a);
-}
-.stat-cap {
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  opacity: 0.7;
-}
-.blocks-section {
-  padding: 2rem 0 4rem;
-}
-.blocks-section h2 {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-.block-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.75rem;
-  margin: 2rem 0;
-}
-.block-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.15s;
-}
-.block-card:hover {
-  border-color: var(--ef-rose, #bf4e6a);
-}
-.block-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-.block-range {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  opacity: 0.6;
-  margin-top: 0.25rem;
-}
-.block-count {
-  font-size: 0.75rem;
-  opacity: 0.5;
-  margin-top: 0.25rem;
-}
-.see-all {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--ef-rose, #bf4e6a);
-  text-decoration: none;
-}
+  /* ─── Folio strip ─────────────────────────────────── */
+  .folio-strip {
+    border-bottom: 1px solid var(--ef-rule);
+    background: var(--ef-paper-2);
+  }
+  .folio-strip-inner {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 0.625rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ef-ink-3);
+  }
+
+  /* ─── Hero ────────────────────────────────────────── */
+  .hero {
+    padding-block: clamp(3rem, 8vw, 6rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+  }
+  .hero-meta {
+    grid-column: 1 / span 2;
+    padding-top: 0.5rem;
+  }
+  .hero-wordmark {
+    grid-column: 4 / span 6;
+    grid-row: 1 / span 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.08;
+    overflow: hidden;
+  }
+  .wordmark-glyph {
+    font-family: var(--font-display);
+    font-weight: 200;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-size: clamp(8rem, 28vw, 22rem);
+    line-height: 0.85;
+    color: var(--ef-ink);
+    letter-spacing: -0.05em;
+  }
+  .wordmark-glyph.alt {
+    font-style: italic;
+    color: var(--ef-ochre);
+    opacity: 0.5;
+  }
+  .hero-pitch {
+    grid-column: 1 / span 12;
+    margin-top: clamp(2rem, 6vw, 4rem);
+  }
+  .hero-h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-size: clamp(3rem, 11vw, 9rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    margin-bottom: 2rem;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
+    font-weight: 350;
+  }
+  .hero-lede { max-width: 56ch; }
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Type tester ─────────────────────────────────── */
+  .type-tester {
+    margin-top: clamp(4rem, 8vw, 6rem);
+    padding: 1.75rem;
+    background: var(--ef-paper-2);
+    border: 1px solid var(--ef-rule);
+    border-radius: 2px;
+    position: relative;
+  }
+  .type-tester::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(135deg, var(--ef-ochre-soft), transparent 40%) border-box;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+  }
+  .tester-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .tester-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--ef-rule-2);
+    color: var(--ef-ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.5rem 0 1rem;
+    resize: vertical;
+    outline: none;
+  }
+  .tester-input:focus { border-bottom-color: var(--ef-ochre); }
+  .tester-input::placeholder { color: var(--ef-ink-3); font-style: italic; }
+  .tester-output {
+    margin-top: 1.25rem;
+    min-height: 4em;
+    font-family: var(--font-glyph);
+    color: var(--ef-ink);
+    line-height: 1.15;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    transition: font-size 0.1s;
+  }
+  .tester-output:empty::before {
+    content: "↑ type above";
+    color: var(--ef-ink-3);
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 1rem;
+  }
+  .tester-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--ef-rule);
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .tester-size {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .tester-size input[type="range"] {
+    accent-color: var(--ef-ochre);
+    width: clamp(100px, 20vw, 180px);
+  }
+  .tester-note { max-width: 38ch; text-align: right; }
+
+  /* ─── Furniture (stats list) ──────────────────────── */
+  .furniture-head { margin-bottom: 3rem; max-width: 56ch; }
+  .furniture-list {
+    list-style: none;
+    counter-reset: plate;
+  }
+  .furniture-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) auto 1fr;
+    gap: clamp(1rem, 4vw, 3rem);
+    align-items: baseline;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--ef-rule);
+    counter-increment: plate;
+  }
+  .furniture-row:last-child { border-bottom: 1px solid var(--ef-rule); }
+  .furniture-row::before {
+    content: counter(plate, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ef-ink-3);
+    letter-spacing: 0.18em;
+    position: absolute;
+    margin-left: -3rem;
+    margin-top: 0.5rem;
+  }
+  .furniture-num {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-variation-settings: "opsz" 144;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    color: var(--ef-ink);
+    letter-spacing: -0.04em;
+  }
+  .furniture-label {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 350;
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    color: var(--ef-ink-2);
+    text-align: right;
+  }
+  .furniture-note {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ef-ink-3);
+    align-self: baseline;
+  }
+  @media (max-width: 768px) {
+    .furniture-row {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+    .furniture-label, .furniture-note { text-align: left; }
+  }
+
+  /* ─── Plates ──────────────────────────────────────── */
+  .plates-head { max-width: 64ch; margin-bottom: 3rem; }
+  .plates-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1px;
+    background: var(--ef-rule);
+    border: 1px solid var(--ef-rule);
+  }
+  .plate {
+    background: var(--ef-paper);
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: clamp(180px, 22vw, 260px);
+    text-decoration: none;
+    border: none;
+    transition: background 0.3s, color 0.3s;
+    color: var(--ef-ink);
+    position: relative;
+  }
+  .plate:hover {
+    background: var(--ef-paper-2);
+    color: var(--ef-ink);
+  }
+  .plate:hover .plate-glyph { color: var(--ef-ochre); }
+  /* Asymmetric column spans */
+  .plate-1 { grid-column: span 5; }
+  .plate-2 { grid-column: span 4; }
+  .plate-3 { grid-column: span 3; }
+  .plate-4 { grid-column: span 3; }
+  .plate-5 { grid-column: span 4; }
+  .plate-6 { grid-column: span 5; }
+  .plate-7 { grid-column: span 4; }
+  .plate-8 { grid-column: span 4; }
+  .plate-9 { grid-column: span 4; }
+  .plate-glyph {
+    font-family: var(--font-glyph);
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 1;
+    color: var(--ef-ink);
+    transition: color 0.3s;
+  }
+  .plate-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    margin-top: 1.5rem;
+  }
+  .plate-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.0625rem;
+    color: var(--ef-ink);
+  }
+  .plate-note {
+    font-size: 0.8125rem;
+    color: var(--ef-ink-2);
+    max-width: 38ch;
+  }
+  .plate-folio {
+    margin-top: 0.5rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    color: var(--ef-ink-3);
+    text-transform: uppercase;
+  }
+  @media (max-width: 900px) {
+    .plate-1, .plate-2, .plate-3, .plate-4, .plate-5, .plate-6, .plate-7, .plate-8, .plate-9 {
+      grid-column: span 6;
+    }
+  }
+  @media (max-width: 540px) {
+    .plate-1, .plate-2, .plate-3, .plate-4, .plate-5, .plate-6, .plate-7, .plate-8, .plate-9 {
+      grid-column: span 12;
+    }
+  }
+
+  /* ─── Gathering ───────────────────────────────────── */
+  .gathering { background: var(--ef-paper-2); }
+  .donor-list h5 { color: var(--ef-ochre); }
+  .donor-list ul {
+    list-style: none;
+    border-top: 1px solid var(--ef-rule);
+  }
+  .donor-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-bottom: 1px solid var(--ef-rule);
+    font-size: 0.9375rem;
+  }
+  .donor-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--ef-ink);
+  }
+  .donor-cov {
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ef-ink-3);
+  }
+
+  /* ─── Install ─────────────────────────────────────── */
+  .install-card {
+    padding: clamp(2rem, 5vw, 4rem);
+    background: var(--ef-paper-2);
+    border: 1px solid var(--ef-ochre);
+    box-shadow: var(--ef-shadow-ochre);
+  }
+  .install-head { max-width: 56ch; }
+  .install-snippets {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 768px) { .install-snippets { grid-template-columns: 1fr; } }
+  .snippet {
+    background: var(--ef-paper);
+    border: 1px solid var(--ef-rule);
+  }
+  .snippet-tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--ef-rule);
+    background: var(--ef-paper-3);
+  }
+  .snippet-copy {
+    background: none;
+    border: 1px solid var(--ef-rule-2);
+    color: var(--ef-ink-3);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.625rem;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .snippet-copy:hover { color: var(--ef-ochre); border-color: var(--ef-ochre); }
+  .snippet-code {
+    margin: 0;
+    padding: 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--ef-ink);
+    overflow-x: auto;
+  }
+  .install-cta {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Closing ─────────────────────────────────────── */
+  .closing { text-align: center; padding-block: clamp(5rem, 12vw, 9rem); }
+  .closing-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+  .closing-mark {
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: var(--ef-ochre);
+    line-height: 1;
+  }
+  .closing-quote {
+    font-style: italic;
+    text-align: center;
+    max-width: 38ch;
+    color: var(--ef-ink);
+  }
 </style>
+
+<script>
+  // Live type tester — render the input through the Essenfont web font
+  // (loaded via the CDN's basic-latin subset), with graceful fallback.
+  const input = document.getElementById('tester-input') as HTMLTextAreaElement;
+  const output = document.getElementById('tester-output') as HTMLDivElement;
+  const folio = document.getElementById('tester-folio');
+  const sizeInput = document.getElementById('tester-size-input') as HTMLInputElement;
+  const sizeValue = document.getElementById('tester-size-value');
+
+  if (input && output) {
+    const render = () => {
+      const text = input.value;
+      output.textContent = text;
+      if (folio) {
+        const chars = [...text].length;
+        const codepoints = text.length;
+        folio.textContent = `${chars} char${chars === 1 ? '' : 's'} · ${codepoints} code unit${codepoints === 1 ? '' : 's'}`;
+      }
+    };
+    const resize = () => {
+      const px = `${sizeInput.value}px`;
+      output.style.fontSize = px;
+      if (sizeValue) sizeValue.textContent = px;
+    };
+    input.addEventListener('input', render);
+    sizeInput.addEventListener('input', resize);
+    render();
+    resize();
+  }
+
+  // Copy-to-clipboard for install snippets
+  document.querySelectorAll<HTMLButtonElement>('.snippet-copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.copy;
+      const target = id ? document.getElementById(id) : null;
+      if (target) {
+        const text = target.innerText;
+        navigator.clipboard?.writeText(text).then(() => {
+          const original = btn.textContent;
+          btn.textContent = 'copied';
+          setTimeout(() => { btn.textContent = original; }, 1500);
+        });
+      }
+    });
+  });
+</script>
