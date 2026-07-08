@@ -1,0 +1,53 @@
+---
+import '../../styles/main.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+}
+
+const { title, description = 'Universal Unicode 17 font', canonical } = Astro.props;
+const site = Astro.site ?? 'https://essenfont.github.io';
+const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.svg" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="container nav">
+        <a href="/" class="brand">
+          <img src="/logo.svg" alt="Essenfont" width="24" height="24" />
+          <span>Essenfont</span>
+        </a>
+        <div class="nav-links">
+          <a href="/unicode" class="nav-link">Unicode</a>
+          <a href="/donors" class="nav-link">Donors</a>
+          <a href="/changelog" class="nav-link">Changelog</a>
+          <a href="/engineering" class="nav-link">Engineering</a>
+          <a href="/download" class="nav-link">Download</a>
+        </div>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a href="https://github.com/essenfont/essenfont" target="_blank" rel="noopener">GitHub</a>
+        <span>OFL-1.1 · Essenfont</span>
+      </div>
+    </footer>
+  </body>
+</html>
