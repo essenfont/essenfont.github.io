@@ -1500,16 +1500,6 @@
 
 @font-face {
   font-family: "Essenfont";
-  src: url("/fonts/tolong-siki.woff") format("woff"),
-      url("/fonts/tolong-siki.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+11DB0-11DEF;
-}
-
-@font-face {
-  font-family: "Essenfont";
   src: url("/fonts/lisu-supplement.woff") format("woff"),
       url("/fonts/lisu-supplement.woff2") format("woff2");
   font-weight: 100 900;
@@ -1606,6 +1596,16 @@
   font-style: normal;
   font-display: swap;
   unicode-range: U+16EA0-16EDF;
+}
+
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/ideographic-symbols-and-punctuation.woff") format("woff"),
+      url("/fonts/ideographic-symbols-and-punctuation.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+16FE0-16FFF;
 }
 
 @font-face {

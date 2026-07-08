@@ -5,6 +5,22 @@ import { useHead } from '@unhead/vue'
 import { fetchJson } from '../lib/ssr-fetch'
 import { loadUnicodeVersion } from '../lib/unicode'
 
+// ── Build-time stats ──
+// Computed by scripts/gen-site-stats.mjs from the committed unicode
+// data + sibling essenfont repo's font binaries. Run before `vite-ssg
+// build` to refresh (wired into package.json build script).
+type SiteStats = {
+  generatedAt: string
+  unicode: { version: string; blockCount: number; assignedCodepointCount: number }
+  donorCount: number
+  fontBinaries: { otcSizeBytes: number | null; ttcSizeBytes: number | null; otfSizeBytes: number | null }
+  websiteSubsets: { woff2Count: number; woff2TotalBytes: number; woff1Count: number; woff1TotalBytes: number }
+}
+const siteStats = ref<SiteStats | null>(null)
+try {
+  siteStats.value = await fetchJson<SiteStats>('site-stats.json')
+} catch {}
+
 const unicodeInfo = ref<{ version: string; charCount: number; blockCount: number } | null>(null)
 
 try {
@@ -213,8 +229,9 @@ const steps = [
           </div>
           <div class="hero-meta ef-animate-in ef-delay-4" v-if="unicodeInfo">
             <span class="badge">Unicode {{ unicodeInfo.version }}</span>
-            <span class="badge">OTC · 5 subfonts</span>
-            <span class="badge">{{ unicodeInfo.charCount.toLocaleString() }} glyphs</span>
+            <span class="badge">{{ unicodeInfo.blockCount }} blocks · {{ unicodeInfo.charCount.toLocaleString() }} codepoints</span>
+            <span class="badge" v-if="siteStats">{{ siteStats.donorCount }} donors</span>
+            <span class="badge" v-if="siteStats?.fontBinaries?.otcSizeBytes">OTC · {{ (siteStats.fontBinaries.otcSizeBytes / 1024 / 1024).toFixed(0) }} MB</span>
             <span class="badge">OFL 1.1</span>
           </div>
         </div>
