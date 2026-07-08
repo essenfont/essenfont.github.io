@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadStats } from '../lib/stats';
+import { formatBytes, formatNumber } from '../lib/ssr';
+const stats = loadStats();
+---
+<BaseLayout title="Subfonts — Essenfont" description="Per-block WOFF2 subsets for efficient web delivery. Load only the Unicode blocks you need." canonical="/subfonts">
+  <div class="subfonts-page">
+    <header class="page-head">
+      <p class="eyebrow">Subfonts</p>
+      <h1>Per-block WOFF2 subsets</h1>
+      <p>Load only what you need. {stats.websiteSubsets.woff2Count} WOFF2 subsets, {formatBytes(stats.websiteSubsets.woff2TotalBytes)} total.</p>
+    </header>
+    <section class="info">
+      <h2>How it works</h2>
+      <p>Each Unicode block gets its own WOFF2 file containing only that block's glyphs. The CSS <code>unicode-range</code> descriptor tells the browser which file to load for which characters — so visitors only download the scripts they actually see.</p>
+      <pre><code>@font-face &#123;
+  font-family: "Essenfont";
+  src: url("/fonts/basic-latin.woff2") format("woff2");
+  unicode-range: U+0000-007F;
+&#125;</code></pre>
+      <p>The full <code>fonts.css</code> with all {stats.websiteSubsets.woff2Count} <code>@font-face</code> rules is at <a href="/fonts.css">/fonts.css</a>.</p>
+    </section>
+  </div>
+</BaseLayout>
+<style>
+.subfonts-page { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
+h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; margin: 0 0 0.5rem; }
+.info h2 { font-family: var(--display-font, Spectral, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
+.info p { line-height: 1.7; }
+.info pre { background: rgba(0,0,0,0.05); padding: 1rem; border-radius: 4px; overflow-x: auto; }
+.info code { font-family: var(--mono-font, monospace); }
+.info a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+</style>

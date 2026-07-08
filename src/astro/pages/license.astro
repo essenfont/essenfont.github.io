@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="License — Essenfont" description="Essenfont is distributed under the SIL Open Font License (OFL) 1.1. Each donor's license terms are preserved." canonical="/license">
+  <article class="license-page">
+    <header class="page-head">
+      <p class="eyebrow">License</p>
+      <h1>SIL Open Font License 1.1</h1>
+    </header>
+    <section class="prose">
+      <p>Essenfont is distributed under the <strong>SIL Open Font License (OFL) 1.1</strong>. You may use, study, modify, and redistribute the font freely under the terms of the license.</p>
+      <p>The full OFL text is available at <a href="https://openfontlicense.org">openfontlicense.org</a> and is embedded in the font's <code>name</code> table (nameID 13).</p>
+      <h2>Donor licenses</h2>
+      <p>Each donor font that contributes glyphs to Essenfont retains its original license terms. These are:</p>
+      <ul>
+        <li><strong>OFL-compatible</strong> (Noto, Lentariso, Kedebideri, UniHieroglyphica, etc.) — merged without additional restrictions.</li>
+        <li><strong>FSung-NC</strong> (Full-Sung by F.G. Wang) — non-commercial use. The <code>accepted_with_conditions</code> clause in the donor manifest propagates this restriction into the output font's <code>name</code> table.</li>
+        <li><strong>Synthetic from code charts</strong> — Unicode Consortium code-chart derived SVGs, released under OFL by the build pipeline.</li>
+      </ul>
+      <p>For the full <code>LICENSE-SOURCES.md</code>, see the <a href="https://github.com/essenfont/essenfont">essenfont repo</a>.</p>
+    </section>
+  </article>
+</BaseLayout>
+<style>
+.license-page { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
+h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; }
+.prose h2 { font-family: var(--display-font, Spectral, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
+.prose p, .prose li { line-height: 1.7; }
+.prose code { font-family: var(--mono-font, monospace); background: rgba(0,0,0,0.05); padding: 0.1em 0.4em; border-radius: 3px; }
+.prose a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+</style>
