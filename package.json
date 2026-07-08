@@ -5,16 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:astro": "astro dev",
     "build": "node scripts/gen-site-stats.mjs && node scripts/gen-ssg-routes.mjs && vite-ssg build",
+    "build:astro": "node scripts/gen-site-stats.mjs && astro build",
     "gen-stats": "node scripts/gen-site-stats.mjs",
     "build:no-fetch": "vite-ssg build",
     "preview": "vite preview",
+    "preview:astro": "astro preview",
     "gen-routes": "node scripts/gen-ssg-routes.mjs",
     "gen-unicode": "node scripts/gen-unicode-data.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {
+    "@astrojs/mdx": "^7.0.2",
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vue": "^7.0.1",
     "@unhead/vue": "^1.11.0",
+    "astro": "^7.0.6",
     "vue": "^3.5.0",
     "vue-router": "^4.4.0"
   },

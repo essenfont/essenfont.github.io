@@ -1,4 +1,5 @@
 {
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "target": "ES2022",
     "module": "ESNext",
@@ -16,9 +17,10 @@
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "@astro/*": ["src/astro/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "scripts/**/*.ts", "scripts/**/*.mjs"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/**/*.astro", "scripts/**/*.ts", "scripts/**/*.mjs", ".astro/types.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadStats } from '../lib/stats';
+import { formatBytes, formatNumber } from '../lib/ssr';
+
+const stats = loadStats();
+---
+<BaseLayout
+  title="Essenfont — Universal Unicode 17 Font (Astro preview)"
+  description="Astro preview page for the in-progress migration. The full Vue site at / remains canonical until TODO.astro/21."
+  canonical="/astro/"
+>
+  <section class="astro-preview">
+    <p class="eyebrow">Astro migration preview</p>
+    <h1>Essenfont <span class="version">· Astro</span></h1>
+    <p class="lede">
+      This page is rendered by Astro. The canonical site (Vue + vite-ssg) remains at
+      <a href="/">the root</a> until the migration in <code>TODO.astro/</code> completes.
+    </p>
+    <p>
+      <a href="/engineering">→ Engineering story (Astro)</a>
+    </p>
+
+    <section class="stats-grid">
+      <div class="stat">
+        <div class="stat-num">{formatNumber(stats.unicode.assignedCodepointCount)}</div>
+        <div class="stat-cap">Assigned Unicode {stats.unicode.version} codepoints</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">{stats.donorCount}</div>
+        <div class="stat-cap">OFL-licensed donor fonts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+        <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
+        <div class="stat-cap">Per-block WOFF2 subsets</div>
+      </div>
+    </section>
+  </section>
+</BaseLayout>
+
+<style>
+.astro-preview {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+  margin: 0 0 0.5rem;
+}
+h1 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+  margin: 0 0 1rem;
+}
+.version {
+  font-size: 0.5em;
+  opacity: 0.5;
+}
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--spec-ink, #1c1a18);
+}
+.stat-num {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ef-rose, #bf4e6a);
+}
+.stat-cap {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+</style>
