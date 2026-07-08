@@ -3,6 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 export const routes: RouteRecordRaw[] = [
   { path: '/', name: 'home', component: () => import('./pages/HomePage.vue') },
   { path: '/about', name: 'about', component: () => import('./pages/AboutPage.vue') },
+  { path: '/engineering', name: 'engineering', component: () => import('./pages/EngineeringPage.vue') },
   { path: '/donors', name: 'donors', component: () => import('./pages/DonorsIndexPage.vue') },
   { path: '/donors/:slug', name: 'donor', component: () => import('./pages/DonorDetailPage.vue') },
   { path: '/download', name: 'download', component: () => import('./pages/DownloadPage.vue') },

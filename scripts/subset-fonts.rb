@@ -29,19 +29,24 @@ BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 FONTS_DIR = File.join(PUBLIC, "fonts")
 FONTS_CSS = File.join(PUBLIC, "fonts.css")
 
-# Default: search the sibling essenfont repo for the TTC (canonical) or
-# TTF (legacy). Override with ESSENFONT_TTC / ESSENFONT_TTF env vars.
+# Default: search the sibling essenfont repo for the TTC (the canonical
+# OTC at Essenfont-Regular.otc carries CFF2 outlines that fontisan's
+# subsetter can't yet parse; until that lands, we subset from the TTC
+# fallback which has the same donor coverage in glyf form). Override
+# individual paths via env.
+DEFAULT_ESSENFONT_OTC = File.expand_path("../../essenfont/Essenfont-Regular.otc", __dir__)
 DEFAULT_ESSENFONT_TTC = File.expand_path("../../essenfont/Essenfont-Regular.ttc", __dir__)
 DEFAULT_ESSENFONT_TTF = File.expand_path("../../essenfont/Essenfont-Regular.ttf", __dir__)
+ESSENFONT_OTC = ENV["ESSENFONT_OTC"] || (File.exist?(DEFAULT_ESSENFONT_OTC) ? DEFAULT_ESSENFONT_OTC : nil)
 ESSENFONT_TTC = ENV["ESSENFONT_TTC"] || (File.exist?(DEFAULT_ESSENFONT_TTC) ? DEFAULT_ESSENFONT_TTC : nil)
 ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF", DEFAULT_ESSENFONT_TTF)
 
-# Source font + per-block face index lookup. TTCs contain multiple faces
-# (BMP got sub-split to stay under the 65,535-glyph cap), so each block
-# must be subsetted against the face that actually contains its
-# codepoints.
+# Source for per-block WOFF2 subsetting. TODO: once fontisan's
+# SubsetCommand supports CFF2 charstring extraction, switch SOURCE_FONT
+# to prefer ESSENFONT_OTC and gain Tangut/Emoticon color coverage on
+# the website (TTC is glyf-only and can't represent those donors).
 SOURCE_FONT = ESSENFONT_TTC || ESSENFONT_TTF
-SOURCE_IS_TTC = File.extname(SOURCE_FONT) == ".ttc"
+SOURCE_IS_TTC = [".otc", ".ttc"].include?(File.extname(SOURCE_FONT))
 
 # Unicode blocks that have no glyph representation by design. Generating
 # a WOFF2 subset for these produces a degenerate font (every glyph is

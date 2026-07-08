@@ -43,6 +43,7 @@ onMounted(() => {
           <RouterLink to="/docs/install" class="nav-link">Docs</RouterLink>
           <RouterLink to="/download" class="nav-link">Download</RouterLink>
           <RouterLink to="/about" class="nav-link">About</RouterLink>
+          <RouterLink to="/engineering" class="nav-link">Engineering</RouterLink>
           <SiteSearch />
           <a
             href="https://github.com/essenfont/essenfont"
@@ -94,6 +95,7 @@ onMounted(() => {
             <div class="footer-heading">Font</div>
             <RouterLink to="/download">Download</RouterLink>
             <RouterLink to="/about">About</RouterLink>
+            <RouterLink to="/engineering">Engineering</RouterLink>
             <RouterLink to="/unicode">Unicode browser</RouterLink>
           </div>
           <div class="footer-group">

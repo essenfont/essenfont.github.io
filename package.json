@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node scripts/gen-ssg-routes.mjs && vite-ssg build",
+    "build": "node scripts/gen-site-stats.mjs && node scripts/gen-ssg-routes.mjs && vite-ssg build",
+    "gen-stats": "node scripts/gen-site-stats.mjs",
     "build:no-fetch": "vite-ssg build",
     "preview": "vite preview",
     "gen-routes": "node scripts/gen-ssg-routes.mjs",
