@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandMark from '../components/BrandMark.astro';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
 
@@ -7,10 +8,10 @@ const stats = loadStats();
 ---
 <BaseLayout
   title="About — Essenfont"
-  description="Essenfont is a universal Unicode 17 font — one redistributable OpenType file covering every assigned codepoint, assembled from 38 OFL-licensed donor fonts."
+  description="Essenfont is a universal Unicode 17 font — one redistributable OpenType file covering every assigned codepoint, assembled from OFL-licensed donor fonts."
   canonical="/about"
 >
-  <article class="about">
+  <article class="about container">
     <header class="page-head">
       <p class="eyebrow">About</p>
       <h1>One font, every codepoint</h1>
@@ -38,6 +39,105 @@ const stats = loadStats();
         script.
       </p>
 
+      <h2 id="logo">The mark</h2>
+    </section>
+
+    <!-- ─── Logo philosophy ─────────────────────────────────────── -->
+    <section class="logo-philosophy">
+      <div class="logo-gallery">
+        <figure class="logo-figure logo-figure--hero">
+          <BrandMark size="xl" animated={false} interactive={true} alt="Essenfont logo, blue variant" />
+          <figcaption>
+            <span class="mono">Default · Blue</span>
+          </figcaption>
+        </figure>
+        <figure class="logo-figure">
+          <img src="/img/logo/essenfont-dark-blue-256.png" alt="Dark mode, blue" width="128" height="128" />
+          <figcaption><span class="mono">Dark · Blue</span></figcaption>
+        </figure>
+        <figure class="logo-figure">
+          <img src="/img/logo/essenfont-dark-red-256.png" alt="Dark mode, red" width="128" height="128" />
+          <figcaption><span class="mono">Dark · Red</span></figcaption>
+        </figure>
+        <figure class="logo-figure">
+          <img src="/img/logo/essenfont-light-blue-256.png" alt="Light mode, blue" width="128" height="128" />
+          <figcaption><span class="mono">Light · Blue</span></figcaption>
+        </figure>
+        <figure class="logo-figure">
+          <img src="/img/logo/essenfont-light-red-256.png" alt="Light mode, red" width="128" height="128" />
+          <figcaption><span class="mono">Light · Red</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="prose logo-prose">
+        <p>
+          The Essenfont mark is shaped as the hexagram <strong>Gen</strong>
+          (<span class="glyph-big">☶</span>), the fifty-second hexagram of the
+          I&nbsp;Ching. <em>Gen</em> means <em>mountain</em> — stillness, the root from
+          which all creation grows. The mountain does not move; everything else moves
+          around it. So too does a universal typeface anchor every script in Unicode
+          while remaining itself unchanged.
+        </p>
+
+        <h3>The empty that provides utility</h3>
+        <p>
+          Look at the negative space inside the hexagram's lines: it forms the letter
+          <strong>E</strong>. This is no accident. Laozi wrote in the <em>Dao De
+          Jing</em>:
+        </p>
+        <blockquote class="dao-quote">
+          <p>
+            Thirty spokes share one hub —<br/>
+            it is the emptiness at the center that makes the wheel useful.<br/>
+            Shape clay into a vessel —<br/>
+            it is the void inside that holds what you pour.<br/>
+            Cut doors and windows for a room —<br/>
+            it is the gap that lets the light in.
+          </p>
+          <cite>— Dao De Jing, ch. 11</cite>
+        </blockquote>
+        <p>
+          The logo's translucent, glass-like quality embodies this principle.
+          Essenfont is transparent: it claims no authorship of its glyphs, takes no
+          credit for its donor outlines, and hides nothing about its build pipeline.
+          Its usefulness comes from what it <em>contains</em>, not from what it
+          <em>is</em> — the empty vessel that holds every script.
+        </p>
+
+        <h3>Two colors, one motion</h3>
+        <p>
+          The logo exists in two color variants — <span class="color-chip color-chip--blue"></span>
+          blue (illumination, the calm authority of a clear sky) and
+          <span class="color-chip color-chip--red"></span> red (rubrication, the medieval
+          practice of marking important initials in vermilion). Together they represent
+          motion: the mark shifts from blue to red when you interact with it, just as a
+          universal font shifts between scripts without losing its identity. The duality
+          echoes the <em>yin</em> and <em>yang</em> — two forces, one mark.
+        </p>
+
+        <h3>In darkness, clarity</h3>
+        <p>
+          In dark mode, the mark sheds its background entirely. The mountain stands alone,
+          struck by no surrounding frame. As the Heart Sutra teaches:
+        </p>
+        <blockquote class="dao-quote">
+          <p>
+            Form is emptiness, emptiness is form.<br/>
+            In darkness, you distinguish both dark and bright more clearly.
+          </p>
+          <cite>— Prajñāpāramitā Hṛdaya Sūtra</cite>
+        </blockquote>
+        <p>
+          The dark variant is the more striking of the two — not because it adds, but
+          because it subtracts. The background falls away, and the mark's essential
+          geometry — the mountain, the E, the emptiness at the center — becomes
+          unmistakable. What remains when everything unnecessary is removed is what
+          was always there.
+        </p>
+      </div>
+    </section>
+
+    <section class="prose">
       <h2>The technical achievement</h2>
       <p>
         The canonical output is <code>Essenfont-Regular.otc</code> ({formatBytes(stats.fontBinaries.otcSizeBytes)}),
@@ -70,41 +170,134 @@ const stats = loadStats();
 </BaseLayout>
 
 <style>
-.about { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-.page-head { margin-bottom: 3rem; }
-.eyebrow {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a);
-}
-h1 {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: clamp(2rem, 5vw, 3rem);
-  line-height: 1.1;
-}
-.prose h2 {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 1.5rem;
-  margin: 2rem 0 0.75rem;
-}
-.prose p { font-size: 1.0625rem; line-height: 1.7; }
-.prose code {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  background: rgba(0,0,0,0.05);
-  padding: 0.1em 0.4em;
-  border-radius: 3px;
-}
-.prose pre {
-  background: rgba(0,0,0,0.05);
-  padding: 1rem;
-  border-radius: 4px;
-  overflow-x: auto;
-}
-.prose pre code { background: none; padding: 0; }
-.prose a {
-  color: var(--ef-rose, #bf4e6a);
-  text-decoration: none;
-}
+  .about { max-width: 760px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+  .page-head { margin-bottom: 3rem; }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1;
+  }
+  .prose h2, .logo-prose h3 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: 1.5rem; margin: 2rem 0 0.75rem;
+  }
+  .logo-prose h3 {
+    font-size: 1.25rem;
+    font-style: italic;
+    color: var(--ef-rose, #0d7377);
+  }
+  .prose p { font-size: 1.0625rem; line-height: 1.7; }
+  .prose code {
+    font-family: var(--spec-font-mono, monospace);
+    background: rgba(0,0,0,0.05);
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+  }
+  .prose pre {
+    background: rgba(0,0,0,0.05);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+  .prose pre code { background: none; padding: 0; }
+  .prose a {
+    color: var(--ef-rose, #0d7377);
+    text-decoration: none;
+  }
+
+  /* ─── Logo philosophy section ──────────────────────────── */
+  .logo-philosophy {
+    margin: 3rem 0;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+  }
+  .logo-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+    align-items: end;
+  }
+  .logo-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    margin: 0;
+  }
+  .logo-figure--hero {
+    grid-column: span 1;
+  }
+  .logo-figure--hero :global(.brand-mark) {
+    width: 128px;
+    height: 128px;
+  }
+  .logo-figure img {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+  }
+  .logo-figure figcaption {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ef-text-3, #8a8478);
+  }
+  .logo-prose {
+    max-width: 64ch;
+  }
+  .glyph-big {
+    font-size: 1.75em;
+    line-height: 0;
+    vertical-align: -0.1em;
+    color: var(--ef-rose, #0d7377);
+  }
+  .dao-quote {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.75rem;
+    border-left: 3px solid var(--ef-rose, #0d7377);
+    background: var(--ef-surface, #f2efe9);
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-style: italic;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .dao-quote p { margin: 0; }
+  .dao-quote cite {
+    display: block;
+    margin-top: 0.75rem;
+    font-style: normal;
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ef-text-3, #8a8478);
+  }
+  .color-chip {
+    display: inline-block;
+    width: 0.75em;
+    height: 0.75em;
+    border-radius: 50%;
+    vertical-align: -0.05em;
+    margin-right: 0.15em;
+  }
+  .color-chip--blue { background: #1a3a8a; }
+  .color-chip--red  { background: #9b2d2d; }
+
+  @media (max-width: 768px) {
+    .logo-gallery {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .logo-figure img { width: 72px; height: 72px; }
+  }
+  @media (max-width: 480px) {
+    .logo-gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
 </style>

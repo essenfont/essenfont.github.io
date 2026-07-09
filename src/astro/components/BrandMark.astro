@@ -1,0 +1,146 @@
+---
+/**
+ * BrandMark — the Essenfont logo with blue→red color shift on hover.
+ *
+ * Two color variants (blue = illumination, red = rubrication) are
+ * stacked; CSS cross-fade transitions between them. The light/dark
+ * variant is selected by `prefers-color-scheme` so the logo always
+ * has the right contrast.
+ *
+ * Sizes: `sm` (32px, masthead), `md` (48px), `lg` (96px, hero)
+ *
+ * Usage:
+ *   <BrandMark size="sm" />     // masthead
+ *   <BrandMark size="lg" animated />  // hero
+ */
+
+export interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Enable the slow rotation + glow animation (hero only). */
+  animated?: boolean;
+  /** Override the default color-shift-on-hover behavior. */
+  interactive?: boolean;
+  /** Alt text. */
+  alt?: string;
+  /** Additional class names. */
+  class?: string;
+}
+
+const {
+  size = 'sm',
+  animated = false,
+  interactive = true,
+  alt = 'Essenfont',
+  class: className = '',
+} = Astro.props;
+
+const sizeMap = { sm: 32, md: 48, lg: 96, xl: 192 };
+const px = sizeMap[size];
+---
+
+<span
+  class:list={['brand-mark', `brand-mark--${size}`, className, { animated, interactive }]}
+  style={`--bm-size: ${px}px`}
+  role="img"
+  aria-label={alt}
+>
+  <picture class="brand-mark__blue">
+    <source srcset="/img/logo/essenfont-dark-blue-128.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
+    <source srcset="/img/logo/essenfont-light-blue-128.webp" type="image/webp" media="(prefers-color-scheme: light)" />
+    <source srcset="/img/logo/essenfont-dark-blue-128.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <img src="/img/logo/essenfont-light-blue-128.png" alt="" width={px} height={px} loading="eager" />
+  </picture>
+  <picture class="brand-mark__red">
+    <source srcset="/img/logo/essenfont-dark-red-128.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
+    <source srcset="/img/logo/essenfont-light-red-128.webp" type="image/webp" media="(prefers-color-scheme: light)" />
+    <source srcset="/img/logo/essenfont-dark-red-128.png" type="image/png" media="(prefers-color-scheme: dark)" />
+    <img src="/img/logo/essenfont-light-red-128.png" alt="" width={px} height={px} loading="eager" />
+  </picture>
+</span>
+
+<style>
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--bm-size);
+    height: var(--bm-size);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .brand-mark picture {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-mark img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Blue = default state (illumination) */
+  .brand-mark__blue {
+    opacity: 1;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Red = hover state (rubrication) */
+  .brand-mark__red {
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Interactive: blue→red cross-fade on hover/focus */
+  .brand-mark.interactive:hover .brand-mark__blue,
+  .brand-mark.interactive:focus-visible .brand-mark__blue {
+    opacity: 0;
+  }
+  .brand-mark.interactive:hover .brand-mark__red,
+  .brand-mark.interactive:focus-visible .brand-mark__red {
+    opacity: 1;
+  }
+
+  /* Animated variant (hero): slow 360° rotation + subtle pulse glow */
+  .brand-mark.animated .brand-mark__blue {
+    animation: bm-rotate-blue 24s linear infinite;
+  }
+  .brand-mark.animated .brand-mark__red {
+    animation: bm-rotate-red 24s linear infinite;
+  }
+  .brand-mark.animated {
+    animation: bm-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes bm-rotate-blue {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes bm-rotate-red {
+    from { transform: rotate(-360deg); }
+    to   { transform: rotate(0deg); }
+  }
+  @keyframes bm-pulse {
+    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+    50%      { filter: drop-shadow(0 0 16px var(--ef-accent, rgba(13, 115, 119, 0.3))); }
+  }
+
+  /* On hover while animated: pause rotation, show red */
+  .brand-mark.animated.interactive:hover .brand-mark__blue,
+  .brand-mark.animated.interactive:hover .brand-mark__red {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .brand-mark.animated,
+    .brand-mark.animated .brand-mark__blue,
+    .brand-mark.animated .brand-mark__red {
+      animation: none !important;
+    }
+  }
+</style>
