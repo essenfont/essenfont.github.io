@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const cards = [
+  { num: 'I',   slug: 'install',      title: 'Install',       desc: 'Fontist, npm, CDN, GitHub Releases. OTC, per-plane TTFs, per-block WOFF2.' },
+  { num: 'II',  slug: 'css',          title: 'CSS',           desc: '@font-face, unicode-range, variable-axis use. Embed subsets in a web page.' },
+  { num: 'III', slug: 'api',          title: 'API',           desc: 'The @essenfont/essenfont npm package. TypeScript types for every export.' },
+  { num: 'IV',  slug: 'architecture', title: 'Architecture',  desc: 'Donor registry, Stitcher, Collection::Builder, CFF2 + CBDT pipeline.' },
+];
+---
+<BaseLayout
+  title="Docs — Essenfont"
+  description="How to install, embed, and use Essenfont — the universal Unicode 17 font."
+  canonical="/docs"
+>
+  <section class="container docs-page">
+    <header class="docs-head">
+      <p class="eyebrow">Documentation</p>
+      <h1>How to use Essenfont</h1>
+      <p class="lede">
+        Four entry points: get it on your machine, embed it in a stylesheet,
+        integrate it into code, or read how the build pipeline assembles it.
+      </p>
+    </header>
+
+    <nav class="docs-grid">
+      {cards.map(c => (
+        <a href={`/docs/${c.slug}`} class="docs-card">
+          <span class="docs-num">{c.num}</span>
+          <h2 class="docs-title">{c.title}</h2>
+          <p class="docs-desc">{c.desc}</p>
+          <span class="docs-cta mono">read →</span>
+        </a>
+      ))}
+    </nav>
+  </section>
+</BaseLayout>
+
+<style>
+  .docs-page { max-width: 960px; padding: 3rem 1.5rem 6rem; }
+  .docs-head { margin-bottom: 3rem; }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: clamp(2rem, 5vw, 3rem); margin: 0;
+  }
+  .lede { margin-top: 1rem; font-size: 1.125rem; max-width: 56ch; line-height: 1.6; opacity: 0.85; }
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .docs-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.75rem 1.5rem 1.5rem;
+    border: 1px solid var(--ef-rule-strong, rgba(26, 24, 21, 0.16));
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .docs-card:hover {
+    border-color: var(--ef-rose, #0d7377);
+    transform: translateY(-2px);
+  }
+  .docs-num {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ef-rose, #0d7377);
+  }
+  .docs-title {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  .docs-desc {
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    color: var(--ef-text-2, #4a4540);
+  }
+  .docs-cta {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ef-rose, #0d7377);
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+  .mono { font-family: var(--spec-font-mono, monospace); }
+</style>

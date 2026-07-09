@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TypeTester from '../components/TypeTester.astro';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
@@ -31,6 +32,12 @@ function slugify(name: string): string {
         <a href="/unicode" class="btn-ghost">Browse Unicode</a>
         <a href="/engineering" class="btn-ghost">Engineering</a>
       </div>
+    </div>
+  </section>
+
+  <section class="tester-section">
+    <div class="container tester-wrap">
+      <TypeTester />
     </div>
   </section>
 
@@ -81,6 +88,13 @@ function slugify(name: string): string {
 .hero {
   padding: 5rem 0 3rem;
   text-align: center;
+}
+.tester-section {
+  padding: 2rem 0;
+}
+.tester-wrap {
+  max-width: 920px;
+  margin: 0 auto;
 }
 .hero-content {
   max-width: 720px;
