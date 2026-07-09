@@ -1,0 +1,178 @@
+---
+/**
+ * TypeTester — interactive "type anything, see it in Essenfont" widget.
+ *
+ * Server-renders the shell (textarea + output + size slider). A small
+ * vanilla-JS island (see ../lib/type-tester.ts) wires up the input,
+ * counter, and size controls.
+ *
+ * No props — the component is self-contained. Place it via:
+ *   import TypeTester from '../components/TypeTester.astro';
+ *   <TypeTester />
+ */
+
+export interface Props {
+  /** Initial textarea content. Multilingual sample by default. */
+  defaultText?: string;
+  /** Initial font-size for the rendered output, in px. */
+  defaultSize?: number;
+  /** Min/max for the size slider, in px. */
+  minSize?: number;
+  maxSize?: number;
+  /** Optional id prefix so multiple testers can coexist on one page. */
+  idPrefix?: string;
+}
+
+const {
+  defaultText = 'The quick brown fox 你好世界 𓂀 𒀭 ∑∫ 🪬',
+  defaultSize = 56,
+  minSize = 24,
+  maxSize = 160,
+  idPrefix = 'tester',
+} = Astro.props;
+
+const inputId = `${idPrefix}-input`;
+const outputId = `${idPrefix}-output`;
+const folioId = `${idPrefix}-folio`;
+const sizeInputId = `${idPrefix}-size-input`;
+const sizeValueId = `${idPrefix}-size-value`;
+---
+
+<div class="type-tester" data-tester>
+  <div class="tester-header">
+    <p class="eyebrow">Try it · Rendered in Essenfont</p>
+    <p class="folio" id={folioId}>— characters</p>
+  </div>
+
+  <textarea
+    id={inputId}
+    class="tester-input"
+    spellcheck="false"
+    autocomplete="off"
+    placeholder="Type anything — Lorem ipsum, 你好世界, 🦀, 𐎀𐎂, ∮dh, MCMXC…"
+    rows="3">{defaultText}</textarea>
+
+  <div id={outputId} class="tester-output" aria-live="polite"></div>
+
+  <div class="tester-controls">
+    <label class="tester-size">
+      <span class="folio">size</span>
+      <input
+        id={sizeInputId}
+        type="range"
+        min={minSize}
+        max={maxSize}
+        value={defaultSize}
+        aria-label="Output font size"
+      />
+      <span id={sizeValueId} class="mono">{defaultSize}px</span>
+    </label>
+    <p class="folio tester-note">
+      Falls back to Noto Sans for codepoints your system can't show.
+      Install Essenfont for true outlines.
+    </p>
+  </div>
+</div>
+
+<style>
+  .type-tester {
+    padding: 1.75rem;
+    background: var(--ef-surface, #f2efe9);
+    border: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    border-radius: 2px;
+  }
+  .tester-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .tester-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--ef-rule-strong, rgba(26, 24, 21, 0.16));
+    color: var(--ef-text, #1a1815);
+    font-family: var(--spec-font-body, system-ui, sans-serif);
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.5rem 0 1rem;
+    resize: vertical;
+    outline: none;
+  }
+  .tester-input:focus {
+    border-bottom-color: var(--ef-accent, #0d7377);
+  }
+  .tester-input::placeholder {
+    color: var(--ef-text-3, #8a8478);
+    font-style: italic;
+  }
+  .tester-output {
+    margin-top: 1.25rem;
+    min-height: 4em;
+    font-family: var(--spec-font-glyph, "Essenfont", "Noto Sans", sans-serif);
+    color: var(--ef-text, #1a1815);
+    line-height: 1.15;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    transition: font-size 0.1s;
+  }
+  .tester-output:empty::before {
+    content: "↑ type above";
+    color: var(--ef-text-3, #8a8478);
+    font-family: var(--spec-font-body, system-ui, sans-serif);
+    font-style: italic;
+    font-size: 1rem;
+  }
+  .tester-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--ef-rule, rgba(26, 24, 21, 0.08));
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .tester-size {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+  .tester-size input[type="range"] {
+    accent-color: var(--ef-accent, #0d7377);
+    width: clamp(100px, 20vw, 180px);
+  }
+  .tester-note {
+    max-width: 38ch;
+    text-align: right;
+  }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ef-accent, #0d7377);
+    margin: 0;
+  }
+  .folio {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ef-text-3, #8a8478);
+    margin: 0;
+  }
+  .mono { font-family: var(--spec-font-mono, monospace); }
+</style>
+
+<script>
+  import { initTypeTester } from '../lib/type-tester';
+
+  const root = document.querySelector('[data-tester]');
+  if (root instanceof HTMLElement) {
+    initTypeTester(root);
+  }
+</script>

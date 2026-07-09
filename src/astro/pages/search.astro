@@ -1,65 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteSearch from '../components/SiteSearch.astro';
 ---
-<BaseLayout title="Search — Essenfont" description="Search every Unicode 17 block, character, and donor in the Essenfont." canonical="/search">
-  <div class="search-page">
+<BaseLayout
+  title="Search — Essenfont"
+  description="Search every Unicode 17 block, character, and donor in the Essenfont."
+  canonical="/search"
+>
+  <div class="search-page container">
     <header class="page-head">
       <p class="eyebrow">Search</p>
       <h1>Find a character</h1>
+      <p class="search-help">
+        Type a block name, a codepoint (<code>U+0041</code>, <code>0041</code>, or <code>41</code>),
+        a decimal value, or a single character. Donor families by name too.
+        Use <kbd>↑</kbd>/<kbd>↓</kbd> to move, <kbd>Enter</kbd> to go, <kbd>Esc</kbd> to clear.
+      </p>
     </header>
-    <div class="search-box">
-      <input type="text" id="search-input" placeholder="Block name, hex codepoint, or character name..." autocomplete="off" />
-      <div id="search-results" class="search-results"></div>
-    </div>
+
+    <SiteSearch />
   </div>
 </BaseLayout>
-<script>
-const input = document.getElementById('search-input');
-const results = document.getElementById('search-results');
-let searchData = null;
-let debounceTimer;
 
-async function loadData() {
-  if (searchData) return searchData;
-  const res = await fetch('/search-index.json');
-  searchData = await res.json();
-  return searchData;
-}
-
-input.addEventListener('input', () => {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(async () => {
-    const query = input.value.trim().toLowerCase();
-    if (!query || query.length < 2) { results.innerHTML = ''; return; }
-    const data = await loadData();
-    const matches = data
-      .filter(item => item.name?.toLowerCase().includes(query) || item.hex?.toLowerCase().includes(query))
-      .slice(0, 50);
-    results.innerHTML = matches.length === 0
-      ? '<p class="no-results">No matches found.</p>'
-      : matches.map(m => `<a href="${m.url}" class="search-result"><span class="sr-name">${m.name || ''}</span><span class="sr-hex">${m.hex || ''}</span></a>`).join('');
-  }, 200);
-});
-</script>
 <style>
-.search-page { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
-h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; }
-#search-input {
-  width: 100%; padding: 0.75rem 1rem; font-size: 1rem;
-  border: 1px solid rgba(128,128,128,0.3); border-radius: 4px;
-  background: var(--spec-paper, #f1ece1); color: var(--spec-ink, #1c1a18);
-}
-#search-input:focus { outline: none; border-color: var(--ef-rose, #bf4e6a); }
-.search-results { margin-top: 0.5rem; }
-.search-result {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(128,128,128,0.1);
-  text-decoration: none; color: inherit;
-}
-.search-result:hover { background: rgba(191,78,106,0.05); }
-.sr-name { font-size: 0.9rem; }
-.sr-hex { font-family: var(--mono-font, monospace); font-size: 0.75rem; opacity: 0.5; }
-.no-results { padding: 1rem 0; opacity: 0.5; }
+  .search-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
+  .page-head { margin-bottom: 2rem; }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: clamp(2rem, 5vw, 3rem); margin: 0;
+  }
+  .search-help {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    color: var(--ef-text-2, #4a4540);
+    line-height: 1.6;
+    max-width: 56ch;
+  }
+  .search-help code, .search-help kbd {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.875em;
+    background: var(--ef-surface, #f2efe9);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+  }
 </style>
