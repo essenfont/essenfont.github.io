@@ -1,0 +1,166 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout
+  title="Architecture — Docs — Essenfont"
+  description="How Essenfont is assembled: donor registry, CpMap, Stitcher, Collection::Builder, and the CFF2 + CBDT outline pipeline."
+  canonical="/docs/architecture"
+>
+  <section class="container docs-page">
+    <header class="docs-head">
+      <p class="eyebrow">Docs · IV</p>
+      <h1>Architecture</h1>
+    </header>
+
+    <p class="lede">
+      Essenfont doesn't draw glyphs. It gathers them from canonical
+      OFL-licensed donor fonts and stitches the outlines into one
+      OpenType Collection.
+    </p>
+
+    <h2 id="pipeline">The pipeline</h2>
+    <ol class="pipeline-list">
+      <li>
+        <strong>Donor registry</strong> — <code>sources/manifest.yml</code>
+        declares every donor font, its OFL-compatibility class, and the
+        codepoint ranges it covers.
+      </li>
+      <li>
+        <strong>CpMap</strong> — <code>Essenfont::CpMap.from_donors</code>
+        scans each donor's cmap and builds a per-codepoint assignment
+        map. Outline-ineligible donors (CBDT-only color bitmaps) are
+        filtered out so they don't pollute the outline map.
+      </li>
+      <li>
+        <strong>Partitioner</strong> — splits the CpMap across named
+        subfonts so each one stays under the 65,535-glyph cap. The
+        default <code>ByPlane</code> partitioner emits one subfont per
+        Unicode plane (BMP, SMP, SIP, TIP, SSP, SPUA-A, SPUA-B) with
+        further sub-splits for overflowing planes (CJK-heavy SIP).
+      </li>
+      <li>
+        <strong>Stitcher</strong> — <code>Fontisan::Stitcher</code>
+        copies outline glyphs from each donor into the target UFO via
+        <code>GlyphCopier</code>. CBDT color bitmap placeholders are
+        injected via <code>CbdtPropagator</code> after the outlines so
+        they don't overwrite real glyph data (see
+        <code>UniqueGlyphName</code> for the name-deconfliction contract).
+      </li>
+      <li>
+        <strong>Compiler</strong> — each subfont UFO compiles to a
+        standalone SFNT (TTF for glyf outlines, OTF for CFF2 outlines).
+        CBDT/CBLC tables are spliced in via raw-byte propagation
+        (BinData round-trips don't preserve CFF2 cleanly).
+      </li>
+      <li>
+        <strong>Collection::Builder</strong> — packs the compiled
+        subfonts into a single OpenType Collection file. Tables are
+        deduplicated by SHA256 across faces.
+      </li>
+      <li>
+        <strong>Subsets</strong> — per-block WOFF2 subsets are extracted
+        from the TTC for the website via <code>fontisan subset</code>.
+      </li>
+    </ol>
+
+    <h2 id="donors">Donor registry</h2>
+    <p>
+      Each donor entry declares its license, its file (TTF/OTF/TTC/WOFF2),
+      its sha256, and (optionally) a remap for codepoints the donor
+      places at non-canonical positions. The build refuses to use any
+      donor outside the OFL-compatible license policy.
+    </p>
+
+    <h2 id="cmap">Cmap priority</h2>
+    <p>
+      When two donors cover the same codepoint, the Stitcher's
+      outline-first ordering ensures the real outline glyph wins the
+      cmap mapping. CBDT placeholders are added AFTER the outlines so
+      their (lower) GID never shadows the outline's (higher) GID.
+    </p>
+
+    <h2 id="cbdt">CBDT color bitmaps</h2>
+    <p>
+      Color emoji comes from <code>NotoColorEmoji.ttf</code>'s CBDT/CBLC
+      tables. The Stitcher adds empty placeholder glyphs for every CBDT
+      source GID (so the cmap carries the emoji codepoints) and then
+      propagates the raw CBDT/CBLC bytes into the compiled font — the
+      bitmap data lives in tables, not in glyph outlines.
+    </p>
+
+    <h2 id="reproducibility">Reproducibility</h2>
+    <p>
+      The build is deterministic given the same donor set + manifest.
+      Every artifact carries a sha256 in its release metadata; the
+      website's coverage.json and the source repo's cp_map.json are
+      both committed for audit.
+    </p>
+
+    <p class="next">
+      Back to: <a href="/docs">Docs index →</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .docs-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
+  .docs-head { margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: clamp(2rem, 5vw, 3rem); margin: 0;
+  }
+  .lede {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+    max-width: 56ch;
+  }
+  p { line-height: 1.65; margin: 1rem 0; }
+  h2 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: 1.5rem;
+    margin: 2.5rem 0 0.75rem;
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    padding-bottom: 0.5rem;
+  }
+  code {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.875em;
+    background: var(--ef-surface, #f2efe9);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+  }
+  .pipeline-list {
+    list-style: none;
+    counter-reset: stage;
+    padding: 0;
+    margin: 1rem 0;
+  }
+  .pipeline-list li {
+    counter-increment: stage;
+    padding: 0.875rem 0 0.875rem 3rem;
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    position: relative;
+    line-height: 1.55;
+  }
+  .pipeline-list li::before {
+    content: counter(stage, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.875rem;
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ef-rose, #0d7377);
+  }
+  .next {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+  }
+</style>

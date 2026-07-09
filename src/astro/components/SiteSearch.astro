@@ -1,0 +1,118 @@
+---
+/**
+ * SiteSearch — type-ahead search across blocks, codepoints, and donors.
+ *
+ * Server-renders the shell (input + listbox). The island logic lives
+ * in ../lib/site-search.ts and is unit-tested there.
+ *
+ * Usage:
+ *   import SiteSearch from '../components/SiteSearch.astro';
+ *   <SiteSearch />
+ *
+ * Keyboard: ↑/↓ to move, Enter to go, Esc to clear.
+ */
+
+export interface Props {
+  placeholder?: string;
+  /** When true, removes outer padding/borders for embedding in a hero. */
+  bare?: boolean;
+}
+
+const {
+  placeholder = 'Block name, hex codepoint, or character name…',
+  bare = false,
+} = Astro.props;
+---
+
+<div class:list={['site-search', { 'is-bare': bare }]} data-site-search>
+  <input
+    type="text"
+    class="ss-input"
+    placeholder={placeholder}
+    autocomplete="off"
+    spellcheck="false"
+    aria-label="Search blocks, codepoints, and donors"
+    aria-expanded="false"
+    aria-controls="ss-listbox"
+    role="combobox"
+  />
+  <ul id="ss-listbox" class="ss-list" role="listbox" aria-label="Search results"></ul>
+</div>
+
+<style>
+  .site-search {
+    position: relative;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .site-search.is-bare .ss-input,
+  .site-search.is-bare .ss-list {
+    border: none;
+    background: transparent;
+  }
+  .ss-input {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: var(--ef-surface, #f2efe9);
+    border: 1px solid var(--ef-rule-strong, rgba(26, 24, 21, 0.16));
+    border-radius: 2px;
+    color: var(--ef-text, #1a1815);
+    font-family: var(--spec-font-body, system-ui, sans-serif);
+    font-size: 1rem;
+    outline: none;
+  }
+  .ss-input:focus {
+    border-color: var(--ef-accent, #0d7377);
+  }
+  .ss-input::placeholder {
+    color: var(--ef-text-3, #8a8478);
+    font-style: italic;
+  }
+  .ss-list {
+    list-style: none;
+    margin: 0.25rem 0 0;
+    padding: 0;
+    background: var(--ef-raised, #fff);
+    border: 1px solid var(--ef-rule-strong, rgba(26, 24, 21, 0.16));
+    border-radius: 2px;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .ss-list:empty { display: none; }
+  :global(.sr-option) {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.625rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+  }
+  :global(.sr-option:last-child) { border-bottom: none; }
+  :global(.sr-option.is-active) {
+    background: var(--ef-accent-muted, rgba(13, 115, 119, 0.08));
+  }
+  :global(.sr-option .sr-label) {
+    font-size: 0.9375rem;
+  }
+  :global(.sr-option .sr-detail) {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    color: var(--ef-text-3, #8a8478);
+  }
+  :global(.sr-option.kind-block .sr-label)::before { content: "▤ "; opacity: 0.5; }
+  :global(.sr-option.kind-char .sr-label)::before { content: "✦ "; opacity: 0.5; }
+  :global(.sr-option.kind-donor .sr-label)::before { content: "❖ "; opacity: 0.5; }
+</style>
+
+<script>
+  import { initSiteSearch } from '../lib/site-search';
+
+  for (const root of document.querySelectorAll<HTMLElement>('[data-site-search]')) {
+    const input = root.querySelector<HTMLInputElement>('.ss-input');
+    const list = root.querySelector<HTMLElement>('.ss-list');
+    if (input && list) {
+      initSiteSearch(input, list);
+    }
+  }
+</script>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import TypeTester from '../components/TypeTester.astro';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
@@ -104,42 +105,36 @@ const featured = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       THE FURNITURE — five stats, set as a list, not a grid
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="section furniture">
-    <div class="container">
-      <div class="furniture-head">
-        <p class="eyebrow reveal">§ I · The Furniture</p>
-        <h2 class="reveal">A font at the scale of the universal character set.</h2>
-      </div>
-      <ol class="furniture-list">
-        <li class="furniture-row reveal">
-          <span class="furniture-num">{formatNumber(version.charCount)}</span>
-          <span class="furniture-label">assigned codepoints covered</span>
-          <span class="furniture-note">across Unicode {version.version}</span>
-        </li>
-        <li class="furniture-row reveal">
-          <span class="furniture-num">{version.blockCount}</span>
-          <span class="furniture-label">Unicode blocks</span>
-          <span class="furniture-note">from Basic Latin to CJK Ext I</span>
-        </li>
-        <li class="furniture-row reveal">
-          <span class="furniture-num">{stats.donorCount}</span>
-          <span class="furniture-label">donor outlines</span>
-          <span class="furniture-note">all OFL-1.1 licensed</span>
-        </li>
-        <li class="furniture-row reveal">
-          <span class="furniture-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</span>
-          <span class="furniture-label">canonical OTC</span>
-          <span class="furniture-note">CFF2 outlines + CBDT color bitmaps</span>
-        </li>
-        <li class="furniture-row reveal">
-          <span class="furniture-num">{stats.websiteSubsets.woff2Count}</span>
-          <span class="furniture-label">per-block WOFF2 subsets</span>
-          <span class="furniture-note">{formatBytes(stats.websiteSubsets.woff2TotalBytes)} total web payload</span>
-        </li>
-      </ol>
+  <section class="tester-section">
+    <div class="container tester-wrap">
+      <TypeTester />
+    </div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="stat">
+      <div class="stat-num">{formatNumber(version.charCount)}</div>
+      <div class="stat-cap">Assigned Unicode {version.version} codepoints</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{version.blockCount}</div>
+      <div class="stat-cap">Unicode blocks covered</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{stats.donorCount}</div>
+      <div class="stat-cap">OFL-licensed donor fonts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+      <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
+      <div class="stat-cap">Per-block WOFF2 subsets</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">{formatBytes(stats.websiteSubsets.woff2TotalBytes)}</div>
+      <div class="stat-cap">Total WOFF2 payload</div>
     </div>
   </section>
 
@@ -297,406 +292,131 @@ const featured = [
 </BaseLayout>
 
 <style>
-  /* ─── Folio strip ─────────────────────────────────── */
-  .folio-strip {
-    border-bottom: 1px solid var(--ef-rule);
-    background: var(--ef-paper-2);
-  }
-  .folio-strip-inner {
-    display: flex;
-    justify-content: space-between;
-    padding-block: 0.625rem;
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ef-ink-3);
-  }
-
-  /* ─── Hero ────────────────────────────────────────── */
-  .hero {
-    padding-block: clamp(3rem, 8vw, 6rem);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(1rem, 3vw, 2.5rem);
-    align-items: start;
-  }
-  .hero-meta {
-    grid-column: 1 / span 2;
-    padding-top: 0.5rem;
-  }
-  .hero-wordmark {
-    grid-column: 4 / span 6;
-    grid-row: 1 / span 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.08;
-    overflow: hidden;
-  }
-  .wordmark-glyph {
-    font-family: var(--font-display);
-    font-weight: 200;
-    font-variation-settings: "opsz" 144, "SOFT" 100;
-    font-size: clamp(8rem, 28vw, 22rem);
-    line-height: 0.85;
-    color: var(--ef-ink);
-    letter-spacing: -0.05em;
-  }
-  .wordmark-glyph.alt {
-    font-style: italic;
-    color: var(--ef-ochre);
-    opacity: 0.5;
-  }
-  .hero-pitch {
-    grid-column: 1 / span 12;
-    margin-top: clamp(2rem, 6vw, 4rem);
-  }
-  .hero-h1 {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-variation-settings: "opsz" 144, "SOFT" 30;
-    font-size: clamp(3rem, 11vw, 9rem);
-    line-height: 0.94;
-    letter-spacing: -0.04em;
-    margin-bottom: 2rem;
-  }
-  .hero-h1 em {
-    font-style: italic;
-    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
-    font-weight: 350;
-  }
-  .hero-lede { max-width: 56ch; }
-  .hero-cta {
-    margin-top: 3rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  /* ─── Type tester ─────────────────────────────────── */
-  .type-tester {
-    margin-top: clamp(4rem, 8vw, 6rem);
-    padding: 1.75rem;
-    background: var(--ef-paper-2);
-    border: 1px solid var(--ef-rule);
-    border-radius: 2px;
-    position: relative;
-  }
-  .type-tester::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 1px solid transparent;
-    background:
-      linear-gradient(135deg, var(--ef-ochre-soft), transparent 40%) border-box;
-    -webkit-mask:
-      linear-gradient(#fff 0 0) padding-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    pointer-events: none;
-  }
-  .tester-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
-  }
-  .tester-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid var(--ef-rule-2);
-    color: var(--ef-ink);
-    font-family: var(--font-body);
-    font-size: 1rem;
-    line-height: 1.5;
-    padding: 0.5rem 0 1rem;
-    resize: vertical;
-    outline: none;
-  }
-  .tester-input:focus { border-bottom-color: var(--ef-ochre); }
-  .tester-input::placeholder { color: var(--ef-ink-3); font-style: italic; }
-  .tester-output {
-    margin-top: 1.25rem;
-    min-height: 4em;
-    font-family: var(--font-glyph);
-    color: var(--ef-ink);
-    line-height: 1.15;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    transition: font-size 0.1s;
-  }
-  .tester-output:empty::before {
-    content: "↑ type above";
-    color: var(--ef-ink-3);
-    font-family: var(--font-body);
-    font-style: italic;
-    font-size: 1rem;
-  }
-  .tester-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--ef-rule);
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .tester-size {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-  }
-  .tester-size input[type="range"] {
-    accent-color: var(--ef-ochre);
-    width: clamp(100px, 20vw, 180px);
-  }
-  .tester-note { max-width: 38ch; text-align: right; }
-
-  /* ─── Furniture (stats list) ──────────────────────── */
-  .furniture-head { margin-bottom: 3rem; max-width: 56ch; }
-  .furniture-list {
-    list-style: none;
-    counter-reset: plate;
-  }
-  .furniture-row {
-    display: grid;
-    grid-template-columns: minmax(220px, 1fr) auto 1fr;
-    gap: clamp(1rem, 4vw, 3rem);
-    align-items: baseline;
-    padding-block: 1.5rem;
-    border-top: 1px solid var(--ef-rule);
-    counter-increment: plate;
-  }
-  .furniture-row:last-child { border-bottom: 1px solid var(--ef-rule); }
-  .furniture-row::before {
-    content: counter(plate, decimal-leading-zero);
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    color: var(--ef-ink-3);
-    letter-spacing: 0.18em;
-    position: absolute;
-    margin-left: -3rem;
-    margin-top: 0.5rem;
-  }
-  .furniture-num {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-variation-settings: "opsz" 144;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    line-height: 1;
-    color: var(--ef-ink);
-    letter-spacing: -0.04em;
-  }
-  .furniture-label {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-weight: 350;
-    font-size: clamp(1.125rem, 2vw, 1.5rem);
-    color: var(--ef-ink-2);
-    text-align: right;
-  }
-  .furniture-note {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: var(--ef-ink-3);
-    align-self: baseline;
-  }
-  @media (max-width: 768px) {
-    .furniture-row {
-      grid-template-columns: 1fr;
-      gap: 0.25rem;
-    }
-    .furniture-label, .furniture-note { text-align: left; }
-  }
-
-  /* ─── Plates ──────────────────────────────────────── */
-  .plates-head { max-width: 64ch; margin-bottom: 3rem; }
-  .plates-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1px;
-    background: var(--ef-rule);
-    border: 1px solid var(--ef-rule);
-  }
-  .plate {
-    background: var(--ef-paper);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: clamp(180px, 22vw, 260px);
-    text-decoration: none;
-    border: none;
-    transition: background 0.3s, color 0.3s;
-    color: var(--ef-ink);
-    position: relative;
-  }
-  .plate:hover {
-    background: var(--ef-paper-2);
-    color: var(--ef-ink);
-  }
-  .plate:hover .plate-glyph { color: var(--ef-ochre); }
-  /* Asymmetric column spans */
-  .plate-1 { grid-column: span 5; }
-  .plate-2 { grid-column: span 4; }
-  .plate-3 { grid-column: span 3; }
-  .plate-4 { grid-column: span 3; }
-  .plate-5 { grid-column: span 4; }
-  .plate-6 { grid-column: span 5; }
-  .plate-7 { grid-column: span 4; }
-  .plate-8 { grid-column: span 4; }
-  .plate-9 { grid-column: span 4; }
-  .plate-glyph {
-    font-family: var(--font-glyph);
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    line-height: 1;
-    color: var(--ef-ink);
-    transition: color 0.3s;
-  }
-  .plate-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    margin-top: 1.5rem;
-  }
-  .plate-name {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.0625rem;
-    color: var(--ef-ink);
-  }
-  .plate-note {
-    font-size: 0.8125rem;
-    color: var(--ef-ink-2);
-    max-width: 38ch;
-  }
-  .plate-folio {
-    margin-top: 0.5rem;
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-    color: var(--ef-ink-3);
-    text-transform: uppercase;
-  }
-  @media (max-width: 900px) {
-    .plate-1, .plate-2, .plate-3, .plate-4, .plate-5, .plate-6, .plate-7, .plate-8, .plate-9 {
-      grid-column: span 6;
-    }
-  }
-  @media (max-width: 540px) {
-    .plate-1, .plate-2, .plate-3, .plate-4, .plate-5, .plate-6, .plate-7, .plate-8, .plate-9 {
-      grid-column: span 12;
-    }
-  }
-
-  /* ─── Gathering ───────────────────────────────────── */
-  .gathering { background: var(--ef-paper-2); }
-  .donor-list h5 { color: var(--ef-ochre); }
-  .donor-list ul {
-    list-style: none;
-    border-top: 1px solid var(--ef-rule);
-  }
-  .donor-list li {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding-block: 0.75rem;
-    border-bottom: 1px solid var(--ef-rule);
-    font-size: 0.9375rem;
-  }
-  .donor-name {
-    font-family: var(--font-display);
-    font-style: italic;
-    color: var(--ef-ink);
-  }
-  .donor-cov {
-    font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ef-ink-3);
-  }
-
-  /* ─── Install ─────────────────────────────────────── */
-  .install-card {
-    padding: clamp(2rem, 5vw, 4rem);
-    background: var(--ef-paper-2);
-    border: 1px solid var(--ef-ochre);
-    box-shadow: var(--ef-shadow-ochre);
-  }
-  .install-head { max-width: 56ch; }
-  .install-snippets {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  @media (max-width: 768px) { .install-snippets { grid-template-columns: 1fr; } }
-  .snippet {
-    background: var(--ef-paper);
-    border: 1px solid var(--ef-rule);
-  }
-  .snippet-tab {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.625rem 1rem;
-    border-bottom: 1px solid var(--ef-rule);
-    background: var(--ef-paper-3);
-  }
-  .snippet-copy {
-    background: none;
-    border: 1px solid var(--ef-rule-2);
-    color: var(--ef-ink-3);
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 0.625rem;
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .snippet-copy:hover { color: var(--ef-ochre); border-color: var(--ef-ochre); }
-  .snippet-code {
-    margin: 0;
-    padding: 1.25rem;
-    font-family: var(--font-mono);
-    font-size: 0.8125rem;
-    line-height: 1.7;
-    color: var(--ef-ink);
-    overflow-x: auto;
-  }
-  .install-cta {
-    margin-top: 2.5rem;
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  /* ─── Closing ─────────────────────────────────────── */
-  .closing { text-align: center; padding-block: clamp(5rem, 12vw, 9rem); }
-  .closing-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
-  .closing-mark {
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    color: var(--ef-ochre);
-    line-height: 1;
-  }
-  .closing-quote {
-    font-style: italic;
-    text-align: center;
-    max-width: 38ch;
-    color: var(--ef-ink);
-  }
+.hero {
+  padding: 5rem 0 3rem;
+  text-align: center;
+}
+.tester-section {
+  padding: 2rem 0;
+}
+.tester-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+}
+.hero-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+.eyebrow {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+}
+.display {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: clamp(3rem, 10vw, 6rem);
+  line-height: 1;
+  margin: 0.5rem 0 1.5rem;
+}
+.lede {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+.cta-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-ghost {
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.btn-primary {
+  background: var(--ef-rose, #bf4e6a);
+  color: white;
+}
+.btn-ghost {
+  border: 1px solid currentColor;
+  color: var(--spec-ink, #1c1a18);
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 0;
+  border-top: 1px solid var(--spec-ink, #1c1a18);
+  border-bottom: 1px solid var(--spec-ink, #1c1a18);
+  margin: 3rem 0;
+}
+.stat-num {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--ef-rose, #bf4e6a);
+}
+.stat-cap {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  opacity: 0.7;
+}
+.blocks-section {
+  padding: 2rem 0 4rem;
+}
+.blocks-section h2 {
+  font-family: var(--display-font, Spectral, serif);
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+.block-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin: 2rem 0;
+}
+.block-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.block-card:hover {
+  border-color: var(--ef-rose, #bf4e6a);
+}
+.block-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.block-range {
+  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-top: 0.25rem;
+}
+.block-count {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 0.25rem;
+}
+.see-all {
+  display: inline-block;
+  margin-top: 1rem;
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: none;
+}
 </style>
 
 <script>

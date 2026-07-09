@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const IMPORT_SNIPPET = `import { path, metadata } from "@essenfont/essenfont";
+
+// path    → absolute path to the OTC on disk
+// metadata → { version, donorCount, charCount, sha256, ... }`;
+
+const BUILD_SNIPPET = `import { path } from "@essenfont/essenfont";
+import { readFileSync } from "node:fs";
+
+// Use with fontTools, fontisan, or any SFNT parser
+const otcBytes = readFileSync(path);`;
+
+const STAGES_SNIPPET = `// Donor registry → CpMap → Stitcher → OTC
+const cpMap     = Essenfont::CpMap.from_donors(donors)
+const stitcher  = Fontisan::Stitcher.new
+// ... (see the essenfont repo for the full pipeline)`;
+---
+<BaseLayout
+  title="API — Docs — Essenfont"
+  description="The @essenfont/essenfont npm package — TypeScript types for the font path, metadata, and build hooks."
+  canonical="/docs/api"
+>
+  <section class="container docs-page">
+    <header class="docs-head">
+      <p class="eyebrow">Docs · III</p>
+      <h1>npm API</h1>
+    </header>
+
+    <p>
+      The <code>@essenfont/essenfont</code> package is a thin shell:
+      it exposes the canonical OTC path on disk, build-time metadata
+      (version, donor count, character count, sha256), and a
+      TypeScript-typed surface for build pipelines that need to know
+      which file to embed.
+    </p>
+
+    <h2 id="import">Imports</h2>
+    <pre class="code-block"><code>{IMPORT_SNIPPET}</code></pre>
+
+    <h2 id="metadata">Metadata</h2>
+    <table class="api-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>version</code></td><td><code>string</code></td><td>Semver string from the source repo</td></tr>
+        <tr><td><code>donorCount</code></td><td><code>number</code></td><td>Count of OFL-licensed donor fonts</td></tr>
+        <tr><td><code>charCount</code></td><td><code>number</code></td><td>Assigned Unicode 17 codepoints covered</td></tr>
+        <tr><td><code>sha256</code></td><td><code>string</code></td><td>OTC binary digest (integrity check)</td></tr>
+        <tr><td><code>otcPath</code></td><td><code>string</code></td><td>Same as <code>path</code> — the OTC file</td></tr>
+        <tr><td><code>ttcPath</code></td><td><code>string</code> | <code>null</code></td><td>TrueType fallback if shipped</td></tr>
+      </tbody>
+    </table>
+
+    <h2 id="usage">Usage</h2>
+    <pre class="code-block"><code>{BUILD_SNIPPET}</code></pre>
+
+    <h2 id="build">Build pipeline (Ruby source)</h2>
+    <p>
+      The TypeScript package is a thin shim over the Ruby build pipeline
+      in the <a href="https://github.com/essenfont/essenfont">essenfont</a>
+      source repo. For programmatic donor registry access, partition
+      strategy, or custom subsetting, use the Ruby API:
+    </p>
+    <pre class="code-block"><code>{STAGES_SNIPPET}</code></pre>
+
+    <p class="next">
+      Next: <a href="/docs/architecture">Architecture →</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .docs-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
+  .docs-head { margin-bottom: 2.5rem; }
+  .eyebrow {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: clamp(2rem, 5vw, 3rem); margin: 0;
+  }
+  p { line-height: 1.65; margin: 1rem 0; }
+  h2 {
+    font-family: var(--spec-font-display, Spectral, serif);
+    font-size: 1.5rem;
+    margin: 2.5rem 0 0.75rem;
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    padding-bottom: 0.5rem;
+  }
+  code {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.875em;
+    background: var(--ef-surface, #f2efe9);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+  }
+  .code-block {
+    background: var(--ef-surface, #f2efe9);
+    border: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+  }
+  .code-block code {
+    background: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--ef-text, #1a1815);
+    white-space: pre;
+  }
+  .api-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.9375rem;
+  }
+  .api-table th, .api-table td {
+    text-align: left;
+    padding: 0.625rem 0.75rem;
+    border-bottom: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+    vertical-align: top;
+  }
+  .api-table th {
+    font-family: var(--spec-font-mono, monospace);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ef-text-3, #8a8478);
+  }
+  .next {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--ef-rule, rgba(26, 24, 21, 0.08));
+  }
+</style>
