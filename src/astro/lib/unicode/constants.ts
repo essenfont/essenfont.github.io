@@ -99,7 +99,7 @@ export function displayChar(cp: number, category: string): string {
 }
 
 export function charRoute(cp: number): string {
-  return `/unicode/char/${cp.toString(16).toUpperCase()}`
+  return `/unicode/char/${cp.toString(16).toUpperCase().padStart(4, '0')}`
 }
 
 export type ScriptFamily =
