@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-08T09:11:57.571Z",
+  "generatedAt": "2026-07-09T01:17:31.811Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -8,73 +8,85 @@
   "donorCount": 38,
   "fontBinaries": {
     "otcSizeBytes": 110064636,
-    "ttcSizeBytes": 89354036,
+    "ttcSizeBytes": 99468656,
     "otfSizeBytes": 11223440
   },
   "websiteSubsets": {
     "woff2Count": 209,
-    "woff2TotalBytes": 31095624,
+    "woff2TotalBytes": 99927708,
     "woff1Count": 230,
-    "woff1TotalBytes": 42997132
+    "woff1TotalBytes": 114422520
   },
   "coverage": {
-    "generated_at": "2026-07-08T08:45:00Z",
+    "generated_at": "2026-07-09T01:05:21Z",
     "unicode_version": "17.0.0",
+    "source": "Essenfont-Regular.ttc",
     "overall": {
-      "covered": 113637,
-      "total": 164144,
-      "pct": 69.2,
-      "block_count": 338
+      "covered": 137117,
+      "total": 303808,
+      "pct": 45.1328,
+      "block_count": 346,
+      "cmap_union": 137216
+    },
+    "totals": {
+      "blocks": 346,
+      "assigned_blocks": 346,
+      "reserved_blocks": 0,
+      "empty": 136,
+      "complete": 92,
+      "covered": 137117,
+      "assigned": 303808,
+      "pct": 45.1328
     },
     "blocks": [
       {
         "id": "Basic_Latin",
         "name": "Basic Latin",
-        "range": "U+0000..U+007F",
+        "range": "U+0..U+7F",
         "first": 0,
         "last": 127,
-        "covered": 0,
+        "covered": 97,
         "total": 128,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 75.78,
+        "status": "MOSTLY"
       },
       {
         "id": "Latin-1_Supplement",
         "name": "Latin-1 Supplement",
-        "range": "U+0080..U+00FF",
+        "range": "U+80..U+FF",
         "first": 128,
         "last": 255,
-        "covered": 0,
+        "covered": 118,
         "total": 128,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 92.19,
+        "status": "MOSTLY"
       },
       {
         "id": "Latin_Extended-A",
         "name": "Latin Extended-A",
-        "range": "U+0100..U+017F",
+        "range": "U+100..U+17F",
         "first": 256,
         "last": 383,
-        "covered": 123,
+        "covered": 128,
         "total": 128,
-        "pct": 96.09,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Latin_Extended-B",
         "name": "Latin Extended-B",
-        "range": "U+0180..U+024F",
+        "range": "U+180..U+24F",
         "first": 384,
         "last": 591,
-        "covered": 207,
+        "covered": 208,
         "total": 208,
-        "pct": 99.52,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "IPA_Extensions",
         "name": "IPA Extensions",
-        "range": "U+0250..U+02AF",
+        "range": "U+250..U+2AF",
         "first": 592,
         "last": 687,
         "covered": 96,
@@ -85,73 +97,73 @@
       {
         "id": "Spacing_Modifier_Letters",
         "name": "Spacing Modifier Letters",
-        "range": "U+02B0..U+02FF",
+        "range": "U+2B0..U+2FF",
         "first": 688,
         "last": 767,
-        "covered": 71,
+        "covered": 80,
         "total": 80,
-        "pct": 88.75,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Combining_Diacritical_Marks",
         "name": "Combining Diacritical Marks",
-        "range": "U+0300..U+036F",
+        "range": "U+300..U+36F",
         "first": 768,
         "last": 879,
-        "covered": 106,
+        "covered": 112,
         "total": 112,
-        "pct": 94.64,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Greek_and_Coptic",
         "name": "Greek and Coptic",
-        "range": "U+0370..U+03FF",
+        "range": "U+370..U+3FF",
         "first": 880,
         "last": 1023,
-        "covered": 74,
+        "covered": 136,
         "total": 144,
-        "pct": 51.39,
+        "pct": 94.44,
         "status": "MOSTLY"
       },
       {
         "id": "Cyrillic",
         "name": "Cyrillic",
-        "range": "U+0400..U+04FF",
+        "range": "U+400..U+4FF",
         "first": 1024,
         "last": 1279,
-        "covered": 246,
+        "covered": 256,
         "total": 256,
-        "pct": 96.09,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Cyrillic_Supplement",
         "name": "Cyrillic Supplement",
-        "range": "U+0500..U+052F",
+        "range": "U+500..U+52F",
         "first": 1280,
         "last": 1327,
-        "covered": 28,
+        "covered": 48,
         "total": 48,
-        "pct": 58.33,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Armenian",
         "name": "Armenian",
-        "range": "U+0530..U+058F",
+        "range": "U+530..U+58F",
         "first": 1328,
         "last": 1423,
-        "covered": 91,
+        "covered": 92,
         "total": 96,
-        "pct": 94.79,
+        "pct": 95.83,
         "status": "FULL"
       },
       {
         "id": "Hebrew",
         "name": "Hebrew",
-        "range": "U+0590..U+05FF",
+        "range": "U+590..U+5FF",
         "first": 1424,
         "last": 1535,
         "covered": 84,
@@ -162,18 +174,18 @@
       {
         "id": "Arabic",
         "name": "Arabic",
-        "range": "U+0600..U+06FF",
+        "range": "U+600..U+6FF",
         "first": 1536,
         "last": 1791,
-        "covered": 227,
+        "covered": 232,
         "total": 256,
-        "pct": 88.67,
+        "pct": 90.63,
         "status": "MOSTLY"
       },
       {
         "id": "Syriac",
         "name": "Syriac",
-        "range": "U+0700..U+074F",
+        "range": "U+700..U+74F",
         "first": 1792,
         "last": 1871,
         "covered": 77,
@@ -184,7 +196,7 @@
       {
         "id": "Arabic_Supplement",
         "name": "Arabic Supplement",
-        "range": "U+0750..U+077F",
+        "range": "U+750..U+77F",
         "first": 1872,
         "last": 1919,
         "covered": 0,
@@ -195,18 +207,18 @@
       {
         "id": "Thaana",
         "name": "Thaana",
-        "range": "U+0780..U+07BF",
+        "range": "U+780..U+7BF",
         "first": 1920,
         "last": 1983,
         "covered": 50,
         "total": 64,
-        "pct": 78.12,
+        "pct": 78.13,
         "status": "MOSTLY"
       },
       {
         "id": "NKo",
         "name": "NKo",
-        "range": "U+07C0..U+07FF",
+        "range": "U+7C0..U+7FF",
         "first": 1984,
         "last": 2047,
         "covered": 0,
@@ -217,7 +229,7 @@
       {
         "id": "Samaritan",
         "name": "Samaritan",
-        "range": "U+0800..U+083F",
+        "range": "U+800..U+83F",
         "first": 2048,
         "last": 2111,
         "covered": 0,
@@ -228,7 +240,7 @@
       {
         "id": "Mandaic",
         "name": "Mandaic",
-        "range": "U+0840..U+085F",
+        "range": "U+840..U+85F",
         "first": 2112,
         "last": 2143,
         "covered": 0,
@@ -239,7 +251,7 @@
       {
         "id": "Syriac_Supplement",
         "name": "Syriac Supplement",
-        "range": "U+0860..U+086F",
+        "range": "U+860..U+86F",
         "first": 2144,
         "last": 2159,
         "covered": 0,
@@ -250,7 +262,7 @@
       {
         "id": "Arabic_Extended-B",
         "name": "Arabic Extended-B",
-        "range": "U+0870..U+089F",
+        "range": "U+870..U+89F",
         "first": 2160,
         "last": 2207,
         "covered": 0,
@@ -261,7 +273,7 @@
       {
         "id": "Arabic_Extended-A",
         "name": "Arabic Extended-A",
-        "range": "U+08A0..U+08FF",
+        "range": "U+8A0..U+8FF",
         "first": 2208,
         "last": 2303,
         "covered": 0,
@@ -272,7 +284,7 @@
       {
         "id": "Devanagari",
         "name": "Devanagari",
-        "range": "U+0900..U+097F",
+        "range": "U+900..U+97F",
         "first": 2304,
         "last": 2431,
         "covered": 105,
@@ -283,7 +295,7 @@
       {
         "id": "Bengali",
         "name": "Bengali",
-        "range": "U+0980..U+09FF",
+        "range": "U+980..U+9FF",
         "first": 2432,
         "last": 2559,
         "covered": 90,
@@ -294,7 +306,7 @@
       {
         "id": "Gurmukhi",
         "name": "Gurmukhi",
-        "range": "U+0A00..U+0A7F",
+        "range": "U+A00..U+A7F",
         "first": 2560,
         "last": 2687,
         "covered": 77,
@@ -305,7 +317,7 @@
       {
         "id": "Gujarati",
         "name": "Gujarati",
-        "range": "U+0A80..U+0AFF",
+        "range": "U+A80..U+AFF",
         "first": 2688,
         "last": 2815,
         "covered": 83,
@@ -316,7 +328,7 @@
       {
         "id": "Oriya",
         "name": "Oriya",
-        "range": "U+0B00..U+0B7F",
+        "range": "U+B00..U+B7F",
         "first": 2816,
         "last": 2943,
         "covered": 81,
@@ -327,7 +339,7 @@
       {
         "id": "Tamil",
         "name": "Tamil",
-        "range": "U+0B80..U+0BFF",
+        "range": "U+B80..U+BFF",
         "first": 2944,
         "last": 3071,
         "covered": 69,
@@ -338,7 +350,7 @@
       {
         "id": "Telugu",
         "name": "Telugu",
-        "range": "U+0C00..U+0C7F",
+        "range": "U+C00..U+C7F",
         "first": 3072,
         "last": 3199,
         "covered": 80,
@@ -349,7 +361,7 @@
       {
         "id": "Kannada",
         "name": "Kannada",
-        "range": "U+0C80..U+0CFF",
+        "range": "U+C80..U+CFF",
         "first": 3200,
         "last": 3327,
         "covered": 82,
@@ -360,7 +372,7 @@
       {
         "id": "Malayalam",
         "name": "Malayalam",
-        "range": "U+0D00..U+0D7F",
+        "range": "U+D00..U+D7F",
         "first": 3328,
         "last": 3455,
         "covered": 78,
@@ -371,7 +383,7 @@
       {
         "id": "Sinhala",
         "name": "Sinhala",
-        "range": "U+0D80..U+0DFF",
+        "range": "U+D80..U+DFF",
         "first": 3456,
         "last": 3583,
         "covered": 80,
@@ -382,7 +394,7 @@
       {
         "id": "Thai",
         "name": "Thai",
-        "range": "U+0E00..U+0E7F",
+        "range": "U+E00..U+E7F",
         "first": 3584,
         "last": 3711,
         "covered": 87,
@@ -393,7 +405,7 @@
       {
         "id": "Lao",
         "name": "Lao",
-        "range": "U+0E80..U+0EFF",
+        "range": "U+E80..U+EFF",
         "first": 3712,
         "last": 3839,
         "covered": 65,
@@ -404,7 +416,7 @@
       {
         "id": "Tibetan",
         "name": "Tibetan",
-        "range": "U+0F00..U+0FFF",
+        "range": "U+F00..U+FFF",
         "first": 3840,
         "last": 4095,
         "covered": 193,
@@ -497,8 +509,8 @@
         "last": 5791,
         "covered": 29,
         "total": 32,
-        "pct": 90.62,
-        "status": "FULL"
+        "pct": 90.63,
+        "status": "MOSTLY"
       },
       {
         "id": "Runic",
@@ -660,10 +672,10 @@
         "range": "U+1AB0..U+1AFF",
         "first": 6832,
         "last": 6911,
-        "covered": 0,
+        "covered": 26,
         "total": 80,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 32.5,
+        "status": "PARTIAL"
       },
       {
         "id": "Balinese",
@@ -726,10 +738,10 @@
         "range": "U+1C80..U+1C8F",
         "first": 7296,
         "last": 7311,
-        "covered": 2,
+        "covered": 11,
         "total": 16,
-        "pct": 12.5,
-        "status": "PARTIAL"
+        "pct": 68.75,
+        "status": "MOSTLY"
       },
       {
         "id": "Georgian_Extended",
@@ -781,10 +793,10 @@
         "range": "U+1D80..U+1DBF",
         "first": 7552,
         "last": 7615,
-        "covered": 46,
+        "covered": 64,
         "total": 64,
-        "pct": 71.88,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Combining_Diacritical_Marks_Supplement",
@@ -792,10 +804,10 @@
         "range": "U+1DC0..U+1DFF",
         "first": 7616,
         "last": 7679,
-        "covered": 0,
+        "covered": 63,
         "total": 64,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 98.44,
+        "status": "FULL"
       },
       {
         "id": "Latin_Extended_Additional",
@@ -817,7 +829,7 @@
         "covered": 233,
         "total": 256,
         "pct": 91.02,
-        "status": "FULL"
+        "status": "MOSTLY"
       },
       {
         "id": "General_Punctuation",
@@ -825,9 +837,9 @@
         "range": "U+2000..U+206F",
         "first": 8192,
         "last": 8303,
-        "covered": 60,
+        "covered": 93,
         "total": 112,
-        "pct": 53.57,
+        "pct": 83.04,
         "status": "MOSTLY"
       },
       {
@@ -847,10 +859,10 @@
         "range": "U+20A0..U+20CF",
         "first": 8352,
         "last": 8399,
-        "covered": 17,
+        "covered": 37,
         "total": 48,
-        "pct": 35.42,
-        "status": "PARTIAL"
+        "pct": 77.08,
+        "status": "MOSTLY"
       },
       {
         "id": "Combining_Diacritical_Marks_for_Symbols",
@@ -858,9 +870,9 @@
         "range": "U+20D0..U+20FF",
         "first": 8400,
         "last": 8447,
-        "covered": 32,
+        "covered": 33,
         "total": 48,
-        "pct": 66.67,
+        "pct": 68.75,
         "status": "MOSTLY"
       },
       {
@@ -869,10 +881,10 @@
         "range": "U+2100..U+214F",
         "first": 8448,
         "last": 8527,
-        "covered": 73,
+        "covered": 80,
         "total": 80,
-        "pct": 91.25,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Number_Forms",
@@ -880,10 +892,10 @@
         "range": "U+2150..U+218F",
         "first": 8528,
         "last": 8591,
-        "covered": 48,
+        "covered": 64,
         "total": 64,
-        "pct": 75,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Arrows",
@@ -891,10 +903,10 @@
         "range": "U+2190..U+21FF",
         "first": 8592,
         "last": 8703,
-        "covered": 104,
+        "covered": 112,
         "total": 112,
-        "pct": 92.86,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Mathematical_Operators",
@@ -902,10 +914,10 @@
         "range": "U+2200..U+22FF",
         "first": 8704,
         "last": 8959,
-        "covered": 231,
+        "covered": 256,
         "total": 256,
-        "pct": 90.23,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Miscellaneous_Technical",
@@ -913,10 +925,10 @@
         "range": "U+2300..U+23FF",
         "first": 8960,
         "last": 9215,
-        "covered": 217,
+        "covered": 256,
         "total": 256,
-        "pct": 84.77,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Control_Pictures",
@@ -924,9 +936,9 @@
         "range": "U+2400..U+243F",
         "first": 9216,
         "last": 9279,
-        "covered": 38,
+        "covered": 39,
         "total": 64,
-        "pct": 59.38,
+        "pct": 60.94,
         "status": "MOSTLY"
       },
       {
@@ -946,10 +958,10 @@
         "range": "U+2460..U+24FF",
         "first": 9312,
         "last": 9471,
-        "covered": 159,
+        "covered": 160,
         "total": 160,
-        "pct": 99.38,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Box_Drawing",
@@ -957,10 +969,10 @@
         "range": "U+2500..U+257F",
         "first": 9472,
         "last": 9599,
-        "covered": 76,
+        "covered": 128,
         "total": 128,
-        "pct": 59.38,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Block_Elements",
@@ -968,10 +980,10 @@
         "range": "U+2580..U+259F",
         "first": 9600,
         "last": 9631,
-        "covered": 14,
+        "covered": 32,
         "total": 32,
-        "pct": 43.75,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Geometric_Shapes",
@@ -979,10 +991,10 @@
         "range": "U+25A0..U+25FF",
         "first": 9632,
         "last": 9727,
-        "covered": 74,
+        "covered": 96,
         "total": 96,
-        "pct": 77.08,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Miscellaneous_Symbols",
@@ -990,10 +1002,10 @@
         "range": "U+2600..U+26FF",
         "first": 9728,
         "last": 9983,
-        "covered": 145,
+        "covered": 256,
         "total": 256,
-        "pct": 56.64,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Dingbats",
@@ -1001,10 +1013,10 @@
         "range": "U+2700..U+27BF",
         "first": 9984,
         "last": 10175,
-        "covered": 160,
+        "covered": 192,
         "total": 192,
-        "pct": 83.33,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Miscellaneous_Mathematical_Symbols-A",
@@ -1012,10 +1024,10 @@
         "range": "U+27C0..U+27EF",
         "first": 10176,
         "last": 10223,
-        "covered": 41,
+        "covered": 48,
         "total": 48,
-        "pct": 85.42,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Supplemental_Arrows-A",
@@ -1045,10 +1057,10 @@
         "range": "U+2900..U+297F",
         "first": 10496,
         "last": 10623,
-        "covered": 126,
+        "covered": 128,
         "total": 128,
-        "pct": 98.44,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Miscellaneous_Mathematical_Symbols-B",
@@ -1078,10 +1090,10 @@
         "range": "U+2B00..U+2BFF",
         "first": 11008,
         "last": 11263,
-        "covered": 100,
+        "covered": 253,
         "total": 256,
-        "pct": 39.06,
-        "status": "PARTIAL"
+        "pct": 98.83,
+        "status": "FULL"
       },
       {
         "id": "Glagolitic",
@@ -1113,7 +1125,7 @@
         "last": 11519,
         "covered": 4,
         "total": 128,
-        "pct": 3.12,
+        "pct": 3.13,
         "status": "PARTIAL"
       },
       {
@@ -1155,10 +1167,10 @@
         "range": "U+2DE0..U+2DFF",
         "first": 11744,
         "last": 11775,
-        "covered": 4,
+        "covered": 32,
         "total": 32,
-        "pct": 12.5,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Supplemental_Punctuation",
@@ -1166,10 +1178,10 @@
         "range": "U+2E00..U+2E7F",
         "first": 11776,
         "last": 11903,
-        "covered": 19,
+        "covered": 94,
         "total": 128,
-        "pct": 14.84,
-        "status": "PARTIAL"
+        "pct": 73.44,
+        "status": "MOSTLY"
       },
       {
         "id": "CJK_Radicals_Supplement",
@@ -1210,10 +1222,10 @@
         "range": "U+3000..U+303F",
         "first": 12288,
         "last": 12351,
-        "covered": 34,
+        "covered": 63,
         "total": 64,
-        "pct": 53.12,
-        "status": "MOSTLY"
+        "pct": 98.44,
+        "status": "FULL"
       },
       {
         "id": "Hiragana",
@@ -1221,10 +1233,10 @@
         "range": "U+3040..U+309F",
         "first": 12352,
         "last": 12447,
-        "covered": 7,
+        "covered": 93,
         "total": 96,
-        "pct": 7.29,
-        "status": "PARTIAL"
+        "pct": 96.88,
+        "status": "FULL"
       },
       {
         "id": "Katakana",
@@ -1232,10 +1244,10 @@
         "range": "U+30A0..U+30FF",
         "first": 12448,
         "last": 12543,
-        "covered": 13,
+        "covered": 96,
         "total": 96,
-        "pct": 13.54,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Bopomofo",
@@ -1243,10 +1255,10 @@
         "range": "U+3100..U+312F",
         "first": 12544,
         "last": 12591,
-        "covered": 6,
+        "covered": 43,
         "total": 48,
-        "pct": 12.5,
-        "status": "PARTIAL"
+        "pct": 89.58,
+        "status": "MOSTLY"
       },
       {
         "id": "Hangul_Compatibility_Jamo",
@@ -1265,10 +1277,10 @@
         "range": "U+3190..U+319F",
         "first": 12688,
         "last": 12703,
-        "covered": 3,
+        "covered": 16,
         "total": 16,
-        "pct": 18.75,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Bopomofo_Extended",
@@ -1287,9 +1299,9 @@
         "range": "U+31C0..U+31EF",
         "first": 12736,
         "last": 12783,
-        "covered": 38,
+        "covered": 39,
         "total": 48,
-        "pct": 79.17,
+        "pct": 81.25,
         "status": "MOSTLY"
       },
       {
@@ -1309,9 +1321,9 @@
         "range": "U+3200..U+32FF",
         "first": 12800,
         "last": 13055,
-        "covered": 253,
+        "covered": 255,
         "total": 256,
-        "pct": 98.83,
+        "pct": 99.61,
         "status": "FULL"
       },
       {
@@ -1320,10 +1332,10 @@
         "range": "U+3300..U+33FF",
         "first": 13056,
         "last": 13311,
-        "covered": 245,
+        "covered": 256,
         "total": 256,
-        "pct": 95.7,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "CJK_Unified_Ideographs_Extension_A",
@@ -1331,10 +1343,10 @@
         "range": "U+3400..U+4DBF",
         "first": 13312,
         "last": 19903,
-        "covered": 4011,
+        "covered": 6592,
         "total": 6592,
-        "pct": 60.85,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Yijing_Hexagram_Symbols",
@@ -1444,7 +1456,7 @@
         "covered": 206,
         "total": 224,
         "pct": 91.96,
-        "status": "FULL"
+        "status": "MOSTLY"
       },
       {
         "id": "Syloti_Nagri",
@@ -1463,10 +1475,10 @@
         "range": "U+A830..U+A83F",
         "first": 43056,
         "last": 43071,
-        "covered": 0,
+        "covered": 10,
         "total": 16,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 62.5,
+        "status": "MOSTLY"
       },
       {
         "id": "Phags-pa",
@@ -1531,8 +1543,8 @@
         "last": 43391,
         "covered": 29,
         "total": 32,
-        "pct": 90.62,
-        "status": "FULL"
+        "pct": 90.63,
+        "status": "MOSTLY"
       },
       {
         "id": "Javanese",
@@ -1664,7 +1676,7 @@
         "covered": 72,
         "total": 80,
         "pct": 90,
-        "status": "FULL"
+        "status": "MOSTLY"
       },
       {
         "id": "High_Surrogates",
@@ -1675,7 +1687,7 @@
         "covered": 0,
         "total": 896,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       },
       {
         "id": "High_Private_Use_Surrogates",
@@ -1686,7 +1698,7 @@
         "covered": 0,
         "total": 128,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       },
       {
         "id": "Low_Surrogates",
@@ -1697,7 +1709,7 @@
         "covered": 0,
         "total": 1024,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       },
       {
         "id": "Private_Use_Area",
@@ -1708,7 +1720,7 @@
         "covered": 0,
         "total": 6400,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       },
       {
         "id": "CJK_Compatibility_Ideographs",
@@ -1719,7 +1731,7 @@
         "covered": 472,
         "total": 512,
         "pct": 92.19,
-        "status": "FULL"
+        "status": "MOSTLY"
       },
       {
         "id": "Alphabetic_Presentation_Forms",
@@ -1815,10 +1827,10 @@
         "range": "U+FF00..U+FFEF",
         "first": 65280,
         "last": 65519,
-        "covered": 224,
+        "covered": 225,
         "total": 240,
-        "pct": 93.33,
-        "status": "FULL"
+        "pct": 93.75,
+        "status": "MOSTLY"
       },
       {
         "id": "Specials",
@@ -1829,7 +1841,7 @@
         "covered": 0,
         "total": 16,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       },
       {
         "id": "Linear_B_Syllabary",
@@ -1870,10 +1882,10 @@
         "range": "U+10140..U+1018F",
         "first": 65856,
         "last": 65935,
-        "covered": 0,
+        "covered": 79,
         "total": 80,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 98.75,
+        "status": "FULL"
       },
       {
         "id": "Ancient_Symbols",
@@ -1881,9 +1893,9 @@
         "range": "U+10190..U+101CF",
         "first": 65936,
         "last": 65999,
-        "covered": 1,
+        "covered": 15,
         "total": 64,
-        "pct": 1.56,
+        "pct": 23.44,
         "status": "PARTIAL"
       },
       {
@@ -1892,10 +1904,10 @@
         "range": "U+101D0..U+101FF",
         "first": 66000,
         "last": 66047,
-        "covered": 0,
+        "covered": 46,
         "total": 48,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 95.83,
+        "status": "FULL"
       },
       {
         "id": "Lycian",
@@ -1925,10 +1937,10 @@
         "range": "U+102E0..U+102FF",
         "first": 66272,
         "last": 66303,
-        "covered": 0,
+        "covered": 28,
         "total": 32,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 87.5,
+        "status": "MOSTLY"
       },
       {
         "id": "Old_Italic",
@@ -1947,10 +1959,10 @@
         "range": "U+10330..U+1034F",
         "first": 66352,
         "last": 66383,
-        "covered": 3,
+        "covered": 27,
         "total": 32,
-        "pct": 9.38,
-        "status": "PARTIAL"
+        "pct": 84.38,
+        "status": "MOSTLY"
       },
       {
         "id": "Old_Permic",
@@ -1969,10 +1981,10 @@
         "range": "U+10380..U+1039F",
         "first": 66432,
         "last": 66463,
-        "covered": 0,
+        "covered": 31,
         "total": 32,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 96.88,
+        "status": "FULL"
       },
       {
         "id": "Old_Persian",
@@ -1980,10 +1992,10 @@
         "range": "U+103A0..U+103DF",
         "first": 66464,
         "last": 66527,
-        "covered": 30,
+        "covered": 50,
         "total": 64,
-        "pct": 46.88,
-        "status": "PARTIAL"
+        "pct": 78.13,
+        "status": "MOSTLY"
       },
       {
         "id": "Deseret",
@@ -1991,10 +2003,10 @@
         "range": "U+10400..U+1044F",
         "first": 66560,
         "last": 66639,
-        "covered": 79,
+        "covered": 80,
         "total": 80,
-        "pct": 98.75,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Shavian",
@@ -2013,9 +2025,9 @@
         "range": "U+10480..U+104AF",
         "first": 66688,
         "last": 66735,
-        "covered": 39,
+        "covered": 40,
         "total": 48,
-        "pct": 81.25,
+        "pct": 83.33,
         "status": "MOSTLY"
       },
       {
@@ -2046,9 +2058,9 @@
         "range": "U+10530..U+1056F",
         "first": 66864,
         "last": 66927,
-        "covered": 52,
+        "covered": 53,
         "total": 64,
-        "pct": 81.25,
+        "pct": 82.81,
         "status": "MOSTLY"
       },
       {
@@ -2090,10 +2102,10 @@
         "range": "U+10780..U+107BF",
         "first": 67456,
         "last": 67519,
-        "covered": 5,
+        "covered": 62,
         "total": 64,
-        "pct": 7.81,
-        "status": "PARTIAL"
+        "pct": 96.88,
+        "status": "FULL"
       },
       {
         "id": "Cypriot_Syllabary",
@@ -2112,9 +2124,9 @@
         "range": "U+10840..U+1085F",
         "first": 67648,
         "last": 67679,
-        "covered": 30,
+        "covered": 31,
         "total": 32,
-        "pct": 93.75,
+        "pct": 96.88,
         "status": "FULL"
       },
       {
@@ -2158,8 +2170,8 @@
         "last": 67871,
         "covered": 29,
         "total": 32,
-        "pct": 90.62,
-        "status": "FULL"
+        "pct": 90.63,
+        "status": "MOSTLY"
       },
       {
         "id": "Lydian",
@@ -2178,9 +2190,9 @@
         "range": "U+10940..U+1095F",
         "first": 67904,
         "last": 67935,
-        "covered": 25,
+        "covered": 26,
         "total": 32,
-        "pct": 78.12,
+        "pct": 81.25,
         "status": "MOSTLY"
       },
       {
@@ -2255,10 +2267,10 @@
         "range": "U+10B00..U+10B3F",
         "first": 68352,
         "last": 68415,
-        "covered": 50,
+        "covered": 61,
         "total": 64,
-        "pct": 78.12,
-        "status": "MOSTLY"
+        "pct": 95.31,
+        "status": "FULL"
       },
       {
         "id": "Inscriptional_Parthian",
@@ -2343,10 +2355,10 @@
         "range": "U+10E60..U+10E7F",
         "first": 69216,
         "last": 69247,
-        "covered": 0,
+        "covered": 31,
         "total": 32,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 96.88,
+        "status": "FULL"
       },
       {
         "id": "Yezidi",
@@ -2431,10 +2443,10 @@
         "range": "U+11000..U+1107F",
         "first": 69632,
         "last": 69759,
-        "covered": 58,
+        "covered": 115,
         "total": 128,
-        "pct": 45.31,
-        "status": "PARTIAL"
+        "pct": 89.84,
+        "status": "MOSTLY"
       },
       {
         "id": "Kaithi",
@@ -2486,10 +2498,10 @@
         "range": "U+11180..U+111DF",
         "first": 70016,
         "last": 70111,
-        "covered": 94,
+        "covered": 96,
         "total": 96,
-        "pct": 97.92,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Sinhala_Archaic_Numbers",
@@ -2552,9 +2564,9 @@
         "range": "U+11380..U+113FF",
         "first": 70528,
         "last": 70655,
-        "covered": 74,
+        "covered": 77,
         "total": 128,
-        "pct": 57.81,
+        "pct": 60.16,
         "status": "MOSTLY"
       },
       {
@@ -2728,9 +2740,9 @@
         "range": "U+11AC0..U+11AFF",
         "first": 72384,
         "last": 72447,
-        "covered": 55,
+        "covered": 57,
         "total": 64,
-        "pct": 85.94,
+        "pct": 89.06,
         "status": "MOSTLY"
       },
       {
@@ -2849,10 +2861,10 @@
         "range": "U+11FB0..U+11FBF",
         "first": 73648,
         "last": 73663,
-        "covered": 0,
+        "covered": 1,
         "total": 16,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 6.25,
+        "status": "PARTIAL"
       },
       {
         "id": "Tamil_Supplement",
@@ -2871,10 +2883,10 @@
         "range": "U+12000..U+123FF",
         "first": 73728,
         "last": 74751,
-        "covered": 121,
+        "covered": 922,
         "total": 1024,
-        "pct": 11.82,
-        "status": "PARTIAL"
+        "pct": 90.04,
+        "status": "MOSTLY"
       },
       {
         "id": "Cuneiform_Numbers_and_Punctuation",
@@ -2882,10 +2894,10 @@
         "range": "U+12400..U+1247F",
         "first": 74752,
         "last": 74879,
-        "covered": 0,
+        "covered": 116,
         "total": 128,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 90.63,
+        "status": "MOSTLY"
       },
       {
         "id": "Early_Dynastic_Cuneiform",
@@ -2893,10 +2905,10 @@
         "range": "U+12480..U+1254F",
         "first": 74880,
         "last": 75087,
-        "covered": 0,
+        "covered": 196,
         "total": 208,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 94.23,
+        "status": "MOSTLY"
       },
       {
         "id": "Cypro-Minoan",
@@ -2915,10 +2927,10 @@
         "range": "U+13000..U+1342F",
         "first": 77824,
         "last": 78895,
-        "covered": 37,
+        "covered": 1072,
         "total": 1072,
-        "pct": 3.45,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Egyptian_Hieroglyph_Format_Controls",
@@ -2937,10 +2949,10 @@
         "range": "U+13460..U+143FF",
         "first": 78944,
         "last": 82943,
-        "covered": 3292,
+        "covered": 3995,
         "total": 4000,
-        "pct": 82.3,
-        "status": "MOSTLY"
+        "pct": 99.88,
+        "status": "FULL"
       },
       {
         "id": "Anatolian_Hieroglyphs",
@@ -3049,7 +3061,7 @@
         "last": 93919,
         "covered": 50,
         "total": 64,
-        "pct": 78.12,
+        "pct": 78.13,
         "status": "MOSTLY"
       },
       {
@@ -3069,9 +3081,9 @@
         "range": "U+16FE0..U+16FFF",
         "first": 94176,
         "last": 94207,
-        "covered": 11,
+        "covered": 12,
         "total": 32,
-        "pct": 34.38,
+        "pct": 37.5,
         "status": "PARTIAL"
       },
       {
@@ -3080,10 +3092,10 @@
         "range": "U+17000..U+187FF",
         "first": 94208,
         "last": 100351,
-        "covered": 0,
+        "covered": 6136,
         "total": 6144,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 99.87,
+        "status": "FULL"
       },
       {
         "id": "Tangut_Components",
@@ -3091,10 +3103,10 @@
         "range": "U+18800..U+18AFF",
         "first": 100352,
         "last": 101119,
-        "covered": 0,
+        "covered": 768,
         "total": 768,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Khitan_Small_Script",
@@ -3102,10 +3114,10 @@
         "range": "U+18B00..U+18CFF",
         "first": 101120,
         "last": 101631,
-        "covered": 469,
+        "covered": 470,
         "total": 512,
-        "pct": 91.6,
-        "status": "FULL"
+        "pct": 91.8,
+        "status": "MOSTLY"
       },
       {
         "id": "Tangut_Supplement",
@@ -3113,10 +3125,10 @@
         "range": "U+18D00..U+18D7F",
         "first": 101632,
         "last": 101759,
-        "covered": 0,
+        "covered": 9,
         "total": 128,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 7.03,
+        "status": "PARTIAL"
       },
       {
         "id": "Tangut_Components_Supplement",
@@ -3302,8 +3314,8 @@
         "last": 119647,
         "covered": 87,
         "total": 96,
-        "pct": 90.62,
-        "status": "FULL"
+        "pct": 90.63,
+        "status": "MOSTLY"
       },
       {
         "id": "Counting_Rod_Numerals",
@@ -3313,7 +3325,7 @@
         "last": 119679,
         "covered": 25,
         "total": 32,
-        "pct": 78.12,
+        "pct": 78.13,
         "status": "MOSTLY"
       },
       {
@@ -3322,9 +3334,9 @@
         "range": "U+1D400..U+1D7FF",
         "first": 119808,
         "last": 120831,
-        "covered": 945,
+        "covered": 996,
         "total": 1024,
-        "pct": 92.29,
+        "pct": 97.27,
         "status": "FULL"
       },
       {
@@ -3344,9 +3356,9 @@
         "range": "U+1DF00..U+1DFFF",
         "first": 122624,
         "last": 122879,
-        "covered": 169,
+        "covered": 188,
         "total": 256,
-        "pct": 66.02,
+        "pct": 73.44,
         "status": "MOSTLY"
       },
       {
@@ -3366,10 +3378,10 @@
         "range": "U+1E030..U+1E08F",
         "first": 122928,
         "last": 123023,
-        "covered": 33,
+        "covered": 62,
         "total": 96,
-        "pct": 34.38,
-        "status": "PARTIAL"
+        "pct": 64.58,
+        "status": "MOSTLY"
       },
       {
         "id": "Nyiakeng_Puachue_Hmong",
@@ -3509,10 +3521,10 @@
         "range": "U+1F000..U+1F02F",
         "first": 126976,
         "last": 127023,
-        "covered": 14,
+        "covered": 44,
         "total": 48,
-        "pct": 29.17,
-        "status": "PARTIAL"
+        "pct": 91.67,
+        "status": "MOSTLY"
       },
       {
         "id": "Domino_Tiles",
@@ -3531,9 +3543,9 @@
         "range": "U+1F0A0..U+1F0FF",
         "first": 127136,
         "last": 127231,
-        "covered": 81,
+        "covered": 82,
         "total": 96,
-        "pct": 84.38,
+        "pct": 85.42,
         "status": "MOSTLY"
       },
       {
@@ -3542,9 +3554,9 @@
         "range": "U+1F100..U+1F1FF",
         "first": 127232,
         "last": 127487,
-        "covered": 159,
+        "covered": 200,
         "total": 256,
-        "pct": 62.11,
+        "pct": 78.13,
         "status": "MOSTLY"
       },
       {
@@ -3553,9 +3565,9 @@
         "range": "U+1F200..U+1F2FF",
         "first": 127488,
         "last": 127743,
-        "covered": 49,
+        "covered": 64,
         "total": 256,
-        "pct": 19.14,
+        "pct": 25,
         "status": "PARTIAL"
       },
       {
@@ -3564,10 +3576,10 @@
         "range": "U+1F300..U+1F5FF",
         "first": 127744,
         "last": 128511,
-        "covered": 115,
+        "covered": 768,
         "total": 768,
-        "pct": 14.97,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Emoticons",
@@ -3575,10 +3587,10 @@
         "range": "U+1F600..U+1F64F",
         "first": 128512,
         "last": 128591,
-        "covered": 0,
+        "covered": 80,
         "total": 80,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Ornamental_Dingbats",
@@ -3586,10 +3598,10 @@
         "range": "U+1F650..U+1F67F",
         "first": 128592,
         "last": 128639,
-        "covered": 37,
+        "covered": 48,
         "total": 48,
-        "pct": 77.08,
-        "status": "MOSTLY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Transport_and_Map_Symbols",
@@ -3597,10 +3609,10 @@
         "range": "U+1F680..U+1F6FF",
         "first": 128640,
         "last": 128767,
-        "covered": 11,
+        "covered": 119,
         "total": 128,
-        "pct": 8.59,
-        "status": "PARTIAL"
+        "pct": 92.97,
+        "status": "MOSTLY"
       },
       {
         "id": "Alchemical_Symbols",
@@ -3619,10 +3631,10 @@
         "range": "U+1F780..U+1F7FF",
         "first": 128896,
         "last": 129023,
-        "covered": 56,
+        "covered": 103,
         "total": 128,
-        "pct": 43.75,
-        "status": "PARTIAL"
+        "pct": 80.47,
+        "status": "MOSTLY"
       },
       {
         "id": "Supplemental_Arrows-C",
@@ -3630,9 +3642,9 @@
         "range": "U+1F800..U+1F8FF",
         "first": 129024,
         "last": 129279,
-        "covered": 130,
+        "covered": 152,
         "total": 256,
-        "pct": 50.78,
+        "pct": 59.38,
         "status": "MOSTLY"
       },
       {
@@ -3641,10 +3653,10 @@
         "range": "U+1F900..U+1F9FF",
         "first": 129280,
         "last": 129535,
-        "covered": 14,
+        "covered": 256,
         "total": 256,
-        "pct": 5.47,
-        "status": "PARTIAL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Chess_Symbols",
@@ -3663,10 +3675,10 @@
         "range": "U+1FA70..U+1FAFF",
         "first": 129648,
         "last": 129791,
-        "covered": 13,
+        "covered": 120,
         "total": 144,
-        "pct": 9.03,
-        "status": "PARTIAL"
+        "pct": 83.33,
+        "status": "MOSTLY"
       },
       {
         "id": "Symbols_for_Legacy_Computing",
@@ -3677,7 +3689,7 @@
         "covered": 235,
         "total": 256,
         "pct": 91.8,
-        "status": "FULL"
+        "status": "MOSTLY"
       },
       {
         "id": "CJK_Unified_Ideographs_Extension_B",
@@ -3685,10 +3697,10 @@
         "range": "U+20000..U+2A6DF",
         "first": 131072,
         "last": 173791,
-        "covered": 38803,
+        "covered": 42720,
         "total": 42720,
-        "pct": 90.83,
-        "status": "FULL"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "CJK_Unified_Ideographs_Extension_C",
@@ -3762,10 +3774,10 @@
         "range": "U+30000..U+3134F",
         "first": 196608,
         "last": 201551,
-        "covered": 1022,
+        "covered": 4939,
         "total": 4944,
-        "pct": 20.67,
-        "status": "PARTIAL"
+        "pct": 99.9,
+        "status": "FULL"
       },
       {
         "id": "CJK_Unified_Ideographs_Extension_H",
@@ -3795,10 +3807,10 @@
         "range": "U+E0000..U+E007F",
         "first": 917504,
         "last": 917631,
-        "covered": 0,
+        "covered": 37,
         "total": 128,
-        "pct": 0,
-        "status": "RESERVED"
+        "pct": 28.91,
+        "status": "PARTIAL"
       },
       {
         "id": "Variation_Selectors_Supplement",
@@ -3817,10 +3829,10 @@
         "range": "U+F0000..U+FFFFF",
         "first": 983040,
         "last": 1048575,
-        "covered": 0,
+        "covered": 21,
         "total": 65536,
-        "pct": 0,
-        "status": "RESERVED"
+        "pct": 0.03,
+        "status": "PARTIAL"
       },
       {
         "id": "Supplementary_Private_Use_Area-B",
@@ -3831,7 +3843,7 @@
         "covered": 0,
         "total": 65536,
         "pct": 0,
-        "status": "RESERVED"
+        "status": "EMPTY"
       }
     ]
   }
