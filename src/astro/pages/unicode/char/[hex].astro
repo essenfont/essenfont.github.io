@@ -19,7 +19,7 @@ export async function getStaticPaths() {
     for (const ch of chars) {
       // URL hex is unpadded (matches the Vue site's charRoute):
       // U+41 → /unicode/char/41, U+1F600 → /unicode/char/1F600
-      const urlHex = ch.cp.toString(16).toUpperCase();
+      const urlHex = ch.cp.toString(16).toUpperCase().padStart(4, '0');
       paths.push({
         params: { hex: urlHex },
         props: { char: ch, block, hex: urlHex },
