@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TypeTester from '../components/TypeTester.astro';
+import BrandMark from '../components/BrandMark.astro';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
@@ -49,58 +50,21 @@ const featured = [
        HERO — the wordmark + interactive type tester
        ═══════════════════════════════════════════════════════════════════ -->
   <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-meta rise-1">
-        <p class="eyebrow">Vol. 17 · Universal Specimen</p>
-        <p class="folio" style="margin-top: 1rem;">No. {formatNumber(version.charCount)}</p>
-      </div>
-
-      <div class="hero-wordmark rise-2">
-        <span class="wordmark-glyph">E</span><span class="wordmark-glyph alt">ε</span><span class="wordmark-glyph">n</span>
-      </div>
-
-      <div class="hero-pitch rise-3">
-        <h1 class="hero-h1">
-          One&nbsp;font.<br/>
-          <em class="text-ochre">Every</em> codepoint.
-        </h1>
-        <p class="lede hero-lede">
-          Essenfont is a single redistributable OpenType file that covers
-          every assigned Unicode&nbsp;{version.version} codepoint —
-          {formatNumber(version.charCount)} characters drawn from
-          <strong>{stats.donorCount} canonical OFL-licensed donor fonts</strong>.
-        </p>
-        <div class="hero-cta rise-4">
-          <a href="/download" class="btn btn-primary btn-arrow">Install the font</a>
-          <a href="/unicode" class="btn btn-ghost btn-arrow">Browse all {version.blockCount} blocks</a>
-        </div>
-      </div>
+    <div class="hero-logo">
+      <BrandMark size="lg" animated={true} interactive={true} alt="Essenfont" />
     </div>
-
-    <!-- Live type tester -->
-    <div class="container type-tester rise-5">
-      <div class="tester-header">
-        <p class="eyebrow">Try it · Rendered in Essenfont</p>
-        <p class="folio" id="tester-folio">— characters</p>
-      </div>
-      <textarea
-        id="tester-input"
-        class="tester-input"
-        spellcheck="false"
-        autocomplete="off"
-        placeholder="Type anything — Lorem ipsum, 你好世界, 🦀, 𐎀𐎂, ∮dh, MCMXC…"
-        rows="3">The quick brown fox 你好世界 𓂀 𒀭 ∑∫ 🪬</textarea>
-      <div id="tester-output" class="tester-output" aria-live="polite"></div>
-      <div class="tester-controls">
-        <label class="tester-size">
-          <span class="folio">size</span>
-          <input id="tester-size-input" type="range" min="24" max="160" value="56" />
-          <span id="tester-size-value" class="mono">56px</span>
-        </label>
-        <p class="folio tester-note">
-          Falls back to Noto Sans for codepoints your system can't show.
-          Install Essenfont for true outlines.
-        </p>
+    <div class="hero-content">
+      <p class="eyebrow">Universal Unicode {version.version} Font</p>
+      <h1 class="display">Essenfont</h1>
+      <p class="lede">
+        One redistributable OpenType font covering every assigned Unicode {version.version} codepoint —
+        {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
+        Built from {stats.donorCount} canonical OFL-licensed donor fonts.
+      </p>
+      <div class="cta-row">
+        <a href="/download" class="btn-primary">Download OTC ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
+        <a href="/unicode" class="btn-ghost">Browse Unicode</a>
+        <a href="/engineering" class="btn-ghost">Engineering</a>
       </div>
     </div>
   </section>
@@ -295,6 +259,11 @@ const featured = [
 .hero {
   padding: 5rem 0 3rem;
   text-align: center;
+}
+.hero-logo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 .tester-section {
   padding: 2rem 0;

@@ -1,5 +1,6 @@
 ---
 import '../../styles/main.css';
+import BrandMark from '../components/BrandMark.astro';
 
 interface Props {
   title: string;
@@ -40,15 +41,16 @@ const navItems = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta name="theme-color" content="#0a1a1f" />
+    <link rel="icon" href="/favicon-light.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon-dark.png" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/fonts.css" />
   </head>
   <body>
-    <header class="masthead">
-      <div class="masthead-inner">
-        <a href="/" class="masthead-brand" aria-label="Essenfont home">
-          <img src="/logo.svg" alt="" class="brand-mark" width="24" height="24" />
+    <header class="site-header">
+      <nav class="container nav">
+        <a href="/" class="brand">
+          <BrandMark size="sm" alt="Essenfont" />
           <span>Essenfont</span>
           <span class="folio" style="margin-left: 0.25rem; align-self: center;">U+17</span>
         </a>
