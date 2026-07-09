@@ -70,9 +70,9 @@ const useCases = [
       'For Office / DOCX: convert TTFs to OTF with <code>fonttools</code> and embed. Be aware some Office builds reject files larger than ~30 MB.',
     ],
     considerations: [
-      "<strong>Subsetting matters.</strong> Most PDF generators subset embedded fonts to only the glyphs the document uses. A PDF containing only Cyrillic would carry only 118 glyphs of Essenfont — not 62,000.",
+      '<strong>Subsetting matters.</strong> Most PDF generators subset embedded fonts to only the glyphs the document uses. A PDF containing only Cyrillic would carry only 118 glyphs of Essenfont — not 62,000.',
       '<strong>PDF/X, PDF/A.</strong> Compliance profiles often require fonts to be fully embedded and readable. Distribute the full TTF, not a name-table-only stub.',
-      '<strong>CFF2 subsetting.</strong> Few PDF readers below Acrobat 2024 can parse CFF2 charstrings in embedded subsets. If your audience is broad, stay on glyf (TTC fallback) — the smaller per-plane TTF, at the cost of color and Tangut.',
+      '<strong>glyf vs CFF2.</strong> The Essenfont TTC ships glyf outlines, which every PDF reader accepts. If you bring your own CFF2 build, expect older readers (pre-2024) to refuse it.',
     ],
   },
   {
@@ -113,18 +113,14 @@ const useCases = [
 
 const matrix = [
   // [format, browser, desktop, pdf, code-embed, sizeperfile, relnote]
-  ['Whole TTC (.ttc, glyf)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.ttcSizeBytes), note: 'all 5 faces; canonical install' }],
-  ['Whole CFF2 TTC (.ttc, CFF2)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: '~75 MB', note: 'CFF2 + color; modern systems' }],
-  ['TTC fallback (.ttc)',      { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.ttcSizeBytes), note: 'glyf-only, no Tangut / color' }],
+  ['Whole TTC (.ttc)',         { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.ttcSizeBytes), note: 'all 5 faces; canonical install' }],
   ['Per-plane TTF (×5)',       { browser: '△', desktop: '✓', pdf: '✓', embed: '✓', size: '~3–14 MB each', note: 'legacy PDF, app bundles' }],
   ['Per-plane WOFF2 (×5)',     { browser: '✓', desktop: '✗', pdf: '△', embed: '✓', size: '~2–7 MB each', note: '@font-face whole-plane' }],
   ['Per-block WOFF2 (×209)',   { browser: '✓', desktop: '✗', pdf: '✗', embed: '✓', size: formatBytes(stats.websiteSubsets.woff2TotalBytes) + ' total', note: 'this site uses these' }],
 ];
 
 const formats = [
-  { code: 'ttc', name: 'TrueType Collection — .ttc (canonical)', desc: 'Five glyf subfonts in one container. Install once, registered as five faces. The desktop canonical form.', gotcha: 'Older font pickers in legacy apps can\'t enumerate TTC and only see the first face.' },
-  { code: 'cff2', name: 'CFF2 TrueType Collection — .ttc', desc: 'Same five-face envelope, but CFF2 outlines + CBDT color bitmaps. ~35% smaller, supports variation stores.', gotcha: 'Some PDF generators and font subsetters below 2024 cannot parse CFF2 charstrings. Target Adobe Reader 2024+ or modern fontTools.' },
-  { code: 'ttc', name: 'TrueType Collection — .ttc', desc: 'glyf-only fallback. Emitted so legacy tooling that handles glyf but not CFF2 still gets full coverage.', gotcha: 'No color emoji, no Tangut (noto Serif Tangut is CFF-only). Where the .otc would render those blocks, the .ttc shows glyph fallback.' },
+  { code: 'ttc', name: 'TrueType Collection — .ttc (canonical)', desc: 'Five glyf subfonts in one container. Install once, registered as five faces. The desktop canonical form.', gotcha: "Older font pickers in legacy apps can't enumerate TTC and only see the first face." },
   { code: 'pttf', name: 'Per-plane TTF — ×5', desc: 'Five single-face TTFs, one per Unicode plane. BMP / SMP / SIP / TIP / SSP.', gotcha: 'The plane naming on the font\'s `name` table is what your app\'s font picker displays — verify on macOS that "Essenfont BMP" matches what you expect.' },
   { code: 'pwoff2', name: 'Per-plane WOFF2 — ×5', desc: 'Five plane-wide WOFF2s for @font-face. Coverage per CSS rule = one whole plane. Larger but simpler than per-block.', gotcha: 'BMP.web2 is ~2 MB compressed; SIP is ~14 MB. A four-plane site downloads ~25 MB minimum even if no rare characters render.' },
   { code: 'bwoff2', name: 'Per-block WOFF2 — ×209', desc: '209 small WOFF2s, one per Unicode block. Each one matches a single block in fonts.css with unicode-range. Optimal bandwidth.', gotcha: "The catalog is large (209 CSS rules). Minify the CSS and serve from a CDN with compression-on to keep payload reasonable." },
@@ -149,7 +145,7 @@ const troubleshooting = [
   {
     problem: "PDF generators refuse the CFF2 TTC with 'unsupported font format'.",
     cause: "PDF generators below late 2023 can't parse CFF2 charstrings in embedded subsets.",
-    fix: 'Use the TTC fallback (glyf) for PDFs — ~99 MB instead of 105 MB, and you lose color emoji + Tangut, but every PDF reader accepts it.',
+    fix: 'Use the per-plane TTFs (glyf) for PDFs — universally accepted, smaller per file, and what every PDF reader expects.',
   },
 ];
 ---
@@ -163,16 +159,83 @@ const troubleshooting = [
       <p class="eyebrow">Docs · I</p>
       <h1>How to use Essenfont</h1>
       <p class="lede">
-        The build ships six artifacts — one whole TTC (canonical), five per-plane TTFs, five per-plane WOFF2s, and 209 per-block WOFF2 subsets. Which one you grab depends on what you're trying to do. This page walks you through the seven common scenarios, the tradeoffs of each format, and the gotchas that surface when you wire it in.
+        The build ships four artifacts — one whole TTC (canonical), five per-plane TTFs, five per-plane WOFF2s, and 209 per-block WOFF2 subsets. Which one you grab depends on what you're trying to do. This page walks you through the six common scenarios, the tradeoffs of each format, and the gotchas that surface when you wire it in.
       </p>
     </header>
+
+    <!-- ─────────────── Quick start ─────────────── -->
+    <section class="quickstart" id="quickstart">
+      <h2>Quick start</h2>
+      <p class="qs-intro">
+        Three questions, three answers. Pick the one that matches your situation; everything below is the deep dive.
+      </p>
+      <div class="qs-grid">
+        <a href="#plate-i" class="qs-card">
+          <span class="qs-num">A</span>
+          <h3>I want my computer to never show tofu</h3>
+          <p>Download the TTC, install via Font Book / Font Settings / <code>fc-cache</code>.</p>
+          <code class="qs-cmd">fontist install "Essenfont"</code>
+          <span class="qs-cta">Plate I →</span>
+        </a>
+        <a href="#plate-ii" class="qs-card">
+          <span class="qs-num">B</span>
+          <h3>I'm building a website</h3>
+          <p>Link the catalog CSS. The browser fetches per-block WOFF2 subsets on demand.</p>
+          <code class="qs-cmd">&lt;link rel="stylesheet" href="https://essenfont.github.io/fonts.css"&gt;</code>
+          <span class="qs-cta">Plate II →</span>
+        </a>
+        <a href="#plate-iii" class="qs-card">
+          <span class="qs-num">C</span>
+          <h3>I'm a developer (app / PDF / npm)</h3>
+          <p>Pick per-plane TTFs for app bundles and PDFs, per-plane WOFF2s for npm packages.</p>
+          <code class="qs-cmd">npm install essenfont</code>
+          <span class="qs-cta">Plates III–VI →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ─────────────── What Essenfont does ─────────────── -->
+    <section class="renders" aria-label="What Essenfont does">
+      <svg class="diagram reliability" viewBox="0 0 680 200" role="img" aria-labelledby="reliability-title">
+        <title id="reliability-title">Render reliability — tofu to glyph</title>
+        <desc>Two panels separated by an arrow. Left: "Without Essenfont" showing a tofu box with hex codepoint label "U+1200C". Right: "With Essenfont" showing the actual Egyptian hieroglyph rendered.</desc>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--spec-ink, #1c1a18)">
+          <text x="170" y="20" text-anchor="middle" font-weight="600" opacity="0.6">WITHOUT ESSENFONT</text>
+          <rect x="100" y="40" width="140" height="120" fill="none" stroke="var(--spec-ink, #1c1a18)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
+          <text x="170" y="105" text-anchor="middle" font-size="36" font-family="Spectral, serif" opacity="0.4">▢</text>
+          <text x="170" y="135" text-anchor="middle" font-size="10" opacity="0.6">U+1200C</text>
+          <text x="170" y="180" text-anchor="middle" font-style="italic" opacity="0.55">tofu box, no glyph</text>
+        </g>
+
+        <g>
+          <line x1="290" y1="100" x2="380" y2="100" stroke="var(--ef-rose, #bf4e6a)" stroke-width="2" marker-end="url(#arrow-reliability)"/>
+          <text x="335" y="92" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--ef-rose, #bf4e6a)">install</text>
+        </g>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--spec-ink, #1c1a18)">
+          <text x="510" y="20" text-anchor="middle" font-weight="600" fill="var(--ef-rose, #bf4e6a)">WITH ESSENFONT</text>
+          <rect x="440" y="40" width="140" height="120" fill="rgba(191,78,106,0.06)" stroke="var(--ef-rose, #bf4e6a)" stroke-width="1.5"/>
+          <text x="510" y="115" text-anchor="middle" font-size="56" font-family="Spectral, serif" fill="var(--spec-ink, #1c1a18)">𓀌</text>
+          <text x="510" y="135" text-anchor="middle" font-size="10" opacity="0.6">U+1200C</text>
+          <text x="510" y="180" text-anchor="middle" font-style="italic" fill="var(--ef-rose, #bf4e6a)">real glyph, donor-derived</text>
+        </g>
+
+        <defs>
+          <marker id="arrow-reliability" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 Z" fill="var(--ef-rose, #bf4e6a)"/>
+          </marker>
+        </defs>
+      </svg>
+      <p class="cap">What Essenfont does in one picture: replaces the universal tofu box with the donor's real outline. The OS font fallback chain handles the routing.</p>
+    </section>
 
     <!-- ─────────────── I. Format zoo ─────────────── -->
     <section class="chap" id="zoo">
       <p class="chap-num">I</p>
       <h2>The format zoo</h2>
       <p>
-        One Ruby build (<a href="/engineering/pipeline">/engineering/pipeline</a>) produces six shapes of the same font. Each targets a different audience:
+        One Ruby build (<a href="/engineering/pipeline">/engineering/pipeline</a>) produces four shapes of the same font. Each targets a different audience:
       </p>
 
       <svg class="diagram anatomy" viewBox="0 0 680 380" role="img" aria-labelledby="anatomy-title">
@@ -183,7 +246,7 @@ const troubleshooting = [
         <rect x="10" y="10" width="660" height="44" rx="6" ry="6"
               fill="var(--spec-ink, #1c1a18)"/>
         <rect x="10" y="46" width="660" height="8" fill="var(--spec-ink, #1c1a18)"/>
-        <text x="30" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600">Essenfont-Regular.ttc  ·  OpenType Collection</text>
+        <text x="30" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600">Essenfont-Regular.ttc  ·  TrueType Collection</text>
         <text x="566" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="11">format</text>
 
         <g font-family="Spectral, serif" fill="var(--spec-ink, #1c1a18)">
@@ -226,6 +289,38 @@ const troubleshooting = [
       <p>
         Six common personas, each with a recommended format, the install/wiring steps, and the considerations that come with that choice. Pick the one that maps to what you are.
       </p>
+
+      <svg class="diagram tree" viewBox="0 0 680 280" role="img" aria-labelledby="tree-title">
+        <title id="tree-title">Decision tree — which format for which goal</title>
+        <desc>A tree starting from "What do you want to do?" branching into six goals, each pointing to the recommended format.</desc>
+
+        <g font-family="IBM Plex Mono, monospace" font-size="10" fill="var(--spec-ink, #1c1a18)">
+          <rect x="240" y="10" width="200" height="36" rx="4" ry="4" fill="var(--spec-ink, #1c1a18)"/>
+          <text x="340" y="33" text-anchor="middle" fill="var(--spec-paper, #f1ece1)" font-weight="600">What do you want to do?</text>
+
+          <line x1="340" y1="46" x2="340" y2="68" stroke="var(--spec-ink, #1c1a18)" stroke-width="1.5"/>
+          <line x1="50" y1="68" x2="650" y2="68" stroke="var(--spec-ink, #1c1a18)" stroke-width="1.5"/>
+          {[
+            { x: 50,  goal: 'Install on my OS',           fmt: 'TTC' },
+            { x: 150, goal: 'Embed in a website',         fmt: 'Per-block WOFF2' },
+            { x: 270, goal: 'Bundle with my app',         fmt: 'Per-plane TTF' },
+            { x: 380, goal: 'Embed in a PDF / document',  fmt: 'Per-plane TTF' },
+            { x: 490, goal: 'Deploy across a fleet',      fmt: 'TTC' },
+            { x: 590, goal: 'Ship via npm',               fmt: 'Per-plane WOFF2' },
+          ].map(b => (
+            <g>
+              <line x1={b.x + 30} y1="68" x2={b.x + 30} y2="100" stroke="var(--spec-ink, #1c1a18)" stroke-width="1.5"/>
+              <rect x={b.x} y="100" width="100" height="56" rx="3" ry="3" fill="none" stroke="var(--spec-ink, #1c1a18)" stroke-width="1.2"/>
+              <text x={b.x + 50} y="124" text-anchor="middle">{b.goal}</text>
+              <line x1={b.x + 50} y1="156" x2={b.x + 50} y2="186" stroke="var(--ef-rose, #bf4e6a)" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <rect x={b.x - 10} y="186" width="120" height="32" rx="3" ry="3" fill="var(--ef-rose, #bf4e6a)"/>
+              <text x={b.x + 50} y="206" text-anchor="middle" fill="var(--spec-paper, #f1ece1)" font-weight="700">{b.fmt}</text>
+            </g>
+          ))}
+          <text x="340" y="252" text-anchor="middle" font-size="9" font-style="italic" opacity="0.55">dashed lines = pick the format that maps to your goal · the plates below walk through each one</text>
+        </g>
+      </svg>
+      <p class="cap">Decision tree. Start at the top, find your goal, follow the dashed line to the recommended format.</p>
 
       <div class="plates">
         {useCases.map(uc => (
@@ -295,16 +390,14 @@ const troubleshooting = [
 
       <svg class="diagram sizes" viewBox="0 0 680 240" role="img" aria-labelledby="sizes-title">
         <title id="sizes-title">File size comparison on a log scale</title>
-        <desc>Horizontal bar chart comparing the six formats' representative payload. Per-block WOFF2 has tiny individual files but the full catalog adds up.</desc>
+        <desc>Horizontal bar chart comparing the four formats' representative payload. Per-block WOFF2 has tiny individual files but the full catalog adds up.</desc>
         <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--spec-ink, #1c1a18)">
           {[
-            { y: 18,  label: 'Whole TTC (glyf)',     width: 500, value: '~105 MB', shade: 'var(--ef-rose, #bf4e6a)' },
-            { y: 48,  label: 'Whole TTC (CFF2)',     width: 360, value: '~75 MB',  shade: 'var(--ef-rose, #bf4e6a)' },
-            { y: 78,  label: 'TTC fallback',          width: 480, value: '~99 MB',  shade: 'var(--ef-rose, #bf4e6a)' },
-            { y: 108, label: 'Per-plane TTF (×5)',    width: 130, value: '~3–14 MB each', shade: '#8a8478' },
-            { y: 138, label: 'Per-plane WOFF2 (×5)',  width: 75,  value: '~2–7 MB each',  shade: '#8a8478' },
-            { y: 168, label: 'Per-block TOTAL (×209)', width: 460, value: '~95 MB',  shade: '#8a8478' },
-            { y: 198, label: 'Per-block ONE file',    width: 6,   value: '~30 KB',  shade: 'var(--ef-rose, #bf4e6a)' },
+            { y: 25,  label: 'Whole TTC',                width: 480, value: '~99 MB',         shade: 'var(--ef-rose, #bf4e6a)' },
+            { y: 65,  label: 'Per-plane TTF (×5)',       width: 130, value: '~3–14 MB each',  shade: '#8a8478' },
+            { y: 105, label: 'Per-plane WOFF2 (×5)',     width: 75,  value: '~2–7 MB each',   shade: '#8a8478' },
+            { y: 145, label: 'Per-block TOTAL (×209)',   width: 460, value: '~95 MB',         shade: '#8a8478' },
+            { y: 185, label: 'Per-block ONE file',       width: 6,   value: '~30 KB',         shade: 'var(--ef-rose, #bf4e6a)' },
           ].map(b => (
             <g>
               <text x="0" y={b.y + 4}>{b.label}</text>
@@ -517,8 +610,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
 
 <style>
 .usage { max-width: 880px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-.usage-hero { margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--spec-ink, #1c1a18); }
-.eyebrow {
+.usage-hero { margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--spec-ink, #1c1a18); }.eyebrow {
   font-family: var(--spec-font-mono, 'IBM Plex Mono', monospace);
   font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--ef-rose, #bf4e6a); margin: 0 0 0.5rem;
@@ -534,6 +626,22 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
   color: var(--spec-ink, #1c1a18); opacity: 0.85;
   margin: 0; max-width: 720px;
 }
+
+/* Quick start */
+.quickstart { margin: 0 0 3rem; padding: 1.75rem 1.75rem 2rem; border: 1px solid rgba(28,26,24,0.4); border-left: 3px solid var(--ef-rose, #bf4e6a); background: rgba(191,78,106,0.04); }
+.quickstart h2 { font-family: var(--spec-font-display, Spectral, serif); font-size: 1.4rem; margin: 0 0 0.5rem; }
+.qs-intro { font-size: 0.92rem; line-height: 1.55; opacity: 0.78; margin: 0 0 1.25rem; }
+.qs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; }
+.qs-card { display: flex; flex-direction: column; padding: 0.9rem 1rem; background: var(--spec-paper, #f1ece1); border: 1px solid rgba(28,26,24,0.25); text-decoration: none; color: inherit; transition: border-color 0.15s; }
+.qs-card:hover { border-color: var(--ef-rose, #bf4e6a); }
+.qs-num { font-family: var(--spec-font-mono, 'IBM Plex Mono', monospace); font-size: 0.78rem; color: var(--ef-rose, #bf4e6a); font-weight: 700; }
+.qs-card h3 { font-family: var(--spec-font-display, Spectral, serif); font-size: 1rem; margin: 0.3rem 0 0.4rem; line-height: 1.25; }
+.qs-card p { font-size: 0.85rem; line-height: 1.45; opacity: 0.78; margin: 0 0 0.5rem; }
+.qs-cmd { display: block; font-family: var(--spec-font-mono, 'IBM Plex Mono', monospace); font-size: 0.72rem; background: rgba(0,0,0,0.06); padding: 0.35rem 0.5rem; border-radius: 3px; word-break: break-all; margin: 0.25rem 0 0.5rem; }
+.qs-cta { font-family: var(--spec-font-mono, 'IBM Plex Mono', monospace); font-size: 0.72rem; color: var(--ef-rose, #bf4e6a); margin-top: auto; text-transform: uppercase; letter-spacing: 0.08em; }
+
+/* Renders strip */
+.renders { margin: 2rem 0 3rem; }
 
 .chap { position: relative; margin: 4rem 0 3rem; padding-left: 88px; }
 .chap-num {

@@ -10,7 +10,7 @@ const cards = [
     href: '/engineering/pipeline',
     eyebrow: 'How',
     title: 'Build pipeline',
-    body: `How ${formatNumber(stats.unicode.assignedCodepointCount)} glyphs from ${stats.donorCount} donors become one OpenType Collection — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.`,
+    body: `How ${formatNumber(stats.unicode.assignedCodepointCount)} glyphs from ${stats.donorCount} donors become one TrueType Collection — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.`,
   },
   {
     href: '/engineering/sources',
@@ -20,15 +20,15 @@ const cards = [
   },
   {
     href: '/engineering/formats',
-    eyebrow: 'Where · users',
+    eyebrow: 'Where · build',
     title: 'Output formats & distribution',
-    body: 'TTC (canonical), per-plane TTFs (legacy), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
+    body: 'The build emits four shapes: TTC (canonical), per-plane TTFs (legacy + PDF), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
     href: '/engineering/coverage',
     eyebrow: 'What · status',
     title: 'Coverage, gaps & roadmap',
-    body: 'What works, what\'s blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer actually enforces, and what\'s next (color emoji in WOFF2, Tangut on the website).',
+    body: 'What works, what\'s blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer actually enforces, and what\'s next.',
   },
 ];
 ---
@@ -74,6 +74,11 @@ const cards = [
     </section>
 
     <section class="prose">
+      <aside class="user-callout">
+        <strong>Just want to install or embed Essenfont?</strong>
+        Skip ahead to the <a href="/docs/usage">How to use</a> guide — it walks you through which format fits (TTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), with code, considerations, and a decision matrix. This Engineering section is for readers who want to understand <em>how the font is built</em>, not how to consume it.
+      </aside>
+
       <h2>Why Essenfont exists</h2>
       <p>
         Every operating system ships a "last-resort" fallback font — the box with a hex codepoint inside it (<span class="tofu">□</span>, called <em>tofu</em>) that appears when no installed font covers a character. The Unicode Consortium maintains the <a href="https://github.com/unicode-org/last-resort-font" rel="noopener">Last Resort Font</a> for exactly this purpose, but it only ships tofu boxes — no real glyphs. Essenfont exists to be the fallback that <em>actually renders the character</em> instead of its hex label.
@@ -214,6 +219,16 @@ h1 {
   font-size: 0.9em;
   opacity: 0.6;
 }
+.user-callout {
+  padding: 1rem 1.25rem;
+  background: rgba(191, 78, 106, 0.08);
+  border-left: 3px solid var(--ef-rose, #bf4e6a);
+  margin: 1.5rem 0 2rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.user-callout a { color: var(--ef-rose, #bf4e6a); text-decoration: underline; text-underline-offset: 3px; }
+.user-callout strong { color: var(--ef-rose, #bf4e6a); }
 .comparison {
   width: 100%;
   border-collapse: collapse;
