@@ -12,21 +12,19 @@ const stats = loadStats();
   canonical="/download"
   active="install"
 >
-  <section class="section install-hero">
-    <div class="container">
-      <div class="install-hero-grid">
-        <div class="install-meta rise-1">
-          <p class="eyebrow">§ Take it home</p>
-          <p class="folio" style="margin-top: 1rem;">No. {stats.donorCount} donors</p>
-        </div>
-        <div class="install-pitch rise-2">
-          <h1>One font.<br/><em class="text-ochre">Every</em> system.</h1>
-          <p class="lede" style="margin-top: 2rem;">
-            Pick the format that matches your stack. The full OTC covers
-            every codepoint locally; per-block WOFF2 subsets load only what
-            a browser needs; Fontist handles versioning for you.
-          </p>
-        </div>
+  <div class="download">
+    <header class="page-head">
+      <p class="eyebrow">Download</p>
+      <h1>Get Essenfont</h1>
+    </header>
+
+    <section class="options">
+      <div class="option-card primary">
+        <h2>Canonical OTC</h2>
+        <p class="format">CFF2 outlines · CBDT color emoji · {formatBytes(stats.fontBinaries.otcSizeBytes)}</p>
+        <p>The full universal font. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
+        <a href={LATEST.otc_url || LATEST.url} class="btn-primary">Download OTC</a>
+        <p class="meta">v{LATEST.tag} · Mixed license — see <a href="/license">details</a></p>
       </div>
     </div>
   </section>

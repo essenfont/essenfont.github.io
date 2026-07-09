@@ -1,33 +1,57 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="License — Essenfont" description="Essenfont is distributed under the SIL Open Font License (OFL) 1.1. Each donor's license terms are preserved." canonical="/license">
+<BaseLayout
+  title="License — Essenfont"
+  description="Essenfont is a mixed-license font. Most donors are OFL-licensed; FSung (Full-Sung) imposes a non-commercial restriction. Each donor's terms are preserved."
+  canonical="/license"
+>
   <article class="license-page">
     <header class="page-head">
       <p class="eyebrow">License</p>
-      <h1>SIL Open Font License 1.1</h1>
+      <h1>Mixed-license font</h1>
     </header>
     <section class="prose">
-      <p>Essenfont is distributed under the <strong>SIL Open Font License (OFL) 1.1</strong>. You may use, study, modify, and redistribute the font freely under the terms of the license.</p>
-      <p>The full OFL text is available at <a href="https://openfontlicense.org">openfontlicense.org</a> and is embedded in the font's <code>name</code> table (nameID 13).</p>
-      <h2>Donor licenses</h2>
-      <p>Each donor font that contributes glyphs to Essenfont retains its original license terms. These are:</p>
+      <p>
+        Essenfont is <strong>not</strong> distributed under a single license.
+        It is an assembly of glyphs from multiple donor fonts, each with its
+        own license. The assembled font inherits the most restrictive term
+        across all donors.
+      </p>
+
+      <h2>What that means for you</h2>
       <ul>
-        <li><strong>OFL-compatible</strong> (Noto, Lentariso, Kedebideri, UniHieroglyphica, etc.) — merged without additional restrictions.</li>
-        <li><strong>FSung-NC</strong> (Full-Sung by F.G. Wang) — non-commercial use. The <code>accepted_with_conditions</code> clause in the donor manifest propagates this restriction into the output font's <code>name</code> table.</li>
-        <li><strong>Synthetic from code charts</strong> — Unicode Consortium code-chart derived SVGs, released under OFL by the build pipeline.</li>
+        <li><strong>OFL-licensed donors</strong> (Noto, Lentariso, Kedebideri, UniHieroglyphica, etc.) — free to use, study, modify, and redistribute under the <a href="https://openfontlicense.org">SIL Open Font License 1.1</a>.</li>
+        <li><strong>FSung-NC</strong> (Full-Sung by F.G. Wang) — <strong>non-commercial use only</strong>. This restriction applies to the CJK glyphs sourced from FSung (CJK Unified Ideographs, Extensions B–G, and related blocks). The build pipeline propagates this restriction into the output font's <code>name</code> table (nameID 0 copyright + nameID 13 license description).</li>
+        <li><strong>Synthetic code-chart glyphs</strong> — derived from Unicode Consortium code charts, released under OFL by the build pipeline.</li>
       </ul>
-      <p>For the full <code>LICENSE-SOURCES.md</code>, see the <a href="https://github.com/essenfont/essenfont">essenfont repo</a>.</p>
+      <p>
+        In practice: you may use Essenfont freely for personal, educational,
+        and non-commercial purposes. Commercial use of the CJK portions
+        requires separate licensing from the FSung project.
+      </p>
+
+      <h2>Per-donor attribution</h2>
+      <p>
+        Every donor's license is preserved in the font's <code>name</code>
+        table and in the auto-generated <code>LICENSE-SOURCES.md</code>.
+        The build pipeline (in the
+        <a href="https://github.com/essenfont/essenfont">essenfont source repo</a>)
+        refuses to use any donor outside the declared license policy.
+      </p>
     </section>
   </article>
 </BaseLayout>
 <style>
 .license-page { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
 .page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
-h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; }
-.prose h2 { font-family: var(--display-font, Spectral, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
+.eyebrow { font-family: var(--spec-font-mono, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-accent, #0d7377); }
+h1 { font-family: var(--spec-font-display, Newsreader, serif); font-size: 2rem; }
+.prose h2 { font-family: var(--spec-font-display, Newsreader, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
 .prose p, .prose li { line-height: 1.7; }
-.prose code { font-family: var(--mono-font, monospace); background: rgba(0,0,0,0.05); padding: 0.1em 0.4em; border-radius: 3px; }
-.prose a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+.prose ul { padding-left: 1.5rem; margin: 1rem 0; }
+.prose li { margin-bottom: 0.5rem; }
+.prose code { font-family: var(--spec-font-mono, monospace); background: var(--ef-accent-muted, rgba(0,0,0,0.05)); padding: 0.1em 0.4em; border-radius: 3px; }
+.prose a { color: var(--ef-accent, #0d7377); text-decoration: none; }
+.prose a:hover { text-decoration: underline; }
 </style>
