@@ -63,9 +63,31 @@ const stats = (() => {
       woff2TotalBytes: 0,
       woff1Count: 0,
       woff1TotalBytes: 0,
+      perPlaneWoff2: {},
     },
+    release: null,
     coverage: null,
   };
+
+  // Latest release info from public/releases.json
+  const releasesPath = path.join(PUBLIC, 'releases.json');
+  if (fs.existsSync(releasesPath)) {
+    const releases = readJson(releasesPath);
+    const latest = (releases || []).find(r => r.isLatest) || (releases || [])[0];
+    if (latest) {
+      out.release = {
+        tag: latest.tag,
+        name: latest.name,
+        date: latest.date,
+        url: latest.url,
+        ttc_url: latest.ttc_url,
+        npm_url: latest.npm_url,
+        coverage_url: latest.coverage_url,
+        stats: latest.stats || null,
+        notes: latest.notes || null,
+      };
+    }
+  }
 
   // Donor count from sibling essenfont/sources/manifest.yml
   const manifestPath = path.join(SIBLING, 'sources', 'manifest.yml');
@@ -86,6 +108,15 @@ const stats = (() => {
       if (f.endsWith('.woff2')) {
         out.websiteSubsets.woff2Count++;
         out.websiteSubsets.woff2TotalBytes += size;
+        // Per-plane WOFF2 files (Essenfont-BMP.woff2 etc.) come from
+        // the npm package release. They're tracked separately.
+        const planeMatch = f.match(/^Essenfont-(BMP|SMP|SIP|TIP|SSP)\.woff2$/i);
+        if (planeMatch) {
+          out.websiteSubsets.perPlaneWoff2[planeMatch[1].toUpperCase()] = {
+            file: f,
+            size,
+          };
+        }
       } else if (f.endsWith('.woff')) {
         out.websiteSubsets.woff1Count++;
         out.websiteSubsets.woff1TotalBytes += size;

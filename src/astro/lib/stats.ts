@@ -6,6 +6,18 @@
 
 import { loadJson } from './ssr';
 
+export interface LatestRelease {
+  tag: string;
+  name: string;
+  date: string;
+  url: string;
+  ttc_url?: string | null;
+  npm_url?: string;
+  coverage_url?: string;
+  stats?: { codepoints?: number; pct?: number; planes?: number } | null;
+  notes?: string | null;
+}
+
 export interface SiteStats {
   generatedAt: string;
   unicode: {
@@ -24,7 +36,9 @@ export interface SiteStats {
     woff2TotalBytes: number;
     woff1Count: number;
     woff1TotalBytes: number;
+    perPlaneWoff2: Record<string, { file: string; size: number }>;
   };
+  release: LatestRelease | null;
   coverage: unknown | null;
 }
 

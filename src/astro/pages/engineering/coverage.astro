@@ -32,12 +32,12 @@ const blockedOn = [
   {
     area: 'Color emoji in WOFF2',
     state: 'Blocked on fontisan subsetter',
-    body: 'The OTC carries CBDT/CBLC color bitmaps for emoticons and pictographs. The per-block WOFF2 subsetter strips tables it does not recognize, so this site serves those blocks in monochrome (Noto Emoji glyf) instead. Tracked in TODO.emoji/.',
+    body: 'The TTC carries CBDT/CBLC color bitmaps for emoticons and pictographs. The per-block WOFF2 subsetter strips tables it does not recognize, so this site serves those blocks in monochrome (Noto Emoji glyf) instead. Tracked in TODO.emoji/.',
   },
   {
     area: 'Tangut and color blocks on this website',
     state: 'Blocked on fontisan CFF2 subsetting',
-    body: "The canonical OTC carries CFF2 outlines for Noto Serif Tangut, Noto Color Emoji, and synthetic SVG donors. The website subsets from the TTC fallback (glyf-only) because fontisan's subsetter cannot yet parse CFF2 charstrings. Once that lands, the website switches to subsetting from the OTC and Tangut + color emoji go live.",
+    body: "The canonical TTC carries CFF2 outlines for Noto Serif Tangut, Noto Color Emoji, and synthetic SVG donors. The website subsets from the TTC fallback (glyf-only) because fontisan's subsetter cannot yet parse CFF2 charstrings. Once that lands, the website switches to subsetting from the TTC and Tangut + color emoji go live.",
   },
   {
     area: 'CJK Extension I + Compatibility Ideographs Supplement',
@@ -111,12 +111,12 @@ const blockedOn = [
         ))}
       </div>
 
-      <h2>The coverage gap between the OTC and this website</h2>
+      <h2>The coverage gap between the TTC and this website</h2>
       <p>
         Two distinct coverage numbers exist and they are easy to confuse:
       </p>
       <table class="coverage-table">
-        <thead><tr><th></th><th>Canonical OTC</th><th>This website</th></tr></thead>
+        <thead><tr><th></th><th>Canonical TTC</th><th>This website</th></tr></thead>
         <tbody>
           <tr>
             <th scope="row">Subsets from</th>
@@ -145,7 +145,7 @@ const blockedOn = [
         </tbody>
       </table>
       <p>
-        The fix is upstream: once fontisan's subsetter learns to parse CFF2 charstrings, the website switches its source from the TTC to the OTC and inherits Tangut + color emoji for free. No website-side changes required.
+        The fix is upstream: once fontisan's subsetter learns to parse CFF2 charstrings, the website switches its source from the per-plane TTC to the unified TTC and inherits Tangut + color emoji for free. No website-side changes required.
       </p>
 
       <h2>Lessons from Chrome's OpenType Sanitizer</h2>
@@ -174,7 +174,7 @@ const blockedOn = [
           <tr><td>Initial state</td><td>53.00%</td><td>Single-plane TTF, Noto-only donors</td></tr>
           <tr><td>fontisan 0.4.2 + 108 Noto donors</td><td>96.67%</td><td>Stitcher repair-pass fixes; donor registry expansion</td></tr>
           <tr><td>fontisan 0.4.6 + 9 synthetic SVG donors</td><td>~82% (effective)</td><td>SvgToGlyf end-to-end; fontisan drops ~3,000 cmap entries in new repair pass</td></tr>
-          <tr><td>Current (Unicode 17)</td><td>~96.7% of assigned</td><td>Tangut, color emoji, and synthetic donors live in OTC; website still on TTC fallback</td></tr>
+          <tr><td>Current (Unicode 17)</td><td>~96.7% of assigned</td><td>Tangut, color emoji, and synthetic donors live in TTC; website still on TTC fallback</td></tr>
         </tbody>
       </table>
       <p>
@@ -187,7 +187,7 @@ const blockedOn = [
           <strong>Color emoji in per-block WOFF2.</strong> Track in <code>TODO.emoji/</code>; blocked on fontisan subsetter recognizing CBDT/CBLC.
         </li>
         <li>
-          <strong>Subsetting from the OTC, not the TTC.</strong> Unblocks Tangut + color emoji on this site; blocked on fontisan CFF2 charstring subsetting.
+          <strong>Subsetting from per-plane TTFs, not the TTC.</strong> Unblocks Tangut + color emoji on this site; blocked on fontisan CFF2 charstring subsetting.
         </li>
         <li>
           <strong>Astro migration completion.</strong> The site is mid-migration from Vite + vite-ssg to Astro for faster builds and smaller JS payload. Track in <code>TODO.astro/</code>.

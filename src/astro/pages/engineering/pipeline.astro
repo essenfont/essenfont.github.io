@@ -28,12 +28,12 @@ const stages = [
     step: '04',
     name: 'Stitch subfonts',
     what: "Copy each donor's outline glyphs into the right subfont via fontisan's Stitcher.",
-    why: "Outlines are stitched first, so cmap.build's first-wins policy binds codepoints to real outline GIDs instead of empty placeholders. CBDT/CBLC color-bitmap tables are propagated afterward via raw-byte table_data reads — BinData round-trips don't preserve CFF2 cleanly, so the build reads tables as bytes and splices them. Each subfont gets its own name table (family, subfamily, PostScript name) from a single Naming module so the OTC's five faces are consistent.",
+    why: "Outlines are stitched first, so cmap.build's first-wins policy binds codepoints to real outline GIDs instead of empty placeholders. CBDT/CBLC color-bitmap tables are propagated afterward via raw-byte table_data reads — BinData round-trips don't preserve CFF2 cleanly, so the build reads tables as bytes and splices them. Each subfont gets its own name table (family, subfamily, PostScript name) from a single Naming module so the TTC's five faces are consistent.",
   },
   {
     step: '05',
     name: 'Pack the collection',
-    what: 'Pass the compiled subfonts to Collection::Builder, which writes the OTC.',
+    what: 'Pass the compiled subfonts to Collection::Builder, which writes the TTC.',
     why: 'Tables are deduplicated by SHA256 across the five faces (the OS/2, head, hhea, name, post tables are nearly identical between planes). After writing, Fontisan::Collection::Reader opens the file back up and asserts face count, per-face glyph count ≤ 65,535, and cmap union size ≥ 99% of the input — any regression fails the build before it ships.',
   },
 ];
@@ -48,7 +48,7 @@ const planes = [
 ---
 <BaseLayout
   title="Build pipeline — Engineering — Essenfont"
-  description="The five-stage assembly pipeline that turns 38 donor fonts into one Essenfont OTC: read donors, build the codepoint map, partition by plane, stitch subfonts, pack the collection."
+  description="The five-stage assembly pipeline that turns X donor fonts into one Essenfont TTC: read donors, build the codepoint map, partition by plane, stitch subfonts, pack the collection."
   canonical="/engineering/pipeline"
 >
   <article class="pipeline-page">
@@ -57,7 +57,7 @@ const planes = [
       <h1>The build pipeline</h1>
       <p class="lede">
         Essenfont is assembled, not drawn. Five stages take
-        {stats.donorCount} donor fonts and produce one OpenType Collection
+        {stats.donorCount} donor fonts and produce one TrueType Collection
         with five plane subfonts, all reproducible from the committed
         manifest in <code>essenfont/essenfont</code>.
       </p>
@@ -77,7 +77,7 @@ const planes = [
    5 stitched subfonts (outlines + propagated CBDT/CBLC)
             │
             ▼  Fontisan::Collection::Builder  (table dedup by SHA256)
-   Essenfont-Regular.otc  ── validated by Fontisan::Collection::Reader</code></pre>
+   Essenfont-Regular.ttc  ── validated by Fontisan::Collection::Reader</code></pre>
 
       <h2>The five stages, in detail</h2>
       <ol class="stages">
@@ -137,17 +137,17 @@ const planes = [
       </p>
       <ul>
         <li>
-          <strong>glyf (TrueType)</strong> — quadratic Béziers, hinting instructions, universally supported. The default <code>Essenfont-Regular.otc</code> ships glyf subfonts.
+          <strong>glyf (TrueType)</strong> — quadratic Béziers, hinting instructions, universally supported. The default <code>Essenfont-Regular.ttc</code> ships glyf subfonts.
         </li>
         <li>
-          <strong>CFF2 (OpenType 1.8+)</strong> — cubic Béziers, variation stores, smaller files via subroutinization. The <code>Essenfont-CFF2-Regular.otc</code> variant is ~35% smaller for the same coverage.
+          <strong>CFF2 (OpenType 1.8+)</strong> — cubic Béziers, variation stores, smaller files via subroutinization. The <code>Essenfont-CFF2-Regular.ttc</code> variant is ~35% smaller for the same coverage.
         </li>
       </ul>
       <p>
-        CFF1 (the older <code>CFF&nbsp;</code> table) is not shipped — CFF2 strictly dominates it (variation support, smaller files, mixed-mode tables). The build picks the format with a single CLI flag: <code>--format=otc</code> (glyf) or <code>--format=otc-cff2</code>.
+        CFF1 (the older <code>CFF&nbsp;</code> table) is not shipped — CFF2 strictly dominates it (variation support, smaller files, mixed-mode tables). The build picks the format with a single CLI flag: <code>--format=ttc</code> (canonical glyf TTC).
       </p>
 
-      <h2>How color emoji survives into the OTC</h2>
+      <h2>How color emoji survives into the TTC</h2>
       <p>
         Noto Color Emoji is the donor for emoticons, transport-and-map symbols, and other color-emoji blocks. Its glyphs are CBDT/CBLC (color bitmaps), not outlines. Two problems had to be solved:
       </p>
@@ -160,7 +160,7 @@ const planes = [
         </li>
       </ul>
       <p>
-        Per-block WOFF2 subsetting for this website cannot yet carry CBDT (the fontisan subsetter drops tables it doesn't recognize), so the color-emoji blocks render in monochrome Noto Emoji on the site even though the OTC has them in full color. See <a href="/engineering/coverage">/engineering/coverage</a>.
+        Per-block WOFF2 subsetting for this website cannot yet carry CBDT (the fontisan subsetter drops tables it doesn't recognize), so the color-emoji blocks render in monochrome Noto Emoji on the site even though the TTC has them in full color. See <a href="/engineering/coverage">/engineering/coverage</a>.
       </p>
 
       <h2>Reproducibility</h2>
@@ -175,11 +175,10 @@ bundle exec ucode fetch fonts                 # auto-download most donors
 # FSung must be downloaded manually from F.G. Wang's Google Drive
 # (see sources/README.md) and placed in references/input-fonts/
 
-bundle exec ruby scripts/build.rb --format=otc           # canonical OTC
-bundle exec ruby scripts/build.rb --format=otc-cff2      # ~35% smaller CFF2 variant
+bundle exec ruby scripts/build.rb --format=ttc           # canonical TTC
 bundle exec ruby scripts/build.rb --format=ttf-per-plane # five standalone TTFs
 
-bundle exec ruby scripts/verify.rb Essenfont-Regular.otc # round-trip validation</code></pre>
+bundle exec ruby scripts/verify.rb Essenfont-Regular.ttc # round-trip validation</code></pre>
       <p>
         Donor binaries are <strong>never committed to git</strong>. Each donor's sha256 is recorded in <code>sources/manifest.yml</code> and verified before use, so reproducing the build at a later date produces byte-identical output (modulo compilation timestamps, which the build stamps explicitly to keep <code>head.modified</code> outside Chrome's OTS rejection window — see <a href="/engineering/coverage">/engineering/coverage</a>).
       </p>

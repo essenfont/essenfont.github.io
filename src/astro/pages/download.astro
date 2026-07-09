@@ -2,139 +2,384 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadStats } from '../lib/stats';
 import { formatBytes } from '../lib/ssr';
+import { loadReleases } from '../lib/donors';
 
 const stats = loadStats();
-const releases = await fetch(`${Astro.site}releases.json`)
-  .then(r => r.ok ? r.json() : [])
-  .catch(() => []);
+const releases = loadReleases();
+const LATEST = stats.release || releases[0] || { tag: 'latest', name: 'Essenfont', url: 'https://github.com/essenfont/essenfont/releases' };
 
-const LATEST = releases[0] || { tag: 'latest', name: 'Essenfont', url: 'https://github.com/essenfont/essenfont/releases' };
+const TTC_SIZE = stats.fontBinaries.ttcSizeBytes;
+const NPM_SIZE = 63267101;  // v0.2.8 npm tarball size from release
+const GH_RELEASES_URL = 'https://github.com/essenfont/essenfont/releases';
+const LATEST_NPM_URL = LATEST.npm_url || 'https://www.npmjs.com/package/essenfont';
+const CDN_BASE = 'https://github.com/essenfont/essenfont/releases/latest/download';
+
+const PER_PLANE = [
+  { code: 'BMP', range: 'U+0000–U+FFFF',   size: stats.websiteSubsets.perPlaneWoff2?.BMP?.size },
+  { code: 'SMP', range: 'U+10000–U+1FFFF', size: stats.websiteSubsets.perPlaneWoff2?.SMP?.size },
+  { code: 'SIP', range: 'U+20000–U+2FFFF', size: stats.websiteSubsets.perPlaneWoff2?.SIP?.size },
+  { code: 'TIP', range: 'U+30000–U+3FFFF', size: stats.websiteSubsets.perPlaneWoff2?.TIP?.size },
+  { code: 'SSP', range: 'U+E0000–U+EFFFF', size: stats.websiteSubsets.perPlaneWoff2?.SSP?.size },
+];
 ---
 <BaseLayout
   title="Download — Essenfont"
-  description="Download the Essenfont OTC (canonical, CFF2) or TTC (fallback, glyf) from GitHub Releases. Install via Fontist or npm."
+  description={`Download Essenfont ${LATEST.tag} — canonical TTC from GitHub Releases, per-plane WOFF2 via npm, or install via Fontist.`}
   canonical="/download"
 >
   <div class="download">
     <header class="page-head">
-      <p class="eyebrow">Download</p>
+      <p class="eyebrow">Download · Latest {LATEST.tag}</p>
       <h1>Get Essenfont</h1>
+      <p class="subtitle">
+        {LATEST.name} — released {LATEST.date}.
+        {" "}
+        <a href={LATEST.url} target="_blank" rel="noopener">View release notes on GitHub →</a>
+      </p>
     </header>
 
     <section class="options">
       <div class="option-card primary">
-        <h2>Canonical OTC</h2>
-        <p class="format">CFF2 outlines · CBDT color emoji · {formatBytes(stats.fontBinaries.otcSizeBytes)}</p>
-        <p>The full universal font. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
-        <a href={LATEST.otc_url || LATEST.url} class="btn-primary">Download OTC</a>
-        <p class="meta">v{LATEST.tag} · Mixed license — see <a href="/license">details</a></p>
+        <p class="card-tag">Canonical</p>
+        <h2>Essenfont-Regular.ttc</h2>
+        <p class="format">TrueType Collection · {TTC_SIZE ? formatBytes(TTC_SIZE) : '—'} · 5 faces</p>
+        <p>The full universal font in one file. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
+        <a href={LATEST.ttc_url || `${CDN_BASE}/Essenfont-Regular.ttc`} class="btn-primary">Download TTC</a>
+        <p class="meta">{LATEST.tag} · Mixed license — see <a href="/license">details</a></p>
       </div>
 
       <div class="option-card">
-        <h2>Website WOFF2 subsets</h2>
-        <p class="format">{stats.websiteSubsets.woff2Count} per-block subsets · {formatBytes(stats.websiteSubsets.woff2TotalBytes)}</p>
-        <p>Browser-optimized WOFF2 for every Unicode block. Load only what you need.</p>
-        <a href="/unicode" class="btn-ghost">Browse blocks</a>
+        <p class="card-tag">npm</p>
+        <h2>Install via npm</h2>
+        <p class="format">Per-plane WOFF2 + CSS bundles · {formatBytes(NPM_SIZE)}</p>
+        <p>The same artifacts as the TTC, split into per-plane WOFF2 (BMP / SMP / SIP / TIP / SSP) for the web.</p>
+        <pre><code>npm install essenfont</code></pre>
+        <p class="meta"><a href={LATEST_NPM_URL} target="_blank" rel="noopener">{LATEST.tag} on npmjs.com →</a></p>
       </div>
 
       <div class="option-card">
+        <p class="card-tag">Fontist</p>
         <h2>Install via Fontist</h2>
         <p class="format">Ruby · fontist gem</p>
         <pre><code>gem install fontist
 fontist install "Essenfont"</code></pre>
+        <p class="meta">Cross-platform, auto-registers in the system font cache.</p>
+      </div>
+    </section>
+
+    <section class="plane-grid">
+      <h2>Per-plane WOFF2 — what's in {LATEST.tag}</h2>
+      <p className="plane-lede">
+        The TTC contains one face per Unicode plane. Each is shipped as a standalone
+        WOFF2 file inside the npm package. Use these directly on the web if you
+        only need a single plane.
+      </p>
+      <div class="plane-table">
+        <div class="plane-row plane-head">
+          <span>Plane</span>
+          <span>Range</span>
+          <span>Size</span>
+          <span>Direct</span>
+        </div>
+        {PER_PLANE.map(p => (
+          <div class="plane-row">
+            <span class="plane-code">{p.code}</span>
+            <span class="plane-range">{p.range}</span>
+            <span class="plane-size">{p.size ? formatBytes(p.size) : '—'}</span>
+            <a href={`${CDN_BASE}/Essenfont-${p.code}.woff2`} target="_blank" rel="noopener" class="plane-link">
+              .woff2 ↗
+            </a>
+          </div>
+        ))}
       </div>
     </section>
 
     {releases.length > 0 && (
       <section class="releases">
-        <h2>Releases</h2>
+        <div class="releases-head">
+          <h2>Releases</h2>
+          <a href={GH_RELEASES_URL} target="_blank" rel="noopener" class="releases-cta">
+            View all {releases.length} releases on GitHub →
+          </a>
+        </div>
         <ul>
           {releases.map(r => (
-            <li>
-              <a href={r.url}>{r.tag}</a>
+            <li class:list={["release-row", { 'release-latest': r.isLatest }]}>
+              <a href={r.url} target="_blank" rel="noopener">
+                <span class="release-tag">{r.tag}</span>
+                {r.isLatest && <span class="release-pill">latest</span>}
+              </a>
               <span class="release-name">{r.name}</span>
-              {r.date && <time>{r.date}</time>}
+              {r.date && <time class="release-date">{r.date}</time>}
             </li>
           ))}
         </ul>
+        <p class="releases-foot">
+          Looking for an older binary? Each release includes TTC + per-plane
+          WOFF2, SVG exports, codepoint map, and provenance data.
+        </p>
       </section>
     )}
   </div>
 </BaseLayout>
 
 <style>
-.download { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.download { max-width: 880px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
 .page-head { margin-bottom: 3rem; }
 .eyebrow {
   font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a);
+  color: var(--ef-accent);
+  margin: 0 0 0.5rem;
 }
 h1 {
   font-family: var(--spec-font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  font-variation-settings: "opsz" 72;
+  font-size: clamp(2.25rem, 6vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.5rem;
 }
+.subtitle {
+  font-size: 1rem;
+  color: var(--ef-text-2);
+  margin: 0;
+  max-width: 600px;
+}
+.subtitle a { color: var(--ef-accent); text-decoration: none; }
+.subtitle a:hover { text-decoration: underline; }
+
 .options {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 .option-card {
-  padding: 2rem 1.5rem;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  border-radius: 8px;
+  padding: 2rem 1.75rem;
+  border: 1px solid var(--ef-rule);
+  border-radius: var(--ef-radius);
+  background: var(--ef-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 .option-card.primary {
-  border-color: var(--ef-rose, #bf4e6a);
-  border-width: 2px;
+  border: 2px solid var(--ef-accent);
+  background: var(--ef-accent-soft);
 }
+.card-tag {
+  font-family: var(--spec-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ef-text-3);
+  margin: 0;
+}
+.option-card.primary .card-tag { color: var(--ef-accent); }
 .option-card h2 {
   font-family: var(--spec-font-display);
-  font-size: 1.25rem;
-  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 .format {
   font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  opacity: 0.6;
-  margin: 0 0 1rem;
+  font-size: 0.7rem;
+  color: var(--ef-text-3);
+  margin: 0 0 0.5rem;
+  letter-spacing: 0.04em;
 }
-.option-card p { font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; }
+.option-card p { font-size: 0.9rem; line-height: 1.55; margin: 0 0 0.75rem; color: var(--ef-text-2); }
 .btn-primary, .btn-ghost {
   display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border-radius: 4px;
+  padding: 0.7rem 1.3rem;
+  border-radius: var(--ef-radius-sm);
   font-weight: 600;
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  width: fit-content;
 }
-.btn-primary { background: var(--ef-rose, #bf4e6a); color: white; }
-.btn-ghost { border: 1px solid currentColor; color: var(--ef-text); }
-.meta { font-family: var(--spec-font-mono); font-size: 0.7rem; opacity: 0.5; margin-top: 0.5rem; }
+.btn-primary {
+  background: var(--ef-accent);
+  color: white;
+}
+.btn-primary:hover { background: var(--ef-accent-hover); }
+.meta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  color: var(--ef-text-3);
+  margin: 0;
+}
+.meta a { color: var(--ef-accent); text-decoration: none; }
+.meta a:hover { text-decoration: underline; }
 .option-card pre {
-  background: rgba(0,0,0,0.05);
+  background: var(--ef-surface);
   padding: 0.75rem;
-  border-radius: 4px;
+  border-radius: var(--ef-radius-sm);
   font-size: 0.8rem;
   overflow-x: auto;
+  margin: 0 0 0.5rem;
+  border: 1px solid var(--ef-rule);
 }
+
+.plane-grid {
+  margin-bottom: 4rem;
+}
+.plane-grid h2 {
+  font-family: var(--spec-font-display);
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.5rem;
+}
+.plane-lede {
+  font-size: 0.9rem;
+  color: var(--ef-text-2);
+  margin: 0 0 1.25rem;
+  max-width: 640px;
+}
+.plane-table {
+  border: 1px solid var(--ef-rule);
+  border-radius: var(--ef-radius);
+  overflow: hidden;
+}
+.plane-row {
+  display: grid;
+  grid-template-columns: 80px 1.5fr 100px auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--ef-rule);
+  font-size: 0.85rem;
+}
+.plane-row:last-child { border-bottom: none; }
+.plane-head {
+  background: var(--ef-surface);
+  font-family: var(--spec-font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ef-text-3);
+}
+.plane-code {
+  font-family: var(--spec-font-mono);
+  font-weight: 700;
+  color: var(--ef-accent);
+}
+.plane-range {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-2);
+}
+.plane-size {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-2);
+}
+.plane-link {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  color: var(--ef-accent);
+  text-decoration: none;
+}
+.plane-link:hover { text-decoration: underline; }
+
 .releases h2 {
   font-family: var(--spec-font-display);
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.75rem;
+  margin: 0;
 }
-.releases ul { list-style: none; padding: 0; }
-.releases li {
+.releases-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.releases-cta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-accent);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--ef-accent);
+  border-radius: 999px;
+  transition: background 0.15s, color 0.15s;
+}
+.releases-cta:hover {
+  background: var(--ef-accent);
+  color: white;
+  text-decoration: none;
+}
+.releases ul { list-style: none; padding: 0; margin: 0; }
+.release-row {
   display: flex;
   align-items: baseline;
   gap: 1rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--ef-rule);
 }
-.releases a { color: var(--ef-rose, #bf4e6a); text-decoration: none; font-weight: 600; }
-.release-name { flex: 1; font-size: 0.875rem; opacity: 0.7; }
-.releases time { font-family: var(--spec-font-mono); font-size: 0.75rem; opacity: 0.5; }
+.release-row:last-child { border-bottom: none; }
+.release-row.release-latest {
+  background: var(--ef-accent-soft);
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  border-radius: var(--ef-radius-sm);
+  margin: 0 -0.7rem;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.release-row a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  color: var(--ef-accent);
+  text-decoration: none;
+  font-family: var(--spec-font-mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.release-row a:hover { text-decoration: underline; }
+.release-tag { color: inherit; }
+.release-pill {
+  font-family: var(--spec-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ef-accent);
+  color: white;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+.release-name { flex: 1; font-size: 0.9rem; color: var(--ef-text-2); }
+.release-date {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  color: var(--ef-text-3);
+}
+.releases-foot {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--ef-text-2);
+  margin: 1rem 0 0;
+  max-width: 640px;
+}
+
+@media (max-width: 600px) {
+  .releases-head { flex-direction: column; align-items: flex-start; }
+  .release-row { flex-wrap: wrap; }
+}
 </style>

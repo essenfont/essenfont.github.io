@@ -24,18 +24,23 @@ function slugify(name: string): string {
       <BrandMark size="lg" animated={true} interactive={true} alt="Essenfont" />
     </div>
     <div class="hero-content">
-      <p class="eyebrow">Universal Unicode {version.version} Font</p>
+      <p class="eyebrow">Universal Unicode {version.version} Font · Latest {stats.release?.tag || 'v0.2.8'}</p>
       <h1 class="display">Essenfont</h1>
       <p class="lede">
-        One redistributable OpenType font covering every assigned Unicode {version.version} codepoint —
+        One redistributable TrueType Collection covering every assigned Unicode {version.version} codepoint —
         {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
         Built from {stats.donorCount} canonical OFL-licensed donor fonts.
       </p>
       <div class="cta-row">
-        <a href="/download" class="btn-primary">Download OTC ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
+        <a href="/download" class="btn-primary">Download TTC ({formatBytes(stats.fontBinaries.ttcSizeBytes)})</a>
+        <a href="/docs/usage" class="btn-ghost">How to use</a>
         <a href="/unicode" class="btn-ghost">Browse Unicode</a>
-        <a href="/engineering" class="btn-ghost">Engineering</a>
       </div>
+      <p class="hero-foot">
+        Or via <a href="https://www.npmjs.com/package/essenfont" target="_blank" rel="noopener">npm</a>,
+        <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">GitHub Releases</a>, or
+        <a href="/changelog">read the changelog</a>.
+      </p>
     </div>
   </section>
 
@@ -59,8 +64,8 @@ function slugify(name: string): string {
       <div class="stat-cap">OFL-licensed donor fonts</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
-      <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
+      <div class="stat-num">{formatBytes(stats.fontBinaries.ttcSizeBytes)}</div>
+      <div class="stat-cap">Canonical TTC (5 planes)</div>
     </div>
     <div class="stat">
       <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
@@ -137,6 +142,14 @@ function slugify(name: string): string {
   justify-content: center;
   flex-wrap: wrap;
 }
+.hero-foot {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-3);
+  margin: 1.25rem 0 0;
+}
+.hero-foot a { color: var(--ef-accent); text-decoration: none; }
+.hero-foot a:hover { text-decoration: underline; }
 .btn-primary, .btn-ghost {
   padding: 0.75rem 1.5rem;
   border-radius: 4px;

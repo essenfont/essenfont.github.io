@@ -1,25 +1,25 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const IMPORT_SNIPPET = `import { path, metadata } from "@essenfont/essenfont";
+const IMPORT_SNIPPET = `import { path, metadata } from "essenfont";
 
-// path    → absolute path to the OTC on disk
+// path    → absolute path to the TTC on disk
 // metadata → { version, donorCount, charCount, sha256, ... }`;
 
-const BUILD_SNIPPET = `import { path } from "@essenfont/essenfont";
+const BUILD_SNIPPET = `import { path } from "essenfont";
 import { readFileSync } from "node:fs";
 
 // Use with fontTools, fontisan, or any SFNT parser
 const otcBytes = readFileSync(path);`;
 
-const STAGES_SNIPPET = `// Donor registry → CpMap → Stitcher → OTC
+const STAGES_SNIPPET = `// Donor registry → CpMap → Stitcher → TTC
 const cpMap     = Essenfont::CpMap.from_donors(donors)
 const stitcher  = Fontisan::Stitcher.new
 // ... (see the essenfont repo for the full pipeline)`;
 ---
 <BaseLayout
   title="API — Docs — Essenfont"
-  description="The @essenfont/essenfont npm package — TypeScript types for the font path, metadata, and build hooks."
+  description="The essenfont npm package — TypeScript types for the font path, metadata, and build hooks."
   canonical="/docs/api"
 >
   <section class="container docs-page">
@@ -29,8 +29,8 @@ const stitcher  = Fontisan::Stitcher.new
     </header>
 
     <p>
-      The <code>@essenfont/essenfont</code> package is a thin shell:
-      it exposes the canonical OTC path on disk, build-time metadata
+      The <code>essenfont</code> package is a thin shell:
+      it exposes the canonical TTC path on disk, build-time metadata
       (version, donor count, character count, sha256), and a
       TypeScript-typed surface for build pipelines that need to know
       which file to embed.
@@ -48,8 +48,8 @@ const stitcher  = Fontisan::Stitcher.new
         <tr><td><code>version</code></td><td><code>string</code></td><td>Semver string from the source repo</td></tr>
         <tr><td><code>donorCount</code></td><td><code>number</code></td><td>Count of OFL-licensed donor fonts</td></tr>
         <tr><td><code>charCount</code></td><td><code>number</code></td><td>Assigned Unicode 17 codepoints covered</td></tr>
-        <tr><td><code>sha256</code></td><td><code>string</code></td><td>OTC binary digest (integrity check)</td></tr>
-        <tr><td><code>otcPath</code></td><td><code>string</code></td><td>Same as <code>path</code> — the OTC file</td></tr>
+        <tr><td><code>sha256</code></td><td><code>string</code></td><td>TTC binary digest (integrity check)</td></tr>
+        <tr><td><code>otcPath.*the TTC file</td></tr>
         <tr><td><code>ttcPath</code></td><td><code>string</code> | <code>null</code></td><td>TrueType fallback if shipped</td></tr>
       </tbody>
     </table>

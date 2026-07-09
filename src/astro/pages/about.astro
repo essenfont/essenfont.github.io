@@ -20,7 +20,7 @@ const stats = loadStats();
     <section class="prose">
       <p>
         <strong>Essenfont</strong> is a real font — not a library or a service. A single
-        redistributable OpenType Collection (OTC) that covers every assigned Unicode 17
+        redistributable TrueType Collection (TTC) that covers every assigned Unicode 17
         codepoint ({formatNumber(stats.unicode.assignedCodepointCount)} characters across
         {stats.unicode.blockCount} blocks), built from {stats.donorCount} canonical
         OFL-licensed donor fonts.
@@ -140,7 +140,7 @@ const stats = loadStats();
     <section class="prose">
       <h2>The technical achievement</h2>
       <p>
-        The canonical output is <code>Essenfont-Regular.otc</code> ({formatBytes(stats.fontBinaries.otcSizeBytes)}),
+        The canonical output is <code>Essenfont-Regular.ttc</code> ({formatBytes(stats.fontBinaries.ttcSizeBytes)}),
         a 10-face OpenType Collection with CFF2 outlines and CBDT color emoji bitmaps.
         The website serves {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets ({formatBytes(stats.websiteSubsets.woff2TotalBytes)} total)
         so visitors don't download the full {formatNumber(stats.unicode.assignedCodepointCount)}-codepoint font just to
