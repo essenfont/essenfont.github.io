@@ -1,26 +1,28 @@
 /* ===================================================================
    Essenfont — site-wide design system.
-   Light, warm, calm. Fraunces display + Hanken Grotesk body.
-   Deep teal accent. Type-foundry specimen sheet aesthetic.
+   Brand-driven palette from the Essenfont logo: deep blue + red.
+   Newsreader display + Hanken Grotesk body + JetBrains Mono.
    =================================================================== */
 
 :root {
-  --ef-teal: #0d7377;
-  --ef-teal-light: #14919a;
+  --ef-blue: #2a5c8a;
+  --ef-blue-light: #4a8cc4;
+  --ef-red: #b04040;
+  --ef-red-light: #d06060;
 
   /* Light-first (default) */
   --ef-bg: #faf8f5;
-  --ef-surface: #f2efe9;
+  --ef-surface: #f0ede6;
   --ef-raised: #ffffff;
-  --ef-text: #1a1815;
-  --ef-text-2: #4a4540;
-  --ef-text-3: #8a8478;
-  --ef-accent: #0d7377;
-  --ef-accent-hover: #14919a;
-  --ef-accent-muted: rgba(13, 115, 119, 0.08);
-  --ef-accent-soft: rgba(13, 115, 119, 0.04);
-  --ef-rule: rgba(26, 24, 21, 0.08);
-  --ef-rule-strong: rgba(26, 24, 21, 0.16);
+  --ef-text: #1a1e26;
+  --ef-text-2: #4a4e58;
+  --ef-text-3: #888c96;
+  --ef-accent: var(--ef-blue);
+  --ef-accent-hover: var(--ef-blue-light);
+  --ef-accent-muted: rgba(42, 92, 138, 0.08);
+  --ef-accent-soft: rgba(42, 92, 138, 0.04);
+  --ef-rule: rgba(26, 30, 38, 0.08);
+  --ef-rule-strong: rgba(26, 30, 38, 0.16);
   --ef-radius: 10px;
   --ef-radius-sm: 6px;
   --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -39,8 +41,8 @@
   --spec-rule-strong: var(--ef-rule-strong);
   --spec-term-bg: #1a1815;
   --spec-term-ink: #e8e3d9;
-  --vp-c-brand-1: var(--ef-accent);
-  --vp-c-brand-2: var(--ef-teal);
+  --vp-c-brand-1: var(--ef-blue);
+  --vp-c-brand-2: var(--ef-blue-light);
   --vp-c-brand-3: var(--ef-text);
   --vp-c-brand-soft: var(--ef-accent-muted);
   --vp-c-text-1: var(--ef-text);
@@ -63,18 +65,18 @@
 }
 
 html.dark {
-  --ef-bg: #0f0e0d;
-  --ef-surface: #181614;
-  --ef-raised: #211e1a;
-  --ef-text: #e8e3d9;
-  --ef-text-2: #a09a8e;
-  --ef-text-3: #6b6660;
-  --ef-accent: #2db5ba;
-  --ef-accent-hover: #3dc8cd;
-  --ef-accent-muted: rgba(45, 181, 186, 0.10);
-  --ef-accent-soft: rgba(45, 181, 186, 0.05);
-  --ef-rule: rgba(232, 227, 217, 0.07);
-  --ef-rule-strong: rgba(232, 227, 217, 0.16);
+  --ef-bg: #0d1520;
+  --ef-surface: #152030;
+  --ef-raised: #1d2d40;
+  --ef-text: #e0e8f0;
+  --ef-text-2: #90a0b0;
+  --ef-text-3: #5a6a7a;
+  --ef-accent: var(--ef-blue-light);
+  --ef-accent-hover: #6aa0d0;
+  --ef-accent-muted: rgba(74, 140, 196, 0.12);
+  --ef-accent-soft: rgba(74, 140, 196, 0.06);
+  --ef-rule: rgba(224, 232, 240, 0.07);
+  --ef-rule-strong: rgba(224, 232, 240, 0.16);
   --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
@@ -198,3 +200,132 @@ button { font-family: inherit; cursor: pointer; }
 
 .section-rule { border: 0; border-top: 1px solid var(--ef-rule); margin: 3rem 0; }
 .glyph-cell { font-family: var(--spec-font-glyph); }
+
+/* ===================================================================
+   Header / Navigation
+   =================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--ef-bg);
+  border-bottom: 1px solid var(--ef-rule);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.site-header.scrolled {
+  background: color-mix(in srgb, var(--ef-bg) 88%, transparent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--ef-text);
+  font-family: var(--spec-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+.brand:hover { text-decoration: none; color: var(--ef-text); }
+.brand span { line-height: 1; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nav-link {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ef-text-2);
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.nav-link:hover {
+  color: var(--ef-accent);
+  background: var(--ef-accent-muted);
+  text-decoration: none;
+}
+.nav-link.active {
+  color: var(--ef-accent);
+  background: var(--ef-accent-muted);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 56px;
+    flex-wrap: wrap;
+  }
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 0.125rem;
+    padding-bottom: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav-link {
+    white-space: nowrap;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.68rem;
+  }
+}
+
+/* ===================================================================
+   Footer
+   =================================================================== */
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--ef-rule);
+  background: var(--ef-surface);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-inner a {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-2);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.footer-inner a:hover { color: var(--ef-accent); }
+
+.footer-inner span {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-3);
+}
+
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
