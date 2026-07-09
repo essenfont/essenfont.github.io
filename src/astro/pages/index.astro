@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TypeTester from '../components/TypeTester.astro';
+import BrandMark from '../components/BrandMark.astro';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
@@ -19,6 +20,9 @@ function slugify(name: string): string {
   canonical="/"
 >
   <section class="hero">
+    <div class="hero-logo">
+      <BrandMark size="lg" animated={true} interactive={true} alt="Essenfont" />
+    </div>
     <div class="hero-content">
       <p class="eyebrow">Universal Unicode {version.version} Font</p>
       <h1 class="display">Essenfont</h1>
@@ -88,6 +92,11 @@ function slugify(name: string): string {
 .hero {
   padding: 5rem 0 3rem;
   text-align: center;
+}
+.hero-logo {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 .tester-section {
   padding: 2rem 0;

@@ -1,5 +1,6 @@
 ---
 import '../../styles/main.css';
+import BrandMark from '../components/BrandMark.astro';
 
 interface Props {
   title: string;
@@ -22,13 +23,15 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon-light.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/favicon-dark.png" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body>
     <header class="site-header">
       <nav class="container nav">
         <a href="/" class="brand">
-          <img src="/logo.svg" alt="Essenfont" width="24" height="24" />
+          <BrandMark size="sm" alt="Essenfont" />
           <span>Essenfont</span>
         </a>
         <div class="nav-links">
