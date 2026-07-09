@@ -108,98 +108,14 @@ const roleOrder = ['primary', 'secondary', 'specialist', 'contributor']
 </BaseLayout>
 
 <style>
-  .makers-head { padding-block: clamp(3rem, 8vw, 5rem); }
-  .makers-head-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: clamp(1rem, 3vw, 2.5rem);
-  }
-  .makers-meta { grid-column: 1 / span 2; }
-  .makers-pitch { grid-column: 4 / span 9; padding-top: 1rem; }
-  .makers-pitch h1 {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-variation-settings: "opsz" 144, "SOFT" 40;
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.95;
-    letter-spacing: -0.035em;
-  }
-  .makers-pitch h1 em {
-    font-style: italic;
-    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
-  }
-
-  /* Roster */
-  .roster-head { margin-bottom: 3rem; max-width: 60ch; }
-  .role-block { margin-bottom: 3rem; }
-  .role-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 0.625rem;
-    border-bottom: 1px solid var(--ef-rule-2);
-    margin-bottom: 0;
-  }
-  .role-name {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ef-ochre);
-  }
-  .role-count {
-    font-size: 0.6875rem;
-    letter-spacing: 0.15em;
-    color: var(--ef-ink-3);
-  }
-  .donor-table {
-    list-style: none;
-  }
-  .donor-table li { border-bottom: 1px solid var(--ef-rule); }
-  .donor-row {
-    display: grid;
-    grid-template-columns: 1.4fr 1.1fr 0.6fr 0.6fr;
-    gap: 1rem;
-    align-items: baseline;
-    padding-block: 0.875rem;
-    text-decoration: none;
-    color: var(--ef-ink);
-    border: none;
-    transition: color 0.2s, padding-left 0.2s;
-  }
-  .donor-row:hover {
-    color: var(--ef-ochre);
-    padding-left: 0.5rem;
-  }
-  .donor-family {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.0625rem;
-  }
-  .donor-vendor {
-    font-size: 0.875rem;
-    color: var(--ef-ink-2);
-  }
-  .donor-coverage {
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    color: var(--ef-ink-3);
-  }
-  .donor-license {
-    font-size: 0.6875rem;
-    letter-spacing: 0.1em;
-    color: var(--ef-ink-3);
-    text-transform: uppercase;
-    text-align: right;
-  }
-  .donor-row:hover .donor-family { color: var(--ef-ochre); }
-
-  /* Provenance */
-  .makers-provenance { background: var(--ef-paper-2); }
-
-  @media (max-width: 900px) {
-    .makers-meta, .makers-pitch { grid-column: 1 / span 12; }
-    .donor-row { grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem; }
-    .donor-license { text-align: left; }
-  }
+.donors-page { max-width: 900px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2rem; }
+.eyebrow { font-family: var(--spec-font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); margin: 0 0 0.5rem; }
+h1 { font-family: var(--spec-font-display); font-size: clamp(1.75rem, 4vw, 2.5rem); margin: 0 0 0.5rem; }
+.donor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
+.donor-card { display: flex; flex-direction: column; padding: 1rem; border: 1px solid rgba(128,128,128,0.2); border-radius: 4px; text-decoration: none; color: inherit; transition: border-color 0.1s; }
+.donor-card:hover { border-color: var(--ef-rose, #bf4e6a); }
+.donor-family { font-weight: 600; font-size: 0.95rem; }
+.donor-meta { font-family: var(--spec-font-mono); font-size: 0.7rem; opacity: 0.6; margin-top: 0.25rem; }
+.donor-author { font-size: 0.75rem; opacity: 0.5; margin-top: 0.25rem; }
 </style>

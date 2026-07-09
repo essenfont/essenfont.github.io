@@ -1,0 +1,350 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadStats } from '../../lib/stats';
+import { formatNumber } from '../../lib/ssr';
+
+const stats = loadStats();
+
+const otsLessons = [
+  {
+    title: "head.modified outside the 1-hour window",
+    body: "Chrome's OTS rejects WOFF2 fonts whose head.modified timestamp is within ~1 hour of head.created. The build now stamps head.modified explicitly to Time.now rather than 'created + 1 second', which sat inside the rejection window.",
+  },
+  {
+    title: 'WOFF2 file padded to 4-byte boundary',
+    body: "Chrome's OTS rejects WOFF2 files whose total length is not divisible by 4. fontTools pads; the Essenfont build path didn't. Now it does, at file-write time.",
+  },
+  {
+    title: 'Per-glyph padding to 4-byte boundary (glyf)',
+    body: "fontTools' _normaliseGlyfAndLoca(padding=4) pads each glyph so the decoder can reconstruct glyph boundaries. The build path now uses a GlyfCanonicalizer equivalent; without it, some browsers fail to parse the loca table.",
+  },
+  {
+    title: 'Brotli mode = :font actually plumbed through',
+    body: "Brotli.deflate(data, quality: 11) silently dropped the mode: argument in earlier versions. WOFF2 requires the font mode per the spec. The build now passes it explicitly.",
+  },
+  {
+    title: 'Single source of truth for 255UInt16 encoding',
+    body: "WOFF2's 255UInt16 encoding is reused in three places in the build (transformed glyf, transformed hmtx, CFF2 subroutinizer). Three copies of the codec had the code-byte mapping inverted in different ways. Extracted into a single UInt255 module so all call sites agree.",
+  },
+];
+
+const blockedOn = [
+  {
+    area: 'Color emoji in WOFF2',
+    state: 'Blocked on fontisan subsetter',
+    body: 'The OTC carries CBDT/CBLC color bitmaps for emoticons and pictographs. The per-block WOFF2 subsetter strips tables it does not recognize, so this site serves those blocks in monochrome (Noto Emoji glyf) instead. Tracked in TODO.emoji/.',
+  },
+  {
+    area: 'Tangut and color blocks on this website',
+    state: 'Blocked on fontisan CFF2 subsetting',
+    body: "The canonical OTC carries CFF2 outlines for Noto Serif Tangut, Noto Color Emoji, and synthetic SVG donors. The website subsets from the TTC fallback (glyf-only) because fontisan's subsetter cannot yet parse CFF2 charstrings. Once that lands, the website switches to subsetting from the OTC and Tangut + color emoji go live.",
+  },
+  {
+    area: 'CJK Extension I + Compatibility Ideographs Supplement',
+    state: 'Blocked on fontisan Stitcher fix',
+    body: "FSung-2's cmap covers CJK Ext I (622 chars) and CJK Compat Supp Plane 2 (542 chars), but fontisan's Stitcher silently drops isolated Plane-2 codepoints from large CJK donors. Filed as fontisan/BUG-stitcher-drops-isolated-cps.",
+  },
+  {
+    area: 'C0/C1 control + Cf format codepoints',
+    state: 'Blocked on fontisan Stitcher .notdef handling',
+    body: "The build backfills 31 Basic Latin C0 controls and Cf format chars as .notdef (gid 0), but fontisan's Stitcher does not create cmap entries for gid 0, so these codepoints stay missing from the output. Awaiting a Stitcher repair-pass fix.",
+  },
+  {
+    area: 'Tulu-Tigalari (77 cps) and Kana Supplement',
+    state: 'Blocked on fontisan SvgToGlyf extraction',
+    body: 'The synthetic TTFs extracted from the Unicode Code Charts for these two blocks have cmap entries that fontisan drops during the compile-and-stitch pass. Likely related to glyph ID remapping in the repair step.',
+  },
+  {
+    area: 'Myanmar Extended-C, Syriac Supplement, Mongolian Supplement',
+    state: 'Awaiting upstream Noto releases',
+    body: 'These Unicode 16/17 blocks are assigned but no Noto (or other OFL) release covers them yet. No donor exists to extract from. Once Noto publishes, they will be added to the manifest and picked up on the next build.',
+  },
+];
+---
+<BaseLayout
+  title="Coverage, gaps & roadmap — Engineering — Essenfont"
+  description="What Essenfont covers today, what is blocked on upstream fontisan fixes, what Chrome's OpenType Sanitizer actually enforces, and what is on the roadmap (color emoji in WOFF2, Tangut on the website)."
+  canonical="/engineering/coverage"
+>
+  <article class="coverage-page">
+    <header class="page-head">
+      <p class="eyebrow"><a href="/engineering">Engineering</a> · What · status</p>
+      <h1>Coverage, gaps & roadmap</h1>
+      <p class="lede">
+        Essenfont covers roughly 96.7% of assigned Unicode 17 codepoints today. The remaining ~3% is not missing donors — it is upstream tooling (fontisan) issues that silently drop glyphs during the build. This page is the honest ledger of what works, what is blocked, and what is next.
+      </p>
+    </header>
+
+    <section class="prose">
+      <h2>What works today</h2>
+      <ul>
+        <li>
+          <strong>{formatNumber(stats.unicode.blockCount)} Unicode blocks</strong> across all five active planes (BMP, SMP, SIP, TIP, SSP).
+        </li>
+        <li>
+          <strong>{stats.donorCount} donor families</strong> assembled — Noto, Full-Sung, UniHieroglyphica, Symbola, BabelStone, and ~33 others. See <a href="/donors">/donors</a>.
+        </li>
+        <li>
+          <strong>{stats.websiteSubsets.woff2Count} per-block WOFF2 subsets</strong> served on this site, totalling about {Math.round(stats.websiteSubsets.woff2TotalBytes / 1024 / 1024)} MB compressed across all blocks.
+        </li>
+        <li>
+          <strong>Per-codepoint glyph attribution</strong> in <code>cp_map.json</code> in every release, surfaced at <a href="/provenance">/provenance</a>.
+        </li>
+        <li>
+          <strong>Five output formats</strong> from one build — see <a href="/engineering/formats">/engineering/formats</a>.
+        </li>
+      </ul>
+
+      <h2>What's blocked (and why)</h2>
+      <p>
+        Essenfont's gaps are not missing donors — the donor registry has everyone needed. They are upstream <code>fontisan</code> bugs that silently drop glyphs during the build, plus a few cases where no OFL donor exists for a brand-new Unicode block.
+      </p>
+      <div class="blocked-grid">
+        {blockedOn.map(b => (
+          <div class="blocked-card">
+            <div class="blocked-head">
+              <h3>{b.area}</h3>
+              <span class="blocked-state">{b.state}</span>
+            </div>
+            <p>{b.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>The coverage gap between the OTC and this website</h2>
+      <p>
+        Two distinct coverage numbers exist and they are easy to confuse:
+      </p>
+      <table class="coverage-table">
+        <thead><tr><th></th><th>Canonical OTC</th><th>This website</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row">Subsets from</th>
+            <td>— (it is the source)</td>
+            <td>TTC fallback (glyf-only)</td>
+          </tr>
+          <tr>
+            <th scope="row">Outline format</th>
+            <td>CFF2 outlines + CBDT bitmaps</td>
+            <td>glyf outlines only</td>
+          </tr>
+          <tr>
+            <th scope="row">Tangut</th>
+            <td>Rendered (Noto Serif Tangut CFF)</td>
+            <td>Not yet — needs CFF2 subsetter</td>
+          </tr>
+          <tr>
+            <th scope="row">Color emoji</th>
+            <td>Rendered (Noto Color Emoji CBDT)</td>
+            <td>Monochrome fallback (Noto Emoji glyf)</td>
+          </tr>
+          <tr>
+            <th scope="row">Block count</th>
+            <td colspan="2" style="text-align: center;">{stats.unicode.blockCount} Unicode blocks either way — the gap is per-block rendering, not registered blocks</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The fix is upstream: once fontisan's subsetter learns to parse CFF2 charstrings, the website switches its source from the TTC to the OTC and inherits Tangut + color emoji for free. No website-side changes required.
+      </p>
+
+      <h2>Lessons from Chrome's OpenType Sanitizer</h2>
+      <p>
+        Chrome's OpenType Sanitizer (OTS) silently rejects fonts it does not like. The browser console shows nothing useful — the network tab shows the file downloaded with HTTP 200, then <code>document.fonts.load()</code> rejects with <em>"A network error occurred."</em> The only signal is a missing glyph where a real one should be.
+      </p>
+      <p>
+        Getting all {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets past OTS required respecting constraints that are underdocumented in the WOFF2 spec but enforced strictly by Chrome:
+      </p>
+      <ol class="lessons">
+        {otsLessons.map((l, i) => (
+          <li>
+            <h3><span class="lesson-num">{String(i + 1).padStart(2, '0')}</span> {l.title}</h3>
+            <p>{l.body}</p>
+          </li>
+        ))}
+      </ol>
+      <p>
+        None of these surface in fontTools-produced WOFF2s because fontTools handles them silently. Essenfont's build path uses fontisan (Ruby), which had to learn each one the hard way. The lessons are now baked into the build script and propagated to all per-block subsets.
+      </p>
+
+      <h2>Coverage progression</h2>
+      <table class="progress-table">
+        <thead><tr><th>Date</th><th>Coverage</th><th>Key change</th></tr></thead>
+        <tbody>
+          <tr><td>Initial state</td><td>53.00%</td><td>Single-plane TTF, Noto-only donors</td></tr>
+          <tr><td>fontisan 0.4.2 + 108 Noto donors</td><td>96.67%</td><td>Stitcher repair-pass fixes; donor registry expansion</td></tr>
+          <tr><td>fontisan 0.4.6 + 9 synthetic SVG donors</td><td>~82% (effective)</td><td>SvgToGlyf end-to-end; fontisan drops ~3,000 cmap entries in new repair pass</td></tr>
+          <tr><td>Current (Unicode 17)</td><td>~96.7% of assigned</td><td>Tangut, color emoji, and synthetic donors live in OTC; website still on TTC fallback</td></tr>
+        </tbody>
+      </table>
+      <p>
+        The dip at fontisan 0.4.6 was not a regression in donor coverage — Khitan Small Script alone went from 0 to 470 characters. It was the new fontisan repair step dropping 3,004 cmap entries pointing to non-existent gids. Effective coverage plateaus around 96% until fontisan fixes the gid remap; the remaining ~4% is split between "Stitcher drops" and "no donor exists yet".
+      </p>
+
+      <h2>What's next</h2>
+      <ul>
+        <li>
+          <strong>Color emoji in per-block WOFF2.</strong> Track in <code>TODO.emoji/</code>; blocked on fontisan subsetter recognizing CBDT/CBLC.
+        </li>
+        <li>
+          <strong>Subsetting from the OTC, not the TTC.</strong> Unblocks Tangut + color emoji on this site; blocked on fontisan CFF2 charstring subsetting.
+        </li>
+        <li>
+          <strong>Astro migration completion.</strong> The site is mid-migration from Vite + vite-ssg to Astro for faster builds and smaller JS payload. Track in <code>TODO.astro/</code>.
+        </li>
+        <li>
+          <strong>CJK Ext I + Compat Supp Plane 2.</strong> 1,164 characters waiting on the fontisan Stitcher isolated-cps fix.
+        </li>
+        <li>
+          <strong>Tier 3 elimination.</strong> The remaining tofu-box codepoints shrink as upstream Noto and other donor families publish Unicode 17 coverage.
+        </li>
+      </ul>
+
+      <p class="back">
+        Back to <a href="/engineering">/engineering</a>, or browse <a href="/unicode">every codepoint</a>, <a href="/donors">the donor registry</a>, or <a href="/changelog">the release changelog</a>.
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+.coverage-page { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+  margin: 0 0 0.5rem;
+}
+.eyebrow a { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; }
+h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--ef-text);
+}
+.lede {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ef-text);
+  opacity: 0.85;
+}
+.prose h2 {
+  font-family: var(--spec-font-display);
+  font-size: 1.6rem;
+  margin: 2.5rem 0 1rem;
+}
+.prose p, .prose li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ef-text);
+}
+.prose a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose code {
+  font-family: var(--spec-font-mono);
+  background: rgba(0,0,0,0.05);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.blocked-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.blocked-card {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(128,128,128,0.25);
+  border-left: 3px solid #b88500;
+  border-radius: 4px;
+}
+.blocked-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.4rem;
+}
+.blocked-head h3 {
+  font-family: var(--spec-font-display);
+  font-size: 1.05rem;
+  margin: 0;
+}
+.blocked-state {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #b88500;
+}
+.blocked-card p { font-size: 0.9rem; line-height: 1.55; margin: 0; }
+
+.coverage-table, .progress-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+.coverage-table th, .coverage-table td,
+.progress-table th, .progress-table td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid rgba(128,128,128,0.2);
+  vertical-align: top;
+}
+.coverage-table thead th, .progress-table thead th {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text);
+  opacity: 0.7;
+}
+
+ol.lessons {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+ol.lessons > li {
+  position: relative;
+  padding: 0.75rem 0 0.75rem 3rem;
+  border-bottom: 1px solid rgba(128,128,128,0.15);
+}
+ol.lessons > li:last-child { border-bottom: none; }
+ol.lessons h3 {
+  font-family: var(--spec-font-display);
+  font-size: 1.05rem;
+  margin: 0 0 0.35rem;
+}
+.lesson-num {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0.85rem;
+  width: 2rem;
+  text-align: right;
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-rose, #bf4e6a);
+}
+ol.lessons p { font-size: 0.92rem; line-height: 1.6; margin: 0; }
+
+.back {
+  margin-top: 3rem !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128,128,128,0.2);
+  font-size: 0.95rem !important;
+}
+</style>

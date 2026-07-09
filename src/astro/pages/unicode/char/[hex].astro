@@ -1,12 +1,29 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import { loadAllBlocks, loadBlockCharacters, slugifyBlockName } from '../../../lib/unicode';
+import {
+  loadAllBlocks,
+  loadBlockCharacters,
+  slugifyBlockName,
+  PLANES,
+  blockDisplayName,
+  categoryName,
+  scriptDisplayName,
+  bidiClassName,
+  combiningClassName,
+  isControlChar,
+  controlAbbrev,
+  controlName,
+  cEscape,
+} from '../../../lib/unicode';
+import * as esc from '../../../lib/unicode/escapes';
 import type { UnicodeBlock, UnicodeCharacter } from '../../../lib/unicode';
 
 interface CharPageProps {
   char: UnicodeCharacter;
   block: UnicodeBlock;
   hex: string;
+  prevHex: string | null;
+  nextHex: string | null;
 }
 
 export async function getStaticPaths() {
@@ -16,13 +33,14 @@ export async function getStaticPaths() {
   for (const block of blocks) {
     const slug = slugifyBlockName(block.name);
     const chars = loadBlockCharacters(slug);
-    for (const ch of chars) {
-      // URL hex is unpadded (matches the Vue site's charRoute):
-      // U+41 → /unicode/char/41, U+1F600 → /unicode/char/1F600
+    for (let i = 0; i < chars.length; i++) {
+      const ch = chars[i];
       const urlHex = ch.cp.toString(16).toUpperCase().padStart(4, '0');
+      const prev = i > 0 ? chars[i - 1].cp.toString(16).toUpperCase().padStart(4, '0') : null;
+      const next = i < chars.length - 1 ? chars[i + 1].cp.toString(16).toUpperCase().padStart(4, '0') : null;
       paths.push({
         params: { hex: urlHex },
-        props: { char: ch, block, hex: urlHex },
+        props: { char: ch, block, hex: urlHex, prevHex: prev, nextHex: next },
       });
     }
   }
@@ -30,182 +48,574 @@ export async function getStaticPaths() {
   return paths;
 }
 
-const { char, block, hex } = Astro.props;
+const { char, block, hex, prevHex, nextHex } = Astro.props;
+const cp = char.cp;
+const planeKey = block.plane;
+const plane = PLANES.find(p => p.key === planeKey);
 
-// Display helpers
-function displayGlyph(cp: number, ch: string | null): string {
-  if (cp < 0x20 || (cp >= 0x7F && cp <= 0x9F)) return '·';
-  if (ch && ch.trim()) return ch;
-  return '·';
-}
+const isControl = isControlChar(char.category, cp);
+const abbrev = controlAbbrev(cp);
+const ctrlName = controlName(cp);
+const displayName = isControl && ctrlName ? `<${ctrlName}>` : char.name;
+const blockSlug = slugifyBlockName(block.name);
+
+const utf8 = esc.utf8(cp);
+const utf16 = esc.utf16(cp);
+const utf32 = esc.utf32(cp);
+const urlEnc = esc.urlEncoded(cp);
+const pyEsc = esc.pythonEscape(cp);
+const jsEsc = esc.jsEscape(cp);
+const cssEsc = esc.cssEscape(cp);
+const htmlDec = esc.htmlDecimal(cp);
+const htmlHex = esc.htmlHex(cp);
+const escapeSeq = cEscape(cp);
 ---
 <BaseLayout
   title={`U+${hex} ${char.name} — Essenfont`}
-  description={`${char.name} (U+${hex}). Category: ${char.category}. Script: ${char.script}. Rendered with the Essenfont universal Unicode 17 font.`}
+  description={`${char.name} (U+${hex}). ${char.category === '' ? '' : 'Category: ' + char.category + '. '}${plane ? 'Plane ' + plane.shortName + '. ' : ''}Rendered with the Essenfont universal Unicode 17 font.`}
   canonical={`/unicode/char/${hex}`}
 >
-  <article class="char-page">
-    <header class="char-head">
-      <p class="eyebrow">
-        <a href={`/unicode/block/${slugifyBlockName(block.name)}`}>← {block.displayName || block.name}</a>
-      </p>
-      <div class="glyph-display" style="font-family: var(--spec-font-glyph);">
-        {displayGlyph(char.cp, char.char)}
-      </div>
-      <h1>U+{hex}</h1>
-      <p class="char-name">{char.name}</p>
-    </header>
+  <article class="ucp" data-pagefind-body>
+    <nav class="ucp-crumbs">
+      <a href="/unicode">Unicode</a>
+      <span>›</span>
+      <a href={`/unicode/plane/${planeKey}`}>{plane?.shortName}</a>
+      <span>›</span>
+      <a href={`/unicode/block/${blockSlug}`}>{blockDisplayName(block.name)}</a>
+      <span>›</span>
+      <span class="ucp-crumb-current">U+{hex}</span>
+    </nav>
 
-    <section class="props">
-      <dl>
-        <dt>Codepoint</dt>
-        <dd>U+{hex} ({char.cp.toLocaleString()})</dd>
+    <div class="ucp-nav">
+      {prevHex ? (
+        <a href={`/unicode/char/${prevHex}`} class="ucp-nav-btn ucp-prev">
+          <span aria-hidden="true">←</span>
+          <span class="ucp-nav-hex">U+{prevHex}</span>
+        </a>
+      ) : (
+        <span class="ucp-nav-spacer"></span>
+      )}
 
-        <dt>Name</dt>
-        <dd>{char.name}</dd>
+      <span class="ucp-nav-current">U+{hex}</span>
 
-        <dt>Category</dt>
-        <dd>{char.category}</dd>
+      {nextHex ? (
+        <a href={`/unicode/char/${nextHex}`} class="ucp-nav-btn ucp-next">
+          <span class="ucp-nav-hex">U+{nextHex}</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      ) : (
+        <span class="ucp-nav-spacer"></span>
+      )}
+    </div>
 
-        <dt>Script</dt>
-        <dd>{char.script}</dd>
+    <div class="ucp-glyph-area">
+      <button
+        class="ucp-compare-toggle"
+        type="button"
+        data-ucp-compare
+        title="Toggle system font (rare scripts may tofu)"
+        aria-pressed="false"
+      >
+        <span class="ucp-compare-dot"></span>
+        <span data-ucp-compare-label>essenfont</span>
+      </button>
 
-        <dt>Block</dt>
-        <dd>{block.displayName || block.name}</dd>
-
-        {char.combiningClass > 0 && (
-          <>
-            <dt>Combining class</dt>
-            <dd>{char.combiningClass}</dd>
-          </>
-        )}
-
-        {char.bidiClass && (
-          <>
-            <dt>Bidi class</dt>
-            <dd>{char.bidiClass}</dd>
-          </>
-        )}
-
-        {char.mirrored && (
-          <>
-            <dt>Mirrored</dt>
-            <dd>Yes</dd>
-          </>
-        )}
-      </dl>
-    </section>
-
-    {char.simpleUppercase || char.simpleLowercase || char.simpleTitlecase ? (
-      <section class="case-mappings">
-        <h2>Case mappings</h2>
-        <div class="case-grid">
-          {char.simpleUppercase && (
-            <div class="case-cell">
-              <span class="case-label">Uppercase</span>
-              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleUppercase}</span>
-            </div>
-          )}
-          {char.simpleLowercase && (
-            <div class="case-cell">
-              <span class="case-label">Lowercase</span>
-              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleLowercase}</span>
-            </div>
-          )}
-          {char.simpleTitlecase && (
-            <div class="case-cell">
-              <span class="case-label">Titlecase</span>
-              <span class="case-glyph" style="font-family: var(--spec-font-glyph);">{char.simpleTitlecase}</span>
-            </div>
-          )}
+      {!isControl ? (
+        <div class="ucp-glyph-stage" data-ucp-stage>
+          <div class="ucp-guides" aria-hidden="true">
+            <span class="ucp-guide ucp-guide--cap"></span>
+            <span class="ucp-guide ucp-guide--xheight"></span>
+            <span class="ucp-guide ucp-guide--baseline"></span>
+          </div>
+          <span class="ucp-glyph" data-ucp-glyph>{char.char || '·'}</span>
         </div>
-      </section>
-    ) : null}
+      ) : (
+        <span class="ucp-control-box">{abbrev}</span>
+      )}
+    </div>
 
-    {char.decomposition && (
-      <section class="decomposition">
-        <h2>Decomposition</h2>
-        <code>{char.decomposition}</code>
+    <h1 class="ucp-name">
+      {displayName}
+      {isControl && abbrev && <span class="ucp-name-abbrev">({abbrev})</span>}
+    </h1>
+    <code class="ucp-hex">U+{hex}</code>
+
+    <div class="ucp-sections">
+      <section class="ucp-section">
+        <h2>Classification</h2>
+        <dl>
+          {block.unicodeVersion && (
+            <>
+              <dt>Unicode</dt>
+              <dd>{block.unicodeVersion}</dd>
+            </>
+          )}
+          {char.category && (
+            <>
+              <dt>Category</dt>
+              <dd>
+                <a href={`/unicode/category/${char.category}`}>{categoryName(char.category)}</a>
+                <code>{char.category}</code>
+              </dd>
+            </>
+          )}
+          {char.script && (
+            <>
+              <dt>Script</dt>
+              <dd><a href={`/unicode/scripts/${char.script}`}>{scriptDisplayName(char.script)}</a></dd>
+            </>
+          )}
+          <dt>Block</dt>
+          <dd><a href={`/unicode/block/${blockSlug}`}>{blockDisplayName(block.name)}</a></dd>
+          <dt>Plane</dt>
+          <dd><a href={`/unicode/plane/${planeKey}`}>{plane?.name} ({plane?.shortName})</a></dd>
+          {char.bidiClass && (
+            <>
+              <dt>Bidirectional</dt>
+              <dd>
+                <a href={`/unicode/bidiclass/${char.bidiClass}`}>{bidiClassName(char.bidiClass)}</a>
+                <code>{char.bidiClass}</code>
+              </dd>
+            </>
+          )}
+          <dt>Combining Class</dt>
+          <dd>
+            <a href={`/unicode/combining/${char.combiningClass || 0}`}>{combiningClassName(char.combiningClass || 0)}</a>
+            <code>{char.combiningClass || 0}</code>
+          </dd>
+          {char.mirrored && (
+            <>
+              <dt>Mirrored</dt>
+              <dd>Yes</dd>
+            </>
+          )}
+          {escapeSeq && (
+            <>
+              <dt>Escape</dt>
+              <dd><code>{escapeSeq}</code></dd>
+            </>
+          )}
+        </dl>
       </section>
-    )}
+
+      <section class="ucp-section">
+        <h2>Encodings</h2>
+        <dl>
+          <dt>HTML Dec</dt>
+          <dd>
+            <code>{htmlDec}</code>
+            <button class="ucp-copy" data-copy={htmlDec} type="button">copy</button>
+          </dd>
+          <dt>HTML Hex</dt>
+          <dd>
+            <code>{htmlHex}</code>
+            <button class="ucp-copy" data-copy={htmlHex} type="button">copy</button>
+          </dd>
+          <dt>CSS</dt>
+          <dd>
+            <code>\{hex}</code>
+            <button class="ucp-copy" data-copy={cssEsc} type="button">copy</button>
+          </dd>
+          <dt>JavaScript</dt>
+          <dd>
+            <code>{jsEsc}</code>
+            <button class="ucp-copy" data-copy={jsEsc} type="button">copy</button>
+          </dd>
+          <dt>Python</dt>
+          <dd>
+            <code>{pyEsc}</code>
+            <button class="ucp-copy" data-copy={pyEsc} type="button">copy</button>
+          </dd>
+          <dt>URL</dt>
+          <dd>
+            <code>{urlEnc}</code>
+            <button class="ucp-copy" data-copy={urlEnc} type="button">copy</button>
+          </dd>
+          <dt>UTF-8</dt>
+          <dd><code>{utf8}</code></dd>
+          <dt>UTF-16</dt>
+          <dd><code>{utf16}</code></dd>
+          <dt>UTF-32</dt>
+          <dd><code>{utf32}</code></dd>
+        </dl>
+      </section>
+
+      <section class="ucp-section ucp-provenance">
+        <h2>Provenance</h2>
+        <dl>
+          <dt>Donor</dt>
+          <dd>
+            <a href="/donors" class="ucp-donor-link">Donor font for {blockDisplayName(block.name)} →</a>
+          </dd>
+          <dt>SVG outline</dt>
+          <dd>
+            <a
+              href={`https://github.com/essenfont/essenfont/releases/latest/download/svg/U+${hex}.svg`}
+              target="_blank"
+              rel="noopener"
+              class="ucp-svg-link"
+            >Download .svg <span class="ucp-link-arrow">↗</span></a>
+          </dd>
+          <dt>Share</dt>
+          <dd>
+            <button
+              class="ucp-copy"
+              data-copy={`https://essenfont.github.io/unicode/char/${hex}`}
+              type="button"
+            >copy link</button>
+          </dd>
+        </dl>
+        <p class="ucp-provenance-note">
+          Every glyph in essenfont is vector-extracted from a canonical
+          OFL-licensed donor font. The donor attribution per block lives
+          in <a href="/donors">/donors</a>; per-codepoint donor mapping
+          is coming in a future release.
+        </p>
+      </section>
+
+      {(char.simpleUppercase || char.simpleLowercase || char.simpleTitlecase) && (
+        <section class="ucp-section">
+          <h2>Case Mappings</h2>
+          <dl>
+            {char.simpleUppercase && (
+              <>
+                <dt>Uppercase</dt>
+                <dd>
+                  <a href={`/unicode/char/${char.simpleUppercase}`}>
+                    {String.fromCodePoint(parseInt(char.simpleUppercase, 16))} U+{char.simpleUppercase}
+                  </a>
+                </dd>
+              </>
+            )}
+            {char.simpleLowercase && (
+              <>
+                <dt>Lowercase</dt>
+                <dd>
+                  <a href={`/unicode/char/${char.simpleLowercase}`}>
+                    {String.fromCodePoint(parseInt(char.simpleLowercase, 16))} U+{char.simpleLowercase}
+                  </a>
+                </dd>
+              </>
+            )}
+            {char.simpleTitlecase && (
+              <>
+                <dt>Title Case</dt>
+                <dd>
+                  <a href={`/unicode/char/${char.simpleTitlecase}`}>
+                    {String.fromCodePoint(parseInt(char.simpleTitlecase, 16))} U+{char.simpleTitlecase}
+                  </a>
+                </dd>
+              </>
+            )}
+          </dl>
+        </section>
+      )}
+
+      {char.decomposition && (
+        <section class="ucp-section">
+          <h2>Decomposition</h2>
+          <dl>
+            <dt>Decomposes To</dt>
+            <dd>
+              {char.decomposition.split(' ').map((part, i, arr) => (
+                <>
+                  {/^[0-9A-Fa-f]+$/.test(part) ? (
+                    <a href={`/unicode/char/${part}`}>{String.fromCodePoint(parseInt(part, 16))}</a>
+                  ) : (
+                    <code>{part}</code>
+                  )}
+                  {i < arr.length - 1 && <span> </span>}
+                </>
+              ))}
+            </dd>
+          </dl>
+        </section>
+      )}
+    </div>
   </article>
 </BaseLayout>
 
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-ucp-compare]');
+  const glyph = document.querySelector<HTMLElement>('[data-ucp-glyph]');
+  const label = document.querySelector<HTMLElement>('[data-ucp-compare-label]');
+  if (btn && glyph && label) {
+    btn.addEventListener('click', () => {
+      const systemOn = glyph.classList.toggle('ucp-glyph-system');
+      btn.setAttribute('aria-pressed', String(systemOn));
+      label.textContent = systemOn ? 'system font' : 'essenfont';
+    });
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(b => {
+    b.addEventListener('click', async () => {
+      const text = b.getAttribute('data-copy') ?? '';
+      const orig = b.textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        b.textContent = '✓';
+        setTimeout(() => { b.textContent = orig; }, 1200);
+      } catch {
+        // Clipboard blocked (insecure context); silent.
+      }
+    });
+  });
+</script>
+
 <style>
-.char-page { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.char-head { text-align: center; margin-bottom: 3rem; }
-.eyebrow {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  opacity: 0.6;
-  margin: 0 0 1.5rem;
+.ucp { padding: 1.5rem 0 4rem; max-width: 900px; margin: 0 auto; }
+
+.ucp-crumbs {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  color: var(--ef-text-3);
 }
-.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
-.glyph-display {
-  font-size: clamp(6rem, 20vw, 10rem);
+.ucp-crumbs a { color: var(--ef-accent); text-decoration: none; }
+.ucp-crumbs a:hover { text-decoration: underline; }
+.ucp-crumb-current { color: var(--ef-text) !important; font-weight: 500; }
+
+.ucp-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
+}
+.ucp-nav-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--ef-rule);
+  border-radius: 8px;
+  background: var(--ef-bg);
+  color: var(--ef-text);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.ucp-nav-btn:hover {
+  border-color: var(--ef-accent);
+  color: var(--ef-accent);
+  text-decoration: none;
+}
+.ucp-nav-hex {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--ef-text-3);
+}
+.ucp-nav-btn:hover .ucp-nav-hex { color: var(--ef-accent); }
+.ucp-nav-current {
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  color: var(--ef-text-3);
+}
+.ucp-nav-spacer { width: 80px; }
+
+.ucp-glyph-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem 2.5rem;
+  background: var(--ef-surface);
+  border: 1px solid var(--ef-rule);
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  min-height: 220px;
+}
+.ucp-glyph-stage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  padding: 0.5rem 3rem;
+}
+.ucp-guides { position: absolute; inset: 0; pointer-events: none; }
+.ucp-guide { position: absolute; left: 0; right: 0; height: 0; }
+.ucp-guide--cap { top: 12%; border-top: 1px dashed rgba(0,0,0,0.18); }
+.ucp-guide--xheight { top: 32%; border-top: 1px dashed rgba(0,0,0,0.14); }
+.ucp-guide--baseline { bottom: 18%; border-top: 2px solid rgba(184,71,95,0.40); }
+
+.ucp-glyph {
+  position: relative;
+  z-index: 1;
+  font-family: var(--spec-font-glyph);
+  font-size: 6.5rem;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  color: var(--ef-text);
 }
-.char-head h1 {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 1.5rem;
-  color: var(--ef-rose, #bf4e6a);
-  margin: 0 0 0.25rem;
+.ucp-glyph-system {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
 }
-.char-name {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 1.25rem;
-  opacity: 0.8;
+
+.ucp-control-box {
+  font-family: var(--spec-font-mono);
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ef-text-3);
+  padding: 1rem 2rem;
+  border: 2px dashed var(--ef-rule-strong);
+  border-radius: 8px;
+  background: var(--ef-bg);
 }
-.props dl {
+
+.ucp-compare-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  background: var(--ef-bg);
+  border: 1px solid var(--ef-rule);
+  border-radius: 999px;
+  color: var(--ef-text-2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ucp-compare-toggle:hover { border-color: var(--ef-accent); color: var(--ef-accent); }
+.ucp-compare-toggle[aria-pressed="true"] {
+  background: var(--ef-text);
+  color: var(--ef-bg);
+  border-color: var(--ef-text);
+}
+.ucp-compare-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.ucp-name {
+  font-family: var(--spec-font-display);
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+  color: var(--ef-text);
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 32;
+}
+.ucp-name-abbrev {
+  font-family: var(--spec-font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ef-text-3);
+  margin-left: 0.5rem;
+}
+.ucp-hex {
+  font-family: var(--spec-font-mono);
+  font-size: 1.1rem;
+  color: var(--ef-accent);
+}
+
+.ucp-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.ucp-section h2 {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ef-accent);
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.ucp-section dl {
   display: grid;
   grid-template-columns: max-content 1fr;
-  gap: 0.5rem 1.5rem;
+  gap: 0.5rem 1rem;
   margin: 0;
+  font-size: 0.88rem;
 }
-.props dt {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.5;
-  padding-top: 0.15rem;
-}
-.props dd { margin: 0; font-size: 0.95rem; }
-.case-mappings { margin-top: 2rem; }
-.case-mappings h2 {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 1.25rem;
-  margin-bottom: 0.75rem;
-}
-.case-grid {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-}
-.case-cell { text-align: center; }
-.case-label {
-  display: block;
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+.ucp-section dt {
+  font-family: var(--spec-font-mono);
   font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  opacity: 0.5;
-  margin-bottom: 0.25rem;
+  letter-spacing: 0.06em;
+  color: var(--ef-text-3);
+  white-space: nowrap;
+  padding-top: 0.18rem;
 }
-.case-glyph { font-size: 2.5rem; }
-.decomposition { margin-top: 2rem; }
-.decomposition h2 {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
+.ucp-section dd {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  color: var(--ef-text);
 }
-.decomposition code {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  background: rgba(0,0,0,0.05);
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  display: inline-block;
+.ucp-section dd a { color: var(--ef-accent); text-decoration: none; }
+.ucp-section dd a:hover { text-decoration: underline; }
+.ucp-section dd code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  background: var(--ef-surface);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  color: var(--ef-text-2);
 }
+
+.ucp-copy {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--ef-rule);
+  border-radius: 2px;
+  color: var(--ef-text-2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ucp-copy:hover { border-color: var(--ef-accent); color: var(--ef-accent); }
+
+.ucp-provenance-note {
+  grid-column: 1 / -1;
+  font-family: var(--spec-font-display);
+  font-size: 0.88rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ef-text-2);
+  margin: 1rem 0 0;
+  padding-top: 0.8rem;
+  border-top: 1px dashed var(--ef-rule);
+}
+.ucp-provenance-note a { color: var(--ef-accent); text-decoration: none; }
+.ucp-provenance-note a:hover { text-decoration: underline; }
+
+.ucp-donor-link, .ucp-svg-link {
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  color: var(--ef-accent) !important;
+  text-decoration: none;
+}
+.ucp-donor-link:hover, .ucp-svg-link:hover { text-decoration: underline; }
+.ucp-link-arrow { opacity: 0.6; margin-left: 0.2em; }
+
+@media (max-width: 600px) {
+  .ucp-glyph { font-size: 4.5rem; }
+  .ucp-glyph-area { padding: 3rem 1rem 2rem; min-height: 180px; }
+  .ucp-nav { padding: 0; }
+  .ucp-nav-spacer { width: 40px; }
+}
+
+:global(html.dark) .ucp-guide--cap { border-top-color: rgba(255,255,255,0.18); }
+:global(html.dark) .ucp-guide--xheight { border-top-color: rgba(255,255,255,0.14); }
+:global(html.dark) .ucp-guide--baseline { border-top-color: rgba(212,113,138,0.40); }
 </style>

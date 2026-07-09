@@ -1,5 +1,6 @@
 export * from './types';
 export * from './constants';
+export * as escapes from './escapes';
 export {
   loadAllBlocks,
   loadBlockCharacters,

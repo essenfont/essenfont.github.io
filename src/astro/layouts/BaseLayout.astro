@@ -57,8 +57,7 @@ const year = new Date().getFullYear();
       <nav class="container nav">
         <a href="/" class="brand">
           <BrandMark size="sm" alt="Essenfont" />
-          <span>Essenfont</span>
-          <span class="folio" style="margin-left: 0.25rem; align-self: center;">U+17</span>
+          <span class="brand-text">Essenfont</span>
         </a>
         <div class="nav-right">
           <div class="nav-links">
@@ -173,5 +172,16 @@ const year = new Date().getFullYear();
 
   @media (max-width: 768px) {
     .footer-inner { flex-direction: column; gap: 0.75rem; }
+  }
+</style>
+<style is:global>
+  .brand-text {
+    font-family: var(--spec-font-display);
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 32;
+    line-height: 1;
   }
 </style>

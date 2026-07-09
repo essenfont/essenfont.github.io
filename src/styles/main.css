@@ -482,7 +482,9 @@ em { font-style: italic; }
 }
 
 .section-rule { border: 0; border-top: 1px solid var(--ef-rule); margin: 3rem 0; }
-.glyph-cell { font-family: var(--spec-font-glyph); }
+/* Use the .glyph-glyph selector on a span around the actual glyph character only.
+   Never set font-family to the Essenfont family on a wrapper that contains text. */
+.glyph-glyph { font-family: var(--spec-font-glyph); }
 
 /* ===================================================================
    Header / Navigation
