@@ -10,15 +10,15 @@ const useCases = [
     no: 'Plate I',
     persona: 'Operating-system user',
     goal: 'I want my OS to never show tofu, in any app that respects the system font fallback chain.',
-    pick: 'Essenfont-Regular.otc',
+    pick: 'Essenfont-Regular.ttc',
     pickWhy: 'The canonical install. macOS Font Book, Windows Font Settings, and Linux fontconfig all enumerate the five faces inside the collection.',
     how: [
-      `<strong>macOS.</strong> Double-click the OTC → Font Book lists five faces (BMP, SMP, SIP, TIP, SSP) → "Install All".`,
+      `<strong>macOS.</strong> Double-click the TTC → Font Book lists five faces (BMP, SMP, SIP, TIP, SSP) → "Install All".`,
       `<strong>Windows.</strong> Right-click → "Install for all users". Faces appear individually in app font menus.`,
-      `<strong>Linux.</strong> <code>cp Essenfont-Regular.otc ~/.local/share/fonts/ &amp;&amp; fc-cache -fv</code>.`,
+      `<strong>Linux.</strong> <code>cp Essenfont-Regular.ttc ~/.local/share/fonts/ &amp;&amp; fc-cache -fv</code>.`,
     ],
     considerations: [
-      'Some older apps cannot enumerate OTC faces — they see only the first face (BMP). For those, install per-plane TTFs alongside.',
+      'Some older apps cannot enumerate TTC faces — they see only the first face (BMP). For those, install per-plane TTFs alongside.',
       "Font Book shows five faces; pick the one that matches the script you need, or just enable all five.",
       'After install, set Essenfont as the last item in every app font list — it activates only when no earlier entry covers the codepoint.',
     ],
@@ -46,7 +46,7 @@ const useCases = [
     persona: 'Desktop application developer',
     goal: 'I bundle a font with my application so users get full Unicode coverage without installing anything system-wide.',
     pick: 'Per-plane TTFs',
-    pickWhy: 'Five single-face fonts your installer can drop into the platform-appropriate font directory. The OTC is unreachable to apps that enumerate fonts via direct file reads; TTFs work everywhere.',
+    pickWhy: 'Five single-face fonts your installer can drop into the platform-appropriate font directory. The TTC is unreachable to apps that enumerate fonts via direct file reads; TTFs work everywhere.',
     how: [
       'macOS app bundle: <code>MyApp.app/Contents/Resources/Fonts/Essenfont-BMP.ttf</code> + register with <code>CTFontManagerRegisterFontsForURL</code> on first launch.',
       'Windows installer: copy TTFs to <code>%LOCALAPPDATA%\\MyApp\\Fonts\\</code> and add to the per-user font registry.',
@@ -79,11 +79,11 @@ const useCases = [
     no: 'Plate V',
     persona: 'System administrator',
     goal: 'I push fonts to a few hundred workstations via Ansible / Puppet / Munki / Intune and want one artifact that registers everywhere.',
-    pick: 'Essenfont-Regular.otc',
-    pickWhy: 'One file deploy. fontconfig (Linux), Windows Font Service, and macOS Profile Manager all enumerate the OTC and register each face. One install packet, five registered fonts.',
+    pick: 'Essenfont-Regular.ttc',
+    pickWhy: 'One file deploy. fontconfig (Linux), Windows Font Service, and macOS Profile Manager all enumerate the TTC and register each face. One install packet, five registered fonts.',
     how: [
       "Ansible: ship via <code>fontist install</code> on each host — Idempotent, registers via the OS's preferred path.",
-      "macOS: deploy the .otc through Profile Manager as a managed font — ships as a managed-by-org install.",
+      "macOS: deploy the .ttc through Profile Manager as a managed font — ships as a managed-by-org install.",
       "Linux fleet: place in <code>/usr/share/fonts/</code> and run <code>fc-cache -fv</code>. Or use the <code>fonts-essenfont</code> package on distros that carry it.",
     ],
     considerations: [
@@ -113,8 +113,8 @@ const useCases = [
 
 const matrix = [
   // [format, browser, desktop, pdf, code-embed, sizeperfile, relnote]
-  ['Whole OTC (.otc, glyf)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.otcSizeBytes), note: 'all 5 faces; canonical install' }],
-  ['Whole OTC (.otc, CFF2)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: '~75 MB', note: 'CFF2 + color; modern systems' }],
+  ['Whole TTC (.ttc, glyf)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.ttcSizeBytes), note: 'all 5 faces; canonical install' }],
+  ['Whole CFF2 TTC (.ttc, CFF2)',   { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: '~75 MB', note: 'CFF2 + color; modern systems' }],
   ['TTC fallback (.ttc)',      { browser: '✗', desktop: '✓', pdf: '✓', embed: '✓', size: formatBytes(stats.fontBinaries.ttcSizeBytes), note: 'glyf-only, no Tangut / color' }],
   ['Per-plane TTF (×5)',       { browser: '△', desktop: '✓', pdf: '✓', embed: '✓', size: '~3–14 MB each', note: 'legacy PDF, app bundles' }],
   ['Per-plane WOFF2 (×5)',     { browser: '✓', desktop: '✗', pdf: '△', embed: '✓', size: '~2–7 MB each', note: '@font-face whole-plane' }],
@@ -122,8 +122,8 @@ const matrix = [
 ];
 
 const formats = [
-  { code: 'otc', name: 'OpenType Collection — .otc (canonical)', desc: 'Five glyf subfonts in one container. Install once, registered as five faces. The desktop canonical form.', gotcha: 'Older font pickers in legacy apps can\'t enumerate OTC and only see the first face.' },
-  { code: 'cff2', name: 'CFF2 OpenType Collection — .otc', desc: 'Same five-face envelope, but CFF2 outlines + CBDT color bitmaps. ~35% smaller, supports variation stores.', gotcha: 'Some PDF generators and font subsetters below 2024 cannot parse CFF2 charstrings. Target Adobe Reader 2024+ or modern fontTools.' },
+  { code: 'ttc', name: 'TrueType Collection — .ttc (canonical)', desc: 'Five glyf subfonts in one container. Install once, registered as five faces. The desktop canonical form.', gotcha: 'Older font pickers in legacy apps can\'t enumerate TTC and only see the first face.' },
+  { code: 'cff2', name: 'CFF2 TrueType Collection — .ttc', desc: 'Same five-face envelope, but CFF2 outlines + CBDT color bitmaps. ~35% smaller, supports variation stores.', gotcha: 'Some PDF generators and font subsetters below 2024 cannot parse CFF2 charstrings. Target Adobe Reader 2024+ or modern fontTools.' },
   { code: 'ttc', name: 'TrueType Collection — .ttc', desc: 'glyf-only fallback. Emitted so legacy tooling that handles glyf but not CFF2 still gets full coverage.', gotcha: 'No color emoji, no Tangut (noto Serif Tangut is CFF-only). Where the .otc would render those blocks, the .ttc shows glyph fallback.' },
   { code: 'pttf', name: 'Per-plane TTF — ×5', desc: 'Five single-face TTFs, one per Unicode plane. BMP / SMP / SIP / TIP / SSP.', gotcha: 'The plane naming on the font\'s `name` table is what your app\'s font picker displays — verify on macOS that "Essenfont BMP" matches what you expect.' },
   { code: 'pwoff2', name: 'Per-plane WOFF2 — ×5', desc: 'Five plane-wide WOFF2s for @font-face. Coverage per CSS rule = one whole plane. Larger but simpler than per-block.', gotcha: 'BMP.web2 is ~2 MB compressed; SIP is ~14 MB. A four-plane site downloads ~25 MB minimum even if no rare characters render.' },
@@ -142,12 +142,12 @@ const troubleshooting = [
     fix: "Inspect the per-block cmap with `fonttools ttLib --tables cmap file.woff2` and tighten your CSS unicode-range to match.",
   },
   {
-    problem: "An app only sees the BMP face from your OTC install.",
-    cause: "The app doesn't enumerate OTC containers — it reads TTF/OTF files individually.",
-    fix: 'Install the per-plane TTFs alongside the OTC. Most modern apps enumerate OTC first; legacy apps fall back to the first matching single-face file.',
+    problem: "An app only sees the BMP face from your TTC install.",
+    cause: "The app doesn't enumerate TTC containers — it reads TTF/OTF files individually.",
+    fix: 'Install the per-plane TTFs alongside the TTC. Most modern apps enumerate TTC first; legacy apps fall back to the first matching single-face file.',
   },
   {
-    problem: "PDF generators refuse the CFF2 OTC with 'unsupported font format'.",
+    problem: "PDF generators refuse the CFF2 TTC with 'unsupported font format'.",
     cause: "PDF generators below late 2023 can't parse CFF2 charstrings in embedded subsets.",
     fix: 'Use the TTC fallback (glyf) for PDFs — ~99 MB instead of 105 MB, and you lose color emoji + Tangut, but every PDF reader accepts it.',
   },
@@ -155,7 +155,7 @@ const troubleshooting = [
 ---
 <BaseLayout
   title="How to use Essenfont — Docs"
-  description="Which Essenfont format to use (OTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), when to use each, and how to wire it into your OS, website, app, PDF, fleet, or npm package. With diagrams and a decision matrix."
+  description="Which Essenfont format to use (TTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), when to use each, and how to wire it into your OS, website, app, PDF, fleet, or npm package. With diagrams and a decision matrix."
   canonical="/docs/usage"
 >
   <article class="usage">
@@ -163,7 +163,7 @@ const troubleshooting = [
       <p class="eyebrow">Docs · I</p>
       <h1>How to use Essenfont</h1>
       <p class="lede">
-        The build ships six artifacts — one whole OTC, one CFF2 variant, one TTC fallback, five per-plane TTFs, five per-plane WOFF2s, and 209 per-block WOFF2 subsets. Which one you grab depends on what you're trying to do. This page walks you through the seven common scenarios, the tradeoffs of each format, and the gotchas that surface when you wire it in.
+        The build ships six artifacts — one whole TTC (canonical), five per-plane TTFs, five per-plane WOFF2s, and 209 per-block WOFF2 subsets. Which one you grab depends on what you're trying to do. This page walks you through the seven common scenarios, the tradeoffs of each format, and the gotchas that surface when you wire it in.
       </p>
     </header>
 
@@ -176,14 +176,14 @@ const troubleshooting = [
       </p>
 
       <svg class="diagram anatomy" viewBox="0 0 680 380" role="img" aria-labelledby="anatomy-title">
-        <title id="anatomy-title">Anatomy of Essenfont-Regular.otc</title>
-        <desc>A rounded rectangle labelled "Essenfont-Regular.otc" containing five stacked sub-rects, each labelled with plane, Unicode range, and approximate codepoint count.</desc>
+        <title id="anatomy-title">Anatomy of Essenfont-Regular.ttc</title>
+        <desc>A rounded rectangle labelled "Essenfont-Regular.ttc" containing five stacked sub-rects, each labelled with plane, Unicode range, and approximate codepoint count.</desc>
         <rect x="10" y="10" width="660" height="360" rx="6" ry="6"
               fill="none" stroke="var(--spec-ink, #1c1a18)" stroke-width="2"/>
         <rect x="10" y="10" width="660" height="44" rx="6" ry="6"
               fill="var(--spec-ink, #1c1a18)"/>
         <rect x="10" y="46" width="660" height="8" fill="var(--spec-ink, #1c1a18)"/>
-        <text x="30" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600">Essenfont-Regular.otc  ·  OpenType Collection</text>
+        <text x="30" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="14" font-weight="600">Essenfont-Regular.ttc  ·  OpenType Collection</text>
         <text x="566" y="38" fill="var(--spec-paper, #f1ece1)" font-family="IBM Plex Mono, monospace" font-size="11">format</text>
 
         <g font-family="Spectral, serif" fill="var(--spec-ink, #1c1a18)">
@@ -208,7 +208,7 @@ const troubleshooting = [
           ))}
         </g>
       </svg>
-      <p class="cap">Anatomy of one OTC envelope. Five plane subfonts, each under the 65,535-glyph cap. Down-stream consumers see either one font (if they enumerate collections) or only the first face (if they don't).</p>
+      <p class="cap">Anatomy of one TTC envelope. Five plane subfonts, each under the 65,535-glyph cap. Down-stream consumers see either one font (if they enumerate collections) or only the first face (if they don't).</p>
 
       <ul class="format-list">
         {formats.map(f => (
@@ -298,8 +298,8 @@ const troubleshooting = [
         <desc>Horizontal bar chart comparing the six formats' representative payload. Per-block WOFF2 has tiny individual files but the full catalog adds up.</desc>
         <g font-family="IBM Plex Mono, monospace" font-size="11" fill="var(--spec-ink, #1c1a18)">
           {[
-            { y: 18,  label: 'Whole OTC (glyf)',     width: 500, value: '~105 MB', shade: 'var(--ef-rose, #bf4e6a)' },
-            { y: 48,  label: 'Whole OTC (CFF2)',     width: 360, value: '~75 MB',  shade: 'var(--ef-rose, #bf4e6a)' },
+            { y: 18,  label: 'Whole TTC (glyf)',     width: 500, value: '~105 MB', shade: 'var(--ef-rose, #bf4e6a)' },
+            { y: 48,  label: 'Whole TTC (CFF2)',     width: 360, value: '~75 MB',  shade: 'var(--ef-rose, #bf4e6a)' },
             { y: 78,  label: 'TTC fallback',          width: 480, value: '~99 MB',  shade: 'var(--ef-rose, #bf4e6a)' },
             { y: 108, label: 'Per-plane TTF (×5)',    width: 130, value: '~3–14 MB each', shade: '#8a8478' },
             { y: 138, label: 'Per-plane WOFF2 (×5)',  width: 75,  value: '~2–7 MB each',  shade: '#8a8478' },
@@ -314,7 +314,7 @@ const troubleshooting = [
           ))}
         </g>
       </svg>
-      <p class="cap">File-size comparison. Per-block WOFF2 looks small per file but the full catalog approaches the OTC's size — the win is per-page download, not total payload.</p>
+      <p class="cap">File-size comparison. Per-block WOFF2 looks small per file but the full catalog approaches the TTC's size — the win is per-page download, not total payload.</p>
     </section>
 
     <!-- ─────────────── IV. Embedding patterns ─────────────── -->
@@ -418,15 +418,15 @@ body &#123;
 
       <h3>Pattern C · CSS font-stack (no embed)</h3>
       <p>
-        The cleanest fallback pattern for sites where most visitors have noto/system-ui already: list Essenfont last in the stack, declare <code>unicode-range</code> per subset so the browser knows when to fetch, and trust system fontconfig/OS picker to have an OTC installed for the rest.
+        The cleanest fallback pattern for sites where most visitors have noto/system-ui already: list Essenfont last in the stack, declare <code>unicode-range</code> per subset so the browser knows when to fetch, and trust system fontconfig/OS picker to have a TTC installed for the rest.
       </p>
       <pre class="code-block"><code>/* If Essenfont is installed locally on the user's OS — perfect: */
-/* no download happens, all codepoints render from the OTC. */
+/* no download happens, all codepoints render from the TTC. */
 /* If it isn't, individual @font-face subsets fill in. */
 
 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfont';</code></pre>
       <p class="considerations">
-        The CSS in <a href="/docs/css">/docs/css</a> implements this: it lists a <code>"Essenfont"</code> family whose families are the per-block subsets, with <code>unicode-range</code> per block. The OS-installed OTC names itself differently per face (BMP/SMP/SIP/TIP/SSP), so the stack needs a system rule to pick them up if the visitor installed the font.
+        The CSS in <a href="/docs/css">/docs/css</a> implements this: it lists a <code>"Essenfont"</code> family whose families are the per-block subsets, with <code>unicode-range</code> per block. The OS-installed TTC names itself differently per face (BMP/SMP/SIP/TIP/SSP), so the stack needs a system rule to pick them up if the visitor installed the font.
       </p>
     </section>
 
@@ -455,10 +455,10 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
       </p>
       <ul>
         <li>
-          <strong>For non-commercial use</strong> (research, education, personal reading, this website) the entire OTC is freely usable.
+          <strong>For non-commercial use</strong> (research, education, personal reading, this website) the entire TTC is freely usable.
         </li>
         <li>
-          <strong>For commercial products</strong> the OTC and per-plane TTFs are usable EXCEPT the CJK ideograph portion derived from FSung. The build's name table flags which glyphs carry the FSung non-commercial restriction; products that redistribute commercially must either (a) substitute an alternate CJK donor (Noto Sans CJK for example) or (b) exclude FSung-derived glyphs and ship a partial font.
+          <strong>For commercial products</strong> the TTC and per-plane TTFs are usable EXCEPT the CJK ideograph portion derived from FSung. The build's name table flags which glyphs carry the FSung non-commercial restriction; products that redistribute commercially must either (a) substitute an alternate CJK donor (Noto Sans CJK for example) or (b) exclude FSung-derived glyphs and ship a partial font.
         </li>
         <li>
           <strong>For embedding in distributed binaries</strong>: include <code>LICENSE.txt</code> with your artifact and the per-donor attribution file <code>LICENSE-SOURCES.md</code> (both ship in <a href="https://github.com/essenfont/essenfont/releases">each release</a>).
@@ -499,7 +499,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
           <a href="/docs/css"><strong>CSS integration</strong></a> — the <code>@font-face</code> rule surface, <code>unicode-range</code> mechanics, fallback chains, self-hosting, CORS.
         </li>
         <li>
-          <a href="/docs/api"><strong>npm API</strong></a> — the <code>@essenfont/essenfont</code> package, TypeScript types, programmatic access to font paths and metadata.
+          <a href="/docs/api"><strong>npm API</strong></a> — the <code>essenfont</code> package, TypeScript types, programmatic access to font paths and metadata.
         </li>
         <li>
           <a href="/engineering/pipeline"><strong>Build pipeline</strong></a> — how the font is assembled. Why five planes, the donor strategy, the glyph-cap algorithm.

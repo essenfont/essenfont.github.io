@@ -1,18 +1,68 @@
 [
   {
+    "tag": "v0.2.8",
+    "name": "Latest release — npm package, per-plane WOFF2",
+    "date": "2026-07-09",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.8",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.2.8",
+    "isLatest": true,
+    "notes": "Latest. Ships as `essenfont` on npm with per-plane WOFF2 + CSS bundles, plus the canonical Essenfont-Regular.ttc with all 5 faces.",
+    "stats": { "codepoints": 82329, "pct": 51.5, "planes": 5 }
+  },
+  {
+    "tag": "v0.2.7",
+    "name": "Per-plane WOFF2 + codecarbide + emoji fixes",
+    "date": "2026-07-09",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.7",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.7/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.7/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.2.7",
+    "stats": { "codepoints": 82329, "pct": 51.5, "planes": 5 }
+  },
+  {
+    "tag": "v0.2.4",
+    "name": "Per-plane TTC rebuild with fontisan 0.4.22",
+    "date": "2026-07-09",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.4",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.4/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.4/coverage.json",
+    "stats": { "codepoints": 82329, "pct": 51.5, "planes": 5 }
+  },
+  {
+    "tag": "v0.2.2",
+    "name": "Plane 3 (TIP) coverage — Khitan + Nushu",
+    "date": "2026-07-08",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.2",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.2/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.2/coverage.json",
+    "stats": { "codepoints": 82329, "pct": 51.5, "planes": 5 }
+  },
+  {
+    "tag": "v0.2.1",
+    "name": "Plane 14 (SSP) coverage + refresh",
+    "date": "2026-07-08",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.1",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.1/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.1/coverage.json",
+    "stats": { "codepoints": 82329, "pct": 51.5, "planes": 5 }
+  },
+  {
     "tag": "v0.2.0",
-    "name": "OTC pipeline + fontisan 0.4.9",
-    "date": "2026-07-04",
+    "name": "OTC pipeline + fontisan 0.4.9 (legacy)",
+    "date": "2026-07-05",
     "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.0",
-    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.0/Essenfont-Regular.ttc",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.0/coverage.json"
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.0/Essenfont-Regular.ttc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.0/coverage.json",
+    "stats": { "codepoints": 82269, "pct": 51.46, "planes": 5 }
   },
   {
     "tag": "v0.1.0",
     "name": "Initial alpha — donor registry + BMP build",
     "date": "2026-06-29",
     "url": "https://github.com/essenfont/essenfont/releases/tag/v0.1.0",
-    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.1.0/Essenfont-Regular.ttf",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.1.0/coverage.json"
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.1.0/coverage.json",
+    "stats": { "planes": 1 }
   }
 ]

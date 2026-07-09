@@ -22,7 +22,7 @@ const cards = [
     href: '/engineering/formats',
     eyebrow: 'Where · users',
     title: 'Output formats & distribution',
-    body: 'OTC (canonical), CFF2 OTC (compact), per-plane TTFs (legacy), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
+    body: 'TTC (canonical), per-plane TTFs (legacy), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
     href: '/engineering/coverage',
@@ -61,11 +61,11 @@ const cards = [
       </div>
       <div class="stat">
         <div class="stat-num">5</div>
-        <div class="stat-cap">Plane subfonts in the OTC</div>
+        <div class="stat-cap">Plane subfonts in the TTC</div>
       </div>
       <div class="stat">
-        <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
-        <div class="stat-cap">Canonical OTC on disk</div>
+        <div class="stat-num">{formatBytes(stats.fontBinaries.ttcSizeBytes)}</div>
+        <div class="stat-cap">Canonical TTC on disk</div>
       </div>
       <div class="stat">
         <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
@@ -107,7 +107,7 @@ const cards = [
           <tr><th scope="row">CJK</th><td>Noto Sans CJK (partial)</td><td>Full-Sung (Taiwan 全宋體) — every CJK extension through Unicode 17 Ext J</td></tr>
           <tr><th scope="row">License</th><td>OFL</td><td>OFL + FSung non-commercial restriction, propagated to <code>name</code> table</td></tr>
           <tr><th scope="row">Web embed</th><td>No</td><td>Per-plane and per-block WOFF2s</td></tr>
-          <tr><th scope="row">Output format</th><td>Single TTF in repo</td><td>OTC (5 faces) + per-plane TTFs + WOFF2s, distributed via GitHub Releases</td></tr>
+          <tr><th scope="row">Output format</th><td>Single TTF in repo</td><td>TTC (5 faces) + per-plane TTFs + WOFF2s, distributed via GitHub Releases</td></tr>
         </tbody>
       </table>
 
