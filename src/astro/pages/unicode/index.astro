@@ -61,7 +61,7 @@ const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
 .uc { padding: 3rem 0; }
 .uc-header { text-align: center; margin-bottom: 3rem; }
 .uc-header h1 {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   margin: 0 0 0.5rem;
 }
@@ -75,7 +75,7 @@ const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
 .uc-stat { text-align: center; }
 .uc-stat-num {
   display: block;
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: 2rem;
   color: var(--ef-rose, #bf4e6a);
 }
@@ -96,18 +96,18 @@ const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
   border-bottom: 1px solid rgba(128, 128, 128, 0.2);
 }
 .plane-header h2 {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: 1.5rem;
   margin: 0;
 }
 .plane-roman {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   color: var(--ef-rose, #bf4e6a);
   margin-right: 0.5rem;
 }
 .plane-range {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   opacity: 0.6;
 }
@@ -139,7 +139,7 @@ const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
   font-weight: 500;
 }
 .block-cp-count {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.7rem;
   opacity: 0.5;
 }

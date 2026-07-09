@@ -110,16 +110,19 @@ function slugify(name: string): string {
   margin: 0 auto;
 }
 .eyebrow {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a);
+  color: var(--ef-accent);
 }
 .display {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
+  font-weight: 600;
+  font-variation-settings: "opsz" 96;
   font-size: clamp(3rem, 10vw, 6rem);
   line-height: 1;
+  letter-spacing: -0.03em;
   margin: 0.5rem 0 1.5rem;
 }
 .lede {
@@ -144,27 +147,30 @@ function slugify(name: string): string {
   gap: 0.5rem;
 }
 .btn-primary {
-  background: var(--ef-rose, #bf4e6a);
+  background: var(--ef-accent);
   color: white;
 }
 .btn-ghost {
   border: 1px solid currentColor;
-  color: var(--spec-ink, #1c1a18);
+  color: var(--ef-text);
 }
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.5rem;
   padding: 3rem 0;
-  border-top: 1px solid var(--spec-ink, #1c1a18);
-  border-bottom: 1px solid var(--spec-ink, #1c1a18);
+  border-top: 1px solid var(--ef-rule);
+  border-bottom: 1px solid var(--ef-rule);
   margin: 3rem 0;
 }
 .stat-num {
-  font-family: var(--display-font, Spectral, serif);
-  font-size: 2.5rem;
+  font-family: var(--spec-font-display);
+  font-weight: 600;
+  font-variation-settings: "opsz" 72;
+  font-size: 2.75rem;
   line-height: 1;
-  color: var(--ef-rose, #bf4e6a);
+  letter-spacing: -0.02em;
+  color: var(--ef-accent);
 }
 .stat-cap {
   font-size: 0.875rem;
@@ -175,7 +181,8 @@ function slugify(name: string): string {
   padding: 2rem 0 4rem;
 }
 .blocks-section h2 {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
+  font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
 }
@@ -189,21 +196,21 @@ function slugify(name: string): string {
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-  border-radius: 4px;
+  border: 1px solid var(--ef-rule);
+  border-radius: var(--ef-radius-sm);
   text-decoration: none;
   color: inherit;
   transition: border-color 0.15s;
 }
 .block-card:hover {
-  border-color: var(--ef-rose, #bf4e6a);
+  border-color: var(--ef-accent);
 }
 .block-name {
   font-weight: 600;
   font-size: 0.95rem;
 }
 .block-range {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   opacity: 0.6;
   margin-top: 0.25rem;
@@ -216,7 +223,7 @@ function slugify(name: string): string {
 .see-all {
   display: inline-block;
   margin-top: 1rem;
-  color: var(--ef-rose, #bf4e6a);
+  color: var(--ef-accent);
   text-decoration: none;
 }
 </style>

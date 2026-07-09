@@ -28,14 +28,14 @@ unchanged, which leaves the FULL source CBDT — invalid for a subset).
 
 | #  | Task                                                       | Effort | Status |
 |----|------------------------------------------------------------|--------|--------|
-| 01 | [Profile: add CBDT/CBLC to web profile](01-profile-cbdt.md)       | XS | pending |
-| 02 | [CBDT BinData model](02-cbdt-bindata.md)                           | M  | pending |
-| 03 | [CBLC BinData model](03-cblc-bindata.md)                           | M  | pending |
-| 04 | [CBDTSubsetter strategy](04-cbdt-subsetter.md)                     | L  | pending |
-| 05 | [CBLCSubsetter strategy](05-cblc-subsetter.md)                     | L  | pending |
-| 06 | [Refactor TableSubsetter to strategy registry](06-strategy-registry.md) | M | pending |
-| 07 | [WOFF2 round-trip integration spec](07-woff2-roundtrip-spec.md)    | S  | pending |
-| 08 | [Browser color-rendering smoke test](08-browser-color-smoke.md)    | S  | pending |
+| 01 | [Profile: add CBDT/CBLC to web profile](01-profile-cbdt.md)       | XS | done |
+| 02 | [CBDT BinData model](02-cbdt-bindata.md)                           | M  | done |
+| 03 | [CBLC BinData model](03-cblc-bindata.md)                           | M  | done |
+| 04 | [CBDTSubsetter strategy](04-cbdt-subsetter.md)                     | L  | done |
+| 05 | [CBLCSubsetter strategy](05-cblc-subsetter.md)                     | L  | done |
+| 06 | [Refactor TableSubsetter to strategy registry](06-strategy-registry.md) | M | done |
+| 07 | [WOFF2 round-trip integration spec](07-woff2-roundtrip-spec.md)    | S  | done |
+| 08 | [Browser color-rendering smoke test](08-browser-color-smoke.md)    | S  | done |
 
 Effort legend: XS (<1h), S (1–2h), M (half-day), L (full day+).
 

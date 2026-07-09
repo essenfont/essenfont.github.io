@@ -5,110 +5,44 @@ import { formatBytes, formatNumber } from '../lib/ssr';
 
 const stats = loadStats();
 
-type Fix = {
-  title: string;
-  repo: string;
-  pr: string;
-  body: string;
-};
-
-const FIXES: Fix[] = [
+const cards = [
   {
-    title: 'head.modified = Time.now, not created + 1 second',
-    repo: 'fontist/fontisan',
-    pr: '102',
-    body: "Chrome's OTS rejects WOFF2 fonts whose head.modified is within ~1 hour of head.created. The previous \"bump by 1 second\" heuristic was inside that rejection window.",
+    href: '/engineering/pipeline',
+    eyebrow: 'How',
+    title: 'Build pipeline',
+    body: `How ${formatNumber(stats.unicode.assignedCodepointCount)} glyphs from ${stats.donorCount} donors become one OpenType Collection — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.`,
   },
   {
-    title: 'WOFF2 file padded to 4-byte boundary',
-    repo: 'fontist/fontisan',
-    pr: '102',
-    body: "Chrome's OTS rejects WOFF2 files whose total length is not divisible by 4. fontTools pads; we didn't. Now we do.",
+    href: '/engineering/sources',
+    eyebrow: 'Where · glyphs',
+    title: 'Where the glyphs come from',
+    body: 'The donor strategy: 38 OFL-compatible donors, the Tier 1/2/3 sourcing model, code-chart SVG extraction for blocks no font covers, and why Full-Sung (Taiwan 全宋體) is the CJK donor instead of Noto Sans CJK.',
   },
   {
-    title: 'Single source of truth for 255UInt16 encoding',
-    repo: 'fontist/fontisan',
-    pr: 'earlier',
-    body: 'Three copies of encode_255_uint16 had the code-byte mapping inverted. Extracted a UInt255 module so all three call sites agree.',
+    href: '/engineering/formats',
+    eyebrow: 'Where · users',
+    title: 'Output formats & distribution',
+    body: 'OTC (canonical), CFF2 OTC (compact), per-plane TTFs (legacy), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
-    title: 'Brotli mode = :font actually plumbed through',
-    repo: 'fontist/fontisan',
-    pr: 'earlier',
-    body: 'Brotli.deflate(data, quality: 11) silently dropped the mode: argument. WOFF2 needs font mode per spec. Now explicit.',
-  },
-  {
-    title: 'Glyph padding to 4-byte boundary per glyph',
-    repo: 'fontist/fontisan',
-    pr: 'earlier',
-    body: "fontTools' _normaliseGlyfAndLoca(padding=4) pads each glyph so the decoder can reconstruct. We didn't. Now we do, via GlyfCanonicalizer.",
-  },
-  {
-    title: 'CFF2 IndexBuilder 3-byte offset pack',
-    repo: 'fontist/fontisan',
-    pr: '103',
-    body: 'pack("C3") on a single Integer raised ArgumentError. CFF2 INDEXes over 64 KB need offSize=3, so the OTC build crashed immediately. Manual byte split fixes it.',
-  },
-  {
-    title: 'Stitcher: outline-first so cmap prefers real outlines',
-    repo: 'fontist/fontisan',
-    pr: '104',
-    body: 'add_all_cbdt_glyphs ran before the outline-bindings loop. Cmap.build uses first-wins, so empty CBDT placeholders won. Stitch outlines first now.',
-  },
-  {
-    title: 'propagate_cbdt_tables preserves all raw tables',
-    repo: 'fontist/fontisan',
-    pr: '103',
-    body: 'Reading CFF2 via BinData returned nil (round-trip bug), so the propagation path dropped CFF2 from every face. Now reads raw bytes from table_data.',
-  },
-  {
-    title: 'CpMap excludes CBDT-only donors from outline cp_map',
-    repo: 'essenfont/essenfont',
-    pr: '29',
-    body: "NotoColorEmoji's cmap entries got into the outline cp_map and pollinated every face with empty .notdef slots. CBDT data now propagates separately via propagate_cbdt_tables.",
-  },
-  {
-    title: 'UFO compiler enforces .notdef at GID 0',
-    repo: 'fontist/fontisan',
-    pr: '103',
-    body: 'OpenType requires GID 0 to be .notdef. Without it, the alphabetically-first glyph landed at GID 0 and the cmap parser silently dropped its codepoint. Reproducible: Enclosed Ideographic Supplement lost U+1F200.',
-  },
-  {
-    title: 'face_lookup picks the face with real outlines',
-    repo: 'essenfont/essenfont.github.io',
-    pr: '10',
-    body: "Website's face_lookup used ||= (first-face-wins). For SMP codepoints whose outline donor put glyphs only in face 8, it picked face 0's empty cmap slots. Now scores per-cp by non-empty glyf count.",
-  },
-  {
-    title: 'Noto Emoji (monochrome) as Emoticons donor for TTC',
-    repo: 'essenfont/essenfont',
-    pr: '29',
-    body: "NotoColorEmoji is CBDT-only; the TTC fallback can't carry bitmaps. Added NotoEmoji (glyf) as the TTC Emoticons donor; NotoColorEmoji remains for the OTC.",
-  },
-  {
-    title: 'Code-chart synthetic donors for unregistered blocks',
-    repo: 'essenfont/essenfont',
-    pr: '29',
-    body: 'Ideographic Symbols and Punctuation (12 cps) and Enclosed Ideographic Supplement (64 cps) had no OFL donor. Generated synthetic TTFs from ucode\'s code-chart PDF extractor.',
+    href: '/engineering/coverage',
+    eyebrow: 'What · status',
+    title: 'Coverage, gaps & roadmap',
+    body: 'What works, what\'s blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer actually enforces, and what\'s next (color emoji in WOFF2, Tangut on the website).',
   },
 ];
 ---
 <BaseLayout
   title="Engineering — Essenfont"
-  description="How Essenfont made Chrome accept every per-block WOFF2 subset, switched to a canonical CFF2 OTC, and stitched 38 donor fonts into one universal Unicode 17 typeface."
+  description="Why Essenfont exists, how it is built from 38 donor fonts, where it ships, and what is on the roadmap. The full engineering story across four sub-pages."
   canonical="/engineering"
 >
-  <article class="engineering">
+  <article class="engineering-hub">
     <header class="page-head">
       <p class="eyebrow">Engineering</p>
-      <h1>How we got every WOFF2 subset past Chrome's OTS</h1>
+      <h1>The whole story, in four pages</h1>
       <p class="lede">
-        Essenfont serves {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets. When we started this push, only
-        <strong>199 of 211</strong> loaded in Chrome — the rest were silently rejected by
-        Chrome's OpenType Sanitizer with a useless "network error". This page documents
-        the {FIXES.length} fixes across three repos that took acceptance to
-        <strong>{stats.websiteSubsets.woff2Count}/{stats.websiteSubsets.woff2Count}</strong>
-        and produced a canonical OTC.
+        Essenfont is one font that tries to cover every assigned Unicode 17 codepoint — {formatNumber(stats.unicode.assignedCodepointCount)} of them — using only OFL-licensed donor glyphs. The engineering story has four moving parts: <strong>why</strong> it exists, <strong>how</strong> it is built, <strong>where</strong> the glyphs come from, and <strong>where</strong> users can get it.
       </p>
     </header>
 
@@ -123,102 +57,91 @@ const FIXES: Fix[] = [
       </div>
       <div class="stat">
         <div class="stat-num">{stats.donorCount}</div>
-        <div class="stat-cap">OFL-licensed donor fonts assembled</div>
+        <div class="stat-cap">Donor fonts assembled</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-cap">Plane subfonts in the OTC</div>
       </div>
       <div class="stat">
         <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
-        <div class="stat-cap">Canonical OTC (CFF2 + CBDT)</div>
+        <div class="stat-cap">Canonical OTC on disk</div>
       </div>
       <div class="stat">
         <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
-        <div class="stat-cap">Per-block WOFF2 subsets on this site</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">{formatBytes(stats.websiteSubsets.woff2TotalBytes)}</div>
-        <div class="stat-cap">Total WOFF2 payload</div>
+        <div class="stat-cap">Per-block WOFF2 subsets served here</div>
       </div>
     </section>
 
     <section class="prose">
-      <h2>The problem</h2>
+      <h2>Why Essenfont exists</h2>
       <p>
-        Chrome's OpenType Sanitizer (OTS) silently rejects fonts it doesn't like. The
-        browser console shows nothing useful — the network tab shows the file downloaded
-        with HTTP 200, then <code>document.fonts.load()</code> rejects with
-        <em>"A network error occurred."</em> The only signal is a missing glyph where a
-        real one should be.
+        Every operating system ships a "last-resort" fallback font — the box with a hex codepoint inside it (<span class="tofu">□</span>, called <em>tofu</em>) that appears when no installed font covers a character. The Unicode Consortium maintains the <a href="https://github.com/unicode-org/last-resort-font" rel="noopener">Last Resort Font</a> for exactly this purpose, but it only ships tofu boxes — no real glyphs. Essenfont exists to be the fallback that <em>actually renders the character</em> instead of its hex label.
       </p>
       <p>
-        Our website had 12 such blocks: emoticons, Tangut, ideographic symbols,
-        transport and map symbols, and others. All had donor glyphs. None reached the
-        browser.
+        Three constraints made this harder than it sounds:
       </p>
-
-      <h2>The fixes</h2>
-      <p>
-        Thirteen named commits across <code>fontist/fontisan</code>,
-        <code>essenfont/essenfont</code>, and <code>essenfont/essenfont.github.io</code>.
-        Each one closed a specific OTS rejection or build-pipeline gap.
-      </p>
-
-      <ol class="fixes">
-        {FIXES.map((fix, i) => (
-          <li>
-            <h3>
-              <a href={`https://github.com/${fix.repo}/pull/${fix.pr}`} target="_blank" rel="noopener">
-                {fix.title}
-              </a>
-              <span class="fix-meta">{fix.repo} · #{fix.pr}</span>
-            </h3>
-            <p>{fix.body}</p>
-          </li>
-        ))}
-      </ol>
-
-      <h2>The result</h2>
-      <p>
-        Every per-block WOFF2 subset now loads in Chrome. The canonical
-        <code>Essenfont-Regular.otc</code> carries CFF2 outlines for the donor fonts
-        that the legacy TTC (glyf-only) couldn't represent — Tangut (Noto Serif
-        Tangut), Ideographic Symbols (synthetic from code charts), Enclosed Ideographic
-        Supplement (synthetic), and color emoji bitmaps (NotoColorEmoji via CBDT/CBLC
-        passthrough).
-      </p>
-      <p>
-        <a href="/download">Download the OTC</a> or
-        <a href="/unicode">browse every codepoint</a>.
-      </p>
-
-      <h2>What's next</h2>
       <ul>
         <li>
-          <strong>Color emoji in WOFF2.</strong> The OTC has CBDT/CBLC; the per-block
-          WOFF2 subsets don't yet preserve them (fontisan subsetter strips tables it
-          doesn't recognize). Tracked in <code>TODO.emoji/</code>.
+          <strong>The glyph cap.</strong> A single OpenType face can hold at most 65,535 glyphs (16-bit glyph IDs). Unicode 17 has {formatNumber(stats.unicode.assignedCodepointCount)} assigned codepoints — roughly 2.5× the cap. A single TTF is physically impossible.
         </li>
         <li>
-          <strong>Tangut on the website.</strong> Donor is CFF-only; the TTC fallback
-          can't carry CFF. Once the website switches to subsetting from the OTC
-          (blocked on fontisan's CFF2 subsetter support), Tangut goes live.
+          <strong>Redistribution.</strong> A universal fallback must be freely redistributable: bundled with OSes, embedded in PDFs, shipped in software. Every donor glyph has to be cleared for OFL redistribution, or the whole font is poisoned.
         </li>
         <li>
-          <strong>Astro migration.</strong> Plan in <code>TODO.astro/</code>. Faster
-          builds, MDX changelog, smaller JS payload.
+          <strong>Authorship.</strong> Designing {formatNumber(stats.unicode.assignedCodepointCount)} glyphs by hand is a multi-decade project no one has finished. Canonical donor fonts (Noto, Full-Sung, etc.) already cover every assigned script authoritatively. Duplicating their work would either waste effort or introduce inconsistency. Essenfont's job is assembly, not authorship.
         </li>
       </ul>
+      <p>
+        The result is one OpenType Collection with five plane subfonts, each under the cap, stitched from {stats.donorCount} donor fonts, and redistributable under OFL (with the non-commercial FSung restriction carried forward programmatically — see <a href="/engineering/sources">/engineering/sources</a>).
+      </p>
+
+      <h2>Compared to Last Resort Font</h2>
+      <table class="comparison">
+        <thead>
+          <tr><th></th><th>Last Resort Font</th><th>Essenfont</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Glyph source</th><td>Hand-drawn tofu boxes (hex codepoint label)</td><td>Vector outlines from {stats.donorCount} donor fonts</td></tr>
+          <tr><th scope="row">Coverage</th><td>Unicode 16</td><td>Unicode 17 (incl. Sidetic, Beria Erfe, Tai Yo, Egyptian Hieroglyphs Extended-B)</td></tr>
+          <tr><th scope="row">CJK</th><td>Noto Sans CJK (partial)</td><td>Full-Sung (Taiwan 全宋體) — every CJK extension through Unicode 17 Ext J</td></tr>
+          <tr><th scope="row">License</th><td>OFL</td><td>OFL + FSung non-commercial restriction, propagated to <code>name</code> table</td></tr>
+          <tr><th scope="row">Web embed</th><td>No</td><td>Per-plane and per-block WOFF2s</td></tr>
+          <tr><th scope="row">Output format</th><td>Single TTF in repo</td><td>OTC (5 faces) + per-plane TTFs + WOFF2s, distributed via GitHub Releases</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Read deeper</h2>
+    </section>
+
+    <nav class="card-grid">
+      {cards.map(c => (
+        <a href={c.href} class="card">
+          <span class="card-eyebrow">{c.eyebrow}</span>
+          <h3 class="card-title">{c.title}</h3>
+          <p class="card-body">{c.body}</p>
+          <span class="card-cta">read →</span>
+        </a>
+      ))}
+    </nav>
+
+    <section class="prose">
+      <p class="see-also">
+        For the registry of every donor font and its license, see <a href="/donors">/donors</a>. For glyph-by-glyph attribution, see <a href="/provenance">/provenance</a>. For install and CSS embed instructions, see <a href="/docs">/docs</a>.
+      </p>
     </section>
   </article>
 </BaseLayout>
 
 <style>
-.engineering {
-  max-width: 720px;
+.engineering-hub {
+  max-width: 880px;
   margin: 0 auto;
   padding: 4rem 1.5rem 6rem;
 }
 .page-head { margin-bottom: 3rem; }
 .eyebrow {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -226,16 +149,16 @@ const FIXES: Fix[] = [
   margin: 0 0 0.5rem;
 }
 h1 {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1.1;
   margin: 0 0 1rem;
-  color: var(--spec-ink, #1c1a18);
+  color: var(--ef-text);
 }
 .lede {
   font-size: 1.125rem;
   line-height: 1.6;
-  color: var(--spec-ink, #1c1a18);
+  color: var(--ef-text);
   opacity: 0.85;
 }
 .stats-grid {
@@ -244,12 +167,12 @@ h1 {
   gap: 1.5rem;
   margin: 3rem 0;
   padding: 2rem 0;
-  border-top: 1px solid var(--spec-ink, #1c1a18);
-  border-bottom: 1px solid var(--spec-ink, #1c1a18);
+  border-top: 1px solid var(--ef-text);
+  border-bottom: 1px solid var(--ef-text);
 }
 .stat { text-align: left; }
 .stat-num {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: 2.5rem;
   line-height: 1;
   color: var(--ef-rose, #bf4e6a);
@@ -257,64 +180,112 @@ h1 {
 .stat-cap {
   font-size: 0.875rem;
   margin-top: 0.5rem;
-  color: var(--spec-ink, #1c1a18);
+  color: var(--ef-text);
   opacity: 0.7;
 }
+.prose { margin-top: 1rem; }
 .prose h2 {
-  font-family: var(--display-font, Spectral, serif);
+  font-family: var(--spec-font-display);
   font-size: 1.75rem;
   margin: 2.5rem 0 1rem;
 }
 .prose p, .prose li {
   font-size: 1rem;
   line-height: 1.7;
-  color: var(--spec-ink, #1c1a18);
+  color: var(--ef-text);
+}
+.prose a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .prose code {
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
+  font-family: var(--spec-font-mono);
   background: rgba(0,0,0,0.05);
   padding: 0.1em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
 }
-ol.fixes {
-  list-style: none;
-  padding: 0;
-  counter-reset: fix;
+.prose .tofu {
+  display: inline-block;
+  font-family: var(--spec-font-mono);
+  border: 1px solid currentColor;
+  padding: 0 0.35em;
+  font-size: 0.9em;
+  opacity: 0.6;
 }
-ol.fixes li {
-  counter-increment: fix;
-  position: relative;
-  padding-left: 3rem;
-  margin-bottom: 2rem;
+.comparison {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 1rem 0 2rem;
 }
-ol.fixes li::before {
-  content: counter(fix, decimal-leading-zero);
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.875rem;
-  color: var(--ef-rose, #bf4e6a);
+.comparison th, .comparison td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid rgba(128,128,128,0.2);
+  vertical-align: top;
+}
+.comparison thead th {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text);
   opacity: 0.7;
 }
-ol.fixes h3 {
-  font-size: 1.1rem;
+.comparison tbody th { font-weight: 600; opacity: 0.85; }
+.comparison td code { font-size: 0.85em; }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 3rem;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.card:hover {
+  border-color: var(--ef-rose, #bf4e6a);
+  transform: translateY(-1px);
+}
+.card-eyebrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ef-rose, #bf4e6a);
+  margin-bottom: 0.5rem;
+}
+.card-title {
+  font-family: var(--spec-font-display);
+  font-size: 1.2rem;
   margin: 0 0 0.5rem;
-  font-weight: 600;
 }
-ol.fixes h3 a {
-  color: var(--spec-ink, #1c1a18);
-  text-decoration: underline;
-  text-decoration-color: var(--ef-rose, #bf4e6a);
-  text-underline-offset: 3px;
+.card-body {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  opacity: 0.8;
+  margin: 0 0 1rem;
+  flex: 1;
 }
-.fix-meta {
-  display: block;
-  font-family: var(--mono-font, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem;
-  color: var(--spec-ink, #1c1a18);
-  opacity: 0.6;
-  margin-top: 0.25rem;
+.card-cta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-rose, #bf4e6a);
+}
+.see-also {
+  font-size: 0.92rem !important;
+  opacity: 0.75 !important;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(128,128,128,0.2);
 }
 </style>

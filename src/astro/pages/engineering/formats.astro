@@ -1,0 +1,332 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadStats } from '../../lib/stats';
+import { formatBytes, formatNumber } from '../../lib/ssr';
+
+const stats = loadStats();
+
+const formats = [
+  {
+    file: 'Essenfont-Regular.otc',
+    desc: 'OpenType Collection, glyf outlines, 5 plane subfonts. Canonical desktop-install form — macOS Font Book, Windows Font Settings, Linux fontconfig.',
+    size: formatBytes(stats.fontBinaries.otcSizeBytes),
+    use: 'Desktop install',
+  },
+  {
+    file: 'Essenfont-CFF2-Regular.otc',
+    desc: 'Same coverage, CFF2 outlines instead of glyf. ~35% smaller. Carries Tangut, Ideographic Symbols, and color emoji bitmaps that the glyf TTC cannot represent.',
+    size: '~35% smaller',
+    use: 'Modern desktop',
+  },
+  {
+    file: 'Essenfont-{BMP,SMP,SIP,TIP,SSP}.ttf',
+    desc: "Five standalone TTFs, one per Unicode plane. For clients that don't enumerate OTC faces — older Linux fontconfig, some PDF embedders, certain app font pickers.",
+    size: 'Per plane',
+    use: 'Legacy clients',
+  },
+  {
+    file: 'Essenfont-{BMP,SMP,SIP,TIP,SSP}.woff2',
+    desc: 'Per-plane WOFF2s for @font-face web embeds with unicode-range. OTC containers are not browser-embeddable — @font-face rejects collection formats.',
+    size: '~50% smaller than TTF',
+    use: 'Whole-plane web embed',
+  },
+  {
+    file: 'Per-block WOFF2 subsets (this site)',
+    desc: `${stats.websiteSubsets.woff2Count} small WOFF2s — one per Unicode block — subset from the canonical TTC by fontisan. Wired to unicode-range in fonts.css so a visitor reading one page downloads only that block (~30–80 KB each).`,
+    size: formatBytes(stats.websiteSubsets.woff2TotalBytes) + ' total',
+    use: 'Per-page web embed',
+  },
+];
+---
+<BaseLayout
+  title="Output formats & distribution — Engineering — Essenfont"
+  description="Essenfont ships in five shapes — OTC (canonical), CFF2 OTC (compact), per-plane TTFs, per-plane WOFF2s, and per-block WOFF2 subsets. Plus the release pipeline: tag → CI → GitHub Release → website."
+  canonical="/engineering/formats"
+>
+  <article class="formats-page">
+    <header class="page-head">
+      <p class="eyebrow"><a href="/engineering">Engineering</a> · Where · users</p>
+      <h1>Output formats & distribution</h1>
+      <p class="lede">
+        One build, five shapes — each tuned for a different audience: desktop
+        install, modern desktop, legacy clients, whole-plane web embed, and
+        per-page web embed. The release pipeline carries every shape from
+        build to GitHub Releases to this website automatically.
+      </p>
+    </header>
+
+    <section class="prose">
+      <h2>The five output formats</h2>
+      <div class="format-grid">
+        {formats.map(f => (
+          <div class="format-card">
+            <div class="format-head">
+              <code class="format-file">{f.file}</code>
+              <span class="format-use">{f.use}</span>
+            </div>
+            <p class="format-desc">{f.desc}</p>
+            <p class="format-size">{f.size}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>Desktop install</h2>
+      <p>
+        The canonical download is <code>Essenfont-Regular.otc</code> ({formatBytes(stats.fontBinaries.otcSizeBytes)}). On install, the OS enumerates the five faces inside the collection:
+      </p>
+      <dl class="install">
+        <dt>macOS</dt>
+        <dd>
+          Double-click <code>Essenfont-Regular.otc</code> → Font Book shows five faces (BMP, SMP, SIP, TIP, SSP) → "Install All". Each face appears individually in app font menus.
+        </dd>
+        <dt>Windows</dt>
+        <dd>
+          Right-click → "Install for all users". Faces appear individually in app font menus.
+        </dd>
+        <dt>Linux</dt>
+        <dd>
+          <code>cp Essenfont-Regular.otc ~/.local/share/fonts/ &amp;&amp; fc-cache -fv</code>. Use <code>fc-list | grep -i essenfont</code> to verify.
+        </dd>
+      </dl>
+      <p>
+        Once installed, configure your browser or OS to use Essenfont as the last-resort fallback font. Any codepoint not covered by your active font will render via Essenfont — eliminating tofu across every app that respects the system font fallback chain.
+      </p>
+
+      <h2>Web embed: per-plane vs per-block</h2>
+      <p>
+        Two ways to embed Essenfont in a web page:
+      </p>
+      <h3>Per-plane (whole font)</h3>
+      <p>
+        Use this when you want one CSS rule covering an entire plane — for example, a forum or wiki that may see any character from any visitor.
+      </p>
+      <pre><code>@font-face &#123;
+  font-family: 'essenfont';
+  src: url('https://github.com/essenfont/essenfont/releases/latest/download/Essenfont-BMP.woff2') format('woff2');
+  font-display: swap;
+  unicode-range: U+0000-FFFF;
+&#125;
+/* repeat for SMP (U+10000-1FFFF), SIP (U+20000-2FFFF),
+   TIP (U+30000-3FFFF), SSP (U+E0000-EFFFF) */
+
+body &#123;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif, 'essenfont';
+&#125;</code></pre>
+
+      <h3>Per-block (this site's strategy)</h3>
+      <p>
+        This website serves {stats.websiteSubsets.woff2Count} small WOFF2s — one per Unicode block — instead of five big ones. A visitor reading about Cyrillic downloads the ~30 KB Cyrillic subset, not the entire BMP. The full CSS is generated by <code>scripts/subset-fonts.rb</code> into <code>public/fonts.css</code>:
+      </p>
+      <pre><code>/* one rule per Unicode block, ~210 total */
+@font-face &#123;
+  font-family: 'ef-cyrillic';
+  src: url('/fonts/Cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-04FF;
+&#125;
+/* ...Emoticons, Tangut, CJK Unified Ideographs, ...*/</code></pre>
+      <p>
+        Each block's WOFF2 is subset on-demand from the canonical TTC by fontisan's Ruby API (passing an <code>Array&lt;Integer&gt;</code> of codepoints to avoid shell argv limits on big blocks like Hangul Syllables' 11,184 codepoints).
+      </p>
+
+      <h2>Release pipeline</h2>
+      <p>
+        Essenfont ships via tag-triggered GitHub Actions in two repos:
+      </p>
+      <pre class="release-flow"><code>┌──────────────────────────────────────────────────────┐
+│ essenfont/essenfont  (build repo)                    │
+│                                                      │
+│  maintainer pushes tag v0.2.0                        │
+│              │                                       │
+│              ▼                                       │
+│  release.yml (tag trigger)                           │
+│    • set up Ruby 3.2 + bundler-cache                 │
+│    • ucode fetch fonts (most Noto donors)            │
+│    • download FSung files (Google Drive, see sources) │
+│    • bundle exec ruby scripts/build.rb --format=otc  │
+│    • bundle exec ruby scripts/build.rb --format=otc-cff2 │
+│    • bundle exec ruby scripts/build.rb --format=ttf-per-plane │
+│    • bundle exec ruby scripts/encode-woff.rb  (×5 planes)     │
+│    • bundle exec ruby scripts/emit_coverage_manifest.rb       │
+│    • upload all artifacts to GH Release v0.2.0        │
+│    • repository_dispatch → essenfont.github.io        │
+└──────────────────────┬───────────────────────────────┘
+                       │
+                       ▼
+┌──────────────────────────────────────────────────────┐
+│ essenfont/essenfont.github.io  (this site)           │
+│                                                      │
+│  site.yml (repository_dispatch + 6h schedule)        │
+│    • download latest Essenfont-Regular.ttc           │
+│    • bundle exec ruby scripts/subset-fonts.rb        │
+│      → public/fonts/*.woff2 (209 per-block subsets)  │
+│    • npm ci + npm run build (Astro SSG, 160k routes) │
+│    • deploy to GitHub Pages                          │
+└──────────────────────────────────────────────────────┘</code></pre>
+      <p>
+        The site polls every 6 hours for new releases and redeploys automatically — so when a new Essenfont tag is cut, this website's per-block WOFF2s and coverage numbers update without any manual intervention.
+      </p>
+
+      <h2>Reproducibility</h2>
+      <p>
+        The full distribution chain — donor binaries → OTC → per-plane TTFs → WOFF2s → per-block subsets — is reproducible from the committed manifests in two repos:
+      </p>
+      <pre><code># Build the font
+git clone https://github.com/essenfont/essenfont
+cd essenfont &amp;&amp; bundle install
+bundle exec ucode fetch fonts
+bundle exec ruby scripts/build.rb --format=otc
+
+# Subset for the web (this site)
+git clone https://github.com/essenfont/essenfont.github.io
+cd essenfont.github.io &amp;&amp; bundle install &amp;&amp; npm ci
+ESSENFONT_TTC=../essenfont/Essenfont-Regular.ttc bundle exec ruby scripts/subset-fonts.rb
+npm run build</code></pre>
+      <p>
+        The build never writes binaries to git. Donors come from <code>ucode fetch fonts</code> (Noto and similar) or manual download (Full-Sung from F.G. Wang's Google Drive). The resulting OTC and its subsets live in GitHub Releases and on GitHub Pages respectively.
+      </p>
+
+      <p>
+        Quick links: <a href="/download">download page</a>, <a href="/docs/install">install docs</a>, <a href="/docs/css">CSS embed docs</a>, <a href="/docs/api">npm package API</a>.
+      </p>
+
+      <p class="next">
+        Next: <a href="/engineering/coverage">coverage, gaps, and
+        roadmap</a> — what works today, what's blocked on upstream
+        fontisan fixes, and the lessons learned getting WOFF2 past
+        Chrome's OpenType Sanitizer.
+      </p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+.formats-page { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 3rem; }
+.eyebrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-rose, #bf4e6a);
+  margin: 0 0 0.5rem;
+}
+.eyebrow a { color: inherit; text-decoration: none; }
+.eyebrow a:hover { text-decoration: underline; }
+h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--ef-text);
+}
+.lede {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ef-text);
+  opacity: 0.85;
+}
+.prose h2 {
+  font-family: var(--spec-font-display);
+  font-size: 1.6rem;
+  margin: 2.5rem 0 1rem;
+}
+.prose h3 {
+  font-family: var(--spec-font-display);
+  font-size: 1.2rem;
+  margin: 1.5rem 0 0.5rem;
+}
+.prose p, .prose li {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ef-text);
+}
+.prose a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose code {
+  font-family: var(--spec-font-mono);
+  background: rgba(0,0,0,0.05);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.prose pre {
+  background: rgba(0,0,0,0.05);
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: var(--spec-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+}
+.prose pre code { background: none; padding: 0; }
+.release-flow { font-size: 0.68rem; line-height: 1.55; white-space: pre; }
+
+.format-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+}
+.format-card {
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(128,128,128,0.25);
+  border-radius: 4px;
+  border-left: 3px solid var(--ef-rose, #bf4e6a);
+}
+.format-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+.format-file {
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  background: rgba(0,0,0,0.05);
+  padding: 0.15em 0.5em;
+  border-radius: 3px;
+  word-break: break-all;
+}
+.format-use {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ef-rose, #bf4e6a);
+}
+.format-desc { font-size: 0.92rem; line-height: 1.55; margin: 0; }
+.format-size {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin: 0.4rem 0 0;
+}
+
+dl.install {
+  margin: 1rem 0;
+  border-left: 3px solid rgba(128,128,128,0.25);
+  padding-left: 1.25rem;
+}
+dl.install dt {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-rose, #bf4e6a);
+  margin-top: 0.75rem;
+}
+dl.install dt:first-child { margin-top: 0; }
+dl.install dd { margin: 0.25rem 0 0; font-size: 0.92rem; line-height: 1.55; }
+
+.next {
+  margin-top: 3rem !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128,128,128,0.2);
+  font-size: 0.95rem !important;
+}
+</style>

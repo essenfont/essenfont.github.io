@@ -1,35 +1,728 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadDonors } from '../../lib/donors';
+import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, type CoverageRow } from '../../lib/donors';
+import { slugifyBlockName } from '../../lib/unicode';
 
 export async function getStaticPaths() {
-  const donors = loadDonors();
-  return donors.map(d => ({ params: { slug: d.slug }, props: { donor: d } }));
+  return listDonorSlugs().map(slug => ({ params: { slug } }));
 }
-const { donor } = Astro.props;
+
+const { slug } = Astro.params;
+const donor = loadDonorDetail(slug!);
+
+if (!donor) {
+  return Astro.redirect('/donors');
+}
+
+const coverageRows = loadDonorCoverage(donor);
+
+const ROMAN: Array<string | null> = [
+  '0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
+  'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI',
+];
+
+function romanPlane(n: number | null): string {
+  if (n === null || n === undefined) return '—';
+  return ROMAN[n] || String(n);
+}
+
+function roleLabel(role: string): string {
+  if (role === 'primary') return 'Primary donor';
+  if (role === 'secondary') return 'Defense in depth';
+  if (role === 'redundant') return 'Redundant';
+  return 'Donor';
+}
+
+function relationshipLabel(rel: { kind: string; primary: string } | undefined): string {
+  if (!rel) return '';
+  if (rel.kind === 'redundant') return `Redundant with ${rel.primary} (primary)`;
+  if (rel.kind === 'subsumed') return `Subsumed by ${rel.primary} (primary)`;
+  if (rel.kind === 'secondary') return `Secondary to ${rel.primary} (primary)`;
+  return '';
+}
+
+const sectionNum = (n: number) =>
+  ['I.', 'II.', 'III.', 'IV.', 'V.'][n - 1] || `${n}.`;
+
+let nextSection = 1;
+const numI = sectionNum(nextSection++);
+const numII = donor.notes || donor.author_note ? sectionNum(nextSection++) : null;
+const numIII = donor.license_category === 'accepted_with_conditions'
+  ? sectionNum(nextSection++)
+  : sectionNum(nextSection++);
+const numIV = donor.license_category === 'accepted_with_conditions'
+  ? sectionNum(nextSection++)
+  : null;
+const numV = (donor.web || donor.url || donor.url_mirror)
+  ? sectionNum(nextSection++)
+  : null;
+
+const rel = relationshipLabel(donor.relationship);
 ---
-<BaseLayout title={`${donor.family} — Donor — Essenfont`} description={`${donor.family}: ${donor.role} donor covering ${donor.covers_count} Unicode blocks.`} canonical={`/donors/${donor.slug}`}>
-  <article class="donor-detail">
-    <p class="eyebrow"><a href="/donors">← Donors</a></p>
-    <h1>{donor.family}</h1>
-    <dl class="props">
-      <dt>License</dt><dd>{donor.license}</dd>
-      <dt>Role</dt><dd>{donor.role}</dd>
-      <dt>Source type</dt><dd>{donor.source_type}</dd>
-      <dt>Blocks covered</dt><dd>{donor.covers_count}</dd>
-      <dt>File count</dt><dd>{donor.file_count}</dd>
-      <dt>First block</dt><dd>{donor.first_cover}</dd>
-    </dl>
-    <p class="author">{donor.author}</p>
-  </article>
+<BaseLayout
+  title={`${donor.family} — Donor — Essenfont`}
+  description={`${donor.family}: ${roleLabel(donor.role)} covering ${donor.covers_blocks?.length ?? 0} Unicode blocks under ${donor.license}.`}
+  canonical={`/donors/${donor.slug}`}
+>
+  <div class="dd" data-pagefind-body>
+    <div class:list={["accession", `accession--${donor.role}`]}>
+      <div class="accession-inner">
+        <span class="accession-mark">№</span>
+        <span class="accession-role">{roleLabel(donor.role)}</span>
+        {donor.planes?.length > 0 && (
+          <>
+            <span class="accession-sep">·</span>
+            <span class="accession-planes">{donor.planes.join(' · ')}</span>
+          </>
+        )}
+        {donor.planes?.length > 0 && <span class="accession-sep">·</span>}
+        <span class="accession-license">{donor.license}</span>
+        <span class="accession-spacer"></span>
+        {donor.files.length > 1 && (
+          <span class="accession-files">{donor.files.length} files</span>
+        )}
+      </div>
+    </div>
+
+    <div class="dd-body">
+      <nav class="dd-crumbs">
+        <a href="/donors">Donors</a>
+        <span class="dd-crumb-sep">/</span>
+        <span class="dd-crumb-current">{donor.family}</span>
+      </nav>
+
+      <header class="dd-title">
+        <h1>{donor.family}</h1>
+        {donor.author && <p class="dd-author">{donor.author}</p>}
+        {rel && <p class="dd-relationship">{rel}</p>}
+      </header>
+
+      {donor.source_type === 'code-chart' && (
+        <div class="dd-codechart">
+          <div class="dd-cc-head">
+            <span class="dd-cc-badge">Code Chart Symbol</span>
+            <span class="dd-cc-tag">Tier 2 — not a font file</span>
+          </div>
+          {donor.notes && <p class="dd-cc-desc">{donor.notes}</p>}
+          {donor.code_chart_urls && donor.code_chart_urls.length > 0 && (
+            <div class="dd-cc-links">
+              {donor.code_chart_urls.map((cc) => (
+                <a href={cc.url} target="_blank" rel="noopener" class="dd-cc-link">
+                  <span class="dd-cc-link-label">Unicode Code Chart PDF</span>
+                  <span class="dd-cc-link-block">{cc.block}</span>
+                  <span class="dd-cc-link-arrow">↗</span>
+                </a>
+              ))}
+              {donor.code_chart_urls[0]?.index_url && (
+                <a href={donor.code_chart_urls[0].index_url} target="_blank" rel="noopener" class="dd-cc-link dd-cc-link-secondary">
+                  <span class="dd-cc-link-label">Unicode Block Index</span>
+                  <span class="dd-cc-link-arrow">↗</span>
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {coverageRows.length > 0 && (
+        <section class="dd-section dd-coverage">
+          <div class="dd-section-head">
+            <span class="dd-section-num">{numI}</span>
+            <h2>Coverage</h2>
+            <span class="dd-section-meta">{coverageRows.length} {coverageRows.length === 1 ? 'block' : 'blocks'}</span>
+          </div>
+          {donor.role === 'secondary' ? (
+            <p class="dd-section-lede">
+              This donor provides <strong>defense-in-depth</strong> coverage — it
+              ships the same blocks as a primary donor (or a subset thereof).
+              Listed for completeness and source provenance.
+            </p>
+          ) : (
+            <p class="dd-section-lede">
+              Each row below shows what fraction of the block this donor
+              contributes. Click a block to see its characters rendered.
+            </p>
+          )}
+          <ol class="coverage-list">
+            {coverageRows.map((row: CoverageRow) => (
+              <li class:list={["coverage-row", { 'coverage-row--zero': row.covered === 0 }]}>
+                <div class="coverage-block">
+                  <a href={`/unicode/block/${slugifyBlockName(row.block)}`} class="coverage-block-name">{row.block}</a>
+                  <span class="coverage-plane">
+                    <span class="coverage-plane-code">{row.plane}</span>
+                    <span class="coverage-plane-roman">{romanPlane(row.plane_index)}</span>
+                  </span>
+                </div>
+                <div class="coverage-range">{row.range}</div>
+                <div class="coverage-bar-wrap">
+                  <div class="coverage-bar">
+                    <div
+                      class:list={["coverage-bar-fill", `fill--${donor.role}`]}
+                      style={`width: ${Math.max(row.pct, row.covered > 0 ? 2 : 0)}%`}
+                    ></div>
+                  </div>
+                  <div class="coverage-count">
+                    <span class="coverage-count-covered">{row.covered.toLocaleString()}</span>
+                    <span class="coverage-count-sep">/</span>
+                    <span class="coverage-count-total">{row.total.toLocaleString()}</span>
+                  </div>
+                  <div class="coverage-pct">{row.pct}%</div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      {(donor.notes || donor.author_note) && (
+        <section class="dd-section">
+          <div class="dd-section-head">
+            <span class="dd-section-num">{numII}</span>
+            <h2>Why this donor</h2>
+          </div>
+          {donor.notes && <p class="dd-prose">{donor.notes}</p>}
+          {donor.author_note && <p class="dd-prose dd-prose-note">{donor.author_note}</p>}
+        </section>
+      )}
+
+      {donor.license_category === 'accepted_with_conditions' && (
+        <section class="dd-section dd-license-section">
+          <div class="dd-section-head">
+            <span class="dd-section-num">{numIII}</span>
+            <h2>License conditions</h2>
+            <span class="dd-section-meta dd-meta-warn">restrictive</span>
+          </div>
+          {donor.license_summary && <p class="dd-prose">{donor.license_summary}</p>}
+          {donor.license_statement && (
+            <figure class="dd-statement">
+              <figcaption>Full statement</figcaption>
+              <pre>{donor.license_statement}</pre>
+            </figure>
+          )}
+        </section>
+      )}
+
+      <section class="dd-section">
+        <div class="dd-section-head">
+          <span class="dd-section-num">{donor.license_category === 'accepted_with_conditions' ? numIV : numIII}</span>
+          <h2>Font files</h2>
+          <span class="dd-section-meta">{donor.files.length} {donor.files.length === 1 ? 'file' : 'files'}</span>
+        </div>
+        {donor.files.length > 1 && (
+          <p class="dd-section-lede">
+            This donor ships as multiple files — each covering a Unicode
+            plane or extension.
+          </p>
+        )}
+        <div class="dd-files">
+          {donor.files.map((f) => (
+            <article class:list={["dd-file", { 'dd-file--disabled': f.enabled === false }]}>
+              <header class="dd-file-head">
+                <code class="dd-file-label">{f.label}</code>
+                {f.style && <span class="dd-file-style">{f.style}</span>}
+                {f.version && <span class="dd-file-version">v{f.version}</span>}
+                {f.enabled === false && <span class="dd-file-disabled-tag">disabled</span>}
+              </header>
+              <dl class="dd-file-meta">
+                <dt>path</dt>
+                <dd><code>{f.file}</code></dd>
+                <dt>sha-256</dt>
+                <dd><code class="dd-sha">{f.sha256}</code></dd>
+              </dl>
+              {f.notes && <p class="dd-file-notes">{f.notes}</p>}
+              <div class="dd-file-links">
+                {f.url && <a href={f.url} target="_blank" rel="noopener">download ↗</a>}
+                {f.url_mirror && <a href={f.url_mirror} target="_blank" rel="noopener">mirror ↗</a>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {(donor.web || donor.url || donor.url_mirror) && (
+        <section class="dd-section dd-upstream">
+          <div class="dd-section-head">
+            <span class="dd-section-num">{numV}</span>
+            <h2>Upstream</h2>
+          </div>
+          <ul class="dd-upstream-list">
+            {donor.web && (
+              <li>
+                <span class="dd-upstream-label">project</span>
+                <a href={donor.web} target="_blank" rel="noopener">{donor.web}</a>
+              </li>
+            )}
+            {donor.url && (
+              <li>
+                <span class="dd-upstream-label">download</span>
+                <a href={donor.url} target="_blank" rel="noopener">{donor.url}</a>
+              </li>
+            )}
+            {donor.url_mirror && (
+              <li>
+                <span class="dd-upstream-label">mirror</span>
+                <a href={donor.url_mirror} target="_blank" rel="noopener">{donor.url_mirror}</a>
+              </li>
+            )}
+          </ul>
+        </section>
+      )}
+    </div>
+  </div>
 </BaseLayout>
+
 <style>
-.donor-detail { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.eyebrow { font-family: var(--mono-font, monospace); font-size: 0.75rem; opacity: 0.6; }
-.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
-h1 { font-family: var(--display-font, Spectral, serif); font-size: 2rem; margin: 0.5rem 0 1.5rem; }
-.props { display: grid; grid-template-columns: max-content 1fr; gap: 0.5rem 1.5rem; margin: 0 0 1.5rem; }
-dt { font-family: var(--mono-font, monospace); font-size: 0.75rem; text-transform: uppercase; opacity: 0.5; }
-dd { margin: 0; }
-.author { font-size: 0.875rem; opacity: 0.7; line-height: 1.5; }
+.dd { max-width: 920px; margin: 0 auto; padding: 0 0 4rem; }
+
+.accession {
+  border-bottom: 1px solid var(--ef-rule);
+  background: var(--ef-surface);
+}
+.accession--secondary,
+.accession--redundant {
+  background: linear-gradient(
+    to right,
+    rgba(107, 122, 63, 0.08),
+    rgba(107, 122, 63, 0.02)
+  );
+  border-bottom-color: rgba(107, 122, 63, 0.3);
+}
+.accession-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0.65rem 1.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ef-text-3);
+}
+.accession-mark {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--ef-accent);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.accession-role { color: var(--ef-text); }
+.accession--secondary .accession-role,
+.accession--redundant .accession-role { color: #6b7a3f; }
+.accession-sep { opacity: 0.4; }
+.accession-spacer { flex: 1; }
+.accession-files { color: var(--ef-text-3); }
+
+.dd-body { padding: 0 1.5rem; }
+.dd-crumbs {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--ef-text-3);
+  padding-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.dd-crumbs a { color: var(--ef-accent); text-decoration: none; }
+.dd-crumbs a:hover { text-decoration: underline; }
+.dd-crumb-sep { opacity: 0.5; }
+.dd-crumb-current { color: var(--ef-text); }
+
+.dd-title {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--ef-accent);
+}
+.dd-title h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.4rem;
+  color: var(--ef-text);
+  font-variation-settings: "opsz" 72;
+}
+.dd-author {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--ef-text-2);
+  margin: 0;
+  line-height: 1.4;
+}
+.dd-relationship {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: #6b7a3f;
+  margin: 0.5rem 0 0;
+  letter-spacing: 0.02em;
+}
+
+.dd-section { margin-bottom: 2.5rem; }
+.dd-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.dd-section-num {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ef-accent);
+  letter-spacing: 0;
+  min-width: 1.5rem;
+}
+.dd-section-head h2 {
+  font-family: var(--spec-font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ef-text);
+  margin: 0;
+  letter-spacing: -0.01em;
+  flex: 1;
+  font-variation-settings: "opsz" 32;
+}
+.dd-section-meta {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ef-text-3);
+}
+.dd-meta-warn { color: var(--ef-red); }
+.dd-section-lede {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ef-text-2);
+  margin: 0 0 1.25rem;
+  max-width: 640px;
+}
+.dd-section-lede strong { color: var(--ef-text); font-weight: 600; }
+
+.coverage-list { list-style: none; padding: 0; margin: 0; }
+.coverage-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.4fr) auto minmax(200px, 1.6fr);
+  gap: 1.25rem;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.coverage-row:last-child { border-bottom: none; }
+.coverage-row--zero { opacity: 0.45; }
+.coverage-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.coverage-block-name {
+  font-family: var(--spec-font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--ef-text);
+  text-decoration: none;
+  letter-spacing: -0.005em;
+  line-height: 1.2;
+}
+.coverage-block-name:hover { color: var(--ef-accent); text-decoration: underline; }
+.coverage-plane {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ef-text-3);
+}
+.coverage-plane-code { font-weight: 600; color: var(--ef-accent); }
+.coverage-plane-roman {
+  font-family: var(--spec-font-display);
+  font-style: italic;
+  font-size: 0.78rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ef-text-3);
+}
+.coverage-range {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text-2);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.coverage-bar-wrap {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+.coverage-bar {
+  height: 4px;
+  background: var(--ef-rule);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.coverage-bar-fill {
+  height: 100%;
+  background: var(--ef-accent);
+  transition: width 0.3s ease;
+}
+.fill--secondary, .fill--redundant { background: #6b7a3f; }
+.coverage-count {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.coverage-count-covered { font-weight: 600; }
+.coverage-count-sep { color: var(--ef-text-3); margin: 0 0.1rem; }
+.coverage-count-total { color: var(--ef-text-3); }
+.coverage-pct {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--ef-text-3);
+  font-variant-numeric: tabular-nums;
+  min-width: 3.5rem;
+  text-align: right;
+}
+
+.dd-prose {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--ef-text-2);
+  margin: 0 0 0.8rem;
+  max-width: 640px;
+}
+.dd-prose strong { color: var(--ef-text); font-weight: 600; }
+.dd-prose-note { font-style: italic; color: var(--ef-text-3); }
+
+.dd-statement {
+  margin: 1rem 0 0;
+  padding: 1rem 1.25rem;
+  background: var(--ef-surface);
+  border-left: 3px solid var(--ef-accent);
+  border-radius: 4px;
+}
+.dd-statement figcaption {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ef-text-3);
+  margin-bottom: 0.5rem;
+}
+.dd-statement pre {
+  font-family: var(--spec-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--ef-text);
+}
+
+.dd-files { display: flex; flex-direction: column; gap: 0.75rem; }
+.dd-file {
+  padding: 1rem 1.25rem;
+  background: var(--ef-surface);
+  border: 1px solid var(--ef-rule);
+  border-radius: var(--ef-radius-sm);
+}
+.dd-file--disabled { opacity: 0.6; border-left: 3px solid var(--ef-text-3); }
+.dd-file-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
+}
+.dd-file-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ef-accent);
+}
+.dd-file-style, .dd-file-version {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  color: var(--ef-text-3);
+}
+.dd-file-disabled-tag {
+  font-family: var(--spec-font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  background: var(--ef-text-3);
+  color: var(--ef-bg);
+}
+.dd-file-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+}
+.dd-file-meta dt {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text-3);
+  align-self: baseline;
+}
+.dd-file-meta dd { margin: 0; }
+.dd-file-meta dd code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.76rem;
+  color: var(--ef-text-2);
+  word-break: break-all;
+}
+.dd-sha { font-size: 0.72rem; color: var(--ef-text-3); }
+.dd-file-notes {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--ef-text-2);
+  margin: 0.6rem 0 0.5rem;
+}
+.dd-file-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.4rem;
+}
+.dd-file-links a {
+  font-family: var(--spec-font-mono);
+  font-size: 0.74rem;
+  color: var(--ef-accent);
+  text-decoration: none;
+  text-transform: lowercase;
+}
+.dd-file-links a:hover { text-decoration: underline; }
+
+.dd-upstream-list { list-style: none; padding: 0; margin: 0; }
+.dd-upstream-list li {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--ef-rule);
+  align-items: baseline;
+}
+.dd-upstream-list li:last-child { border-bottom: none; }
+.dd-upstream-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ef-text-3);
+}
+.dd-upstream-list a {
+  font-family: var(--spec-font-mono);
+  font-size: 0.8rem;
+  color: var(--ef-accent);
+  text-decoration: none;
+  word-break: break-all;
+}
+.dd-upstream-list a:hover { text-decoration: underline; }
+
+.dd-codechart {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--ef-accent-soft);
+  border: 1px solid var(--ef-rule);
+  border-left: 3px solid var(--ef-accent);
+  border-radius: 8px;
+}
+.dd-cc-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+.dd-cc-badge {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-accent);
+  padding: 0.2rem 0.5rem;
+  background: var(--ef-accent-muted);
+  border-radius: 3px;
+}
+.dd-cc-tag {
+  font-family: var(--spec-font-mono);
+  font-size: 0.68rem;
+  color: var(--ef-text-3);
+}
+.dd-cc-desc {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ef-text-2);
+  margin: 0 0 0.75rem;
+}
+.dd-cc-links { display: flex; flex-direction: column; gap: 0.35rem; }
+.dd-cc-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--ef-raised);
+  border: 1px solid var(--ef-rule);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+.dd-cc-link:hover { border-color: var(--ef-accent); text-decoration: none; }
+.dd-cc-link-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ef-text-3);
+}
+.dd-cc-link-block {
+  font-family: var(--spec-font-display);
+  font-size: 0.92rem;
+  color: var(--ef-text);
+  flex: 1;
+}
+.dd-cc-link-arrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  color: var(--ef-accent);
+}
+.dd-cc-link-secondary { background: transparent; border-style: dashed; }
+
+@media (max-width: 720px) {
+  .coverage-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+  }
+  .coverage-bar-wrap { grid-template-columns: 1fr auto; }
+  .coverage-pct { display: none; }
+  .accession-inner { flex-wrap: wrap; }
+}
 </style>
