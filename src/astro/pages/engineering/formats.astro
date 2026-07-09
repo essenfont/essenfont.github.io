@@ -34,7 +34,7 @@ const formats = [
 ---
 <BaseLayout
   title="Output formats & distribution — Engineering — Essenfont"
-  description="How the build produces output shapes from one TTC, plus the release pipeline (tag → CI → GitHub Release → website) and reproducibility recipe."
+  description="How the build produces four output shapes from one TTC, plus the release pipeline (tag → CI → GitHub Release → website) and reproducibility recipe."
   canonical="/engineering/formats"
 >
   <article class="formats-page">
@@ -42,12 +42,12 @@ const formats = [
       <p class="eyebrow"><a href="/engineering">Engineering</a> · Where · users</p>
       <h1>Output formats & distribution</h1>
       <p class="lede">
-        One build, six shapes — each tuned for a different audience: desktop install, modern desktop, legacy tooling, per-plane TTF/WOFF2, and the per-block WOFF2 subsets this site serves. If you landed here looking for install commands or CSS embedding patterns, see the new <a href="/docs/usage">How to use</a> guide.
+        One build, four shapes — each tuned for a different audience: desktop install, legacy + PDF, whole-plane web embed, and per-page web embed. If you landed here looking for install commands or CSS embedding patterns, see the <a href="/docs/usage">How to use</a> guide.
       </p>
     </header>
 
     <section class="prose">
-      <h2>The six output formats</h2>
+      <h2>The four output formats</h2>
       <div class="format-grid">
         {formats.map(f => (
           <div class="format-card">
