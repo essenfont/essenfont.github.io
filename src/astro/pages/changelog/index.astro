@@ -3,81 +3,135 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadReleases } from '../../lib/donors';
 
 const releases = loadReleases();
-const latest = releases[0];
+const GH_RELEASES_URL = 'https://github.com/essenfont/essenfont/releases';
+const GH_NPM_URL = 'https://www.npmjs.com/package/essenfont';
 ---
-
-<BaseLayout
-  title="Changelog — Essenfont"
-  description="Release history for the Essenfont universal Unicode 17 font."
-  canonical="/changelog"
-  active="changelog"
->
-  <section class="section changelog-head">
-    <div class="container">
-      <div class="changelog-head-grid">
-        <div class="changelog-meta rise-1">
-          <p class="eyebrow">§ History</p>
-          <p class="folio" style="margin-top: 1rem;">No. {releases.length} releases</p>
-        </div>
-        <div class="changelog-pitch rise-2">
-          <h1>The <em class="text-ochre">ledger</em>.</h1>
-          <p class="lede" style="margin-top: 2rem;">
-            Every Essenfont release ships with a regenerated donor registry,
-            coverage report, and per-codepoint provenance manifest. This is
-            the running ledger of what changed, when, and why.
-          </p>
-        </div>
-      </div>
+<BaseLayout title="Changelog — Essenfont" description="Release history for the Essenfont universal Unicode 17 font." canonical="/changelog">
+  <div class="changelog">
+    <header class="page-head">
+      <p class="eyebrow">Changelog</p>
+      <h1>Release history</h1>
+      <p class="subtitle">
+        Every release is published simultaneously on GitHub Releases and npm.
+        Subscribe to
+        <a href={GH_RELEASES_URL} target="_blank" rel="noopener">essenfont/essenfont/releases</a>
+        or watch the
+        <a href={GH_NPM_URL} target="_blank" rel="noopener"><code>essenfont</code> npm package</a>
+        for updates.
+      </p>
+    </header>
+    {releases.length === 0 ? (
+      <p class="empty">No releases yet. The first release is coming soon.</p>
+    ) : (
+      <ul class="release-list">
+        {releases.map(r => (
+          <li class:list={["release-row", { 'release-latest': r.isLatest }]}>
+            <a href={`/changelog/${r.tag}`} class="release-tag">
+              {r.tag}
+              {r.isLatest && <span class="release-pill">latest</span>}
+            </a>
+            <span class="release-name">{r.name}</span>
+            <time>{r.date}</time>
+          </li>
+        ))}
+      </ul>
+    )}
+    <div class="external-links">
+      <a href={GH_RELEASES_URL} target="_blank" rel="noopener" class="external-cta">
+        View all releases on GitHub →
+      </a>
     </div>
-  </section>
-
-  <section class="section changelog-list">
-    <div class="container">
-      {releases.length === 0 ? (
-        <div class="empty reveal">
-          <p class="lede">No releases yet.</p>
-          <p class="text-ink-3" style="margin-top: 1rem;">
-            The first release is in preparation. Watch
-            <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">GitHub Releases</a>
-            for the announcement.
-          </p>
-        </div>
-      ) : (
-        <ol class="release-list">
-          {releases.map((r, idx) => (
-            <li class="release-row reveal" class:list={[{ latest: idx === 0 }]}>
-              <div class="release-marker">
-                <span class="release-index mono">{String(idx + 1).padStart(2, '0')}</span>
-                {idx === 0 && <span class="release-flag">latest</span>}
-              </div>
-              <div class="release-body">
-                <h3 class="release-tag">{r.tag}</h3>
-                <p class="release-name">{r.name}</p>
-                <div class="release-meta">
-                  <time class="mono" datetime={r.date}>{r.date}</time>
-                  <a href={`/changelog/${r.tag}`} class="release-link">Read the notes →</a>
-                  {r.otc_url && (
-                    <a href={r.otc_url} class="release-link" target="_blank" rel="noopener">Download OTC →</a>
-                  )}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ol>
-      )}
-    </div>
-  </section>
+  </div>
 </BaseLayout>
 
 <style>
-.changelog { max-width: 640px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--spec-font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
-h1 { font-family: var(--spec-font-display); font-size: 2rem; }
+.changelog { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
+.page-head { margin-bottom: 2.5rem; }
+.eyebrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ef-accent);
+  margin: 0 0 0.5rem;
+}
+h1 {
+  font-family: var(--spec-font-display);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
+}
+.subtitle {
+  font-size: 0.95rem;
+  color: var(--ef-text-2);
+  max-width: 600px;
+  line-height: 1.55;
+  margin: 0;
+}
+.subtitle a { color: var(--ef-accent); text-decoration: none; }
+.subtitle a:hover { text-decoration: underline; }
+.subtitle code { font-family: var(--spec-font-mono); font-size: 0.85em; }
 .empty { opacity: 0.6; }
-.release-list { list-style: none; padding: 0; }
-.release-list li { display: flex; align-items: baseline; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
-.release-tag { font-family: var(--spec-font-mono); font-weight: 600; color: var(--ef-rose, #bf4e6a); text-decoration: none; }
-.release-name { flex: 1; font-size: 0.875rem; opacity: 0.7; }
-time { font-family: var(--spec-font-mono); font-size: 0.75rem; opacity: 0.5; }
+.release-list { list-style: none; padding: 0; margin: 0 0 2rem; }
+.release-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--ef-rule);
+}
+.release-row.release-latest {
+  background: var(--ef-accent-soft);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: var(--ef-radius-sm);
+  margin: 0 -0.75rem;
+}
+.release-tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  font-family: var(--spec-font-mono);
+  font-weight: 700;
+  color: var(--ef-accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.release-tag:hover { text-decoration: underline; }
+.release-pill {
+  font-family: var(--spec-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--ef-accent);
+  color: white;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+.release-name { flex: 1; font-size: 0.9rem; color: var(--ef-text-2); }
+time {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  color: var(--ef-text-3);
+}
+.external-links { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--ef-rule); }
+.external-cta {
+  display: inline-block;
+  font-family: var(--spec-font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ef-accent);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--ef-accent);
+  border-radius: 999px;
+  transition: background 0.15s, color 0.15s;
+}
+.external-cta:hover {
+  background: var(--ef-accent);
+  color: white;
+  text-decoration: none;
+}
 </style>

@@ -5,18 +5,18 @@ const CDN_BASE = 'https://github.com/essenfont/essenfont/releases/latest/downloa
 const FONTIST_SNIPPET = `# Install the Fontist gem
 gem install fontist
 
-# Install Essenfont (downloads the OTC + registers it locally)
+# Install Essenfont (downloads the TTC + registers it locally)
 fontist install "Essenfont"`;
 
 const NPM_SNIPPET = `# Add to package.json
-npm install @essenfont/essenfont
+npm install essenfont
 # or yarn / pnpm / bun equivalent`;
 
 const CURL_SNIPPET = `# macOS / Linux
-curl -L -o Essenfont-Regular.otc ${CDN_BASE}/Essenfont-Regular.otc
+curl -L -o Essenfont-Regular.ttc ${CDN_BASE}/Essenfont-Regular.ttc
 
 # Windows (PowerShell)
-Invoke-WebRequest ${CDN_BASE}/Essenfont-Regular.otc -OutFile Essenfont-Regular.otc`;
+Invoke-WebRequest ${CDN_BASE}/Essenfont-Regular.ttc -OutFile Essenfont-Regular.ttc`;
 
 const PLANES = [
   { code: 'BMP', range: 'U+0000–U+FFFF',   file: 'Essenfont-BMP.woff2' },
@@ -38,7 +38,7 @@ const PLANES = [
     </header>
 
     <p>
-      Essenfont ships as a single OpenType Collection (OTC) containing
+      Essenfont ships as a single TrueType Collection (TTC) containing
       CFF2 outlines + CBDT color bitmaps. It's also available as a
       TrueType Collection (TTC) fallback for tooling that doesn't yet
       support CFF2, and as per-block WOFF2 subsets for the web.
@@ -47,7 +47,7 @@ const PLANES = [
     <h2 id="fontist">Fontist (recommended for tooling)</h2>
     <p>
       <a href="https://github.com/fontist/fontist">Fontist</a> is the
-      Ruby-based font package manager. It downloads the OTC, registers
+      Ruby-based font package manager. It downloads the TTC, registers
       it with the local font system, and tracks updates via
       <code>fontist update</code>.
     </p>
@@ -55,21 +55,21 @@ const PLANES = [
 
     <h2 id="npm">npm (for build pipelines)</h2>
     <p>
-      Pull the OTC into any Node-based build (Vite, Astro, Next.js).
+      Pull the TTC into any Node-based build (Vite, Astro, Next.js).
       The package exports the font path and TypeScript types.
     </p>
     <pre class="code-block"><code>{NPM_SNIPPET}</code></pre>
 
     <h2 id="direct">Direct download</h2>
     <p>
-      Latest release binaries live at GitHub Releases. The OTC, TTC,
+      Latest release binaries live at GitHub Releases. The TTC, per-plane TTFs,
       and per-plane TTFs are all there.
     </p>
     <pre class="code-block"><code>{CURL_SNIPPET}</code></pre>
 
     <h2 id="planes">Per-plane WOFF2 (web embed)</h2>
     <p>
-      For sites that don't want the full OTC, the build also emits
+      For sites that don't want the full TTC, the build also emits
       per-plane WOFF2 subsets. Each one covers its plane's entire
       assigned range via a single <code>@font-face</code> entry.
     </p>

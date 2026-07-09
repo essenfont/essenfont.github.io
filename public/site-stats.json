@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T09:55:12.412Z",
+  "generatedAt": "2026-07-09T12:31:13.759Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -12,10 +12,47 @@
     "otfSizeBytes": 11223440
   },
   "websiteSubsets": {
-    "woff2Count": 209,
-    "woff2TotalBytes": 99927708,
+    "woff2Count": 214,
+    "woff2TotalBytes": 163183468,
     "woff1Count": 230,
-    "woff1TotalBytes": 114422520
+    "woff1TotalBytes": 114422520,
+    "perPlaneWoff2": {
+      "BMP": {
+        "file": "Essenfont-BMP.woff2",
+        "size": 16731904
+      },
+      "SIP": {
+        "file": "Essenfont-SIP.woff2",
+        "size": 9707464
+      },
+      "SMP": {
+        "file": "Essenfont-SMP.woff2",
+        "size": 13747736
+      },
+      "SSP": {
+        "file": "Essenfont-SSP.woff2",
+        "size": 9500408
+      },
+      "TIP": {
+        "file": "Essenfont-TIP.woff2",
+        "size": 13568248
+      }
+    }
+  },
+  "release": {
+    "tag": "v0.2.8",
+    "name": "Latest release — npm package, per-plane WOFF2",
+    "date": "2026-07-09",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.8",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/Essenfont-Regular.ttc",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.2.8",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/coverage.json",
+    "stats": {
+      "codepoints": 82329,
+      "pct": 51.5,
+      "planes": 5
+    },
+    "notes": "Latest. Ships as `essenfont` on npm with per-plane WOFF2 + CSS bundles, plus the canonical Essenfont-Regular.ttc with all 5 faces."
   },
   "coverage": {
     "generated_at": "2026-07-09T01:05:21Z",
