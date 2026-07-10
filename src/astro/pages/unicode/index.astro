@@ -9,21 +9,6 @@ const allBlocks = loadAllBlocks();
 const version = loadUnicodeVersion();
 const planes = getPlanes(allBlocks);
 const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
----
-<BaseLayout
-  title="Unicode Browser — Essenfont"
-  description="Explore every Unicode 17 plane, block, and codepoint. Real glyphs rendered from the Essenfont."
-  canonical="/unicode"
->
-  <div class="uc">
-    <header class="uc-header">
-      <h1>Unicode Browser</h1>
-      <p>Every Unicode {version.version} plane, every block, every assigned codepoint.</p>
-      <p class="uc-sub">All glyphs render with the Essenfont — install it locally for the same view everywhere.</p>
-      <div class="uc-actions">
-        <RandomCodepoint client:idle />
-      </div>
-    </header>
 
 // Each plane gets a "specimen glyph" — its most iconic character.
 const planeSpecimens: Record<string, number> = {
@@ -41,31 +26,20 @@ function safeGlyph(cp: number | undefined): string {
   try { return String.fromCodePoint(cp); } catch { return '·'; }
 }
 ---
-
 <BaseLayout
-  title="Browse — Essenfont"
-  description="Explore every Unicode 17 plane, block, and codepoint. Real glyphs rendered from Essenfont."
+  title="Unicode Browser — Essenfont"
+  description="Explore every Unicode 17 plane, block, and codepoint. Real glyphs rendered from the Essenfont."
   canonical="/unicode"
-  active="browse"
 >
-  <!-- Section header -->
-  <section class="section browse-head">
-    <div class="container">
-      <div class="browse-head-grid">
-        <div class="browse-meta rise-1">
-          <p class="eyebrow">§ Atlas</p>
-          <p class="folio" style="margin-top: 1rem;">Vol. {version.version}</p>
-        </div>
-        <div class="browse-pitch rise-2">
-          <h1>The universal<br/><em class="text-ochre">atlas</em>.</h1>
-          <p class="lede" style="margin-top: 2rem;">
-            {planes.length} planes · {totalAssigned.toLocaleString()} blocks · {version.charCount.toLocaleString()} codepoints.
-            Every assigned Unicode {version.version} character, each one click away from its specimen page.
-          </p>
-        </div>
+  <div class="uc">
+    <header class="uc-header">
+      <h1>Unicode Browser</h1>
+      <p>Every Unicode {version.version} plane, every block, every assigned codepoint.</p>
+      <p class="uc-sub">All glyphs render with the Essenfont — install it locally for the same view everywhere.</p>
+      <div class="uc-actions">
+        <RandomCodepoint client:idle />
       </div>
-    </div>
-  </section>
+    </header>
 
     <CoverageHeatmap />
 
@@ -81,9 +55,9 @@ function safeGlyph(cp: number | undefined): string {
           <span class="plane-range">{plane.range}</span>
           <span class="plane-count">{plane.blocks.length} blocks</span>
         </div>
-      </div>
-    </section>
-  ))}
+      </section>
+    ))}
+  </div>
 </BaseLayout>
 
 <style>
