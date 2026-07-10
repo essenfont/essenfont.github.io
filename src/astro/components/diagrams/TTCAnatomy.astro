@@ -1,0 +1,146 @@
+---
+// TTCAnatomy — data-driven SVG cross-section of the Essenfont TTC.
+//
+// Reads public/face-table.json and renders an exploded view showing:
+// - Outer TTC container
+// - Each face as a labeled rectangle
+// - Table chips (head, hhea, OS/2, glyf, cmap) inside each face
+//
+// All values come from the JSON — zero hardcoded glyph counts or UPMs.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC = path.resolve(__dirname, '..', '..', '..', '..', 'public');
+
+interface FaceData {
+  index: number;
+  plane: string;
+  glyphCount: number;
+  upm: number;
+  head: { xMin: number; yMin: number; xMax: number; yMax: number };
+  hhea: { ascent: number; descent: number; lineGap: number };
+  os2: { sTypoAscender: number; sTypoDescender: number; usWinAscent: number; usWinDescent: number };
+}
+
+let faces: FaceData[] = [];
+try {
+  const data = JSON.parse(fs.readFileSync(path.join(PUBLIC, 'face-table.json'), 'utf-8'));
+  faces = data.faces || [];
+} catch {
+  // face-table.json not yet generated — render empty state
+}
+
+const TABLE_COLORS: Record<string, string> = {
+  head: 'var(--diagram-table-head, #2a5c8a)',
+  hhea: 'var(--diagram-table-hhea, #3d8b5e)',
+  os2: 'var(--diagram-table-os2, #c19a3e)',
+  glyf: 'var(--diagram-table-glyf, #b04040)',
+  cmap: 'var(--diagram-table-cmap, #7d4ea6)',
+};
+
+const TABLES = ['head', 'hhea', 'os2', 'glyf', 'cmap'];
+const TABLE_HEIGHT = 36;
+const TABLE_GAP = 4;
+const TABLE_WIDTH = 124;
+
+function tableValue(face: FaceData, table: string): string {
+  switch (table) {
+    case 'head': return `upm=${face.upm}`;
+    case 'hhea': return `${face.hhea.ascent}/${face.hhea.descent}`;
+    case 'os2': return `sTypo ${face.os2.sTypoAscender}`;
+    case 'glyf': return face.glyphCount.toLocaleString();
+    case 'cmap': return 'cp→gid';
+    default: return '';
+  }
+}
+
+const totalHeight = 120 + faces.length * 165;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 720 ${totalHeight}`}
+  width="100%"
+  role="img"
+  aria-label="Essenfont TTC anatomy — cross-section showing faces and their tables"
+  style="max-width: 720px;"
+>
+  <desc>
+    The TTC file contains {faces.length} faces. Each face is an independent
+    OpenType font with its own head, hhea, OS/2, glyf, and cmap tables.
+  </desc>
+
+  <rect
+    x="10" y="10" width="700" height={totalHeight - 20}
+    rx="12" fill="none" stroke="var(--ef-rule-strong, rgba(0,0,0,0.15))"
+    stroke-width="2" stroke-dasharray="8 4"
+  />
+  <text x="20" y="32" font-family="var(--spec-font-mono, monospace)" font-size="13" font-weight="600" fill="var(--ef-text-2, #555)">
+    Essenfont-Regular.ttc
+  </text>
+
+  {faces.map((face) => {
+    const y = 50 + face.index * 165;
+    const tablesY = y + 56;
+    return (
+      <g>
+        <text x="24" y={y + 18} font-family="var(--spec-font-mono, monospace)" font-size="11" fill="var(--ef-text-3, #888)">
+          Face {face.index}
+        </text>
+        <text x="24" y={y + 36} font-family="var(--spec-font-display, serif)" font-size="18" font-weight="600" fill="var(--ef-text, #1a1a1a)">
+          {face.plane}
+        </text>
+        <text x="690" y={y + 18} text-anchor="end" font-family="var(--spec-font-mono, monospace)" font-size="10" fill="var(--ef-text-3, #888)">
+          {face.glyphCount.toLocaleString()} glyphs · upm={face.upm}
+        </text>
+        <text x="690" y={y + 36} text-anchor="end" font-family="var(--spec-font-mono, monospace)" font-size="10" fill="var(--ef-text-3, #888)">
+          asc={face.hhea.ascent} desc={face.hhea.descent}
+        </text>
+
+        <rect
+          x="20" y={y + 44} width="680" height="100"
+          rx="8" fill="var(--ef-surface, #f5f3ef)"
+          stroke="var(--ef-rule, rgba(0,0,0,0.08))"
+        />
+
+        {TABLES.map((table, ti) => {
+          const tx = 36 + ti * (TABLE_WIDTH + TABLE_GAP);
+          const color = TABLE_COLORS[table];
+          return (
+            <g>
+              <rect
+                x={tx} y={tablesY}
+                width={TABLE_WIDTH} height={TABLE_HEIGHT}
+                rx="5" fill={color} opacity="0.12"
+                stroke={color} stroke-width="1.5"
+              />
+              <text
+                x={tx + TABLE_WIDTH / 2} y={tablesY + 16}
+                text-anchor="middle"
+                font-family="var(--spec-font-mono, monospace)"
+                font-size="11" font-weight="700"
+                fill={color}
+              >{table === 'os2' ? 'OS/2' : table}</text>
+              <text
+                x={tx + TABLE_WIDTH / 2} y={tablesY + 30}
+                text-anchor="middle"
+                font-family="var(--spec-font-mono, monospace)"
+                font-size="8"
+                fill="var(--ef-text-3, #888)"
+              >{tableValue(face, table)}</text>
+            </g>
+          );
+        })}
+      </g>
+    );
+  })}
+
+  {faces.length === 0 && (
+    <text x="360" y="100" text-anchor="middle" font-family="var(--spec-font-mono, monospace)" font-size="12" fill="var(--ef-text-3, #888)">
+      face-table.json not generated yet — run scripts/gen-face-table.mjs
+    </text>
+  )}
+</svg>

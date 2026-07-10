@@ -1,0 +1,138 @@
+---
+// UPMNormalization — data-driven SVG bar chart of per-donor UPM scale factors.
+//
+// Reads public/upm-scales.json and renders a grouped bar chart:
+// - One group per native UPM value (1000, 1024, 2048, 2400)
+// - Bar shows: native UPM (gray) → target 1000 (accent)
+// - Scale factor annotation
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC = path.resolve(__dirname, '..', '..', '..', '..', 'public');
+
+interface UpmGroup {
+  nativeUpm: number;
+  count: number;
+  scaleFactor: number;
+  files: string[];
+}
+
+let summary: UpmGroup[] = [];
+let targetUpm = 1000;
+try {
+  const data = JSON.parse(fs.readFileSync(path.join(PUBLIC, 'upm-scales.json'), 'utf-8'));
+  summary = data.summary || [];
+  targetUpm = data.targetUpm || 1000;
+} catch {
+  // not yet generated
+}
+
+const BAR_HEIGHT = 28;
+const BAR_GAP = 12;
+const LABEL_WIDTH = 80;
+const VALUE_WIDTH = 80;
+const MAX_BAR_WIDTH = 300;
+const maxUpm = Math.max(...summary.map(s => s.nativeUpm), targetUpm);
+
+function barWidth(upm: number): number {
+  return (upm / maxUpm) * MAX_BAR_WIDTH;
+}
+
+const chartHeight = summary.length * (BAR_HEIGHT + BAR_GAP) + 40;
+const chartWidth = LABEL_WIDTH + MAX_BAR_WIDTH + VALUE_WIDTH + 40;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+  width="100%"
+  role="img"
+  aria-label="UPM normalization — per-donor unitsPerEm scale factors"
+  style="max-width: {chartWidth}px;"
+>
+  <desc>
+    {summary.length} UPM groups. Each group shows native UPM (gray bar)
+    scaled to target {targetUpm} (accent bar). Donors at native {targetUpm}
+    need no scaling.
+  </desc>
+
+  {/* Target UPM reference line */}
+  {(() => {
+    const tx = LABEL_WIDTH + barWidth(targetUpm);
+    return (
+      <g>
+        <line
+          x1={tx} y1="10" x2={tx} y2={chartHeight - 10}
+          stroke="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+          stroke-width="1.5" stroke-dasharray="4 3"
+        />
+        <text
+          x={tx} y="8"
+          text-anchor="middle"
+          font-family="var(--spec-font-mono, monospace)"
+          font-size="9" font-weight="700"
+          fill="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+        >target {targetUpm}</text>
+      </g>
+    );
+  })()}
+
+  {/* Bars */}
+  {summary.map((group, i) => {
+    const y = 20 + i * (BAR_HEIGHT + BAR_GAP);
+    const nativeW = barWidth(group.nativeUpm);
+    const scaledW = barWidth(targetUpm);
+    const needsScale = group.scaleFactor !== 1.0;
+    return (
+      <g>
+        <title>
+          {group.count} donor(s) at upm={group.nativeUpm}.
+          {needsScale ? ` Scaled ×${group.scaleFactor} to target ${targetUpm}.` : ' No scaling needed.'}
+        </title>
+
+        {/* Native UPM label */}
+        <text
+          x={LABEL_WIDTH - 8} y={y + BAR_HEIGHT / 2 + 4}
+          text-anchor="end"
+          font-family="var(--spec-font-mono, monospace)"
+          font-size="12" font-weight="600"
+          fill="var(--ef-text, #1a1a1a)"
+        >{group.nativeUpm}</text>
+
+        {/* Native bar (gray) */}
+        <rect
+          x={LABEL_WIDTH} y={y}
+          width={nativeW} height={BAR_HEIGHT}
+          rx="3" fill="var(--ef-rule-strong, rgba(0,0,0,0.15))"
+        />
+
+        {/* Scaled-to-target overlay (accent) */}
+        {needsScale && (
+          <rect
+            x={LABEL_WIDTH} y={y}
+            width={scaledW} height={BAR_HEIGHT}
+            rx="3" fill="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+            opacity="0.5"
+          />
+        )}
+
+        {/* Count + scale factor annotation */}
+        <text
+          x={LABEL_WIDTH + nativeW + 8} y={y + BAR_HEIGHT / 2 + 4}
+          font-family="var(--spec-font-mono, monospace)"
+          font-size="10"
+          fill="var(--ef-text-2, #555)"
+        >{group.count} donor{group.count !== 1 ? 's' : ''}{needsScale ? ` · ×${group.scaleFactor}` : ' · no scale'}</text>
+      </g>
+    );
+  })}
+
+  {summary.length === 0 && (
+    <text x={chartWidth / 2} y={chartHeight / 2} text-anchor="middle" font-family="var(--spec-font-mono, monospace)" font-size="12" fill="var(--ef-text-3, #888)">
+      upm-scales.json not generated yet
+    </text>
+  )}
+</svg>

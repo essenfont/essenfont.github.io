@@ -25,6 +25,12 @@ const cards = [
     body: 'The build emits four shapes: TTC (canonical), per-plane TTFs (legacy + PDF), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
+    href: '/engineering/specification',
+    eyebrow: 'What · structure',
+    title: 'Font specification',
+    body: 'The internal structure of Essenfont-Regular.ttc — faces, UPM strategy, per-face vertical metrics, and donor attribution. All values data-driven from the actual TTC file via SVG diagrams.',
+  },
+  {
     href: '/engineering/coverage',
     eyebrow: 'What · status',
     title: 'Coverage, gaps & roadmap',
@@ -39,7 +45,6 @@ const cards = [
 >
   <article class="engineering-hub">
     <header class="page-head">
-      <p class="eyebrow">Engineering</p>
       <h1>The whole story, in four pages</h1>
       <p class="lede">
         Essenfont is one font that tries to cover every assigned Unicode 17 codepoint — {formatNumber(stats.unicode.assignedCodepointCount)} of them — using only OFL-licensed donor glyphs. The engineering story has four moving parts: <strong>why</strong> it exists, <strong>how</strong> it is built, <strong>where</strong> the glyphs come from, and <strong>where</strong> users can get it.
@@ -145,14 +150,7 @@ const cards = [
   padding: 4rem 1.5rem 6rem;
 }
 .page-head { margin-bottom: 3rem; }
-.eyebrow {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a);
-  margin: 0 0 0.5rem;
-}
+
 h1 {
   font-family: var(--spec-font-display);
   font-size: clamp(2rem, 5vw, 3rem);
