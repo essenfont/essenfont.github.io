@@ -24,14 +24,13 @@ const PER_PLANE = [
 ---
 
 <BaseLayout
-  title="Download — Essenfont"
-  description={`Download Essenfont ${LATEST.tag} — canonical OTC from GitHub Releases, per-plane WOFF2 via npm, or install via Fontist.`}
+  title="Releases — Essenfont"
+  description={`Essenfont ${LATEST.tag} — canonical OTC from GitHub Releases, per-plane WOFF2 via npm, or install via Fontist.`}
   canonical="/download"
-  active="install"
 >
   <div class="download">
     <header class="page-head">
-      <h1>Get Essenfont</h1>
+      <h1>Releases</h1>
       <p class="subtitle">
         {LATEST.name} — released {LATEST.date}.
         {" "}
@@ -106,12 +105,15 @@ fontist install "Essenfont"</code></pre>
         <ul>
           {releases.map(r => (
             <li class:list={["release-row", { 'release-latest': r.isLatest }]}>
-              <a href={r.url} target="_blank" rel="noopener">
-                <span class="release-tag">{r.tag}</span>
-                {r.isLatest && <span class="release-pill">latest</span>}
-              </a>
-              <span class="release-name">{r.name}</span>
-              {r.date && <time class="release-date">{r.date}</time>}
+              <div class="release-row-head">
+                <a href={r.url} target="_blank" rel="noopener">
+                  <span class="release-tag">{r.tag}</span>
+                  {r.isLatest && <span class="release-pill">latest</span>}
+                </a>
+                <span class="release-name">{r.name}</span>
+                {r.date && <time class="release-date">{r.date}</time>}
+              </div>
+              {r.notes && <p class="release-notes">{r.notes}</p>}
             </li>
           ))}
         </ul>
@@ -319,10 +321,23 @@ h1 {
 .releases ul { list-style: none; padding: 0; margin: 0; }
 .release-row {
   display: flex;
-  align-items: baseline;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.4rem;
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--ef-rule);
+}
+.release-row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.release-notes {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ef-text-2);
+  margin: 0;
+  padding-left: 0;
 }
 .release-row:last-child { border-bottom: none; }
 .release-row.release-latest {
