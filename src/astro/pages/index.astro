@@ -2,13 +2,17 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TypeTester from '../components/TypeTester.astro';
 import BrandMark from '../components/BrandMark.astro';
+import SpecimenTile from '../components/SpecimenTile.astro';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
+import { SPECIMEN_PANELS, verifyPanelsForBuild } from '../lib/specimen';
 
 const blocks = loadAllBlocks();
 const version = loadUnicodeVersion();
 const stats = loadStats();
+// Build-time verification — surfaces broken feature glyphs loudly.
+verifyPanelsForBuild();
 
 function slugify(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -34,27 +38,11 @@ const featured = [
   canonical="/"
   active="specimen"
 >
-  <!-- ═══════════════════════════════════════════════════════════════════
-       MASTHEAD STRIP — folio metadata
-       ═══════════════════════════════════════════════════════════════════ -->
-  <div class="folio-strip">
-    <div class="container folio-strip-inner">
-      <span>Folio 01</span>
-      <span>Specimen Sheet</span>
-      <span>Unicode {version.version}</span>
-      <span class="folio-date">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</span>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════════════════
-       HERO — the wordmark + interactive type tester
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="hero">
-    <div class="hero-logo">
-      <BrandMark size="lg" animated={true} interactive={true} alt="Essenfont" />
+  <section class="hero" id="hero">
+    <div class="hero-logo" id="hero-logo">
+      <BrandMark size="hero" animated={true} interactive={true} alt="Essenfont" />
     </div>
     <div class="hero-content">
-      <p class="eyebrow">Universal Unicode {version.version} Font · Latest {stats.release?.tag || 'v0.2.8'}</p>
       <h1 class="display">Essenfont</h1>
       <p class="lede">
         One redistributable TrueType Collection covering every assigned Unicode {version.version} codepoint —
@@ -62,14 +50,18 @@ const featured = [
         Built from {stats.donorCount} canonical OFL-licensed donor fonts.
       </p>
       <div class="cta-row">
-        <a href="/download" class="btn-primary">Download TTC ({formatBytes(stats.fontBinaries.ttcSizeBytes)})</a>
+        <a href="/download" class="btn-primary">Download ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
         <a href="/docs/usage" class="btn-ghost">How to use</a>
         <a href="/unicode" class="btn-ghost">Browse Unicode</a>
       </div>
       <p class="hero-foot">
-        Or via <a href="https://www.npmjs.com/package/essenfont" target="_blank" rel="noopener">npm</a>,
-        <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">GitHub Releases</a>, or
-        <a href="/changelog">read the changelog</a>.
+        Latest release:
+        {stats.release?.tag && <strong class="hero-version">{stats.release.tag}</strong>}
+        {stats.release?.date && <span> · {new Date(stats.release.date).toISOString().slice(0, 10)}</span>}
+        {' · '}
+        <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">all releases</a>
+        {' · '}
+        <a href="https://www.npmjs.com/package/essenfont" target="_blank" rel="noopener">npm</a>
       </p>
     </div>
   </section>
@@ -94,8 +86,8 @@ const featured = [
       <div class="stat-cap">OFL-licensed donor fonts</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{formatBytes(stats.fontBinaries.ttcSizeBytes)}</div>
-      <div class="stat-cap">Canonical TTC (5 planes)</div>
+      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+      <div class="stat-cap">Canonical OTC (5 planes)</div>
     </div>
     <div class="stat">
       <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
@@ -107,168 +99,116 @@ const featured = [
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       PLATES — featured specimens across planes
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="section plates">
-    <div class="container">
-      <div class="plates-head">
-        <p class="eyebrow reveal">§ II · The Plates</p>
-        <h2 class="reveal">A grand tour — one glyph per plane.</h2>
-        <p class="lede reveal" style="margin-top: 1.5rem;">
-          Each character below is rendered in Essenfont from a real outline
-          drawn by its canonical donor. Click any plate to step into its Unicode block.
-        </p>
-      </div>
-      <div class="plates-grid">
-        {featured.map((item, i) => (
-          <a
-            href={`/unicode/char/${item.cp.toString(16).toUpperCase().padStart(4, '0')}`}
-            class:list={["plate", "reveal", `plate-${(i % 4) + 1}`]}
-          >
-            <span class="plate-glyph glyph">{String.fromCodePoint(item.cp)}</span>
-            <div class="plate-meta">
-              <span class="plate-name">{item.name}</span>
-              <span class="plate-note">{item.note}</span>
-              <span class="plate-folio mono">U+{item.cp.toString(16).toUpperCase()} · {item.plane}</span>
-            </div>
-          </a>
-        ))}
-      </div>
+  <section class="specimen-section">
+    <h2>Unicode 17, in six panels</h2>
+    <p>From world scripts to extinct ones. Each glyph below is rendered in Essenfont, sourced from its canonical donor font.</p>
+    <div class="specimen-grid">
+      {SPECIMEN_PANELS.map(panel => <SpecimenTile panel={panel} />)}
     </div>
+    <a href="/unicode" class="see-all">Browse all {version.blockCount} blocks →</a>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       THE GATHERING — how it's built, condensed
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="section gathering">
-    <div class="container">
-      <div class="grid">
-        <div class="gathering-pitch reveal" style="grid-column: span 5;">
-          <p class="eyebrow">§ III · The Gathering</p>
-          <h2 style="margin-top: 1.5rem;">Assembled, not designed.</h2>
-          <p class="lede" style="margin-top: 1rem;">
-            Essenfont doesn't draw a single glyph. It gathers outlines from
-            the canonical OFL-licensed font for each Unicode script — Noto
-            for Latin, Source for CJK, FSung for the rare CJK Extensions,
-            NotoColorEmoji for color bitmaps — and stitches them into one
-            redistributable OpenType collection.
-          </p>
-          <p style="margin-top: 2rem; max-width: 50ch;" class="text-ink-2">
-            Every donor is credited. Every codepoint is traceable to its
-            source. The build pipeline — fontisan's Stitcher, Layer, and
-            Collection::Builder — is itself open source.
-          </p>
-          <div style="margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
-            <a href="/donors" class="btn btn-ghost btn-arrow">See every donor</a>
-            <a href="/engineering" class="btn btn-ghost btn-arrow">Read the engineering</a>
-          </div>
-        </div>
+  <script>
+    // Mouse parallax — the hero logo tilts in 3D toward the cursor.
+    // Subtle (max 10°), smoothed via requestAnimationFrame.
+    const hero = document.getElementById('hero');
+    const logo = document.getElementById('hero-logo');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (hero && logo && !reduceMotion) {
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+      let rafId: number | null = null;
+      const MAX_TILT = 10;
 
-        <aside class="gathering-side reveal" style="grid-column: span 6 / -1;">
-          <div class="donor-list">
-            <h5 class="eyebrow" style="margin-bottom: 1.25rem;">Selected donors</h5>
-            <ul>
-              <li>
-                <span class="donor-name">FSung-3</span>
-                <span class="donor-cov mono">CJK Ext G · 4,939 cp</span>
-              </li>
-              <li>
-                <span class="donor-name">Noto Serif Tangut</span>
-                <span class="donor-cov mono">Tangut · 6,892 cp</span>
-              </li>
-              <li>
-                <span class="donor-name">Noto Sans Cuneiform</span>
-                <span class="donor-cov mono">Cuneiform · 1,238 cp</span>
-              </li>
-              <li>
-                <span class="donor-name">NewGardiner</span>
-                <span class="donor-cov mono">Egyptian Hieroglyphs · 4,637 cp</span>
-              </li>
-              <li>
-                <span class="donor-name">Noto Color Emoji</span>
-                <span class="donor-cov mono">Color bitmaps · 1,501 cp</span>
-              </li>
-              <li>
-                <span class="donor-name">Uni-Hieroglyphica</span>
-                <span class="donor-cov mono">Hieroglyphs Ext · 14,906 cp</span>
-              </li>
-            </ul>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
+      function tick() {
+        currentX += (targetX - currentX) * 0.12;
+        currentY += (targetY - currentY) * 0.12;
+        logo.style.setProperty('--tilt-x', `${currentY.toFixed(2)}deg`);
+        logo.style.setProperty('--tilt-y', `${currentX.toFixed(2)}deg`);
+        if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = null;
+        }
+      }
+      function scheduleTick() {
+        if (rafId === null) rafId = requestAnimationFrame(tick);
+      }
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       THE INSTALL — one CDN line, prominent
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="section install">
-    <div class="container">
-      <div class="install-card reveal">
-        <div class="install-head">
-          <p class="eyebrow">§ IV · Take it home</p>
-          <h2 style="margin-top: 1rem;">One line. Every glyph.</h2>
-        </div>
-        <p class="lede" style="margin-top: 1rem; max-width: 52ch;">
-          Pull a per-block WOFF2 subset from the CDN, or install the full
-          OTC locally for offline coverage of the entire Unicode repertoire.
-        </p>
-        <div class="install-snippets">
-          <div class="snippet">
-            <div class="snippet-tab">
-              <span class="folio">CDN · per-block subset</span>
-              <button class="snippet-copy" data-copy="essenfont-cdn" aria-label="Copy">copy</button>
-            </div>
-            <pre id="essenfont-cdn" class="snippet-code"><code set:html={`&lt;link
-  rel="stylesheet"
-  href="https://cdn.essenfont.org/subsets/cjk.woff2.css"
-&gt;
-&lt;style&gt;body { font-family: "Essenfont", sans-serif; }&lt;/style&gt;`} /></pre>
-          </div>
-          <div class="snippet">
-            <div class="snippet-tab">
-              <span class="folio">Fontist · install locally</span>
-              <button class="snippet-copy" data-copy="essenfont-cli" aria-label="Copy">copy</button>
-            </div>
-            <pre id="essenfont-cli" class="snippet-code"><code set:html={`$ fontist install "Essenfont"
-# → ~/.fontist/fonts/Essenfont-Regular.otc (105 MB)`} /></pre>
-          </div>
-        </div>
-        <div class="install-cta">
-          <a href="/download" class="btn btn-primary btn-arrow">All install options</a>
-          <a href="/changelog" class="btn btn-ghost btn-arrow">Read the changelog</a>
-        </div>
-      </div>
-    </div>
-  </section>
+      hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;   // -1..1
+        const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        targetX = nx * MAX_TILT;
+        targetY = ny * MAX_TILT;
+        scheduleTick();
+      });
+      hero.addEventListener('mouseleave', () => {
+        targetX = 0;
+        targetY = 0;
+        scheduleTick();
+      });
 
-  <!-- ═══════════════════════════════════════════════════════════════════
-       COLOPHON LINE — final beat
-       ═══════════════════════════════════════════════════════════════════ -->
-  <section class="section closing">
-    <div class="container closing-inner">
-      <p class="closing-line reveal">
-        <span class="glyph closing-mark">𓂀</span>
-      </p>
-      <p class="lede reveal closing-quote">
-        “A type foundry at the end of the alphabet, where every character
-        finally has a home.”
-      </p>
-      <p class="folio reveal">— Essenfont · {new Date().getUTCFullYear()}</p>
-    </div>
-  </section>
+      // Click — quick 360° spin as a playful acknowledgment.
+      const mark = logo.querySelector('.brand-mark');
+      if (mark) {
+        logo.addEventListener('click', () => {
+          mark.classList.remove('is-spinning');
+          // force reflow so the animation restarts.
+          void (mark as HTMLElement).offsetWidth;
+          mark.classList.add('is-spinning');
+        });
+      }
+    }
+  </script>
 </BaseLayout>
 
 <style>
 .hero {
   padding: 5rem 0 3rem;
   text-align: center;
+  perspective: 1200px;
 }
 .hero-logo {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2.5rem;
   display: flex;
   justify-content: center;
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+  cursor: pointer;
+}
+.hero-logo .brand-mark.is-spinning {
+  animation: bm-spin-once 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes bm-spin-once {
+  from { transform: rotate3d(0, 1, 0, 0deg); }
+  to   { transform: rotate3d(0, 1, 0, 360deg); }
+}
+
+/* Staggered page-load reveal */
+.hero > *,
+.hero-content > * {
+  opacity: 0;
+  animation: hero-rise 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+.hero-logo            { animation-delay: 0.05s; }
+.hero-content 
+.hero-content .display { animation-delay: 0.30s; }
+.hero-content .lede    { animation-delay: 0.42s; }
+.hero-content .cta-row { animation-delay: 0.55s; }
+.hero-content .hero-foot { animation-delay: 0.68s; }
+
+@keyframes hero-rise {
+  0%   { opacity: 0; transform: translateY(18px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero > *,
+  .hero-content > * { opacity: 1; animation: none; }
+  .hero-logo { transform: none; transition: none; }
 }
 .tester-section {
   padding: 2rem 0;
@@ -281,13 +221,7 @@ const featured = [
   max-width: 720px;
   margin: 0 auto;
 }
-.eyebrow {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-accent);
-}
+
 .display {
   font-family: var(--spec-font-display);
   font-weight: 600;
@@ -316,6 +250,8 @@ const featured = [
   margin: 1.25rem 0 0;
 }
 .hero-foot a { color: var(--ef-accent); text-decoration: none; }
+.hero-foot a:hover { text-decoration: underline; }
+.hero-version { color: var(--ef-accent); font-family: var(--spec-font-mono); font-weight: 600; }
 .hero-foot a:hover { text-decoration: underline; }
 .btn-primary, .btn-ghost {
   padding: 0.75rem 1.5rem;
@@ -357,48 +293,25 @@ const featured = [
   margin-top: 0.5rem;
   opacity: 0.7;
 }
-.blocks-section {
+.specimen-section {
   padding: 2rem 0 4rem;
 }
-.blocks-section h2 {
+.specimen-section h2 {
   font-family: var(--spec-font-display);
   font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
 }
-.block-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 0.75rem;
-  margin: 2rem 0;
-}
-.block-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  border: 1px solid var(--ef-rule);
-  border-radius: var(--ef-radius-sm);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.15s;
-}
-.block-card:hover {
-  border-color: var(--ef-accent);
-}
-.block-name {
-  font-weight: 600;
+.specimen-section > p {
   font-size: 0.95rem;
+  opacity: 0.78;
+  margin-bottom: 1rem;
 }
-.block-range {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  opacity: 0.6;
-  margin-top: 0.25rem;
-}
-.block-count {
-  font-size: 0.75rem;
-  opacity: 0.5;
-  margin-top: 0.25rem;
+.specimen-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
 }
 .see-all {
   display: inline-block;

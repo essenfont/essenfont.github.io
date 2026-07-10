@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
+import ReadingLayout from '../components/ReadingLayout.astro';
 
 const stats = loadStats();
 
@@ -22,13 +23,13 @@ const cards = [
     href: '/engineering/formats',
     eyebrow: 'Where · build',
     title: 'Output formats & distribution',
-    body: 'The build emits four shapes: TTC (canonical), per-plane TTFs (legacy + PDF), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
+    body: 'The build emits four shapes: OTC (canonical), per-plane TTFs (legacy + PDF), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
     href: '/engineering/specification',
     eyebrow: 'What · structure',
     title: 'Font specification',
-    body: 'The internal structure of Essenfont-Regular.ttc — faces, UPM strategy, per-face vertical metrics, and donor attribution. All values data-driven from the actual TTC file via SVG diagrams.',
+    body: 'The internal structure of Essenfont-Regular.otc — faces, UPM strategy, per-face vertical metrics, and donor attribution. All values data-driven from the actual OTC file via SVG diagrams.',
   },
   {
     href: '/engineering/coverage',
@@ -43,7 +44,8 @@ const cards = [
   description="Why Essenfont exists, how it is built from 38 donor fonts, where it ships, and what is on the roadmap. The full engineering story across four sub-pages."
   canonical="/engineering"
 >
-  <article class="engineering-hub">
+  <ReadingLayout>
+    <article class="engineering-hub">
     <header class="page-head">
       <h1>The whole story, in four pages</h1>
       <p class="lede">
@@ -66,11 +68,11 @@ const cards = [
       </div>
       <div class="stat">
         <div class="stat-num">5</div>
-        <div class="stat-cap">Plane subfonts in the TTC</div>
+        <div class="stat-cap">Plane subfonts in the OTC</div>
       </div>
       <div class="stat">
-        <div class="stat-num">{formatBytes(stats.fontBinaries.ttcSizeBytes)}</div>
-        <div class="stat-cap">Canonical TTC on disk</div>
+        <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+        <div class="stat-cap">Canonical OTC on disk</div>
       </div>
       <div class="stat">
         <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
@@ -78,10 +80,10 @@ const cards = [
       </div>
     </section>
 
-    <section class="prose">
+    <section class="prose" data-reading-article>
       <aside class="user-callout">
         <strong>Just want to install or embed Essenfont?</strong>
-        Skip ahead to the <a href="/docs/usage">How to use</a> guide — it walks you through which format fits (TTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), with code, considerations, and a decision matrix. This Engineering section is for readers who want to understand <em>how the font is built</em>, not how to consume it.
+        Skip ahead to the <a href="/docs/usage">How to use</a> guide — it walks you through which format fits (OTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), with code, considerations, and a decision matrix. This Engineering section is for readers who want to understand <em>how the font is built</em>, not how to consume it.
       </aside>
 
       <h2>Why Essenfont exists</h2>
@@ -117,7 +119,7 @@ const cards = [
           <tr><th scope="row">CJK</th><td>Noto Sans CJK (partial)</td><td>Full-Sung (Taiwan 全宋體) — every CJK extension through Unicode 17 Ext J</td></tr>
           <tr><th scope="row">License</th><td>OFL</td><td>OFL + FSung non-commercial restriction, propagated to <code>name</code> table</td></tr>
           <tr><th scope="row">Web embed</th><td>No</td><td>Per-plane and per-block WOFF2s</td></tr>
-          <tr><th scope="row">Output format</th><td>Single TTF in repo</td><td>TTC (5 faces) + per-plane TTFs + WOFF2s, distributed via GitHub Releases</td></tr>
+          <tr><th scope="row">Output format</th><td>Single TTF in repo</td><td>OTC (5 faces) + per-plane TTFs + WOFF2s, distributed via GitHub Releases</td></tr>
         </tbody>
       </table>
 
@@ -141,6 +143,7 @@ const cards = [
       </p>
     </section>
   </article>
+  </ReadingLayout>
 </BaseLayout>
 
 <style>
