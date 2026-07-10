@@ -31,59 +31,11 @@
   --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
   --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
 
-  /* Legacy compatibility */
-  --spec-paper: var(--ef-bg);
-  --spec-paper-deep: var(--ef-surface);
-  --spec-ink: var(--ef-text);
-  --spec-ink-soft: var(--ef-text-2);
-  --spec-mute: var(--ef-text-3);
-  --spec-rose: var(--ef-accent);
-  --spec-rose-soft: var(--ef-accent-hover);
-  --spec-rule: var(--ef-rule);
-  --spec-rule-strong: var(--ef-rule-strong);
-  --spec-term-bg: #1a1815;
-  --spec-term-ink: #e8e3d9;
-  --vp-c-brand-1: var(--ef-blue);
-  --vp-c-brand-2: var(--ef-blue-light);
-  --vp-c-brand-3: var(--ef-text);
-  --vp-c-brand-soft: var(--ef-accent-muted);
-  --vp-c-text-1: var(--ef-text);
-  --vp-c-text-2: var(--ef-text-2);
-  --vp-c-text-3: var(--ef-text-3);
-  --vp-c-bg: var(--ef-bg);
-  --vp-c-bg-soft: var(--ef-surface);
-  --vp-c-bg-alt: var(--ef-raised);
-  --vp-c-divider: var(--ef-rule);
-  --vp-c-gutter: var(--ef-rule);
-
   /* Typography */
   --spec-font-display: "EB Garamond", Georgia, serif;
   --spec-font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --spec-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-  --vp-font-family-base: var(--spec-font-body);
-  --vp-font-family-mono: var(--spec-font-mono);
   --spec-font-glyph: "Essenfont";
-  --vp-nav-height: 64px;
-
-  /* Compatibility aliases — component styles reference these short names */
-  --ef-paper: var(--ef-bg);
-  --ef-paper-2: var(--ef-surface);
-  --ef-paper-3: var(--ef-raised);
-  --ef-ink: var(--ef-text);
-  --ef-ink-2: var(--ef-text-2);
-  --ef-ink-3: var(--ef-text-3);
-  --ef-ochre: var(--ef-accent);
-  --ef-ochre-hi: var(--ef-accent-hover);
-  --ef-ochre-soft: var(--ef-accent-muted);
-  --ef-rule-2: var(--ef-rule-strong);
-  --ef-teal: var(--ef-blue-light);
-  --font-body: var(--spec-font-body);
-  --font-display: var(--spec-font-display);
-  --font-mono: var(--spec-font-mono);
-  --font-glyph: var(--spec-font-glyph);
-  --container: 1200px;
-  --gutter: 1.5rem;
-  --nav-h: 64px;
 }
 
 html.dark {
@@ -102,33 +54,15 @@ html.dark {
   --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
   --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
   --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
-  --spec-paper: var(--ef-bg);
-  --spec-paper-deep: var(--ef-surface);
-  --spec-ink: var(--ef-text);
-  --spec-ink-soft: var(--ef-text-2);
-  --spec-mute: var(--ef-text-3);
-  --spec-rose: var(--ef-accent);
-  --spec-rose-soft: var(--ef-accent-hover);
-  --spec-rule: var(--ef-rule);
-  --spec-rule-strong: var(--ef-rule-strong);
-  --vp-c-brand-1: var(--ef-accent);
-  --vp-c-brand-2: var(--ef-teal);
-  --vp-c-text-1: var(--ef-text);
-  --vp-c-text-2: var(--ef-text-2);
-  --vp-c-text-3: var(--ef-text-3);
-  --vp-c-bg: var(--ef-bg);
-  --vp-c-bg-soft: var(--ef-surface);
-  --vp-c-bg-alt: var(--ef-raised);
-  --vp-c-divider: var(--ef-rule);
 }
 body {
-  background: var(--ef-paper);
+  background: var(--ef-bg);
   background-image:
     radial-gradient(ellipse 80% 60% at 50% -10%, rgba(42, 92, 138, 0.05), transparent 60%),
     radial-gradient(ellipse 60% 50% at 100% 100%, rgba(176, 64, 64, 0.04), transparent 70%);
   background-attachment: fixed;
-  color: var(--ef-ink);
-  font-family: var(--font-body);
+  color: var(--ef-text);
+  font-family: var(--spec-font-body);
   font-weight: 400;
   font-size: 16px;
   line-height: 1.55;
@@ -163,11 +97,11 @@ html.dark body::before {
 
 /* ─── Type scale ─────────────────────────────────────────────────── */
 h1, h2, h3, h4 {
-  font-family: var(--font-display);
+  font-family: var(--spec-font-display);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: -0.02em;
-  color: var(--ef-ink);
+  color: var(--ef-text);
 }
 h1 { font-size: clamp(3rem, 9vw, 7.5rem); }
 h2 { font-size: clamp(2rem, 5vw, 3.75rem); letter-spacing: -0.025em; }
@@ -348,27 +282,27 @@ main hr {
 .container-narrow { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
 
 .btn-primary {
-  background: var(--ef-ochre);
-  color: var(--ef-paper);
-  border-color: var(--ef-ochre);
+  background: var(--ef-accent);
+  color: var(--ef-bg);
+  border-color: var(--ef-accent);
 }
 .btn-primary:hover {
-  background: var(--ef-ochre-hi);
-  border-color: var(--ef-ochre-hi);
-  color: var(--ef-paper);
+  background: var(--ef-accent-hover);
+  border-color: var(--ef-accent-hover);
+  color: var(--ef-bg);
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(42, 92, 138, 0.3);
 }
 
 .btn-ghost {
   background: transparent;
-  color: var(--ef-ink);
-  border-color: var(--ef-rule-2);
+  color: var(--ef-text);
+  border-color: var(--ef-rule-strong);
 }
 .btn-ghost:hover {
-  color: var(--ef-ochre);
-  border-color: var(--ef-ochre);
-  background: var(--ef-ochre-soft);
+  color: var(--ef-accent);
+  border-color: var(--ef-accent);
+  background: var(--ef-accent-muted);
 }
 
 .btn-arrow::after { content: "→"; transition: transform 0.2s; }
@@ -376,7 +310,7 @@ main hr {
 
 /* ─── Cards / specimens ──────────────────────────────────────────── */
 .specimen-card {
-  background: var(--ef-paper-2);
+  background: var(--ef-surface);
   border: 1px solid var(--ef-rule);
   padding: 1.5rem;
   transition: border-color 0.25s, transform 0.25s, background 0.25s;
@@ -384,19 +318,19 @@ main hr {
   overflow: hidden;
 }
 .specimen-card:hover {
-  border-color: var(--ef-ochre);
-  background: var(--ef-paper-3);
+  border-color: var(--ef-accent);
+  background: var(--ef-raised);
   transform: translateY(-2px);
 }
 .specimen-card .glyph {
-  font-family: var(--font-glyph);
+  font-family: var(--spec-font-glyph);
   line-height: 1;
-  color: var(--ef-ink);
+  color: var(--ef-text);
 }
 .specimen-card .glyph-meta {
-  font-family: var(--font-mono);
+  font-family: var(--spec-font-mono);
   font-size: 0.6875rem;
-  color: var(--ef-ink-3);
+  color: var(--ef-text-3);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 1rem;
@@ -426,15 +360,15 @@ main hr {
   display: flex;
   align-items: baseline;
   gap: 0.625rem;
-  font-family: var(--font-display);
+  font-family: var(--spec-font-display);
   font-weight: 500;
   font-size: 1.375rem;
   letter-spacing: -0.02em;
-  color: var(--ef-ink);
+  color: var(--ef-text);
   text-decoration: none;
   border: none;
 }
-.masthead-brand:hover { color: var(--ef-ochre); }
+.masthead-brand:hover { color: var(--ef-accent); }
 .masthead-brand .brand-mark {
   width: 1.5rem;
   height: 1.5rem;
@@ -444,28 +378,28 @@ main hr {
   display: flex;
   align-items: center;
   gap: 2rem;
-  font-family: var(--font-mono);
+  font-family: var(--spec-font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .masthead-nav a {
-  color: var(--ef-ink-2);
+  color: var(--ef-text-2);
   text-decoration: none;
   border: none;
   padding-block: 0.25rem;
   border-bottom: 1px solid transparent;
   transition: color 0.2s, border-color 0.2s;
 }
-.masthead-nav a:hover { color: var(--ef-ochre); border-bottom-color: var(--ef-ochre); }
-.masthead-nav a.active { color: var(--ef-ochre); }
+.masthead-nav a:hover { color: var(--ef-accent); border-bottom-color: var(--ef-accent); }
+.masthead-nav a.active { color: var(--ef-accent); }
 
 /* ─── Footer (colophon) ──────────────────────────────────────────── */
 .colophon {
   border-top: 1px solid var(--ef-rule);
   padding-block: 4rem 3rem;
   margin-top: 6rem;
-  background: var(--ef-paper-2);
+  background: var(--ef-surface);
 }
 .colophon-inner {
   max-width: var(--container);
@@ -476,18 +410,18 @@ main hr {
   gap: 3rem;
 }
 .colophon h5 {
-  font-family: var(--font-mono);
+  font-family: var(--spec-font-mono);
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ef-ink-3);
+  color: var(--ef-text-3);
   margin-bottom: 1rem;
 }
 .colophon ul { list-style: none; }
 .colophon li { margin-bottom: 0.5rem; font-size: 0.875rem; }
-.colophon a { color: var(--ef-ink-2); }
-.colophon a:hover { color: var(--ef-ochre); }
+.colophon a { color: var(--ef-text-2); }
+.colophon a:hover { color: var(--ef-accent); }
 .colophon-base {
   max-width: var(--container);
   margin: 3rem auto 0;
@@ -497,23 +431,23 @@ main hr {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  font-family: var(--font-mono);
+  font-family: var(--spec-font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ef-ink-3);
+  color: var(--ef-text-3);
 }
 
 /* ─── Utilities ──────────────────────────────────────────────────── */
-.text-ochre  { color: var(--ef-ochre); }
-.text-ink-2  { color: var(--ef-ink-2); }
-.text-ink-3  { color: var(--ef-ink-3); }
+.text-ochre  { color: var(--ef-accent); }
+.text-ink-2  { color: var(--ef-text-2); }
+.text-ink-3  { color: var(--ef-text-3); }
 .text-right  { text-align: right; }
 .text-center { text-align: center; }
-.mono        { font-family: var(--font-mono); }
-.serif       { font-family: var(--font-display); }
+.mono        { font-family: var(--spec-font-mono); }
+.serif       { font-family: var(--spec-font-display); }
 .italic      { font-style: italic; }
-.glyph       { font-family: var(--font-glyph); }
+.glyph       { font-family: var(--spec-font-glyph); }
 .hidden-mobile { display: initial; }
 
 @media (max-width: 768px) {
