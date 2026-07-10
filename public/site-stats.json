@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T12:31:13.759Z",
+  "generatedAt": "2026-07-10T03:42:39.985Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -40,19 +40,17 @@
     }
   },
   "release": {
-    "tag": "v0.2.8",
-    "name": "Latest release — npm package, per-plane WOFF2",
-    "date": "2026-07-09",
-    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.2.8",
-    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/Essenfont-Regular.ttc",
-    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.2.8",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.2.8/coverage.json",
+    "tag": "v0.3.0",
+    "name": "UFO-driven build + glyph-bounds fix + CpMap filter",
+    "date": "2026-07-10",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.0",
+    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.0/Essenfont-Regular.ttc",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.0",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.0/coverage.json",
     "stats": {
-      "codepoints": 82329,
-      "pct": 51.5,
       "planes": 5
     },
-    "notes": "Latest. Ships as `essenfont` on npm with per-plane WOFF2 + CSS bundles, plus the canonical Essenfont-Regular.ttc with all 5 faces."
+    "notes": "UFO-driven build: every donor converted to UFO and normalized to unitsPerEm=1000 before stitching. Fixes glyph-bounds overflow (𓂀 and other non-1000-upm donor glyphs). CpMap restrict_to_covers enforced. uni-hieroglyphica primary for all Egyptian blocks. Per-face vertical metrics recomputed from actual glyph extents."
   },
   "coverage": {
     "generated_at": "2026-07-09T01:05:21Z",
