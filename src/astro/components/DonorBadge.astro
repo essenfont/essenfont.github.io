@@ -11,6 +11,7 @@
  * VENDOR_LOGO.
  */
 import type { DonorFamily } from '../lib/donors';
+import { donorLogo } from '../lib/donors';
 
 export interface Props {
   donor: Pick<DonorFamily, 'family' | 'slug' | 'vendor'> & { license?: string };
@@ -20,29 +21,8 @@ export interface Props {
   variant?: 'compact' | 'normal';
 }
 
-interface VendorLogo {
-  /** Vendor substring to match (case-insensitive). */
-  match: string;
-  /** Path under /img/donor-logos/. */
-  src: string;
-  /** Alt text. */
-  alt: string;
-}
-
-const VENDOR_LOGOS: readonly VendorLogo[] = [
-  { match: 'noto', src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' },
-  { match: 'google', src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' },
-  { match: 'sil', src: '/img/donor-logos/sil.svg', alt: 'SIL International logo' },
-  { match: 'synthetic', src: '/img/donor-logos/unicode-org.svg', alt: 'Unicode Consortium logo' },
-];
-
-function logoFor(donor: Props['donor']): VendorLogo | null {
-  const hay = `${donor.family} ${donor.vendor}`.toLowerCase();
-  return VENDOR_LOGOS.find((v) => hay.includes(v.match)) ?? null;
-}
-
 const { donor, block, variant = 'normal' } = Astro.props;
-const logo = logoFor(donor);
+const logo = donorLogo(donor.family, donor.vendor);
 const donorHref = `/donors/${donor.slug}`;
 ---
 

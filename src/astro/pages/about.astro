@@ -47,16 +47,16 @@ const stats = loadStats();
     <section class="logo-philosophy">
       <div class="logo-gallery logo-gallery--two">
         <figure class="logo-figure logo-figure--light">
-          <img src="/essenfont-logo_dark.svg" alt="Essenfont mark in light mode (blue)" width="192" height="192" />
+          <img src="/essenfont-logo_light.svg" alt="Essenfont mark in light mode (blue)" width="192" height="192" />
           <figcaption>
-            <span class="mono">Light · Blue</span>
+            <span class="logo-fig-label">Light · Blue</span>
             <span class="logo-fig-caption">illumination — the calm authority of a clear sky, the colour of daylight on paper.</span>
           </figcaption>
         </figure>
         <figure class="logo-figure logo-figure--dark">
-          <img src="/essenfont-logo_light.svg" alt="Essenfont mark in dark mode (red)" width="192" height="192" />
+          <img src="/essenfont-logo_dark.svg" alt="Essenfont mark in dark mode (red)" width="192" height="192" />
           <figcaption>
-            <span class="mono">Dark · Red</span>
+            <span class="logo-fig-label">Dark · Red</span>
             <span class="logo-fig-caption">rubrication — the medieval practice of marking important initials in vermilion, lit by the lamp that keeps the page readable at night.</span>
           </figcaption>
         </figure>
@@ -218,8 +218,15 @@ const stats = loadStats();
     background: #161513;
     border-color: rgba(176, 64, 64, 0.45);
   }
-  .logo-figure--dark .mono,
-  .logo-figure--dark .logo-fig-caption { color: #ecdfd0; }
+  .logo-figure--dark .logo-fig-label,
+  .logo-figure--dark .logo-fig-caption { color: #ecdfd0 !important; }
+  .logo-fig-label {
+    font-family: var(--spec-font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ef-text-2);
+  }
   .logo-figure img {
     width: 144px;
     height: 144px;

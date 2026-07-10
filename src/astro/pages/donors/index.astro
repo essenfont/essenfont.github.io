@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadDonors } from '../../lib/donors';
+import { loadDonors, donorLogo } from '../../lib/donors';
 import { loadStats } from '../../lib/stats';
 import { formatNumber } from '../../lib/ssr';
 
@@ -25,13 +25,21 @@ const roleOrder = ['primary', 'secondary', 'specialist', 'contributor']
       <p>Every glyph in Essenfont is vector-extracted from an OFL-licensed donor font.</p>
     </header>
     <div class="donor-grid">
-      {donors.map(d => (
+      {donors.map(d => {
+        const logo = donorLogo(d.family, d.vendor);
+        return (
         <a href={`/donors/${d.slug}`} class="donor-card">
+          {logo ? (
+            <img src={logo.src} alt={logo.alt} class="donor-card-logo" width="28" height="28" loading="lazy" />
+          ) : (
+            <span class="donor-card-logo donor-card-logo--placeholder" aria-hidden="true">{d.family.charAt(0)}</span>
+          )}
           <span class="donor-family">{d.family}</span>
           <span class="donor-meta">{d.license} · {d.covers_count} blocks · {d.role}</span>
           <span class="donor-author">{d.vendor}</span>
         </a>
-      ))}
+        );
+      })}
     </div>
   </div>
 
@@ -74,6 +82,8 @@ h1 { font-family: var(--spec-font-display); font-size: clamp(1.75rem, 4vw, 2.5re
 .donor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.75rem; }
 .donor-card { display: flex; flex-direction: column; padding: 1rem; border: 1px solid rgba(128,128,128,0.2); border-radius: 4px; text-decoration: none; color: inherit; transition: border-color 0.1s; }
 .donor-card:hover { border-color: var(--ef-rose, #bf4e6a); }
+.donor-card-logo { width: 28px; height: 28px; object-fit: contain; margin-bottom: 0.5rem; }
+.donor-card-logo--placeholder { display: inline-flex; align-items: center; justify-content: center; background: var(--ef-accent); color: white; font-family: var(--spec-font-mono); font-size: 0.85rem; font-weight: 700; border-radius: 4px; }
 .donor-family { font-weight: 600; font-size: 0.95rem; }
 .donor-meta { font-family: var(--spec-font-mono); font-size: 0.7rem; opacity: 0.6; margin-top: 0.25rem; }
 .donor-author { font-size: 0.75rem; opacity: 0.5; margin-top: 0.25rem; }
