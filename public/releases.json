@@ -1,5 +1,31 @@
 [
   {
+    "tag": "v0.3.7",
+    "name": "Verified — OTC (CFF2) + cache infrastructure (SVG, WOFF2)",
+    "date": "2026-07-10",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.7",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.7/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.7/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.7",
+    "isLatest": true,
+    "notes": "Identical coverage to v0.3.4 (cp_map byte-stable: 123,611 codepoints, U+0041→noto-sans, U+13080→uni-hieroglyphica). Canonical OTC with CFF2 outlines. BuildCache infrastructure now wired through the whole release pipeline: per-plane WOFF/WOFF2 encoding keyed by TTF sha256, SVG export keyed by OTC sha256. UFO disk cache scaffolded but disabled pending fontisan Ufo::Reader Phase 2 (contour/component decoding).",
+    "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
+  },
+  {
+    "tag": "v0.3.6",
+    "name": "Broken — SVG refactor NameError (superseded by v0.3.7)",
+    "date": "2026-07-10",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.6",
+    "notes": "DO NOT USE. Pipeline built the OTC + per-plane TTFs successfully but crashed during SVG export: _emit_svg_exports_from_otc referenced `out_dir` which was not in scope after the cache refactor split it into a separate method. No GitHub Release published, no npm publish."
+  },
+  {
+    "tag": "v0.3.5",
+    "name": "Broken — SVG refactor NameError (superseded by v0.3.6)",
+    "date": "2026-07-10",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.5",
+    "notes": "DO NOT USE. First attempt at wiring BuildCache around SVG export. _emit_svg_exports_from_otc lost the `font = Fontisan::FontLoader.load(otc_path)` line when split off from the outer wrapper, crashing with NameError. No GitHub Release published, no npm publish."
+  },
+  {
     "tag": "v0.3.4",
     "name": "Verified — UFO build + glyph-bounds fix + CpMap fix + OTC + cache infra",
     "date": "2026-07-10",
@@ -7,7 +33,6 @@
     "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.4/Essenfont-Regular.otc",
     "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.4/coverage.json",
     "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.4",
-    "isLatest": true,
     "notes": "Verified correct — cp_map identical to v0.3.2. All three bugs fixed: (1) CpMap restrict_to_covers — FSung no longer claims Latin, (2) UFO normalization — glyphs scaled to 1000-upm, (3) uni-hieroglyphica primary for Egyptian — native 1000-upm. Canonical OTC (CFF2). BuildCache infrastructure (SVG + WOFF2 caching active).",
     "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
   },
