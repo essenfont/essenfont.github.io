@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import {
   loadAllBlocks,
   loadBlockCharacters,
+  loadUnihanForCodepoint,
   slugifyBlockName,
   PLANES,
   blockDisplayName,
@@ -15,8 +16,12 @@ import {
   controlName,
   cEscape,
 } from '../../../lib/unicode';
+import { UNIHAN_CATEGORIES } from '../../../lib/unicode/constants';
 import * as esc from '../../../lib/unicode/escapes';
+import { blockNameToId, blockToDonorSlug, loadDonorDetail } from '../../../lib/donors';
 import type { UnicodeBlock, UnicodeCharacter } from '../../../lib/unicode';
+import Tabs from '../../../components/Tabs.vue';
+import DonorBadge from '../../../components/DonorBadge.astro';
 
 interface CharPageProps {
   char: UnicodeCharacter;
@@ -59,6 +64,29 @@ const ctrlName = controlName(cp);
 const displayName = isControl && ctrlName ? `<${ctrlName}>` : char.name;
 const blockSlug = slugifyBlockName(block.name);
 
+// Donor attribution — map this block to a specific donor page (e.g. CJK
+// → /donors/full-sung). Falls back to the generic /donors registry.
+const donorSlug = blockToDonorSlug().get(blockNameToId(block.name));
+const donorHref = donorSlug ? `/donors/${donorSlug}` : '/donors';
+const donorFamilyName = donorSlug
+  ? donorSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
+  : null;
+const donorDetail = donorSlug ? loadDonorDetail(donorSlug) : null;
+
+// Unihan data for CJK ideographs (readings, radical/stroke, definition, etc).
+const unihan = loadUnihanForCodepoint(cp, blockSlug);
+
+// Build the tab list from conditional sections. Adding a new section =
+// appending here + wrapping it in <section data-tab="new-id">.
+const charTabs = [
+  { id: 'classification', label: 'Classification' },
+  { id: 'encodings', label: 'Encodings' },
+  { id: 'provenance', label: 'Provenance' },
+  ...(char.simpleUppercase || char.simpleLowercase || char.simpleTitlecase ? [{ id: 'case', label: 'Case' }] : []),
+  ...(char.decomposition ? [{ id: 'decomposition', label: 'Decomposition' }] : []),
+  ...(unihan ? [{ id: 'unihan', label: 'Unihan' }] : []),
+];
+
 const utf8 = esc.utf8(cp);
 const utf16 = esc.utf16(cp);
 const utf32 = esc.utf32(cp);
@@ -69,6 +97,51 @@ const cssEsc = esc.cssEscape(cp);
 const htmlDec = esc.htmlDecimal(cp);
 const htmlHex = esc.htmlHex(cp);
 const escapeSeq = cEscape(cp);
+
+// Human-readable labels for Unihan field codes (kTotalStrokes → Total Strokes, etc.).
+const UNIHAN_LABELS: Record<string, string> = {
+  kDefinition: 'Definition',
+  kMandarin: 'Mandarin',
+  kCantonese: 'Cantonese',
+  kHangul: 'Hangul',
+  kKorean: 'Korean',
+  kJapanese: 'Japanese',
+  kJapaneseKun: 'Japanese Kun',
+  kJapaneseOn: 'Japanese On',
+  kVietnamese: 'Vietnamese',
+  kHanyuPinyin: 'Hanyu Pinyin',
+  kTang: 'Tang',
+  kTotalStrokes: 'Total Strokes',
+  kRSUnicode: 'Radical-Stroke (Unicode)',
+  kRSKangXi: 'Radical-Stroke (KangXi)',
+  kKangXi: 'KangXi',
+  kCompatibilityVariant: 'Compatibility Variant',
+  kIRG_KSource: 'IRG K Source',
+  kIRG_GSource: 'IRG G Source',
+  kIRG_JSource: 'IRG J Source',
+  kIRG_TSource: 'IRG T Source',
+  kIRG_USource: 'IRG U Source',
+  kIRG_VSource: 'IRG V Source',
+  kIRG_HSource: 'IRG H Source',
+  kIRG_MSource: 'IRG M Source',
+  kGradeLevel: 'Grade Level',
+  kFrequency: 'Frequency',
+  kHanYu: 'Han Yu',
+  kPhonetic: 'Phonetic',
+  kSemanticVariant: 'Semantic Variant',
+  kSimplifiedVariant: 'Simplified Variant',
+  kTraditionalVariant: 'Traditional Variant',
+  kZVariant: 'Z Variant',
+  kNelson: 'Nelson',
+  kMorohashi: 'Morohashi',
+  kCihaiT: 'Cihai T',
+  kFenn: 'Fenn',
+  kFourCornerCode: 'Four Corner Code',
+};
+
+function unihanLabel(name: string): string {
+  return UNIHAN_LABELS[name] ?? name.replace(/^k(.)/, (_, c) => c).replace(/([a-z])([A-Z])/g, '$1 $2');
+}
 ---
 <BaseLayout
   title={`U+${hex} ${char.name} — Essenfont`}
@@ -140,8 +213,14 @@ const escapeSeq = cEscape(cp);
     </h1>
     <code class="ucp-hex">U+{hex}</code>
 
-    <div class="ucp-sections">
-      <section class="ucp-section">
+    {donorDetail && (
+      <div class="ucp-donor-banner">
+        <DonorBadge donor={donorDetail} block={blockDisplayName(block.name)} />
+      </div>
+    )}
+
+    <Tabs client:load tabs={charTabs}>
+      <section class="ucp-section" data-tab="classification" data-tab-label="Classification">
         <h2>Classification</h2>
         <dl>
           {block.unicodeVersion && (
@@ -198,7 +277,7 @@ const escapeSeq = cEscape(cp);
         </dl>
       </section>
 
-      <section class="ucp-section">
+      <section class="ucp-section" data-tab="encodings" data-tab-label="Encodings" hidden>
         <h2>Encodings</h2>
         <dl>
           <dt>HTML Dec</dt>
@@ -240,12 +319,16 @@ const escapeSeq = cEscape(cp);
         </dl>
       </section>
 
-      <section class="ucp-section ucp-provenance">
+      <section class="ucp-section ucp-provenance" data-tab="provenance" data-tab-label="Provenance" hidden>
         <h2>Provenance</h2>
         <dl>
           <dt>Donor</dt>
           <dd>
-            <a href="/donors" class="ucp-donor-link">Donor font for {blockDisplayName(block.name)} →</a>
+            <a href={donorHref} class="ucp-donor-link">
+              {donorFamilyName
+                ? <>Donor font for {blockDisplayName(block.name)} — {donorFamilyName} →</>
+                : <>Donor font for {blockDisplayName(block.name)} →</>}
+            </a>
           </dd>
           <dt>SVG outline</dt>
           <dd>
@@ -274,7 +357,7 @@ const escapeSeq = cEscape(cp);
       </section>
 
       {(char.simpleUppercase || char.simpleLowercase || char.simpleTitlecase) && (
-        <section class="ucp-section">
+        <section class="ucp-section" data-tab="case" data-tab-label="Case" hidden>
           <h2>Case Mappings</h2>
           <dl>
             {char.simpleUppercase && (
@@ -312,7 +395,7 @@ const escapeSeq = cEscape(cp);
       )}
 
       {char.decomposition && (
-        <section class="ucp-section">
+        <section class="ucp-section" data-tab="decomposition" data-tab-label="Decomposition" hidden>
           <h2>Decomposition</h2>
           <dl>
             <dt>Decomposes To</dt>
@@ -331,7 +414,46 @@ const escapeSeq = cEscape(cp);
           </dl>
         </section>
       )}
-    </div>
+
+      {unihan && (
+        <section class="ucp-section ucp-unihan" data-tab="unihan" data-tab-label="Unihan" hidden>
+          <h2>Unihan</h2>
+          <dl>
+            {UNIHAN_CATEGORIES.map(cat => {
+              const fields = unihan[cat.key];
+              if (!fields || fields.length === 0) return null;
+              return (
+                <>
+                  {fields.map(f => (
+                    <>
+                      <dt>{unihanLabel(f.name)}</dt>
+                      <dd>
+                        {cat.render === 'variant' && f.values.every(v => /^U\+[0-9A-Fa-f]+$/.test(v)) ? (
+                          f.values.map((v, i) => (
+                            <>
+                              {i > 0 && <span>, </span>}
+                              <a href={`/unicode/char/${v.slice(2)}`}>{String.fromCodePoint(parseInt(v.slice(2), 16))}</a>
+                              <code class="ucp-unihan-cp">{v}</code>
+                            </>
+                          ))
+                        ) : (
+                          f.values.map((v, i) => (
+                            <>
+                              {i > 0 && <span>, </span>}
+                              <span>{v}</span>
+                            </>
+                          ))
+                        )}
+                      </dd>
+                    </>
+                  ))}
+                </>
+              );
+            })}
+          </dl>
+        </section>
+      )}
+    </Tabs>
   </article>
 </BaseLayout>
 
@@ -517,12 +639,15 @@ const escapeSeq = cEscape(cp);
   color: var(--ef-accent);
 }
 
-.ucp-sections {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+.ucp-donor-banner {
+  margin: 1rem 0 0.5rem;
 }
+
+/* The Tabs container replaces the old .ucp-sections grid. Panels
+   stack vertically; the tabstrip handles horizontal navigation.
+   Each panel is full-width on its own — denser than the old grid
+   but matches the long-form char-page pattern. */
+.ucp-section { max-width: 720px; }
 .ucp-section h2 {
   font-family: var(--spec-font-mono);
   font-size: 0.72rem;

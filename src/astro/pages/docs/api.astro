@@ -24,7 +24,6 @@ const stitcher  = Fontisan::Stitcher.new
 >
   <section class="container docs-page">
     <header class="docs-head">
-      <p class="eyebrow">Docs · III</p>
       <h1>npm API</h1>
     </header>
 
@@ -58,10 +57,7 @@ const stitcher  = Fontisan::Stitcher.new
 
     <h2 id="build">Build pipeline (Ruby source)</h2>
     <p>
-      The TypeScript package is a thin shim over the Ruby build pipeline
-      in the <a href="https://github.com/essenfont/essenfont">essenfont</a>
-      source repo. For programmatic donor registry access, partition
-      strategy, or custom subsetting, use the Ruby API:
+      The TypeScript package is a thin shim over the Ruby build pipeline in the <a href="https://github.com/essenfont/essenfont">essenfont</a> source repo. For programmatic donor registry access, partition strategy, or custom subsetting, use the Ruby API:
     </p>
     <pre class="code-block"><code>{STAGES_SNIPPET}</code></pre>
 
@@ -74,11 +70,7 @@ const stitcher  = Fontisan::Stitcher.new
 <style>
   .docs-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
   .docs-head { margin-bottom: 2.5rem; }
-  .eyebrow {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
-  }
+  
   h1 {
     font-family: var(--spec-font-display);
     font-size: clamp(2rem, 5vw, 3rem); margin: 0;

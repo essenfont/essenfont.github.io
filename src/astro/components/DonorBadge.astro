@@ -1,0 +1,140 @@
+---
+/**
+ * DonorBadge — compact "this glyph comes from <donor>" callout.
+ *
+ * Renders the donor's logo (when available), name, vendor, and a link
+ * to /donors/[slug]. Used on char pages and block pages so visitors
+ * always know whose glyphs they're seeing.
+ *
+ * The donor-vendor → logo mapping is the single source of truth for
+ * which donor gets which logo asset. Adding a new logo = appending to
+ * VENDOR_LOGO.
+ */
+import type { DonorFamily } from '../lib/donors';
+
+export interface Props {
+  donor: Pick<DonorFamily, 'family' | 'slug' | 'vendor'> & { license?: string };
+  /** Block name for context (e.g., "CJK Compatibility Ideographs"). */
+  block?: string;
+  /** Visual size: 'compact' for inline use, 'normal' for callouts. */
+  variant?: 'compact' | 'normal';
+}
+
+interface VendorLogo {
+  /** Vendor substring to match (case-insensitive). */
+  match: string;
+  /** Path under /img/donor-logos/. */
+  src: string;
+  /** Alt text. */
+  alt: string;
+}
+
+const VENDOR_LOGOS: readonly VendorLogo[] = [
+  { match: 'noto', src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' },
+  { match: 'google', src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' },
+  { match: 'sil', src: '/img/donor-logos/sil.svg', alt: 'SIL International logo' },
+  { match: 'synthetic', src: '/img/donor-logos/unicode-org.svg', alt: 'Unicode Consortium logo' },
+];
+
+function logoFor(donor: Props['donor']): VendorLogo | null {
+  const hay = `${donor.family} ${donor.vendor}`.toLowerCase();
+  return VENDOR_LOGOS.find((v) => hay.includes(v.match)) ?? null;
+}
+
+const { donor, block, variant = 'normal' } = Astro.props;
+const logo = logoFor(donor);
+const donorHref = `/donors/${donor.slug}`;
+---
+
+<a href={donorHref} class:list={['donor-badge', `donor-badge--${variant}`]}>
+  {logo ? (
+    <img src={logo.src} alt={logo.alt} class="donor-badge-logo" width="24" height="24" loading="lazy" />
+  ) : (
+    <span class="donor-badge-logo donor-badge-logo--placeholder" aria-hidden="true">{donor.family.charAt(0)}</span>
+  )}
+  <span class="donor-badge-text">
+    <span class="donor-badge-label">Glyph donor</span>
+    <span class="donor-badge-name">{donor.family}</span>
+    {block && <span class="donor-badge-context">for {block}</span>}
+  </span>
+  <span class="donor-badge-arrow" aria-hidden="true">→</span>
+</a>
+
+<style>
+  .donor-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.85rem;
+    background: var(--ef-surface, #f2efe9);
+    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
+    border-left: 3px solid var(--ef-accent, #2a5c8a);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, transform 0.15s;
+    max-width: 100%;
+  }
+  .donor-badge:hover {
+    border-color: var(--ef-accent);
+    transform: translateY(-1px);
+  }
+  .donor-badge--compact {
+    padding: 0.35rem 0.55rem;
+    gap: 0.4rem;
+  }
+  .donor-badge--compact .donor-badge-logo { width: 16px; height: 16px; }
+  .donor-badge--compact .donor-badge-label { display: none; }
+  .donor-badge--compact .donor-badge-name { font-size: 0.75rem; }
+  .donor-badge-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+  .donor-badge-logo--placeholder {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: var(--ef-accent);
+    color: white;
+    font-family: var(--spec-font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 4px;
+  }
+  .donor-badge-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.05rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .donor-badge-label {
+    font-family: var(--spec-font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ef-text-3);
+  }
+  .donor-badge-name {
+    font-family: var(--spec-font-display);
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--ef-text);
+    line-height: 1.2;
+  }
+  .donor-badge-context {
+    font-size: 0.72rem;
+    color: var(--ef-text-2);
+    line-height: 1.2;
+  }
+  .donor-badge-arrow {
+    color: var(--ef-accent);
+    font-size: 0.85rem;
+    margin-left: 0.25rem;
+    flex-shrink: 0;
+  }
+</style>

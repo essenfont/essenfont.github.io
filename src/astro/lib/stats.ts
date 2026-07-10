@@ -18,6 +18,42 @@ export interface LatestRelease {
   notes?: string | null;
 }
 
+export interface CoverageBlockSummary {
+  id: string;
+  name: string;
+  range: string;
+  first: number;
+  last: number;
+  covered: number;
+  total: number;
+  pct: number;
+  status: string;
+}
+
+export interface CoverageStats {
+  generated_at: string;
+  unicode_version: string;
+  source: string;
+  overall: {
+    covered: number;
+    total: number;
+    pct: number;
+    block_count: number;
+    cmap_union: number;
+  };
+  totals: {
+    blocks: number;
+    assigned_blocks: number;
+    reserved_blocks: number;
+    empty: number;
+    complete: number;
+    covered: number;
+    assigned: number;
+    pct: number;
+  };
+  blocks: CoverageBlockSummary[];
+}
+
 export interface SiteStats {
   generatedAt: string;
   unicode: {
@@ -39,7 +75,7 @@ export interface SiteStats {
     perPlaneWoff2: Record<string, { file: string; size: number }>;
   };
   release: LatestRelease | null;
-  coverage: unknown | null;
+  coverage: CoverageStats | null;
 }
 
 export function loadStats(): SiteStats {

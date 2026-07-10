@@ -2,11 +2,18 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const cards = [
-  { num: 'I',   slug: 'usage',        title: 'How to use',    desc: 'Which format to grab (TTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), when to use each, and what to watch out for. Decision matrix and seven use-case plates.', primary: true },
+  { num: 'I',   slug: 'usage',        title: 'How to use',    desc: 'Which format to grab, when to use each, and what to watch out for. Decision matrix and six use-case plates.', primary: true },
   { num: 'II',  slug: 'install',      title: 'Install',       desc: 'CLI commands for Fontist, npm, and direct download. The exact syntax per platform.' },
   { num: 'III', slug: 'css',          title: 'CSS',           desc: '@font-face, unicode-range, fallback chains, self-hosting, CORS, font-display.' },
   { num: 'IV',  slug: 'api',          title: 'API',           desc: 'The essenfont npm package. TypeScript types for every export.' },
-  { num: 'V',   slug: 'architecture', title: 'Architecture',  desc: 'Donor registry, Stitcher, Collection::Builder, CFF2 + CBDT pipeline. Reference for tooling authors.' },
+];
+
+const engineering = [
+  { num: 'V',   slug: 'pipeline',       title: 'Build pipeline',     desc: 'How 160k glyphs from 38 donors become one OTC — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.' },
+  { num: 'VI',  slug: 'sources',         title: 'Where the glyphs come from', desc: 'The donor strategy: OFL-compatible donors, the Tier 1/2/3 sourcing model, code-chart SVG extraction, and why Full-Sung is the CJK donor.' },
+  { num: 'VII', slug: 'formats',         title: 'Output formats & distribution', desc: 'Why OTC not TTF, why OTC over TTC, why both WOFF and WOFF2. Plus the release pipeline.' },
+  { num: 'VIII',slug: 'specification',   title: 'Font specification', desc: 'The internal structure of Essenfont-Regular.otc — faces, UPM strategy, per-face vertical metrics, and donor attribution.' },
+  { num: 'IX',  slug: 'coverage',        title: 'Coverage, gaps & roadmap', desc: 'What works today, what is blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer enforces, and what is next.' },
 ];
 ---
 <BaseLayout
@@ -16,7 +23,6 @@ const cards = [
 >
   <section class="container docs-page">
     <header class="docs-head">
-      <p class="eyebrow">Documentation</p>
       <h1>How to use Essenfont</h1>
       <p class="lede">
         Start with <a href="/docs/usage">How to use</a> — it walks you through which format fits your situation (OS install, web embed, app bundle, PDF, fleet, npm package), then links to the syntax reference below.
@@ -33,17 +39,25 @@ const cards = [
         </a>
       ))}
     </nav>
+
+    <h2 class="docs-section-head">How it's built</h2>
+    <nav class="docs-grid">
+      {engineering.map(c => (
+        <a href={`/docs/${c.slug}`} class="docs-card">
+          <span class="docs-num">{c.num}</span>
+          <h2 class="docs-title">{c.title}</h2>
+          <p class="docs-desc">{c.desc}</p>
+          <span class="docs-cta mono">read →</span>
+        </a>
+      ))}
+    </nav>
   </section>
 </BaseLayout>
 
 <style>
   .docs-page { max-width: 960px; padding: 3rem 1.5rem 6rem; }
   .docs-head { margin-bottom: 3rem; }
-  .eyebrow {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--ef-rose, #bf4e6a); margin: 0 0 0.5rem;
-  }
+  
   h1 {
     font-family: var(--spec-font-display, Spectral, serif);
     font-size: clamp(2rem, 5vw, 3rem); margin: 0;
@@ -101,4 +115,12 @@ const cards = [
     margin-top: 0.5rem;
     font-family: var(--spec-font-mono, monospace);
   }
+.docs-section-head {
+  font-family: var(--spec-font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 3rem 0 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ef-rule);
+}
 </style>

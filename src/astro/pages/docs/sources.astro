@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { loadStats } from '../../lib/stats';
+import { formatNumber } from '../../lib/ssr';
+import ReadingLayout from '../../components/ReadingLayout.vue';
+
+const stats = loadStats();
+
+const oflCompatible = ['OFL', 'Apache', 'MIT', 'BSD', 'CC0', 'UFL', 'Bitstream', 'GUST', 'CC-BY'];
+
+const tier1Examples = [
+  { family: 'Noto Sans', role: 'Latin / Cyrillic / Greek / common symbols', blocks: 'Basic Latin through Modifier Tone Letters' },
+  { family: 'Noto Sans Math', role: 'Mathematical symbols', blocks: 'Mathematical Operators, Supplemental Mathematical Operators, Misc Math' },
+  { family: 'Noto Sans Cuneiform', role: 'Akkadian / Sumerian', blocks: 'Cuneiform, Cuneiform Numbers and Punctuation' },
+  { family: 'Noto Serif Tangut', role: 'Tangut script (CFF-only)', blocks: 'Tangut, Tangut Components, Tangut Supplement' },
+  { family: 'Noto Color Emoji + Noto Emoji', role: 'Emoticons, transport, map symbols', blocks: 'Emoticons, Transport and Map Symbols, Symbols and Pictographs' },
+  { family: 'UniHieroglyphica', role: 'Egyptian hieroglyphs', blocks: 'Egyptian Hieroglyphs, Egyptian Hieroglyph Format Controls, Egyptian Hieroglyphs Extended-A/B' },
+  { family: 'Symbola', role: 'Ancient Greek, classical symbols', blocks: 'Ancient Greek Numbers, Ancient Symbols, Greek texts' },
+  { family: 'BabelStone', role: 'Rare historic and minority scripts', blocks: 'Many Tertiary-plane blocks' },
+  { family: 'Lentariso', role: 'Sidetic', blocks: 'Sidetic (Unicode 17 addition)' },
+  { family: 'Kedebideri', role: 'Beria Erfe', blocks: 'Beria Erfe' },
+  { family: 'Kelly Tolong', role: 'Tolong Siki', blocks: 'Tolong Siki' },
+];
+
+const syntheticDonors = [
+  { family: 'Khitan Small Script (synthetic)', cps: '470 of 471', source: 'Code Charts PDF → ucode extractor → SVG → fontisan SvgToGlyf' },
+  { family: 'Tangut Components Supplement (synthetic)', cps: '114 of 115', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Nyiakeng Puachue Hmong (synthetic)', cps: '70 of 71', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Gurung Khema (synthetic)', cps: '56 of 57', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Kirat Rai (synthetic)', cps: '56 of 57', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Ottoman Siyaq Numbers (synthetic)', cps: '59 of 60', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Sharada Supplement (synthetic)', cps: '6 of 7', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Ideographic Symbols and Punctuation (synthetic)', cps: '12 of 12', source: 'Code Charts PDF → ucode → SVG' },
+  { family: 'Enclosed Ideographic Supplement (synthetic)', cps: '64 of 64', source: 'Code Charts PDF → ucode → SVG' },
+];
+---
+<BaseLayout
+  title="Where the glyphs come from — Engineering — Essenfont"
+  description="Essenfont sources glyphs from 38 OFL-licensed donor fonts in three tiers: real donor outlines, code-chart SVG extraction, and last-resort tofu boxes. Why Full-Sung (Taiwan 全宋體) is the CJK donor instead of Noto Sans CJK."
+  canonical="/docs/sources"
+>
+  <ReadingLayout client:visible>
+    <article class="sources-page">
+    <header class="page-head">
+      <h1>Where the glyphs come from</h1>
+      <p class="lede">
+        Essenfont contains no hand-drawn glyphs. Every one of the
+        {formatNumber(stats.unicode.assignedCodepointCount)} characters it
+        covers is sourced from one of three places: a canonical OFL-licensed
+        donor font, a synthetic TTF extracted from the Unicode Code Charts
+        PDFs, or a last-resort tofu box.
+      </p>
+    </header>
+
+    <section class="prose" data-reading-article>
+      <h2>The three tiers</h2>
+      <div class="tier-grid">
+        <div class="tier-card tier-1">
+          <p class="tier-label">Tier 1 · ~99% of codepoints</p>
+          <h3>Real donor outlines</h3>
+          <p>
+            Vector glyphs from canonical OFL-licensed donor fonts — Noto,
+            Full-Sung, UniHieroglyphica, Symbola, BabelStone, Lentariso,
+            Kedebideri, Kelly Tolong, and ~30 others. Each donor is
+            authoritative for its scripts; Essenfont copies the outlines
+            verbatim.
+          </p>
+        </div>
+        <div class="tier-card tier-2">
+          <p class="tier-label">Tier 2 · &lt;1% of codepoints</p>
+          <h3>Code-chart SVG extraction</h3>
+          <p>
+            For Unicode blocks no OFL donor covers yet, glyphs are
+            extracted from the Unicode Code Charts PDFs via ucode and
+            compiled into synthetic TTFs by fontisan's SvgToGlyf. Nine
+            synthetic donors contribute ~830 characters across Khitan,
+            Tangut Components Supplement, Gurung Khema, Kirat Rai, and
+            others.
+          </p>
+        </div>
+        <div class="tier-card tier-3">
+          <p class="tier-label">Tier 3 · &lt;1% of codepoints</p>
+          <h3>Last-resort boxes</h3>
+          <p>
+            Reserved, PUA, and non-character codepoints get a Unicode
+            Last-Resort-style placeholder so cmap entries exist where
+            standards require them, but no donor glyph is fabricated. This
+            is the only Tier 3 content — Tier 1/2 cover every real
+            character.
+          </p>
+        </div>
+      </div>
+
+      <h2>The license policy</h2>
+      <p>
+        Essenfont is redistributable under OFL. That places a hard
+        constraint on every donor: its license must permit OFL
+        redistribution, or the build refuses to use it. The OFL-compatible
+        allowlist lives in <code>sources/manifest.yml</code>:
+      </p>
+      <ul class="license-list">
+        {oflCompatible.map(l => <li><code>{l}</code></li>)}
+      </ul>
+      <p>
+        One donor family is accepted with conditions: <strong>Full-Sung</strong> (全宋體). Its license is custom, non-commercial — academic research, educational work, and personal reading are permitted; commercial use is prohibited. The build propagates that restriction into the output font's <code>name</code> table (nameID 0 copyright + nameID 13 license description) and into the auto-generated <code>LICENSE-SOURCES.md</code>, so downstream users can honour it programmatically. See <a href="/license">/license</a>.
+      </p>
+
+      <h2 id="fsung">Why Full-Sung, not Noto Sans CJK</h2>
+      <p>
+        For all CJK Unified Ideographs blocks — including Unicode 17 Extension J — the donor is <strong>Full-Sung</strong> (全宋體) by F.G. Wang (an expansion of the Taiwan Ministry of Education 全宋體), not Noto Sans CJK. Three reasons:
+      </p>
+      <ul>
+        <li>
+          <strong>Completeness.</strong> FSung covers every CJK extension through Unicode 17 Ext J (U+31350..U+323AF). Noto Sans CJK does not.
+        </li>
+        <li>
+          <strong>Authority.</strong> Taiwan MOE 全宋體 is the canonical Traditional Chinese glyph reference. F.G. Wang's FSung is the most complete public expansion of that source.
+        </li>
+        <li>
+          <strong>Traditional-first.</strong> Noto Sans CJK ships Simplified-first by default; FSung ships Traditional-first — the historically correct form for a canonical reference.
+        </li>
+      </ul>
+      <p>
+        The trade-off is license. FSung's "no commercial use" clause is not OFL-compatible, so the build records it as <code>accepted_with_conditions</code> and propagates the restriction forward. Users who need a purely OFL font should not redistribute the FSung-derived glyphs commercially; users who just need Unicode 17 rendering in a non-commercial context (research, education, personal reading, this website) get the best CJK coverage available anywhere.
+      </p>
+      <p>
+        The FSung family is multi-file, one TTF per Unicode plane:
+      </p>
+      <table class="fsung-table">
+        <thead><tr><th>File</th><th>Range</th><th>Carries</th></tr></thead>
+        <tbody>
+          <tr><td><code>FSung-m.ttf</code></td><td>BMP (U+0000..U+FFFF)</td><td>CJK Unified Ideographs + ~430 small BMP ranges</td></tr>
+          <tr><td><code>FSung-2.ttf</code></td><td>SIP (U+20000..U+2FFFF)</td><td>CJK Extensions B / C / D / E</td></tr>
+          <tr><td><code>FSung-3.ttf</code></td><td>TIP (U+30000..U+3FFFF)</td><td>CJK Extension C + Extension J (Unicode 17)</td></tr>
+          <tr><td><code>FSung-X.ttf</code></td><td>Plane 3 (U+100000..U+10FFFF)</td><td>Tertiary Ideographic Plane extensions</td></tr>
+        </tbody>
+      </table>
+      <p class="fsung-statement">
+        <em>The FSung author's statement (Chinese):</em> 「現將此成果無條件分享出來，樂見學術研究、教育工作、個人閱讀這方面的運用，但請勿用做任何形式的商業營利行為。」 — freely shared for academic research, educational work, and personal reading; commercial use is prohibited.
+      </p>
+
+      <h2>Tier 1 donor families</h2>
+      <p>
+        Each donor family is authoritative for a specific set of scripts
+        or blocks. A few examples:
+      </p>
+      <table class="donor-table">
+        <thead><tr><th>Family</th><th>Role</th><th>Example blocks</th></tr></thead>
+        <tbody>
+          {tier1Examples.map(d => (
+            <tr>
+              <td><strong>{d.family}</strong></td>
+              <td>{d.role}</td>
+              <td>{d.blocks}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        The full registry of {stats.donorCount} donor families — with per-donor license, vendor, file list, and codepoint coverage — lives at <a href="/donors">/donors</a>. Per-codepoint attribution is in <code>cp_map.json</code> in each <a href="https://github.com/essenfont/essenfont/releases">GitHub Release</a>; the website surfaces it at <a href="/provenance">/provenance</a>.
+      </p>
+
+      <h2>Tier 2: synthetic donors from code charts</h2>
+      <p>
+        Nine Unicode blocks have no OFL-licensed donor font yet. For
+        those, the build extracts glyphs from the official Unicode Code
+        Charts PDFs:
+      </p>
+      <pre><code>ucode code-chart extract  →  SVG per glyph  →  fontisan SvgToGlyf  →  synthetic TTF</code></pre>
+      <p>
+        The synthetic TTFs behave like any other donor: registered in <code>manifest.yml</code>, sha256-verified, license declared as "Unicode Data Files" (the Code Charts' license, OFL-compatible). Current synthetic donors:
+      </p>
+      <table class="synthetic-table">
+        <thead><tr><th>Synthetic donor</th><th>Coverage</th><th>Source</th></tr></thead>
+        <tbody>
+          {syntheticDonors.map(d => (
+            <tr>
+              <td><strong>{d.family}</strong></td>
+              <td>{d.cps}</td>
+              <td><code>{d.source}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        Two blocks still need work: <strong>Tulu-Tigalari</strong> (0 of 77 cps — fontisan drops them) and <strong>Kana Supplement</strong> (0 of 1 cp — the extracted TTF had zero cmap entries). Both are tracked in <a href="/docs/coverage">/docs/coverage</a>.
+      </p>
+
+      <p class="next">
+        Next: <a href="/docs/formats">output formats and distribution</a> — how the TTC and its variants reach desktop, web, and code.
+      </p>
+    </section>
+  </article>
+  </ReadingLayout>
+</BaseLayout>
+
+<style>
+.sources-page { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+.page-head { margin-bottom: 3rem; }
+
+
+
+h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  line-height: 1.15;
+  margin: 0 0 1rem;
+  color: var(--ef-text);
+}
+.lede {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ef-text);
+  opacity: 0.85;
+}
+.prose h2 {
+  font-family: var(--spec-font-display);
+  font-size: 1.6rem;
+  margin: 2.5rem 0 1rem;
+}
+.prose p, .prose li {
+  margin-bottom: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--ef-text);
+}
+.prose a {
+  color: var(--ef-rose, #bf4e6a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose code {
+  font-family: var(--spec-font-mono);
+  background: rgba(0,0,0,0.05);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.prose pre {
+  background: rgba(0,0,0,0.05);
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: var(--spec-font-mono);
+  font-size: 0.82rem;
+  line-height: 1.75;
+}
+.prose pre code { background: none; padding: 0; }
+
+.tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.tier-card {
+  padding: 1.1rem 1.25rem;
+  border-left: 3px solid var(--ef-rose, #bf4e6a);
+  background: rgba(0,0,0,0.025);
+}
+.tier-1 { border-left-color: #2d7a3e; }
+.tier-2 { border-left-color: #b88500; }
+.tier-3 { border-left-color: #888; }
+.tier-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  margin: 0 0 0.4rem;
+}
+.tier-card h3 { font-size: 1.05rem; margin: 0 0 0.5rem; font-family: var(--spec-font-display); }
+.tier-card p { font-size: 0.9rem; line-height: 1.55; margin: 0; }
+
+ul.license-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 1rem 0;
+}
+ul.license-list li {
+  font-family: var(--spec-font-mono);
+  font-size: 0.78rem;
+  background: rgba(191,78,106,0.08);
+  border: 1px solid rgba(191,78,106,0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+}
+ul.license-list code { background: none; padding: 0; font-size: inherit; }
+
+.fsung-table, .donor-table, .synthetic-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem;
+}
+.fsung-table th, .fsung-table td,
+.donor-table th, .donor-table td,
+.synthetic-table th, .synthetic-table td {
+  text-align: left;
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid rgba(128,128,128,0.2);
+  vertical-align: top;
+}
+.fsung-table thead th, .donor-table thead th, .synthetic-table thead th {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text);
+  opacity: 0.7;
+}
+.fsung-table td code, .synthetic-table td code { font-size: 0.85em; }
+.donor-table td { font-size: 0.88rem; }
+.fsung-statement {
+  font-size: 0.9rem !important;
+  padding: 1rem 1.25rem;
+  background: rgba(0,0,0,0.03);
+  border-left: 3px solid rgba(128,128,128,0.3);
+  margin: 1rem 0;
+}
+
+.next {
+  margin-top: 3rem !important;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(128,128,128,0.2);
+  font-size: 0.95rem !important;
+}
+</style>

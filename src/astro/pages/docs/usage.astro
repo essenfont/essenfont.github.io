@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadStats } from '../../lib/stats';
 import { formatBytes, formatNumber } from '../../lib/ssr';
+import ReadingLayout from '../../components/ReadingLayout.vue';
 
 const stats = loadStats();
 
@@ -130,7 +131,7 @@ const troubleshooting = [
   {
     problem: 'A character renders as a tofu box in Chrome even though you linked the per-block CSS.',
     cause: "Chrome's OpenType Sanitizer (OTS) rejected the WOFF2 silently. The network panel shows 200 OK; document.fonts.load() rejects with 'A network error occurred'.",
-    fix: "Re-encode the WOFF2 through `fontisan convert file.ttf --to woff2` — it handles OTS constraints (head.modified timestamp outside 1-hour window, per-glyph padding to 4-byte boundary, Brotli mode = :font, CFF2 IndexBuilder offset packing) that bespoke encoders silently violate. See /engineering/coverage for the full list.",
+    fix: "Re-encode the WOFF2 through `fontisan convert file.ttf --to woff2` — it handles OTS constraints (head.modified timestamp outside 1-hour window, per-glyph padding to 4-byte boundary, Brotli mode = :font, CFF2 IndexBuilder offset packing) that bespoke encoders silently violate. See /docs/coverage for the full list.",
   },
   {
     problem: "Your CSS lists `unicode-range: U+4E00-9FFF` but the browser fetches every per-block WOFF2.",
@@ -154,9 +155,9 @@ const troubleshooting = [
   description="Which Essenfont format to use (TTC, per-plane TTF, per-plane WOFF2, per-block WOFF2), when to use each, and how to wire it into your OS, website, app, PDF, fleet, or npm package. With diagrams and a decision matrix."
   canonical="/docs/usage"
 >
-  <article class="usage">
+  <ReadingLayout client:visible>
+    <article class="usage" data-reading-article>
     <header class="usage-hero">
-      <p class="eyebrow">Docs · I</p>
       <h1>How to use Essenfont</h1>
       <p class="lede">
         The build ships four artifacts — one whole TTC (canonical), five per-plane TTFs, five per-plane WOFF2s, and 209 per-block WOFF2 subsets. Which one you grab depends on what you're trying to do. This page walks you through the six common scenarios, the tradeoffs of each format, and the gotchas that surface when you wire it in.
@@ -235,7 +236,7 @@ const troubleshooting = [
       <p class="chap-num">I</p>
       <h2>The format zoo</h2>
       <p>
-        One Ruby build (<a href="/engineering/pipeline">/engineering/pipeline</a>) produces four shapes of the same font. Each targets a different audience:
+        One Ruby build (<a href="/docs/pipeline">/docs/pipeline</a>) produces four shapes of the same font. Each targets a different audience:
       </p>
 
       <svg class="diagram anatomy" viewBox="0 0 680 380" role="img" aria-labelledby="anatomy-title">
@@ -324,7 +325,7 @@ const troubleshooting = [
 
       <div class="plates">
         {useCases.map(uc => (
-          <article class="plate" id={'plate-' + uc.no.toLowerCase().replace(/[^a-z]+/g, '-')}>
+          <article class="plate" id={uc.no.toLowerCase().replace(/[^a-z]+/g, '-')}>
             <header class="plate-head">
               <span class="plate-num">{uc.no}</span>
               <h3>{uc.persona}</h3>
@@ -564,7 +565,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
       <p class="chap-num">VII</p>
       <h2>When something doesn't render</h2>
       <p>
-        Failure modes the build's per-block subset script has all handled at least once. The full list is at <a href="/engineering/coverage">/engineering/coverage</a>; common ones:
+        Failure modes the build's per-block subset script has all handled at least once. The full list is at <a href="/docs/coverage">/docs/coverage</a>; common ones:
       </p>
       <div class="ts-grid">
         {troubleshooting.map(t => (
@@ -595,7 +596,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
           <a href="/docs/api"><strong>npm API</strong></a> — the <code>essenfont</code> package, TypeScript types, programmatic access to font paths and metadata.
         </li>
         <li>
-          <a href="/engineering/pipeline"><strong>Build pipeline</strong></a> — how the font is assembled. Why five planes, the donor strategy, the glyph-cap algorithm.
+          <a href="/docs/pipeline"><strong>Build pipeline</strong></a> — how the font is assembled. Why five planes, the donor strategy, the glyph-cap algorithm.
         </li>
         <li>
           <a href="/donors"><strong>Donor registry</strong></a> — every donor font, its license, vendor, and which blocks it covers.
@@ -606,15 +607,12 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif, 'Essenfo
       </ul>
     </section>
   </article>
+  </ReadingLayout>
 </BaseLayout>
 
 <style>
 .usage { max-width: 880px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-.usage-hero { margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--spec-ink, #1c1a18); }.eyebrow {
-  font-family: var(--spec-font-mono, 'IBM Plex Mono', monospace);
-  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-  color: var(--ef-rose, #bf4e6a); margin: 0 0 0.5rem;
-}
+.usage-hero { margin-bottom: 4rem; padding-bottom: 2rem; border-bottom: 1px solid var(--spec-ink, #1c1a18); }
 .usage-hero h1 {
   font-family: var(--spec-font-display, Spectral, serif);
   font-size: clamp(2.25rem, 5vw, 3.25rem);

@@ -1,8 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TypeTester from '../components/TypeTester.astro';
+import TypeTester from '../components/TypeTester.vue';
 import BrandMark from '../components/BrandMark.astro';
 import SpecimenTile from '../components/SpecimenTile.astro';
+import AutoTypingHeadline from '../components/AutoTypingHeadline.vue';
+import CountUp from '../components/CountUp.vue';
 import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
@@ -43,7 +45,15 @@ const featured = [
       <BrandMark size="hero" animated={true} interactive={true} alt="Essenfont" />
     </div>
     <div class="hero-content">
-      <h1 class="display">Essenfont</h1>
+      <h1 class="display">
+        <AutoTypingHeadline client:visible words={[
+          'Essenfont',
+          '美食フォント',
+          'فونت إسن',
+          '𓆎𓃭𓅓𓂻𓈖',
+          'Essenfont',
+        ]} />
+      </h1>
       <p class="lede">
         One redistributable TrueType Collection covering every assigned Unicode {version.version} codepoint —
         {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
@@ -68,33 +78,33 @@ const featured = [
 
   <section class="tester-section">
     <div class="container tester-wrap">
-      <TypeTester />
+      <TypeTester client:visible />
     </div>
   </section>
 
   <section class="stats-grid">
     <div class="stat">
-      <div class="stat-num">{formatNumber(version.charCount)}</div>
+      <div class="stat-num"><CountUp client:visible value={version.charCount} duration={2000} /></div>
       <div class="stat-cap">Assigned Unicode {version.version} codepoints</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{version.blockCount}</div>
+      <div class="stat-num"><CountUp client:visible value={version.blockCount} duration={1500} /></div>
       <div class="stat-cap">Unicode blocks covered</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{stats.donorCount}</div>
+      <div class="stat-num"><CountUp client:visible value={stats.donorCount} duration={1200} /></div>
       <div class="stat-cap">OFL-licensed donor fonts</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{formatBytes(stats.fontBinaries.otcSizeBytes)}</div>
+      <div class="stat-num"><CountUp client:visible value={Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024)} duration={1400} /> MB</div>
       <div class="stat-cap">Canonical OTC (5 planes)</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{stats.websiteSubsets.woff2Count}</div>
+      <div class="stat-num"><CountUp client:visible value={stats.websiteSubsets.woff2Count} duration={1500} /></div>
       <div class="stat-cap">Per-block WOFF2 subsets</div>
     </div>
     <div class="stat">
-      <div class="stat-num">{formatBytes(stats.websiteSubsets.woff2TotalBytes)}</div>
+      <div class="stat-num"><CountUp client:visible value={Math.round(stats.websiteSubsets.woff2TotalBytes / 1024 / 1024)} duration={1600} /> MB</div>
       <div class="stat-cap">Total WOFF2 payload</div>
     </div>
   </section>
@@ -185,30 +195,6 @@ const featured = [
 @keyframes bm-spin-once {
   from { transform: rotate3d(0, 1, 0, 0deg); }
   to   { transform: rotate3d(0, 1, 0, 360deg); }
-}
-
-/* Staggered page-load reveal */
-.hero > *,
-.hero-content > * {
-  opacity: 0;
-  animation: hero-rise 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
-.hero-logo            { animation-delay: 0.05s; }
-.hero-content 
-.hero-content .display { animation-delay: 0.30s; }
-.hero-content .lede    { animation-delay: 0.42s; }
-.hero-content .cta-row { animation-delay: 0.55s; }
-.hero-content .hero-foot { animation-delay: 0.68s; }
-
-@keyframes hero-rise {
-  0%   { opacity: 0; transform: translateY(18px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero > *,
-  .hero-content > * { opacity: 1; animation: none; }
-  .hero-logo { transform: none; transition: none; }
 }
 .tester-section {
   padding: 2rem 0;

@@ -1,0 +1,121 @@
+---
+/**
+ * SiteFooter — three-column footer used by every page via BaseLayout.
+ *
+ * Columns: brand + version · explore links · sibling-repo ecosystem.
+ * The sibling-repo list is a single declarative array (see
+ * ../lib/ecosystem.ts); the latest release tag + date come from
+ * releases.json. No duplication.
+ */
+import { loadReleases } from '../lib/donors';
+import { SIBLING_REPOS } from '../lib/ecosystem';
+
+const releases = loadReleases();
+const latest = releases[0];
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-col footer-col--brand">
+      <p class="footer-name">Essenfont</p>
+      <p class="footer-tag">Universal Unicode 17 font</p>
+      <p class="footer-copy">&copy; {year} Ribose Inc.</p>
+      {latest && (
+        <p class="footer-version">
+          <span class="mono">{latest.tag}</span>
+          {latest.date && <span class="footer-date"> · {new Date(latest.date).toISOString().slice(0, 10)}</span>}
+        </p>
+      )}
+    </div>
+
+    <nav class="footer-col footer-col--explore" aria-label="Explore">
+      <p class="footer-head">Explore</p>
+      <a href="/unicode">Unicode browser</a>
+      <a href="/donors">Donor registry</a>
+      <a href="/docs/usage">How to use</a>
+      <a href="/docs">Docs</a>
+      
+      <a href="/changelog">Changelog</a>
+    </nav>
+
+    <nav class="footer-col footer-col--ecosystem" aria-label="Ecosystem">
+      <p class="footer-head">Ecosystem</p>
+      {SIBLING_REPOS.map(repo => (
+        <a href={repo.url} target="_blank" rel="noopener">
+          <span class="footer-repo-label">{repo.label}</span>
+          <span class="footer-repo-role">{repo.role}</span>
+        </a>
+      ))}
+      <p class="footer-ucd">Unicode® 17.0.0 UCD</p>
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: auto;
+    padding: 3rem 0 2rem;
+    border-top: 1px solid var(--ef-rule, rgba(26,24,21,0.08));
+    background: var(--ef-surface, #f2efe9);
+  }
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.4fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .footer-inner { grid-template-columns: 1fr; gap: 1.75rem; }
+  }
+  .footer-col { display: flex; flex-direction: column; gap: 0.4rem; }
+  .footer-name {
+    font-family: var(--spec-font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  .footer-tag {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin: 0 0 0.4rem;
+  }
+  .footer-copy { font-size: 0.75rem; opacity: 0.6; margin: 0; }
+  .footer-version {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    color: var(--ef-accent);
+    margin: 0.25rem 0 0;
+  }
+  .footer-date { opacity: 0.7; }
+  .footer-head {
+    font-family: var(--spec-font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ef-text-3);
+    margin: 0 0 0.5rem;
+  }
+  .footer-col a {
+    text-decoration: none;
+    color: var(--ef-text);
+    font-size: 0.88rem;
+    transition: color 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .footer-col a:hover { color: var(--ef-accent); }
+  .footer-repo-role {
+    font-size: 0.74rem;
+    opacity: 0.6;
+    font-weight: 400;
+  }
+  .footer-ucd {
+    font-family: var(--spec-font-mono);
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin: 0.5rem 0 0;
+  }
+  .mono { font-family: var(--spec-font-mono); }
+</style>

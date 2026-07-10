@@ -57,41 +57,14 @@
   --vp-c-divider: var(--ef-rule);
   --vp-c-gutter: var(--ef-rule);
 
-  /* Legacy aliases (kept so existing pages don't break during migration) */
-  --spec-paper:        var(--ef-paper);
-  --spec-paper-deep:   var(--ef-paper-2);
-  --spec-ink:          var(--ef-ink);
-  --spec-ink-soft:     var(--ef-ink-2);
-  --spec-mute:         var(--ef-ink-3);
-  --spec-rose:         var(--ef-ochre);
-  --spec-rose-soft:    var(--ef-ochre-hi);
-  --spec-rule:         var(--ef-rule);
-  --spec-rule-strong:  var(--ef-rule-2);
-  --spec-term-bg:      var(--ef-paper-2);
-  --spec-term-ink:     var(--ef-ink);
-  --spec-font-display: var(--font-display);
-  --spec-font-body:    var(--font-body);
-  --spec-font-mono:    var(--font-mono);
-  --spec-font-glyph:   var(--font-glyph);
-  --vp-c-brand-1:      var(--ef-ochre);
-  --vp-c-brand-2:      var(--ef-ochre-hi);
-  --vp-c-text-1:       var(--ef-ink);
-  --vp-c-text-2:       var(--ef-ink-2);
-  --vp-c-text-3:       var(--ef-ink-3);
-  --vp-c-bg:           var(--ef-paper);
-  --vp-c-bg-soft:      var(--ef-paper-2);
-  --vp-c-bg-alt:       var(--ef-paper-3);
-  --vp-c-divider:      var(--ef-rule);
-  --ef-bg:             var(--ef-paper);
-  --ef-surface:        var(--ef-paper-2);
-  --ef-raised:         var(--ef-paper-3);
-  --ef-text:           var(--ef-ink);
-  --ef-text-2:         var(--ef-ink-2);
-  --ef-text-3:         var(--ef-ink-3);
-  --ef-accent:         var(--ef-ochre);
-  --ef-accent-hover:   var(--ef-ochre-hi);
-  --ef-teal:           #1f4d52;
-  --ef-teal-light:     #2db5ba;
+  /* Typography */
+  --spec-font-display: "Fraunces", Georgia, serif;
+  --spec-font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --spec-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --vp-font-family-base: var(--spec-font-body);
+  --vp-font-family-mono: var(--spec-font-mono);
+  --spec-font-glyph: "Essenfont";
+  --vp-nav-height: 64px;
 }
 
 html.dark {
@@ -174,103 +147,178 @@ h2 { font-size: clamp(2rem, 5vw, 3.75rem); letter-spacing: -0.025em; }
 h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
 h4 { font-size: 1.25rem; letter-spacing: -0.01em; }
 
-p { max-width: 64ch; }
-.lede {
-  font-family: var(--font-display);
-  font-weight: 300;
+/* ===================================================================
+   Global content typography
+   Applies to all page content inside <main>. Individual pages can
+   override specific properties via scoped styles when needed.
+   =================================================================== */
+
+/* Body text */
+main p {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+  color: var(--ef-text);
+}
+
+/* Headings */
+main h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+main h2 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.35rem, 3vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+main h3 {
+  font-family: var(--spec-font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+main h4 {
+  font-family: var(--spec-font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Lists */
+main ul, main ol {
+  margin: 1rem 0 1.5rem;
+  padding-left: 1.5rem;
+}
+main li {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  margin-bottom: 0.625rem;
+  color: var(--ef-text);
+}
+main ul li::marker { color: var(--ef-accent); }
+main ol li::marker { color: var(--ef-text-3); font-family: var(--spec-font-mono); font-size: 0.85em; }
+
+/* Links inside content */
+main a {
+  color: var(--ef-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s;
+}
+main a:hover { color: var(--ef-accent-hover); }
+
+/* Inline code */
+main code {
+  font-family: var(--spec-font-mono);
+  font-size: 0.875em;
+  background: var(--ef-accent-muted);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  color: var(--ef-text);
+}
+
+/* Code blocks */
+main pre {
+  background: var(--ef-surface);
+  border: 1px solid var(--ef-rule);
+  padding: 1rem 1.25rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+main pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.65;
+}
+
+/* Blockquotes */
+main blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 0 0.5rem 1.25rem;
+  border-left: 3px solid var(--ef-accent);
   font-style: italic;
-  font-variation-settings: "opsz" 144;
-  font-size: clamp(1.125rem, 2vw, 1.5rem);
-  line-height: 1.45;
-  color: var(--ef-ink-2);
-  max-width: 52ch;
+  color: var(--ef-text-2);
 }
+main blockquote p { margin-bottom: 0.5rem; }
 
-a {
-  color: var(--ef-ochre);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
-}
-a:hover { border-bottom-color: var(--ef-ochre); color: var(--ef-ochre-hi); }
-
-strong { font-weight: 600; color: var(--ef-ink); }
-em { font-style: italic; }
-
-/* ─── Layout primitives ──────────────────────────────────────────── */
-.container {
+/* Tables */
+main table {
   width: 100%;
-  max-width: var(--container);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
-  position: relative;
-  z-index: 2;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
 }
+main th, main td {
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--ef-rule);
+}
+main thead th {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text-3);
+  border-bottom: 2px solid var(--ef-rule-strong);
+}
+main tbody tr:hover { background: var(--ef-accent-soft); }
 
-/* 12-column asymmetric grid */
-.grid {
+/* Definition lists (char pages) */
+main dl {
   display: grid;
-  grid-template-columns: repeat(var(--grid-cols), 1fr);
-  gap: clamp(1rem, 2vw, 2rem);
+  grid-template-columns: max-content 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0.5rem 0;
 }
-.grid > * { grid-column: span 12; }
-
-/* Editorial offsets — text set into a narrow column */
-.prose-narrow { max-width: 56ch; }
-.prose-mid    { max-width: 72ch; }
-
-.section {
-  padding-block: clamp(4rem, 10vw, 8rem);
-  position: relative;
-}
-.section + .section { border-top: 1px solid var(--ef-rule); }
-
-/* ─── Eyebrow / metadata / rubric ────────────────────────────────── */
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+main dt {
+  font-family: var(--spec-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
   text-transform: uppercase;
-  color: var(--ef-ochre);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--ef-text-3);
+  white-space: nowrap;
 }
-.eyebrow::before {
-  content: "";
-  width: 2.5rem;
-  height: 1px;
-  background: var(--ef-ochre);
-  opacity: 0.6;
+main dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ef-text);
 }
 
-.folio {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-ink-3);
+/* Strong / emphasis */
+main strong { font-weight: 600; color: var(--ef-text); }
+main em { font-style: italic; }
+
+/* Horizontal rule */
+main hr {
+  border: none;
+  border-top: 1px solid var(--ef-rule);
+  margin: 2.5rem 0;
 }
 
-/* ─── Buttons ────────────────────────────────────────────────────── */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.625rem;
-  padding: 0.875rem 1.5rem;
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.9375rem;
-  letter-spacing: 0.01em;
-  border: 1px solid transparent;
-  border-radius: 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  position: relative;
-}
-.btn:hover { border-bottom-color: transparent; }
+/* ===================================================================
+   Utilities
+   =================================================================== */
+.mono { font-family: var(--spec-font-mono); }
+.display { font-family: var(--spec-font-display); }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.container-narrow { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
 
 .btn-primary {
   background: var(--ef-ochre);

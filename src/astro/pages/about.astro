@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import BrandMark from '../components/BrandMark.astro';
+import ReadingLayout from '../components/ReadingLayout.vue';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
 
@@ -11,16 +12,16 @@ const stats = loadStats();
   description="Essenfont is a universal Unicode 17 font — one redistributable OpenType file covering every assigned codepoint, assembled from OFL-licensed donor fonts."
   canonical="/about"
 >
-  <article class="about container">
+  <ReadingLayout client:visible>
+    <article class="about container" data-reading-article>
     <header class="page-head">
-      <p class="eyebrow">About</p>
       <h1>One font, every codepoint</h1>
     </header>
 
     <section class="prose">
       <p>
         <strong>Essenfont</strong> is a real font — not a library or a service. A single
-        redistributable TrueType Collection (TTC) that covers every assigned Unicode 17
+        redistributable OpenType Collection (OTC) that covers every assigned Unicode 17
         codepoint ({formatNumber(stats.unicode.assignedCodepointCount)} characters across
         {stats.unicode.blockCount} blocks), built from {stats.donorCount} canonical
         OFL-licensed donor fonts.
@@ -44,46 +45,31 @@ const stats = loadStats();
 
     <!-- ─── Logo philosophy ─────────────────────────────────────── -->
     <section class="logo-philosophy">
-      <div class="logo-gallery">
-        <figure class="logo-figure logo-figure--hero">
-          <BrandMark size="xl" animated={false} interactive={true} alt="Essenfont logo, blue variant" />
+      <div class="logo-gallery logo-gallery--two">
+        <figure class="logo-figure logo-figure--light">
+          <img src="/essenfont-logo_dark.svg" alt="Essenfont mark in light mode (blue)" width="192" height="192" />
           <figcaption>
-            <span class="mono">Default · Blue</span>
+            <span class="mono">Light · Blue</span>
+            <span class="logo-fig-caption">illumination — the calm authority of a clear sky, the colour of daylight on paper.</span>
           </figcaption>
         </figure>
-        <figure class="logo-figure">
-          <img src="/img/logo/essenfont-dark-blue-256.png" alt="Dark mode, blue" width="128" height="128" />
-          <figcaption><span class="mono">Dark · Blue</span></figcaption>
-        </figure>
-        <figure class="logo-figure">
-          <img src="/img/logo/essenfont-dark-red-256.png" alt="Dark mode, red" width="128" height="128" />
-          <figcaption><span class="mono">Dark · Red</span></figcaption>
-        </figure>
-        <figure class="logo-figure">
-          <img src="/img/logo/essenfont-light-blue-256.png" alt="Light mode, blue" width="128" height="128" />
-          <figcaption><span class="mono">Light · Blue</span></figcaption>
-        </figure>
-        <figure class="logo-figure">
-          <img src="/img/logo/essenfont-light-red-256.png" alt="Light mode, red" width="128" height="128" />
-          <figcaption><span class="mono">Light · Red</span></figcaption>
+        <figure class="logo-figure logo-figure--dark">
+          <img src="/essenfont-logo_light.svg" alt="Essenfont mark in dark mode (red)" width="192" height="192" />
+          <figcaption>
+            <span class="mono">Dark · Red</span>
+            <span class="logo-fig-caption">rubrication — the medieval practice of marking important initials in vermilion, lit by the lamp that keeps the page readable at night.</span>
+          </figcaption>
         </figure>
       </div>
 
       <div class="prose logo-prose">
         <p>
-          The Essenfont mark is shaped as the hexagram <strong>Gen</strong>
-          (<span class="glyph-big">☶</span>), the fifty-second hexagram of the
-          I&nbsp;Ching. <em>Gen</em> means <em>mountain</em> — stillness, the root from
-          which all creation grows. The mountain does not move; everything else moves
-          around it. So too does a universal typeface anchor every script in Unicode
-          while remaining itself unchanged.
+          The Essenfont mark is shaped as the hexagram <strong>Gen</strong> (<span class="glyph-big">☶</span>), the fifty-second hexagram of the I&nbsp;Ching. <em>Gen</em> means <em>mountain</em> — stillness, the root from which all creation grows. The mountain does not move; everything else moves around it. So too does a universal typeface anchor every script in Unicode while remaining itself unchanged.
         </p>
 
         <h3>The empty that provides utility</h3>
         <p>
-          Look at the negative space inside the hexagram's lines: it forms the letter
-          <strong>E</strong>. This is no accident. Laozi wrote in the <em>Dao De
-          Jing</em>:
+          Look at the negative space inside the hexagram's lines: it forms the letter <strong>E</strong>. This is no accident. Laozi wrote in the <em>Dao De Jing</em>:
         </p>
         <blockquote class="dao-quote">
           <p>
@@ -100,19 +86,12 @@ const stats = loadStats();
           The logo's translucent, glass-like quality embodies this principle.
           Essenfont is transparent: it claims no authorship of its glyphs, takes no
           credit for its donor outlines, and hides nothing about its build pipeline.
-          Its usefulness comes from what it <em>contains</em>, not from what it
-          <em>is</em> — the empty vessel that holds every script.
+          Its usefulness comes from what it <em>contains</em>, not from what it <em>is</em> — the empty vessel that holds every script.
         </p>
 
         <h3>Two colors, one motion</h3>
         <p>
-          The logo exists in two color variants — <span class="color-chip color-chip--blue"></span>
-          blue (illumination, the calm authority of a clear sky) and
-          <span class="color-chip color-chip--red"></span> red (rubrication, the medieval
-          practice of marking important initials in vermilion). Together they represent
-          motion: the mark shifts from blue to red when you interact with it, just as a
-          universal font shifts between scripts without losing its identity. The duality
-          echoes the <em>yin</em> and <em>yang</em> — two forces, one mark.
+          The logo exists in two color variants — <span class="color-chip color-chip--blue"></span> blue (illumination, the calm authority of a clear sky) and <span class="color-chip color-chip--red"></span> red (rubrication, the medieval practice of marking important initials in vermilion). Together they represent motion: the mark shifts from blue to red when you interact with it, just as a universal font shifts between scripts without losing its identity. The duality echoes the <em>yin</em> and <em>yang</em> — two forces, one mark.
         </p>
 
         <h3>In darkness, clarity</h3>
@@ -140,16 +119,11 @@ const stats = loadStats();
     <section class="prose">
       <h2>The technical achievement</h2>
       <p>
-        The canonical output is <code>Essenfont-Regular.ttc</code> ({formatBytes(stats.fontBinaries.ttcSizeBytes)}),
-        a 10-face OpenType Collection with CFF2 outlines and CBDT color emoji bitmaps.
-        The website serves {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets ({formatBytes(stats.websiteSubsets.woff2TotalBytes)} total)
-        so visitors don't download the full {formatNumber(stats.unicode.assignedCodepointCount)}-codepoint font just to
-        browse one script.
+        The canonical output is <code>Essenfont-Regular.otc</code> ({formatBytes(stats.fontBinaries.otcSizeBytes ?? 0)}), an OpenType Collection with CFF2 outlines and CBDT color emoji bitmaps, partitioned across the five planes that carry assigned Unicode 17 characters. The website serves {stats.websiteSubsets.woff2Count} per-block WOFF2 subsets ({formatBytes(stats.websiteSubsets.woff2TotalBytes)} total) so visitors don't download the full {formatNumber(stats.unicode.assignedCodepointCount)}-codepoint font just to browse one script.
       </p>
       <p>
         Every WOFF2 subset loads in Chrome's OpenType Sanitizer — a goal that required
-        13 named fixes across three repos. See the <a href="/engineering">engineering story</a>
-        for the full account.
+        13 named fixes across three repos. See the <a href="/docs">engineering story</a> for the full account.
       </p>
 
       <h2>License</h2>
@@ -157,10 +131,7 @@ const stats = loadStats();
         Essenfont is a <strong>mixed-license</strong> font. Most donors are
         OFL/Apache/MIT/BSD licensed, but some (notably FSung / Full-Sung) impose
         additional restrictions (non-commercial use). The assembled font inherits
-        the most restrictive term across its donors. Each donor's license terms
-        are preserved in the font's <code>name</code> table and in the
-        auto-generated <code>LICENSE-SOURCES.md</code>. See the
-        <a href="/license">license page</a> for details.
+        the most restrictive term across its donors. Each donor's license terms are preserved in the font's <code>name</code> table and in the auto-generated <code>LICENSE-SOURCES.md</code>. See the <a href="/license">license page</a> for details.
       </p>
 
       <h2>Get it</h2>
@@ -170,16 +141,13 @@ const stats = loadStats();
       <pre><code>fontist install "Essenfont"</code></pre>
     </section>
   </article>
+  </ReadingLayout>
 </BaseLayout>
 
 <style>
   .about { max-width: 760px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
   .page-head { margin-bottom: 3rem; }
-  .eyebrow {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
-  }
+  
   h1 {
     font-family: var(--spec-font-display);
     font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1;
@@ -226,30 +194,63 @@ const stats = loadStats();
     margin-bottom: 3rem;
     align-items: end;
   }
+  .logo-gallery--two {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: stretch;
+    max-width: 640px;
+  }
   .logo-figure {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.625rem;
+    gap: 0.75rem;
     margin: 0;
+    padding: 1.5rem 1.25rem;
+    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
+    border-radius: 8px;
   }
-  .logo-figure--hero {
-    grid-column: span 1;
+  .logo-figure--light {
+    background: var(--ef-bg, #faf8f5);
+    border-color: rgba(42, 92, 138, 0.25);
   }
-  .logo-figure--hero :global(.brand-mark) {
-    width: 128px;
-    height: 128px;
+  .logo-figure--dark {
+    background: #161513;
+    border-color: rgba(176, 64, 64, 0.45);
   }
+  .logo-figure--dark .mono,
+  .logo-figure--dark .logo-fig-caption { color: #ecdfd0; }
   .logo-figure img {
-    width: 96px;
-    height: 96px;
+    width: 144px;
+    height: 144px;
     object-fit: contain;
   }
   .logo-figure figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: center;
     font-size: 0.6875rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ef-text-3, #8a8478);
+  }
+  .logo-figure .mono {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--ef-text);
+  }
+  .logo-fig-caption {
+    font-family: var(--spec-font-body);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ef-text-2);
+    font-style: italic;
+    max-width: 26ch;
   }
   .logo-prose {
     max-width: 64ch;
@@ -296,7 +297,10 @@ const stats = loadStats();
     .logo-gallery {
       grid-template-columns: repeat(3, 1fr);
     }
-    .logo-figure img { width: 72px; height: 72px; }
+    .logo-gallery--two {
+      grid-template-columns: 1fr;
+    }
+    .logo-figure img { width: 128px; height: 128px; }
   }
   @media (max-width: 480px) {
     .logo-gallery {

@@ -9,15 +9,9 @@ const GH_NPM_URL = 'https://www.npmjs.com/package/essenfont';
 <BaseLayout title="Changelog — Essenfont" description="Release history for the Essenfont universal Unicode 17 font." canonical="/changelog">
   <div class="changelog">
     <header class="page-head">
-      <p class="eyebrow">Changelog</p>
       <h1>Release history</h1>
       <p class="subtitle">
-        Every release is published simultaneously on GitHub Releases and npm.
-        Subscribe to
-        <a href={GH_RELEASES_URL} target="_blank" rel="noopener">essenfont/essenfont/releases</a>
-        or watch the
-        <a href={GH_NPM_URL} target="_blank" rel="noopener"><code>essenfont</code> npm package</a>
-        for updates.
+        Every release is published simultaneously on GitHub Releases and npm. Subscribe to <a href={GH_RELEASES_URL} target="_blank" rel="noopener">essenfont/essenfont/releases</a> or watch the <a href={GH_NPM_URL} target="_blank" rel="noopener"><code>essenfont</code> npm package</a> for updates.
       </p>
     </header>
     {releases.length === 0 ? (
@@ -47,14 +41,7 @@ const GH_NPM_URL = 'https://www.npmjs.com/package/essenfont';
 <style>
 .changelog { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
 .page-head { margin-bottom: 2.5rem; }
-.eyebrow {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-accent);
-  margin: 0 0 0.5rem;
-}
+
 h1 {
   font-family: var(--spec-font-display);
   font-weight: 600;

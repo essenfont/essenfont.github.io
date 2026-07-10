@@ -1,11 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadAllBlocks, getPlanes, slugifyBlockName, loadUnicodeVersion } from '../../lib/unicode';
+import RandomCodepoint from '../../components/RandomCodepoint.vue';
+import CoverageHeatmap from '../../components/CoverageHeatmap.astro';
+import UnicodeTimeline from '../../components/UnicodeTimeline.astro';
 
 const allBlocks = loadAllBlocks();
 const version = loadUnicodeVersion();
 const planes = getPlanes(allBlocks);
 const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
+---
+<BaseLayout
+  title="Unicode Browser — Essenfont"
+  description="Explore every Unicode 17 plane, block, and codepoint. Real glyphs rendered from the Essenfont."
+  canonical="/unicode"
+>
+  <div class="uc">
+    <header class="uc-header">
+      <h1>Unicode Browser</h1>
+      <p>Every Unicode {version.version} plane, every block, every assigned codepoint.</p>
+      <p class="uc-sub">All glyphs render with the Essenfont — install it locally for the same view everywhere.</p>
+      <div class="uc-actions">
+        <RandomCodepoint client:idle />
+      </div>
+    </header>
 
 // Each plane gets a "specimen glyph" — its most iconic character.
 const planeSpecimens: Record<string, number> = {
@@ -49,39 +67,19 @@ function safeGlyph(cp: number | undefined): string {
     </div>
   </section>
 
-  <!-- Planes -->
-  {planes.map((plane, idx) => (
-    <section class:list={["section", "plane-section", idx % 2 === 1 && "plane-section-alt"]}>
-      <div class="container">
-        <div class="plane-grid">
-          <aside class="plane-sidebar">
-            <p class="eyebrow">Plane {idx + 1} of {planes.length}</p>
-            <div class="plane-glyph glyph">{safeGlyph(planeSpecimens[plane.key])}</div>
-            <p class="folio" style="margin-top: 1rem;">specimen</p>
-          </aside>
-          <div class="plane-body">
-            <header class="plane-header">
-              <h2 class="plane-name">
-                {plane.name}
-              </h2>
-              <div class="plane-meta-row">
-                <span class="mono">{plane.range}</span>
-                <span class="folio">·</span>
-                <span class="folio">{plane.blocks.length} block{plane.blocks.length === 1 ? '' : 's'}</span>
-              </div>
-            </header>
-            <ul class="block-list">
-              {plane.blocks.map(block => (
-                <li>
-                  <a href={`/unicode/block/${slugifyBlockName(block.name)}`} class="block-link">
-                    <span class="block-name">{block.displayName || block.name}</span>
-                    <span class="block-range mono">U+{block.start.toString(16).toUpperCase()}–U+{block.end.toString(16).toUpperCase()}</span>
-                    <span class="block-count mono">{block.end - block.start + 1} cp</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <CoverageHeatmap />
+
+    <UnicodeTimeline />
+
+    {planes.map(plane => (
+      <section class="plane-section" id={plane.key}>
+        <div class="plane-header">
+          <h2>
+            <span class="plane-roman">{plane.range.split('–')[0].replace('U+', '')}</span>
+            {plane.name}
+          </h2>
+          <span class="plane-range">{plane.range}</span>
+          <span class="plane-count">{plane.blocks.length} blocks</span>
         </div>
       </div>
     </section>
@@ -107,14 +105,22 @@ function safeGlyph(cp: number | undefined): string {
 .uc-stat-num {
   display: block;
   font-family: var(--spec-font-display);
-  font-size: 2rem;
-  color: var(--ef-rose, #bf4e6a);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+  font-variation-settings: "opsz" 96, "SOFT" 50;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ef-accent, #2a5c8a);
 }
 .uc-stat-label {
-  font-size: 0.75rem;
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.6;
+  letter-spacing: 0.15em;
+  opacity: 0.55;
 }
 .plane-section { margin-bottom: 3rem; }
 .plane-header {

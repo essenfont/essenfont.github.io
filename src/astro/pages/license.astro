@@ -8,7 +8,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <article class="license-page">
     <header class="page-head">
-      <p class="eyebrow">License</p>
       <h1>Mixed-license font</h1>
     </header>
     <section class="prose">
@@ -33,11 +32,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <h2>Per-donor attribution</h2>
       <p>
-        Every donor's license is preserved in the font's <code>name</code>
-        table and in the auto-generated <code>LICENSE-SOURCES.md</code>.
-        The build pipeline (in the
-        <a href="https://github.com/essenfont/essenfont">essenfont source repo</a>)
-        refuses to use any donor outside the declared license policy.
+        Every donor's license is preserved in the font's <code>name</code> table and in the auto-generated <code>LICENSE-SOURCES.md</code>. The build pipeline (in the <a href="https://github.com/essenfont/essenfont">essenfont source repo</a>) refuses to use any donor outside the declared license policy.
       </p>
     </section>
   </article>
@@ -45,7 +40,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <style>
 .license-page { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
 .page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--spec-font-mono, monospace); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-accent, #0d7377); }
+
 h1 { font-family: var(--spec-font-display, Newsreader, serif); font-size: 2rem; }
 .prose h2 { font-family: var(--spec-font-display, Newsreader, serif); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
 .prose p, .prose li { line-height: 1.7; }

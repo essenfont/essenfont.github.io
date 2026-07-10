@@ -11,6 +11,8 @@
   "file_count": 4,
   "covers": [
     "CJK_Unified_Ideographs",
+    "CJK_Compatibility_Ideographs",
+    "CJK_Compatibility_Ideographs_Supplement",
     "CJK_Symbols_and_Punctuation",
     "CJK_Radicals_Supplement",
     "CJK_Strokes",
@@ -21,7 +23,6 @@
     "CJK_Unified_Ideographs_Extension_E",
     "CJK_Unified_Ideographs_Extension_F",
     "CJK_Unified_Ideographs_Extension_I",
-    "CJK_Compatibility_Ideographs_Supplement",
     "CJK_Unified_Ideographs_Extension_G",
     "CJK_Unified_Ideographs_Extension_H",
     "CJK_Unified_Ideographs_Extension_J"

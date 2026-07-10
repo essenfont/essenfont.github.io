@@ -1,0 +1,192 @@
+---
+/**
+ * HieroglyphFontComparison — feature matrix for the four major
+ * Egyptian-hieroglyph source fonts, showing why Essenfont uses both
+ * UniHieroglyphica (best glyph coverage) and Egyptian Text (format
+ * controls + rotation VS).
+ *
+ * Data is the single source of truth for the feature matrix; if a
+ * donor's support changes, update HIEROGLYPH_FONTS here.
+ *
+ * Source for the matrix:
+ *   https://aaew.bbaw.de/egyptological-unicode-fonts
+ */
+export interface HieroglyphFontSpec {
+  /** Display name. */
+  name: string;
+  /** Where to download. */
+  url: string;
+  /** Five feature columns. */
+  features: {
+    basicSet: boolean | 'partial';
+    formatControls: boolean | 'partial';
+    rotationVs15: boolean | 'partial';
+    rotationVs16: boolean | 'partial';
+    expandedSet: boolean | 'partial';
+  };
+  /** License short label. */
+  license: string;
+  /** One-liner on Essenfont's choice. */
+  role: string;
+  /** Whether Essenfont currently uses this donor. */
+  inEssenfont: boolean;
+}
+
+export const HIEROGLYPH_FONTS: readonly HieroglyphFontSpec[] = [
+  {
+    name: 'UniHieroglyphica',
+    url: 'https://suignard.com/Ptolemaic/',
+    features: { basicSet: true, formatControls: false, rotationVs15: false, rotationVs16: false, expandedSet: true },
+    license: 'OFL',
+    role: 'Primary donor for Egyptian Hieroglyphs and Ext-A. Has the widest glyph coverage including the expanded set.',
+    inEssenfont: true,
+  },
+  {
+    name: 'Egyptian Text',
+    url: 'https://github.com/microsoft/font-tools/',
+    features: { basicSet: true, formatControls: true, rotationVs15: true, rotationVs16: false, expandedSet: false },
+    license: 'OFL',
+    role: 'Secondary donor. Provides format-control and rotation variation selectors that UniHieroglyphica lacks.',
+    inEssenfont: true,
+  },
+  {
+    name: 'New Gardiner',
+    url: 'https://github.com/nederhof/newgardiner',
+    features: { basicSet: true, formatControls: false, rotationVs15: false, rotationVs16: false, expandedSet: 'partial' },
+    license: 'OFL',
+    role: 'Not used. Expanded set split across two font files; UniHieroglyphica covers the same codepoints in a single file.',
+    inEssenfont: false,
+  },
+  {
+    name: 'Noto Sans Egyptian Hieroglyphs',
+    url: 'https://fonts.google.com',
+    features: { basicSet: true, formatControls: 'partial', rotationVs15: false, rotationVs16: false, expandedSet: false },
+    license: 'OFL',
+    role: 'Not used. Egyptian Text covers the same ground with more features.',
+    inEssenfont: false,
+  },
+] as const;
+
+const FEATURE_COLUMNS: Array<{ key: keyof HieroglyphFontSpec['features']; label: string; hint: string }> = [
+  { key: 'basicSet',      label: 'Basic set',      hint: 'U+13000–U+1342F (1,072 core hieroglyphs, Unicode 5.2)' },
+  { key: 'formatControls', label: 'Format controls', hint: 'U+13430–U+1345F (Unicode 12.0)' },
+  { key: 'rotationVs15',  label: 'Rotation VS v15', hint: 'Variation selectors for rotation (Unicode 15.0)' },
+  { key: 'rotationVs16',  label: 'Rotation VS v16', hint: 'Extended rotation VS (Unicode 16.0)' },
+  { key: 'expandedSet',   label: 'Expanded set',    hint: 'U+13460–U+143FF (Unicode 15.0+)' },
+];
+
+function cell(value: boolean | 'partial'): { symbol: string; cls: string } {
+  if (value === true) return { symbol: '✓', cls: 'yes' };
+  if (value === 'partial') return { symbol: '(✓)', cls: 'partial' };
+  return { symbol: '✕', cls: 'no' };
+}
+---
+
+<section class="hfc">
+  <header class="hfc-head">
+    <h3>Hieroglyph font comparison</h3>
+    <p class="hfc-sub">
+      Why Essenfont uses <strong>both</strong> UniHieroglyphica and Egyptian Text: they cover complementary feature columns. UniHieroglyphica has the broadest glyph set; Egyptian Text has the format controls and rotation variation selectors. Data from <a href="https://aaew.bbaw.de/egyptological-unicode-fonts" target="_blank" rel="noopener">aaew.bbaw.de/egyptological-unicode-fonts</a>.
+    </p>
+  </header>
+
+  <table class="hfc-table">
+    <thead>
+      <tr>
+        <th>Font</th>
+        {FEATURE_COLUMNS.map(col => <th>{col.label}</th>)}
+        <th>License</th>
+        <th>Used</th>
+      </tr>
+    </thead>
+    <tbody>
+      {HIEROGLYPH_FONTS.map(font => (
+        <tr class:list={{ 'hfc-row-in': font.inEssenfont }}>
+          <th scope="row">
+            <a href={font.url} target="_blank" rel="noopener">{font.name}</a>
+            <span class="hfc-role">{font.role}</span>
+          </th>
+          {FEATURE_COLUMNS.map(col => {
+            const v = font.features[col.key];
+            const c = cell(v);
+            return <td class={`hfc-cell hfc-cell--${c.cls}`} title={col.hint}><span>{c.symbol}</span></td>;
+          })}
+          <td class="hfc-license">{font.license}</td>
+          <td class={`hfc-used hfc-used--${font.inEssenfont ? 'yes' : 'no'}`}>
+            {font.inEssenfont ? 'yes' : 'no'}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</section>
+
+<style>
+  .hfc {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    background: var(--ef-bg, #faf8f5);
+    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
+    border-radius: 8px;
+  }
+  .hfc-head h3 {
+    font-family: var(--spec-font-display);
+    font-size: 1.05rem;
+    margin: 0 0 0.5rem;
+  }
+  .hfc-sub {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ef-text-2);
+    margin: 0 0 1rem;
+    max-width: 700px;
+  }
+  .hfc-sub a { color: var(--ef-accent); }
+  .hfc-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+  }
+  .hfc-table th, .hfc-table td {
+    text-align: left;
+    padding: 0.55rem 0.7rem;
+    border-bottom: 1px solid var(--ef-rule, rgba(26,24,21,0.08));
+    vertical-align: top;
+  }
+  .hfc-table thead th {
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ef-text-3);
+  }
+  .hfc-table tbody th { font-weight: 500; }
+  .hfc-table tbody th a { color: var(--ef-accent); text-decoration: none; }
+  .hfc-table tbody th a:hover { text-decoration: underline; }
+  .hfc-role {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 400;
+    color: var(--ef-text-3);
+    margin-top: 0.2rem;
+    line-height: 1.4;
+    max-width: 240px;
+  }
+  .hfc-cell {
+    text-align: center;
+    font-weight: 600;
+    font-family: var(--spec-font-mono);
+  }
+  .hfc-cell--yes { color: #2d7a3e; background: rgba(45, 122, 62, 0.08); }
+  .hfc-cell--partial { color: #b88500; background: rgba(184, 133, 0, 0.08); }
+  .hfc-cell--no { color: var(--ef-text-3); }
+  .hfc-license { font-family: var(--spec-font-mono); font-size: 0.78rem; color: var(--ef-text-2); }
+  .hfc-used { font-family: var(--spec-font-mono); font-size: 0.72rem; font-weight: 600; }
+  .hfc-used--yes { color: var(--ef-accent); }
+  .hfc-used--no { color: var(--ef-text-3); }
+  .hfc-row-in { background: rgba(42, 92, 138, 0.04); }
+  @media (max-width: 720px) {
+    .hfc-table { font-size: 0.78rem; }
+    .hfc-role { max-width: 160px; }
+  }
+</style>

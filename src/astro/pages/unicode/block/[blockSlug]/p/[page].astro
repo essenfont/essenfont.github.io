@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../../../../layouts/BaseLayout.astro';
+import { loadAllBlocks, loadBlockCharacters, slugifyBlockName, loadUnicodeVersion } from '../../../../../lib/unicode';
+import type { UnicodeBlock, UnicodeCharacter } from '../../../../../lib/unicode';
+
+const PAGE_SIZE = 100;
+
+export async function getStaticPaths() {
+  const blocks = loadAllBlocks();
+  const paths: Array<{ params: { blockSlug: string; page: string }; props: { block: UnicodeBlock } }> = [];
+  for (const block of blocks) {
+    const slug = slugifyBlockName(block.name);
+    const chars = loadBlockCharacters(slug);
+    const totalPages = Math.ceil(chars.length / 100);
+    for (let p = 2; p <= totalPages; p++) {
+      paths.push({ params: { blockSlug: slug, page: String(p) }, props: { block } });
+    }
+  }
+  return paths;
+}
+
+interface Props { block: UnicodeBlock; }
+
+const { block } = Astro.props;
+const { blockSlug, page } = Astro.params;
+const pageNum = parseInt(page!, 10);
+const chars = loadBlockCharacters(blockSlug!);
+const version = loadUnicodeVersion();
+const totalPages = Math.ceil(chars.length / PAGE_SIZE);
+const startIdx = (pageNum - 1) * PAGE_SIZE;
+const pageChars = chars.slice(startIdx, startIdx + PAGE_SIZE);
+const blockSlugStr = blockSlug!;
+
+function displayChar(ch: UnicodeCharacter): string {
+  if (ch.cp < 0x20 || (ch.cp >= 0x7F && ch.cp <= 0x9F)) return '·';
+  if (ch.char && ch.char !== ' ') return ch.char;
+  return '·';
+}
+
+function pageHref(n: number): string {
+  return n === 1 ? `/unicode/block/${blockSlugStr}` : `/unicode/block/${blockSlugStr}/p/${n}`;
+}
+---
+<BaseLayout
+  title={`${block.displayName || block.name} (page ${pageNum}) — Essenfont`}
+  description={`${block.displayName || block.name} page ${pageNum} of ${totalPages}`}
+  canonical={`/unicode/block/${blockSlugStr}/p/${page}`}
+>
+  <div class="block-page">
+    <header class="block-head">
+      <p class="eyebrow">
+        <a href="/unicode">← Unicode</a>
+        · <a href={`/unicode/block/${blockSlugStr}`}>{block.displayName || block.name}</a>
+        · Page {pageNum}
+      </p>
+      <h1>{block.displayName || block.name}</h1>
+      <div class="block-meta">
+        <span class="range">U+{block.start.toString(16).toUpperCase()}–U+{block.end.toString(16).toUpperCase()}</span>
+        <span class="count">{chars.length} characters</span>
+        <span class="cp-total">Page {pageNum} of {totalPages}</span>
+      </div>
+    </header>
+
+    <div class="glyph-grid">
+      {pageChars.map(ch => (
+        <a href={`/unicode/char/${ch.hex}`} class="glyph-cell">
+          <span class="glyph-char" style="font-family: var(--spec-font-glyph);">{displayChar(ch)}</span>
+          <span class="glyph-hex">{ch.hex}</span>
+          <span class="glyph-name">{ch.name}</span>
+        </a>
+      ))}
+    </div>
+
+    <nav class="block-pagination" aria-label="Character pagination">
+      <span class="page-info">Page {pageNum} of {totalPages} · {pageChars.length} characters</span>
+      <div class="page-links">
+        {pageNum > 1 && <a href={pageHref(pageNum - 1)} class="page-link">← Page {pageNum - 1}</a>}
+        {[...Array(totalPages).keys()].map(i => i + 1).filter(n => Math.abs(n - pageNum) <= 2).map(n => (
+          <a href={pageHref(n)} class:list={["page-link", { current: n === pageNum }]}>{n}</a>
+        ))}
+        {pageNum < totalPages && <a href={pageHref(pageNum + 1)} class="page-link">Page {pageNum + 1} →</a>}
+      </div>
+    </nav>
+  </div>
+</BaseLayout>
+
+<style>
+.block-page { padding: 2rem 0 4rem; }
+.block-head { margin-bottom: 2rem; }
+.eyebrow {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ef-accent);
+  margin: 0 0 0.5rem;
+}
+.eyebrow a { color: inherit; text-decoration: none; }
+.block-head h1 {
+  font-family: var(--spec-font-display);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin: 0 0 0.5rem;
+}
+.block-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--ef-text-2);
+  font-family: var(--spec-font-mono);
+  flex-wrap: wrap;
+}
+.glyph-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 0.5rem;
+}
+.glyph-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  border: 1px solid var(--ef-rule);
+  border-radius: 4px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+}
+.glyph-cell:hover { border-color: var(--ef-accent); }
+.glyph-char {
+  font-size: 1.75rem;
+  line-height: 1.2;
+}
+.glyph-hex {
+  font-family: var(--spec-font-mono);
+  font-size: 0.65rem;
+  color: var(--ef-text-3);
+  margin-top: 0.25rem;
+}
+.glyph-name {
+  font-size: 0.65rem;
+  opacity: 0.6;
+  margin-top: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+.block-pagination {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ef-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+.page-info {
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  color: var(--ef-text-3);
+}
+.page-links { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+.page-link {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--ef-rule);
+  border-radius: 4px;
+  font-family: var(--spec-font-mono);
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: var(--ef-text-2);
+  transition: border-color 0.15s, color 0.15s;
+}
+.page-link:hover { border-color: var(--ef-accent); color: var(--ef-accent); }
+.page-link.current { background: var(--ef-accent); color: white; border-color: var(--ef-accent); }
+</style>

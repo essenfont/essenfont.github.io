@@ -32,7 +32,6 @@ const SELF_HOST_SNIPPET = `/* one @font-face per subset you want to serve */
 >
   <section class="container docs-page">
     <header class="docs-head">
-      <p class="eyebrow">Docs · II</p>
       <h1>CSS integration</h1>
     </header>
 
@@ -54,9 +53,7 @@ const SELF_HOST_SNIPPET = `/* one @font-face per subset you want to serve */
 
     <h2 id="self-host">Option B · Self-host</h2>
     <p>
-      Clone the <code>public/fonts/</code> directory from this repo into
-      your own site. Each block lives in its own file; copy the matching
-      <code>@font-face</code> block from <code>fonts.css</code>.
+      Clone the <code>public/fonts/</code> directory from this repo into your own site. Each block lives in its own file; copy the matching <code>@font-face</code> block from <code>fonts.css</code>.
     </p>
     <pre class="code-block"><code>{SELF_HOST_SNIPPET}</code></pre>
 
@@ -71,10 +68,7 @@ const SELF_HOST_SNIPPET = `/* one @font-face per subset you want to serve */
 
     <h2 id="fallbacks">Fallback chain</h2>
     <p>
-      Always pair <code>"Essenfont"</code> with a fallback. If a visitor
-      hasn't installed the font locally and your page hasn't embedded the
-      matching subset, the browser falls back to <code>"Noto Sans"</code>
-      (or whatever you list next).
+      Always pair <code>"Essenfont"</code> with a fallback. If a visitor hasn't installed the font locally and your page hasn't embedded the matching subset, the browser falls back to <code>"Noto Sans"</code> (or whatever you list next).
     </p>
     <pre class="code-block"><code>font-family: "Essenfont", "Noto Sans", system-ui, sans-serif;</code></pre>
 
@@ -95,11 +89,7 @@ const SELF_HOST_SNIPPET = `/* one @font-face per subset you want to serve */
 <style>
   .docs-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
   .docs-head { margin-bottom: 2.5rem; }
-  .eyebrow {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
-  }
+  
   h1 {
     font-family: var(--spec-font-display);
     font-size: clamp(2rem, 5vw, 3rem); margin: 0;

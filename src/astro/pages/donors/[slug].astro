@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, type CoverageRow } from '../../lib/donors';
-import { slugifyBlockName } from '../../lib/unicode';
+import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, blockNameToId, type CoverageRow } from '../../lib/donors';
+import { slugifyBlockName, loadAllBlocks } from '../../lib/unicode';
+import HieroglyphFontComparison from '../../components/HieroglyphFontComparison.astro';
 
 export async function getStaticPaths() {
   return listDonorSlugs().map(slug => ({ params: { slug } }));
@@ -16,6 +17,25 @@ if (!donor) {
 
 const coverageRows = loadDonorCoverage(donor);
 
+// Planes this donor helped populate — derived from top-level `covers`
+// (always present) rather than coverageRows (sparse for synthetics).
+// Each entry maps to /unicode/plane/{index}.
+interface PlaneLink { plane_index: number; plane: string; blockCount: number; }
+const planeLinks: PlaneLink[] = (() => {
+  const allBlocks = loadAllBlocks();
+  const byIndex = new Map<number, PlaneLink>();
+  for (const coverId of donor.covers ?? []) {
+    const block = allBlocks.find((b) => blockNameToId(b.name) === coverId);
+    if (!block) continue;
+    const pi = block.start >> 16;
+    const label = planeLabelFor(pi);
+    const existing = byIndex.get(pi);
+    if (existing) existing.blockCount++;
+    else byIndex.set(pi, { plane_index: pi, plane: label, blockCount: 1 });
+  }
+  return Array.from(byIndex.values()).sort((a, b) => a.plane_index - b.plane_index);
+})();
+
 const ROMAN: Array<string | null> = [
   '0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
   'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI',
@@ -24,6 +44,12 @@ const ROMAN: Array<string | null> = [
 function romanPlane(n: number | null): string {
   if (n === null || n === undefined) return '—';
   return ROMAN[n] || String(n);
+}
+
+/** Map a plane_index to its short label (BMP/SMP/SIP/TIP/SSP). */
+function planeLabelFor(planeIndex: number): string {
+  const labels: Record<number, string> = { 0: 'BMP', 1: 'SMP', 2: 'SIP', 3: 'TIP', 14: 'SSP' };
+  return labels[planeIndex] ?? `P${planeIndex}`;
 }
 
 function roleLabel(role: string): string {
@@ -113,15 +139,32 @@ const rel = relationshipLabel(donor.relationship);
                   <span class="dd-cc-link-arrow">↗</span>
                 </a>
               ))}
-              {donor.code_chart_urls[0]?.index_url && (
-                <a href={donor.code_chart_urls[0].index_url} target="_blank" rel="noopener" class="dd-cc-link dd-cc-link-secondary">
-                  <span class="dd-cc-link-label">Unicode Block Index</span>
-                  <span class="dd-cc-link-arrow">↗</span>
-                </a>
-              )}
             </div>
           )}
         </div>
+      )}
+
+      {planeLinks.length > 0 && (
+        <section class="dd-section dd-planes">
+          <div class="dd-section-head">
+            <span class="dd-section-num">{numI}</span>
+            <h2>Planes this donor helped create</h2>
+            <span class="dd-section-meta">{planeLinks.length} {planeLinks.length === 1 ? 'plane' : 'planes'}</span>
+          </div>
+          <p class="dd-section-lede">
+            Essenfont is partitioned across Unicode planes — one face per plane that carries assigned characters. This donor's glyphs end up on:
+          </p>
+          <div class="dd-planes-grid">
+            {planeLinks.map(pl => (
+              <a href={`/unicode/plane/${pl.plane_index}`} class="dd-plane-card">
+                <span class="dd-plane-card-code">{pl.plane}</span>
+                <span class="dd-plane-card-idx mono">Plane {pl.plane_index}</span>
+                <span class="dd-plane-card-count">{pl.blockCount} {pl.blockCount === 1 ? 'block' : 'blocks'}</span>
+                <span class="dd-plane-card-arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
       )}
 
       {coverageRows.length > 0 && (
@@ -133,25 +176,31 @@ const rel = relationshipLabel(donor.relationship);
           </div>
           {donor.role === 'secondary' ? (
             <p class="dd-section-lede">
-              This donor provides <strong>defense-in-depth</strong> coverage — it
-              ships the same blocks as a primary donor (or a subset thereof).
-              Listed for completeness and source provenance.
+              This donor provides <strong>defense-in-depth</strong> coverage — it ships the same blocks as a primary donor (or a subset thereof). Listed for completeness and source provenance.
+            </p>
+          ) : donor.source_type === 'synthetic' ? (
+            <p class="dd-section-lede">
+              This is a <strong>synthetic donor</strong> — glyphs were extracted from the Unicode Code Charts PDF and compiled via <code>fontisan SvgToGlyf</code>, because no OFL-licensed font yet covers these blocks. Each row below is a block this donor helped bring into Essenfont; click a row to see its glyphs.
             </p>
           ) : (
             <p class="dd-section-lede">
-              Each row below shows what fraction of the block this donor
-              contributes. Click a block to see its characters rendered.
+              Each row below shows what fraction of the block this donor contributes. Click a block to see its characters rendered.
             </p>
           )}
+
+          {(donor.source_type === 'synthetic' || donor.role === 'primary') && (() => {
+            return null;
+          })()}
+
           <ol class="coverage-list">
             {coverageRows.map((row: CoverageRow) => (
               <li class:list={["coverage-row", { 'coverage-row--zero': row.covered === 0 }]}>
                 <div class="coverage-block">
                   <a href={`/unicode/block/${slugifyBlockName(row.block)}`} class="coverage-block-name">{row.block}</a>
-                  <span class="coverage-plane">
+                  <a href={`/unicode/plane/${row.plane_index}`} class="coverage-plane" aria-label={`Browse ${row.plane} plane`}>
                     <span class="coverage-plane-code">{row.plane}</span>
                     <span class="coverage-plane-roman">{romanPlane(row.plane_index)}</span>
-                  </span>
+                  </a>
                 </div>
                 <div class="coverage-range">{row.range}</div>
                 <div class="coverage-bar-wrap">
@@ -182,6 +231,17 @@ const rel = relationshipLabel(donor.relationship);
           </div>
           {donor.notes && <p class="dd-prose">{donor.notes}</p>}
           {donor.author_note && <p class="dd-prose dd-prose-note">{donor.author_note}</p>}
+
+          {/* Hieroglyph donors get the feature-matrix comparison. */}
+          {donor.slug === 'uni-hieroglyphica' && (
+            <>
+              <HieroglyphFontComparison />
+              <p class="dd-prose">
+                <a href="/donors/licenses/unihieroglyphica-OFL.txt" target="_blank" rel="noopener">Read the full OFL license →</a>
+              </p>
+            </>
+          )}
+          {donor.slug === 'egyptian-text' && <HieroglyphFontComparison />}
         </section>
       )}
 
@@ -409,6 +469,77 @@ const rel = relationshipLabel(donor.relationship);
   max-width: 640px;
 }
 .dd-section-lede strong { color: var(--ef-text); font-weight: 600; }
+
+.dd-planes-callout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  margin: 0.75rem 0 1.25rem;
+  padding: 0.7rem 0.95rem;
+  background: var(--ef-accent-soft, rgba(42, 92, 138, 0.04));
+  border-left: 3px solid var(--ef-accent);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.82rem;
+}
+.dd-planes-label {
+  font-family: var(--spec-font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-text-3);
+}
+.dd-plane-link {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  text-decoration: none;
+  color: var(--ef-accent);
+  font-weight: 600;
+}
+.dd-plane-link:hover { text-decoration: underline; }
+.dd-plane-code { font-family: var(--spec-font-mono); font-size: 0.85rem; }
+.dd-plane-idx { font-size: 0.65rem; opacity: 0.6; }
+.dd-planes-sep { color: var(--ef-text-3); margin: 0 -0.25rem; }
+
+/* Standalone plane-cards grid (now its own section). */
+.dd-planes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+.dd-plane-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.8rem 1rem;
+  background: var(--ef-accent-soft, rgba(42, 92, 138, 0.04));
+  border: 1px solid var(--ef-rule, rgba(26,24,21,0.08));
+  border-left: 3px solid var(--ef-accent);
+  border-radius: 0 6px 6px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+.dd-plane-card:hover {
+  border-color: var(--ef-accent);
+  transform: translateY(-1px);
+}
+.dd-plane-card-code {
+  font-family: var(--spec-font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ef-accent);
+}
+.dd-plane-card-idx { font-size: 0.7rem; opacity: 0.7; }
+.dd-plane-card-count { font-size: 0.75rem; color: var(--ef-text-2); }
+.dd-plane-card-arrow {
+  align-self: flex-end;
+  margin-top: 0.25rem;
+  color: var(--ef-accent);
+  font-size: 0.85rem;
+}
 
 .coverage-list { list-style: none; padding: 0; margin: 0; }
 .coverage-row {
