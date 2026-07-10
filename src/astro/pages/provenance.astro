@@ -4,7 +4,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="Provenance — Essenfont" description="Glyph provenance and attribution for every codepoint in the Essenfont." canonical="/provenance">
   <article class="provenance-page">
     <header class="page-head">
-      <p class="eyebrow">Provenance</p>
       <h1>Glyph attribution</h1>
     </header>
     <section class="prose">
@@ -22,7 +21,7 @@ FONTISAN_PATH=../fontist/fontisan bundle exec ruby scripts/build.rb --format=otc
 <style>
 .provenance-page { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
 .page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--spec-font-mono); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ef-rose, #bf4e6a); }
+
 h1 { font-family: var(--spec-font-display); font-size: 2rem; }
 .prose h2 { font-family: var(--spec-font-display); font-size: 1.4rem; margin: 1.5rem 0 0.5rem; }
 .prose p { line-height: 1.7; }

@@ -1,0 +1,84 @@
+---
+/**
+ * SpecimenTile — one curated Unicode panel for the homepage tour.
+ *
+ * Renders sample glyphs (in Essenfont), a title, blurb, and links to
+ * the block detail page. Pure presentational — data lives in
+ * ../lib/specimen.ts.
+ */
+import type { SpecimenPanel } from '../lib/specimen';
+import { slugifyBlockName } from '../lib/unicode';
+
+export interface Props {
+  panel: SpecimenPanel;
+}
+const { panel } = Astro.props;
+const blockSlug = slugifyBlockName(panel.block);
+const blockHref = `/unicode/block/${blockSlug}`;
+---
+
+<a href={blockHref} class="specimen-tile" id={`specimen-${panel.id}`}>
+  <span class="specimen-glyphs" aria-hidden="true">
+    {panel.codepoints.map((cp) => (
+      <span class="specimen-glyph">{String.fromCodePoint(cp)}</span>
+    ))}
+  </span>
+  <span class="specimen-title">{panel.title}</span>
+  <span class="specimen-blurb">{panel.blurb}</span>
+  <span class="specimen-cta mono">browse {panel.block} →</span>
+</a>
+
+<style>
+  .specimen-tile {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 1.5rem 1.25rem;
+    background: var(--ef-surface, #f2efe9);
+    border: 1px solid var(--ef-rule, rgba(26,24,21,0.08));
+    border-left: 3px solid var(--ef-accent, #2a5c8a);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.18s, box-shadow 0.18s;
+  }
+  .specimen-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--ef-accent);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .specimen-glyphs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    min-height: 3em;
+    align-items: baseline;
+    font-family: var(--spec-font-glyph, "Essenfont"), "Noto Sans", sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    line-height: 1.5;
+    overflow: visible;
+    color: var(--ef-text);
+  }
+  .specimen-glyph { display: inline-block; }
+  .specimen-title {
+    font-family: var(--spec-font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .specimen-blurb {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    opacity: 0.78;
+    margin-bottom: 0.9rem;
+    flex: 1;
+  }
+  .specimen-cta {
+    font-family: var(--spec-font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-accent);
+    margin-top: auto;
+  }
+  .mono { font-family: var(--spec-font-mono); }
+</style>

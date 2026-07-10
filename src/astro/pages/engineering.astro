@@ -2,37 +2,37 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { loadStats } from '../lib/stats';
 import { formatBytes, formatNumber } from '../lib/ssr';
-import ReadingLayout from '../components/ReadingLayout.astro';
+import ReadingLayout from '../components/ReadingLayout.vue';
 
 const stats = loadStats();
 
 const cards = [
   {
-    href: '/engineering/pipeline',
+    href: '/docs/pipeline',
     eyebrow: 'How',
     title: 'Build pipeline',
     body: `How ${formatNumber(stats.unicode.assignedCodepointCount)} glyphs from ${stats.donorCount} donors become one TrueType Collection — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.`,
   },
   {
-    href: '/engineering/sources',
+    href: '/docs/sources',
     eyebrow: 'Where · glyphs',
     title: 'Where the glyphs come from',
     body: 'The donor strategy: 38 OFL-compatible donors, the Tier 1/2/3 sourcing model, code-chart SVG extraction for blocks no font covers, and why Full-Sung (Taiwan 全宋體) is the CJK donor instead of Noto Sans CJK.',
   },
   {
-    href: '/engineering/formats',
+    href: '/docs/formats',
     eyebrow: 'Where · build',
     title: 'Output formats & distribution',
     body: 'The build emits four shapes: OTC (canonical), per-plane TTFs (legacy + PDF), per-plane WOFF2s (web embed), per-block WOFF2 subsets (this site). Plus the release pipeline: tag → CI → GitHub Release → website.',
   },
   {
-    href: '/engineering/specification',
+    href: '/docs/specification',
     eyebrow: 'What · structure',
     title: 'Font specification',
     body: 'The internal structure of Essenfont-Regular.otc — faces, UPM strategy, per-face vertical metrics, and donor attribution. All values data-driven from the actual OTC file via SVG diagrams.',
   },
   {
-    href: '/engineering/coverage',
+    href: '/docs/coverage',
     eyebrow: 'What · status',
     title: 'Coverage, gaps & roadmap',
     body: 'What works, what\'s blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer actually enforces, and what\'s next.',
@@ -42,9 +42,9 @@ const cards = [
 <BaseLayout
   title="Engineering — Essenfont"
   description="Why Essenfont exists, how it is built from 38 donor fonts, where it ships, and what is on the roadmap. The full engineering story across four sub-pages."
-  canonical="/engineering"
+  canonical="/docs"
 >
-  <ReadingLayout>
+  <ReadingLayout client:visible>
     <article class="engineering-hub">
     <header class="page-head">
       <h1>The whole story, in four pages</h1>
@@ -105,7 +105,7 @@ const cards = [
         </li>
       </ul>
       <p>
-        The result is one OpenType Collection with five plane subfonts, each under the cap, stitched from {stats.donorCount} donor fonts, and redistributable under OFL (with the non-commercial FSung restriction carried forward programmatically — see <a href="/engineering/sources">/engineering/sources</a>).
+        The result is one OpenType Collection with five plane subfonts, each under the cap, stitched from {stats.donorCount} donor fonts, and redistributable under OFL (with the non-commercial FSung restriction carried forward programmatically — see <a href="/docs/sources">/docs/sources</a>).
       </p>
 
       <h2>Compared to Last Resort Font</h2>
@@ -196,8 +196,9 @@ h1 {
   margin: 2.5rem 0 1rem;
 }
 .prose p, .prose li {
-  font-size: 1rem;
-  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.75;
   color: var(--ef-text);
 }
 .prose a {

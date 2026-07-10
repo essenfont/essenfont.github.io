@@ -1,28 +1,19 @@
 ---
 /**
- * BrandMark — the Essenfont logo with blue→red color shift on hover.
+ * BrandMark — the Essenfont logo.
  *
- * Two color variants (blue = illumination, red = rubrication) are
- * stacked; CSS cross-fade transitions between them. The light/dark
- * variant is selected by `prefers-color-scheme` so the logo always
- * has the right contrast.
+ * Two vector SVG variants; the right one is shown based on the `.dark`
+ * class on <html> (manual toggle) OR prefers-color-scheme (OS setting).
+ * Manual toggle takes priority.
  *
- * Sizes: `sm` (32px, masthead), `md` (48px), `lg` (96px, hero)
- *
- * Usage:
- *   <BrandMark size="sm" />     // masthead
- *   <BrandMark size="lg" animated />  // hero
+ * Sizes: `sm` (32, masthead) · `md` (48) · `lg` (96) · `xl` (192) · `hero` (240)
  */
 
 export interface Props {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  /** Enable the slow rotation + glow animation (hero only). */
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'hero';
   animated?: boolean;
-  /** Override the default color-shift-on-hover behavior. */
   interactive?: boolean;
-  /** Alt text. */
   alt?: string;
-  /** Additional class names. */
   class?: string;
 }
 
@@ -34,7 +25,7 @@ const {
   class: className = '',
 } = Astro.props;
 
-const sizeMap = { sm: 32, md: 48, lg: 96, xl: 192 };
+const sizeMap = { sm: 32, md: 48, lg: 96, xl: 192, hero: 240 };
 const px = sizeMap[size];
 ---
 
@@ -43,19 +34,12 @@ const px = sizeMap[size];
   style={`--bm-size: ${px}px`}
   role="img"
   aria-label={alt}
+  tabindex={interactive ? 0 : undefined}
 >
-  <picture class="brand-mark__blue">
-    <source srcset="/img/logo/essenfont-dark-blue-128.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
-    <source srcset="/img/logo/essenfont-light-blue-128.webp" type="image/webp" media="(prefers-color-scheme: light)" />
-    <source srcset="/img/logo/essenfont-dark-blue-128.png" type="image/png" media="(prefers-color-scheme: dark)" />
-    <img src="/img/logo/essenfont-light-blue-128.png" alt="" width={px} height={px} loading="eager" />
-  </picture>
-  <picture class="brand-mark__red">
-    <source srcset="/img/logo/essenfont-dark-red-128.webp" type="image/webp" media="(prefers-color-scheme: dark)" />
-    <source srcset="/img/logo/essenfont-light-red-128.webp" type="image/webp" media="(prefers-color-scheme: light)" />
-    <source srcset="/img/logo/essenfont-dark-red-128.png" type="image/png" media="(prefers-color-scheme: dark)" />
-    <img src="/img/logo/essenfont-light-red-128.png" alt="" width={px} height={px} loading="eager" />
-  </picture>
+  <img class="bm-img bm-light" src="/essenfont-logo_dark.svg" alt="" width={px} height={px} loading="eager" />
+  <img class="bm-img bm-dark" src="/essenfont-logo_light.svg" alt="" width={px} height={px} loading="eager" />
+
+  <span class="bm-halo" aria-hidden="true"></span>
 </span>
 
 <style>
@@ -67,80 +51,85 @@ const px = sizeMap[size];
     height: var(--bm-size);
     position: relative;
     flex-shrink: 0;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
   }
 
-  .brand-mark picture {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .brand-mark img {
+  .bm-img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    display: block;
+    display: none;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  /* Blue = default state (illumination) */
-  .brand-mark__blue {
-    opacity: 1;
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Default (light mode): show dark-colored logo. */
+  .bm-light { display: block; }
+  .bm-dark  { display: none; }
+
+  /* Manual dark mode (.dark class on <html>): show light-colored logo. */
+  :global(html.dark) .bm-light { display: none; }
+  :global(html.dark) .bm-dark  { display: block; }
+
+  /* OS dark mode fallback (no manual override). */
+  @media (prefers-color-scheme: dark) {
+    .bm-light { display: none; }
+    .bm-dark  { display: block; }
+    /* Manual light override wins over OS dark. */
+    :global(html:not(.dark)) .bm-light { display: block; }
+    :global(html:not(.dark)) .bm-dark  { display: none; }
   }
 
-  /* Red = hover state (rubrication) */
-  .brand-mark__red {
+  .brand-mark.interactive:hover,
+  .brand-mark.interactive:focus-visible {
+    transform: translateY(-2px) scale(1.03);
+  }
+
+  .bm-halo {
+    position: absolute;
+    inset: -10%;
+    border-radius: 24%;
+    background: radial-gradient(circle at center, rgba(73, 149, 205, 0.45) 0%, transparent 65%);
     opacity: 0;
-    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(0.85);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(10px);
+  }
+  .brand-mark.interactive:hover .bm-halo,
+  .brand-mark.interactive:focus-visible .bm-halo {
+    opacity: 0.55;
+    transform: scale(1.1);
   }
 
-  /* Interactive: blue→red cross-fade on hover/focus */
-  .brand-mark.interactive:hover .brand-mark__blue,
-  .brand-mark.interactive:focus-visible .brand-mark__blue {
-    opacity: 0;
-  }
-  .brand-mark.interactive:hover .brand-mark__red,
-  .brand-mark.interactive:focus-visible .brand-mark__red {
-    opacity: 1;
-  }
-
-  /* Animated variant (hero): slow 360° rotation + subtle pulse glow */
-  .brand-mark.animated .brand-mark__blue {
-    animation: bm-rotate-blue 24s linear infinite;
-  }
-  .brand-mark.animated .brand-mark__red {
-    animation: bm-rotate-red 24s linear infinite;
-  }
   .brand-mark.animated {
-    animation: bm-pulse 4s ease-in-out infinite;
+    animation: bm-pulse 4.5s ease-in-out infinite, bm-float 6.5s ease-in-out infinite;
   }
 
-  @keyframes bm-rotate-blue {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
-  @keyframes bm-rotate-red {
-    from { transform: rotate(-360deg); }
-    to   { transform: rotate(0deg); }
-  }
   @keyframes bm-pulse {
     0%, 100% { filter: drop-shadow(0 0 0 transparent); }
-    50%      { filter: drop-shadow(0 0 16px var(--ef-accent, rgba(13, 115, 119, 0.3))); }
+    50%      { filter: drop-shadow(0 0 14px rgba(73, 149, 205, 0.3)); }
+  }
+  @keyframes bm-float {
+    0%, 100% { translate: 0 0; }
+    50%      { translate: 0 -6px; }
   }
 
-  /* On hover while animated: pause rotation, show red */
-  .brand-mark.animated.interactive:hover .brand-mark__blue,
-  .brand-mark.animated.interactive:hover .brand-mark__red {
-    animation-play-state: paused;
+  .brand-mark.is-spinning {
+    animation: bm-spin-once 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  @keyframes bm-spin-once {
+    from { transform: rotate3d(0, 1, 0, 0deg); }
+    to   { transform: rotate3d(0, 1, 0, 360deg); }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .brand-mark.animated,
-    .brand-mark.animated .brand-mark__blue,
-    .brand-mark.animated .brand-mark__red {
-      animation: none !important;
-    }
+    .brand-mark.is-spinning { animation: none !important; }
+    .brand-mark { transition: none; }
+    .brand-mark.interactive:hover,
+    .brand-mark.interactive:focus-visible { transform: none; }
   }
 </style>

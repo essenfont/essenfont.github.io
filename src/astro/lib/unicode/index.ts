@@ -6,6 +6,8 @@ export {
   loadBlockCharacters,
   loadUnicodeVersion,
   loadBlock,
+  loadUnihanForBlock,
+  loadUnihanForCodepoint,
   slugifyBlockName,
   getPlanes,
   getBlocksByPlane,

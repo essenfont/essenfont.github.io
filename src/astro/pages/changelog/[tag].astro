@@ -19,7 +19,6 @@ if (release.coverage_url) downloadLinks.push({ label: 'Coverage report', href: r
   canonical={`/changelog/${release.tag}`}
 >
   <article class="release-detail">
-    <p class="eyebrow"><a href="/changelog">← Changelog</a></p>
     <h1>{release.tag}</h1>
     <p class="release-name">{release.name}</p>
     <time class="release-date">{release.date}</time>
@@ -64,8 +63,8 @@ if (release.coverage_url) downloadLinks.push({ label: 'Coverage report', href: r
 </BaseLayout>
 <style>
 .release-detail { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
-.eyebrow { font-family: var(--spec-font-mono); font-size: 0.75rem; opacity: 0.6; margin: 0 0 1rem; }
-.eyebrow a { color: var(--ef-accent); text-decoration: none; }
+
+
 h1 {
   font-family: var(--spec-font-display);
   font-weight: 600;

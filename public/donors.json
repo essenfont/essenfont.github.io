@@ -230,22 +230,6 @@
       "vendor": "Michel Suignard"
     },
     {
-      "family": "NewGardiner",
-      "slug": "newgardiner",
-      "license": "OFL",
-      "author": "Mark Jan Nederhof",
-      "file_count": 2,
-      "covers_count": 0,
-      "first_cover": null,
-      "role": "secondary",
-      "planes": [
-        "SMP"
-      ],
-      "parsed_coverage_count": 2,
-      "source_type": "font",
-      "vendor": "Mark Jan Nederhof"
-    },
-    {
       "family": "Noto Serif Tai Yo",
       "slug": "noto-serif-tai-yo",
       "license": "OFL",

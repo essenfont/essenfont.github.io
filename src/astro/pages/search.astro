@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SiteSearch from '../components/SiteSearch.astro';
+import SiteSearch from '../components/SiteSearch.vue';
 ---
 <BaseLayout
   title="Search — Essenfont"
@@ -9,7 +9,6 @@ import SiteSearch from '../components/SiteSearch.astro';
 >
   <div class="search-page container">
     <header class="page-head">
-      <p class="eyebrow">Search</p>
       <h1>Find a character</h1>
       <p class="search-help">
         Type a block name, a codepoint (<code>U+0041</code>, <code>0041</code>, or <code>41</code>),
@@ -18,18 +17,14 @@ import SiteSearch from '../components/SiteSearch.astro';
       </p>
     </header>
 
-    <SiteSearch />
+    <SiteSearch client:load />
   </div>
 </BaseLayout>
 
 <style>
   .search-page { max-width: 760px; padding: 3rem 1.5rem 6rem; }
   .page-head { margin-bottom: 2rem; }
-  .eyebrow {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--ef-rose, #0d7377); margin: 0 0 0.5rem;
-  }
+  
   h1 {
     font-family: var(--spec-font-display);
     font-size: clamp(2rem, 5vw, 3rem); margin: 0;

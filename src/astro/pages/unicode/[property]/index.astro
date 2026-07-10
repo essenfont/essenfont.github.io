@@ -29,7 +29,6 @@ const totalCount = entries.reduce((sum, e) => sum + e.count, 0);
 >
   <div class="property-page">
     <header class="page-head">
-      <p class="eyebrow"><a href="/unicode">← Unicode</a></p>
       <h1>{config.title}</h1>
       <p>{entries.length} values · {totalCount.toLocaleString()} codepoints</p>
     </header>
@@ -46,8 +45,8 @@ const totalCount = entries.reduce((sum, e) => sum + e.count, 0);
 <style>
 .property-page { max-width: 720px; margin: 0 auto; padding: 3rem 1.5rem 6rem; }
 .page-head { margin-bottom: 2rem; }
-.eyebrow { font-family: var(--spec-font-mono); font-size: 0.75rem; opacity: 0.6; }
-.eyebrow a { color: var(--ef-rose, #bf4e6a); text-decoration: none; }
+
+
 h1 { font-family: var(--spec-font-display); font-size: 2rem; margin: 0.5rem 0 0.25rem; }
 .prop-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.5rem; }
 .prop-link { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; border: 1px solid rgba(128,128,128,0.15); border-radius: 4px; text-decoration: none; color: inherit; transition: border-color 0.1s; }
