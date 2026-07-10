@@ -63,7 +63,7 @@ const engineering = [
     font-size: clamp(2rem, 5vw, 3rem); margin: 0;
   }
   .lede { margin-top: 1rem; font-size: 1.125rem; max-width: 56ch; line-height: 1.6; opacity: 0.85; }
-  .lede a { color: var(--ef-rose, #bf4e6a); text-decoration: underline; text-underline-offset: 3px; }
+  .lede a { color: var(--ef-accent); text-decoration: underline; text-underline-offset: 3px; }
   .docs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -81,20 +81,20 @@ const engineering = [
     background: transparent;
   }
   .docs-card:hover {
-    border-color: var(--ef-rose, #bf4e6a);
+    border-color: var(--ef-accent);
     transform: translateY(-2px);
   }
   .docs-card--primary {
     background: rgba(191, 78, 106, 0.06);
     border: 1px solid rgba(191, 78, 106, 0.4);
-    border-left: 3px solid var(--ef-rose, #bf4e6a);
+    border-left: 3px solid var(--ef-accent);
   }
-  .docs-card--primary .docs-cta { color: var(--ef-rose, #bf4e6a); font-weight: 600; }
+  .docs-card--primary .docs-cta { color: var(--ef-accent); font-weight: 600; }
   .docs-num {
     font-family: var(--spec-font-mono, monospace);
     font-size: 0.75rem;
     letter-spacing: 0.2em;
-    color: var(--ef-rose, #bf4e6a);
+    color: var(--ef-accent);
   }
   .docs-title {
     font-family: var(--spec-font-display, Spectral, serif);
@@ -110,7 +110,7 @@ const engineering = [
   .docs-cta {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
-    color: var(--ef-rose, #bf4e6a);
+    color: var(--ef-accent);
     text-transform: uppercase;
     margin-top: 0.5rem;
     font-family: var(--spec-font-mono, monospace);
