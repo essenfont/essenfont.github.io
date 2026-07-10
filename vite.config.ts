@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import { readFileSync, existsSync } from 'node:fs'
 import { resolve, normalize } from 'node:path'
 import { readFileSync as readSsgRoutes } from 'node:fs'
@@ -46,7 +45,7 @@ function serveDataDir() {
 }
 
 export default defineConfig({
-  plugins: [vue(), serveDataDir()],
+  plugins: [serveDataDir()],
   base: '/',
   ssgOptions: {
     dirStyle: 'nested',
