@@ -44,6 +44,10 @@ export function planeForCodepoint(cp: number): PlaneKey {
   return 'bmp'
 }
 
+export function planeLabelForIndex(idx: number): string {
+  return PLANES.find(p => p.index === idx)?.shortName ?? `P${idx}`
+}
+
 const CATEGORY_NAMES: Record<string, string> = {
   Lu: 'Uppercase Letter', Ll: 'Lowercase Letter', Lt: 'Titlecase Letter',
   Lm: 'Modifier Letter', Lo: 'Other Letter',

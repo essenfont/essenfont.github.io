@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, blockNameToId, donorLogo, type CoverageRow } from '../../lib/donors';
-import { slugifyBlockName, loadAllBlocks } from '../../lib/unicode';
+import { slugifyBlockName, loadAllBlocks, planeLabelForIndex } from '../../lib/unicode';
 import HieroglyphFontComparison from '../../components/HieroglyphFontComparison.astro';
 
 export async function getStaticPaths() {
@@ -28,7 +28,7 @@ const planeLinks: PlaneLink[] = (() => {
     const block = allBlocks.find((b) => blockNameToId(b.name) === coverId);
     if (!block) continue;
     const pi = block.start >> 16;
-    const label = planeLabelFor(pi);
+    const label = planeLabelForIndex(pi);
     const existing = byIndex.get(pi);
     if (existing) existing.blockCount++;
     else byIndex.set(pi, { plane_index: pi, plane: label, blockCount: 1 });
@@ -44,12 +44,6 @@ const ROMAN: Array<string | null> = [
 function romanPlane(n: number | null): string {
   if (n === null || n === undefined) return '—';
   return ROMAN[n] || String(n);
-}
-
-/** Map a plane_index to its short label (BMP/SMP/SIP/TIP/SSP). */
-function planeLabelFor(planeIndex: number): string {
-  const labels: Record<number, string> = { 0: 'BMP', 1: 'SMP', 2: 'SIP', 3: 'TIP', 14: 'SSP' };
-  return labels[planeIndex] ?? `P${planeIndex}`;
 }
 
 function roleLabel(role: string): string {
