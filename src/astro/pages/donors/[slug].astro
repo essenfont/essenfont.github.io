@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, blockNameToId, type CoverageRow } from '../../lib/donors';
+import { loadDonorDetail, loadDonorCoverage, listDonorSlugs, blockNameToId, donorLogo, type CoverageRow } from '../../lib/donors';
 import { slugifyBlockName, loadAllBlocks } from '../../lib/unicode';
 import HieroglyphFontComparison from '../../components/HieroglyphFontComparison.astro';
 
@@ -118,9 +118,14 @@ const rel = relationshipLabel(donor.relationship);
       </nav>
 
       <header class="dd-title">
-        <h1>{donor.family}</h1>
-        {donor.author && <p class="dd-author">{donor.author}</p>}
-        {rel && <p class="dd-relationship">{rel}</p>}
+        {(() => { const dl = donorLogo(donor.family, donor.vendor); return dl
+          ? <img src={dl.src} alt={dl.alt} class="dd-logo" width="40" height="40" loading="lazy" />
+          : <span class="dd-logo dd-logo--placeholder" aria-hidden="true">{donor.family.charAt(0)}</span>; })()}
+        <div>
+          <h1>{donor.family}</h1>
+          {donor.author && <p class="dd-author">{donor.author}</p>}
+          {rel && <p class="dd-relationship">{rel}</p>}
+        </div>
       </header>
 
       {donor.source_type === 'code-chart' && (
@@ -394,10 +399,15 @@ const rel = relationshipLabel(donor.relationship);
 .dd-crumb-current { color: var(--ef-text); }
 
 .dd-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px solid var(--ef-accent);
 }
+.dd-logo { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+.dd-logo--placeholder { display: inline-flex; align-items: center; justify-content: center; background: var(--ef-accent); color: white; font-family: var(--spec-font-mono); font-size: 1.25rem; font-weight: 700; border-radius: 6px; }
 .dd-title h1 {
   font-family: var(--spec-font-display);
   font-size: clamp(2rem, 5vw, 3rem);

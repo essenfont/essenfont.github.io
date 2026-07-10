@@ -211,3 +211,20 @@ function planeLabelForIndex(idx: number): string {
   const labels: Record<number, string> = { 0: 'BMP', 1: 'SMP', 2: 'SIP', 3: 'TIP', 14: 'SSP' };
   return labels[idx] ?? `P${idx}`;
 }
+
+export interface DonorLogo {
+  src: string;
+  alt: string;
+}
+
+const VENDOR_LOGOS: readonly { match: string; logo: DonorLogo }[] = [
+  { match: 'noto',     logo: { src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' } },
+  { match: 'google',   logo: { src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' } },
+  { match: 'sil',      logo: { src: '/img/donor-logos/sil.svg',          alt: 'SIL International logo' } },
+  { match: 'synthetic',logo: { src: '/img/donor-logos/unicode-org.svg',  alt: 'Unicode Consortium logo' } },
+];
+
+export function donorLogo(family: string, vendor: string): DonorLogo | null {
+  const hay = `${family} ${vendor}`.toLowerCase();
+  return VENDOR_LOGOS.find((v) => hay.includes(v.match))?.logo ?? null;
+}
