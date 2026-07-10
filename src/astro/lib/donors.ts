@@ -1,16 +1,12 @@
-// Build-time data loaders for donor + release data.
+// Build-time data loaders for donor data.
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { loadAllBlocks } from './unicode';
+import { loadAllBlocks, planeLabelForIndex } from './unicode';
+import { loadJson } from './ssr';
 
 const PUBLIC_DIR = path.resolve('./public');
 const DONORS_DIR = path.join(PUBLIC_DIR, 'donors');
-
-function readJsonSync<T>(relPath: string): T {
-  const full = path.join(PUBLIC_DIR, relPath.replace(/^\//, ''));
-  return JSON.parse(fs.readFileSync(full, 'utf-8'));
-}
 
 export interface DonorSummary {
   family: string;
@@ -99,26 +95,8 @@ export interface DonorDetail {
   code_chart_urls?: CodeChartUrl[];
 }
 
-export interface Release {
-  tag: string;
-  name: string;
-  date: string;
-  url: string;
-  ttc_url?: string;
-  otc_url?: string;
-  coverage_url?: string;
-  npm_url?: string;
-  isLatest?: boolean;
-  notes?: string;
-  stats?: {
-    codepoints?: number;
-    pct?: number;
-    planes?: number;
-  };
-}
-
 export function loadDonors(): DonorSummary[] {
-  const data = readJsonSync<{ families: DonorSummary[] }>('donors.json');
+  const data = loadJson<{ families: DonorSummary[] }>('donors.json');
   return data.families || [];
 }
 
@@ -167,10 +145,6 @@ export function loadDonorDetail(slug: string): DonorDetail | null {
   return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as DonorDetail;
 }
 
-export function loadReleases(): Release[] {
-  return readJsonSync<Release[]>('releases.json');
-}
-
 export function loadDonorCoverage(donor: DonorDetail): CoverageRow[] {
   // Build a one-time block-name → plane index map so each coverage row
   // knows which plane it belongs to without the donor JSON having to
@@ -205,11 +179,6 @@ export function loadDonorCoverage(donor: DonorDetail): CoverageRow[] {
     }
   }
   return Array.from(byBlock.values()).sort((a, b) => b.covered - a.covered);
-}
-
-function planeLabelForIndex(idx: number): string {
-  const labels: Record<number, string> = { 0: 'BMP', 1: 'SMP', 2: 'SIP', 3: 'TIP', 14: 'SSP' };
-  return labels[idx] ?? `P${idx}`;
 }
 
 export interface DonorLogo {

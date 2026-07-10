@@ -9,16 +9,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { UnicodeBlock, UnicodeCharacter, UnicodeVersion, UnicodePlane, CodepointUnihan } from '../types';
-import { PLANES, planeForCodepoint } from '../constants';
+import { PLANES, planeForCodepoint, canonicalCodepointHex, safeChar, blockSlug } from '../constants';
 import type { PlaneKey } from '../types';
+import { loadJson } from '../../ssr';
 
 const PUBLIC_DIR = path.resolve('./public');
 const DATA_DIR = path.resolve('./data');
-
-function readJsonSync<T>(relPath: string): T {
-  const full = path.join(PUBLIC_DIR, relPath.replace(/^\//, ''));
-  return JSON.parse(fs.readFileSync(full, 'utf-8'));
-}
 
 // Raw JSON shape from unicode-blocks.json (minimal — just what UCD emits).
 interface RawBlock {
@@ -45,12 +41,12 @@ function enrichBlock(raw: RawBlock): UnicodeBlock {
 }
 
 export function loadAllBlocks(): UnicodeBlock[] {
-  const raw = readJsonSync<RawBlock[]>('unicode-blocks.json');
+  const raw = loadJson<RawBlock[]>('unicode-blocks.json');
   return raw.map(enrichBlock);
 }
 
 export function loadUnicodeVersion(): UnicodeVersion {
-  return readJsonSync<UnicodeVersion>('unicode-version.json');
+  return loadJson<UnicodeVersion>('unicode-version.json');
 }
 
 // Raw character shape from per-block JSON (short field names from UCD XML extraction).
@@ -68,27 +64,19 @@ interface RawCharacter {
   dm?: string | null;
 }
 
-function hexCp(cp: number): string {
-  return cp.toString(16).toUpperCase().padStart(4, '0');
-}
-
-function safeChar(cp: number): string {
-  try { return String.fromCodePoint(cp); } catch { return ''; }
-}
-
 function enrichChar(raw: RawCharacter): UnicodeCharacter {
   const cp = raw.cp;
   let name = raw.n ?? '';
   if (!name) {
     if (cp >= 0x3400 && cp <= 0x9FFF || cp >= 0x20000 && cp <= 0x2FFFF) {
-      name = `CJK UNIFIED IDEOGRAPH-${cp.toString(16).toUpperCase().padStart(5, '0')}`;
+      name = `CJK UNIFIED IDEOGRAPH-${canonicalCodepointHex(cp).padStart(5, '0')}`;
     } else {
-      name = `<control-${cp.toString(16).toUpperCase()}>`;
+      name = `<control-${canonicalCodepointHex(cp)}>`;
     }
   }
   return {
     cp,
-    hex: hexCp(cp),
+    hex: canonicalCodepointHex(cp),
     char: safeChar(cp),
     name,
     category: raw.c ?? '',
@@ -105,21 +93,19 @@ function enrichChar(raw: RawCharacter): UnicodeCharacter {
 
 export function loadBlockCharacters(blockSlug: string): UnicodeCharacter[] {
   try {
-    const data = readJsonSync<{ chars: RawCharacter[] }>(`unicode/blocks/${blockSlug}.json`);
+    const data = loadJson<{ chars: RawCharacter[] }>(`unicode/blocks/${blockSlug}.json`);
     return (data.chars || []).map(enrichChar);
   } catch {
     return [];
   }
 }
 
-export function loadBlock(blockSlug: string): UnicodeBlock | null {
+export function loadBlock(blockSlugName: string): UnicodeBlock | null {
   const blocks = loadAllBlocks();
-  return blocks.find(b => slugifyBlockName(b.name) === blockSlug) ?? null;
+  return blocks.find(b => blockSlug(b.name) === blockSlugName) ?? null;
 }
 
-export function slugifyBlockName(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
+export { blockSlug as slugifyBlockName } from '../constants';
 
 export function getPlanes(blocks: UnicodeBlock[]): UnicodePlane[] {
   return PLANES.map(p => ({
