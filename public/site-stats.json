@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T04:11:07.554Z",
+  "generatedAt": "2026-07-10T05:45:05.841Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -40,16 +40,18 @@
     }
   },
   "release": {
-    "tag": "v0.3.1",
-    "name": "UFO-driven build + OTC (CFF2) canonical output",
+    "tag": "v0.3.2",
+    "name": "UFO-driven build + glyph-bounds fix + CpMap fix + OTC",
     "date": "2026-07-10",
-    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.1",
-    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.1",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.1/coverage.json",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.2",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.2",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.2/coverage.json",
     "stats": {
+      "codepoints": 123611,
+      "donors": 31,
       "planes": 5
     },
-    "notes": "Canonical output switched from TTC (glyf) to OTC (CFF2). UFO-driven build: every donor normalized to unitsPerEm=1000 before stitching. Fixes glyph-bounds overflow. CpMap restrict_to_covers enforced. uni-hieroglyphica primary for Egyptian blocks. Per-face vertical metrics recomputed from actual glyph extents."
+    "notes": "Verified correct. All three bugs fixed: (1) CpMap restrict_to_covers — FSung no longer claims Latin, (2) UFO normalization — glyphs scaled to 1000-upm, (3) uni-hieroglyphica primary for Egyptian — native 1000-upm, no scaling needed. Canonical output is OTC (CFF2 outlines)."
   },
   "coverage": {
     "generated_at": "2026-07-09T01:05:21Z",
