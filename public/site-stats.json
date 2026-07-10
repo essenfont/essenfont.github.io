@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T03:42:39.985Z",
+  "generatedAt": "2026-07-10T04:11:07.554Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -40,17 +40,16 @@
     }
   },
   "release": {
-    "tag": "v0.3.0",
-    "name": "UFO-driven build + glyph-bounds fix + CpMap filter",
+    "tag": "v0.3.1",
+    "name": "UFO-driven build + OTC (CFF2) canonical output",
     "date": "2026-07-10",
-    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.0",
-    "ttc_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.0/Essenfont-Regular.ttc",
-    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.0",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.0/coverage.json",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.3.1",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.1",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.1/coverage.json",
     "stats": {
       "planes": 5
     },
-    "notes": "UFO-driven build: every donor converted to UFO and normalized to unitsPerEm=1000 before stitching. Fixes glyph-bounds overflow (𓂀 and other non-1000-upm donor glyphs). CpMap restrict_to_covers enforced. uni-hieroglyphica primary for all Egyptian blocks. Per-face vertical metrics recomputed from actual glyph extents."
+    "notes": "Canonical output switched from TTC (glyf) to OTC (CFF2). UFO-driven build: every donor normalized to unitsPerEm=1000 before stitching. Fixes glyph-bounds overflow. CpMap restrict_to_covers enforced. uni-hieroglyphica primary for Egyptian blocks. Per-face vertical metrics recomputed from actual glyph extents."
   },
   "coverage": {
     "generated_at": "2026-07-09T01:05:21Z",
