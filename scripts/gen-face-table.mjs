@@ -20,7 +20,9 @@ const PUBLIC = path.join(ROOT, 'public');
 // Locate the TTC: sibling build repo first, then website's own public/.
 function findTtc() {
   const candidates = [
+    path.resolve(ROOT, '..', 'essenfont', 'Essenfont-Regular.otc'),
     path.resolve(ROOT, '..', 'essenfont', 'Essenfont-Regular.ttc'),
+    path.join(PUBLIC, 'Essenfont-Regular.otc'),
     path.join(PUBLIC, 'Essenfont-Regular.ttc'),
   ];
   for (const p of candidates) {
