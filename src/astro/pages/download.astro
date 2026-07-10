@@ -8,7 +8,7 @@ const stats = loadStats();
 const releases = loadReleases();
 const LATEST = stats.release || releases[0] || { tag: 'latest', name: 'Essenfont', url: 'https://github.com/essenfont/essenfont/releases' };
 
-const TTC_SIZE = stats.fontBinaries.ttcSizeBytes;
+const OTC_SIZE = stats.fontBinaries.otcSizeBytes;
 const NPM_SIZE = 63267101;  // v0.2.8 npm tarball size from release
 const GH_RELEASES_URL = 'https://github.com/essenfont/essenfont/releases';
 const LATEST_NPM_URL = LATEST.npm_url || 'https://www.npmjs.com/package/essenfont';
@@ -25,13 +25,12 @@ const PER_PLANE = [
 
 <BaseLayout
   title="Download — Essenfont"
-  description={`Download Essenfont ${LATEST.tag} — canonical TTC from GitHub Releases, per-plane WOFF2 via npm, or install via Fontist.`}
+  description={`Download Essenfont ${LATEST.tag} — canonical OTC from GitHub Releases, per-plane WOFF2 via npm, or install via Fontist.`}
   canonical="/download"
   active="install"
 >
   <div class="download">
     <header class="page-head">
-      <p class="eyebrow">Download · Latest {LATEST.tag}</p>
       <h1>Get Essenfont</h1>
       <p class="subtitle">
         {LATEST.name} — released {LATEST.date}.
@@ -43,10 +42,10 @@ const PER_PLANE = [
     <section class="options">
       <div class="option-card primary">
         <p class="card-tag">Canonical</p>
-        <h2>Essenfont-Regular.ttc</h2>
-        <p class="format">TrueType Collection · {TTC_SIZE ? formatBytes(TTC_SIZE) : '—'} · 5 faces</p>
+        <h2>Essenfont-Regular.otc</h2>
+        <p class="format">OpenType Collection (CFF2) · {OTC_SIZE ? formatBytes(OTC_SIZE) : '—'} · 5 faces</p>
         <p>The full universal font in one file. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
-        <a href={LATEST.ttc_url || `${CDN_BASE}/Essenfont-Regular.ttc`} class="btn-primary">Download TTC</a>
+        <a href={LATEST.otc_url || `${CDN_BASE}/Essenfont-Regular.otc`} class="btn-primary">Download OTC</a>
         <p class="meta">{LATEST.tag} · Mixed license — see <a href="/license">details</a></p>
       </div>
     </div>
@@ -56,7 +55,7 @@ const PER_PLANE = [
         <p class="card-tag">npm</p>
         <h2>Install via npm</h2>
         <p class="format">Per-plane WOFF2 + CSS bundles · {formatBytes(NPM_SIZE)}</p>
-        <p>The same artifacts as the TTC, split into per-plane WOFF2 (BMP / SMP / SIP / TIP / SSP) for the web.</p>
+        <p>The same artifacts as the OTC, split into per-plane WOFF2 (BMP / SMP / SIP / TIP / SSP) for the web.</p>
         <pre><code>npm install essenfont</code></pre>
         <p class="meta"><a href={LATEST_NPM_URL} target="_blank" rel="noopener">{LATEST.tag} on npmjs.com →</a></p>
       </div>
@@ -74,7 +73,7 @@ fontist install "Essenfont"</code></pre>
     <section class="plane-grid">
       <h2>Per-plane WOFF2 — what's in {LATEST.tag}</h2>
       <p className="plane-lede">
-        The TTC contains one face per Unicode plane. Each is shipped as a standalone
+        The OTC contains one face per Unicode plane. Each is shipped as a standalone
         WOFF2 file inside the npm package. Use these directly on the web if you
         only need a single plane.
       </p>
@@ -119,7 +118,7 @@ fontist install "Essenfont"</code></pre>
           ))}
         </ul>
         <p class="releases-foot">
-          Looking for an older binary? Each release includes TTC + per-plane
+          Looking for an older binary? Each release includes OTC + per-plane
           WOFF2, SVG exports, codepoint map, and provenance data.
         </p>
       </section>
@@ -130,14 +129,7 @@ fontist install "Essenfont"</code></pre>
 <style>
 .download { max-width: 880px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
 .page-head { margin-bottom: 3rem; }
-.eyebrow {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ef-accent);
-  margin: 0 0 0.5rem;
-}
+
 h1 {
   font-family: var(--spec-font-display);
   font-weight: 600;
