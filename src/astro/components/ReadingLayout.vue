@@ -70,12 +70,14 @@ onUnmounted(() => {
       :style="{ background: `linear-gradient(to right, var(--ef-accent) 0%, var(--ef-accent) ${progress * 100}%, transparent ${progress * 100}%)` }"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_220px] gap-0 lg:gap-12">
-      <slot />
+    <div class="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_200px] gap-0 xl:gap-10">
+      <div class="min-w-0">
+        <slot />
+      </div>
 
       <aside
         v-if="headings.length >= 3"
-        class="hidden lg:block sticky top-20 self-start max-h-[calc(100vh-7rem)] overflow-y-auto"
+        class="hidden xl:block sticky top-20 self-start max-h-[calc(100vh-7rem)] overflow-y-auto"
         data-toc
         aria-label="Table of contents"
       >
