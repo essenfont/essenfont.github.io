@@ -1,10 +1,9 @@
 /* ===================================================================
    Essenfont — site-wide design system.
    Brand-driven palette from the Essenfont logo: deep blue + red.
-   Newsreader display + Hanken Grotesk body + JetBrains Mono.
+   EB Garamond display + Hanken Grotesk body + JetBrains Mono.
+   Fonts are loaded via <link> in BaseLayout.astro (non-blocking).
    =================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
 /* ─── Tokens ─────────────────────────────────────────────────────── */
 :root {
@@ -58,7 +57,7 @@
   --vp-c-gutter: var(--ef-rule);
 
   /* Typography */
-  --spec-font-display: "Fraunces", Georgia, serif;
+  --spec-font-display: "EB Garamond", Georgia, serif;
   --spec-font-body: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --spec-font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --vp-font-family-base: var(--spec-font-body);
@@ -137,7 +136,6 @@ body::before {
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 350;
-  font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
   line-height: 1.02;
   letter-spacing: -0.02em;
   color: var(--ef-ink);
