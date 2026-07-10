@@ -1,0 +1,147 @@
+---
+// BuildPipeline — data-driven SVG flow diagram of the 7-stage build.
+//
+// Reads public/pipeline-stages.json (committed, structural) and renders
+// the pipeline as a horizontal flow. New stages (UFO normalize, MetricsPass)
+// are highlighted in accent color.
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PUBLIC = path.resolve(__dirname, '..', '..', '..', '..', 'public');
+
+interface Stage {
+  n: number;
+  name: string;
+  module: string;
+  input: string;
+  output: string;
+  isNew?: boolean;
+}
+
+const DEFAULT_STAGES: Stage[] = [
+  { n: 1, name: 'Manifest',         module: 'Manifest::Collection',       input: 'manifest.yml',    output: 'donor entries' },
+  { n: 2, name: 'Donor load + UFO normalize', module: 'DonorLoader + Ufo::Normalization', input: 'donor entries', output: '{ufo:, coverage:}', isNew: true },
+  { n: 3, name: 'CpMap',            module: 'CpMap.from_donors',           input: 'filtered coverage', output: '{cp → donor}' },
+  { n: 4, name: 'Partition',        module: 'PartitionStrategy::ByPlane', input: '{cp → donor}',    output: '5 plane groups' },
+  { n: 5, name: 'Stitch',           module: 'Otc::Build + Fontisan::Stitcher', input: 'normalized UFOs', output: 'TTC file' },
+  { n: 6, name: 'MetricsPass',      module: 'Otc::MetricsPass',            input: 'TTC file',        output: 'patched metrics', isNew: true },
+  { n: 7, name: 'Verify',           module: 'scripts/verify.rb',           input: 'TTC file',        output: 'pass/fail' },
+];
+
+let stages: Stage[] = DEFAULT_STAGES;
+try {
+  const custom = path.join(PUBLIC, 'pipeline-stages.json');
+  if (fs.existsSync(custom)) {
+    stages = JSON.parse(fs.readFileSync(custom, 'utf-8')).stages || DEFAULT_STAGES;
+  }
+} catch {
+  // use defaults
+}
+
+const BOX_W = 96;
+const BOX_H = 60;
+const ARROW_W = 24;
+const startX = 10;
+const totalWidth = startX + stages.length * (BOX_W + ARROW_W) + 10;
+const totalHeight = 100;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={`0 0 ${totalWidth} ${totalHeight}`}
+  width="100%"
+  role="img"
+  aria-label="Build pipeline — 7 stages from manifest to verified TTC"
+  style="max-width: {totalWidth}px; overflow: visible;"
+>
+  <desc>
+    Horizontal flow showing {stages.length} build stages.
+    Stages 2 (UFO normalize) and 6 (MetricsPass) are new in v0.2.9.
+  </desc>
+
+  {stages.map((stage, i) => {
+    const x = startX + i * (BOX_W + ARROW_W);
+    const y = 20;
+    const fill = stage.isNew
+      ? 'var(--diagram-stage-new, var(--ef-accent, #2a5c8a))'
+      : 'var(--diagram-stage-existing, var(--ef-text-2, #555))';
+    return (
+      <g>
+        <title>Stage {stage.n}: {stage.name} ({stage.module})</title>
+
+        {/* Stage number badge */}
+        <circle
+          cx={x + 12} cy={y + 12} r="10"
+          fill={fill}
+        />
+        <text
+          x={x + 12} y={y + 16}
+          text-anchor="middle"
+          font-family="var(--spec-font-mono, monospace)"
+          font-size="10" font-weight="700"
+          fill="white"
+        >{stage.n}</text>
+
+        {/* Stage box */}
+        <rect
+          x={x} y={y}
+          width={BOX_W} height={BOX_H}
+          rx="8" fill={fill} opacity="0.08"
+          stroke={fill} stroke-width="1.5"
+        />
+        <text
+          x={x + BOX_W / 2} y={y + 34}
+          text-anchor="middle"
+          font-family="var(--spec-font-display, serif)"
+          font-size="10" font-weight="600"
+          fill="var(--ef-text, #1a1a1a)"
+        >{stage.name}</text>
+        <text
+          x={x + BOX_W / 2} y={y + 48}
+          text-anchor="middle"
+          font-family="var(--spec-font-mono, monospace)"
+          font-size="7"
+          fill="var(--ef-text-3, #888)"
+        >{stage.module}</text>
+
+        {/* Arrow to next stage */}
+        {i < stages.length - 1 && (
+          <path
+            d={`M ${x + BOX_W + 2} ${y + BOX_H / 2} L ${x + BOX_W + ARROW_W - 4} ${y + BOX_H / 2}`}
+            stroke="var(--ef-rule-strong, rgba(0,0,0,0.15))"
+            stroke-width="1.5"
+            marker-end="url(#arrow)"
+          />
+        )}
+
+        {/* "new" badge */}
+        {stage.isNew && (
+          <g>
+            <rect
+              x={x + BOX_W - 24} y={y - 8}
+              width="32" height="14" rx="7"
+              fill="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+            />
+            <text
+              x={x + BOX_W - 8} y={y + 2}
+              text-anchor="middle"
+              font-family="var(--spec-font-mono, monospace)"
+              font-size="8" font-weight="700"
+              fill="white"
+            >NEW</text>
+          </g>
+        )}
+      </g>
+    );
+  })}
+
+  {/* Arrow marker definition */}
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M 0 0 L 6 4 L 0 8 Z" fill="var(--ef-rule-strong, rgba(0,0,0,0.15))" />
+    </marker>
+  </defs>
+</svg>
