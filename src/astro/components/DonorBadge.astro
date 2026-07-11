@@ -28,7 +28,14 @@ const donorHref = `/donors/${donor.slug}`;
 
 <a href={donorHref} class:list={['donor-badge', `donor-badge--${variant}`]}>
   {logo ? (
-    <img src={logo.src} alt={logo.alt} class="donor-badge-logo" width="24" height="24" loading="lazy" />
+    logo.srcDark ? (
+      <Fragment>
+        <img src={logo.src} alt={logo.alt} class="donor-badge-logo donor-logo--light" width="24" height="24" loading="lazy" />
+        <img src={logo.srcDark} alt={logo.alt} class="donor-badge-logo donor-logo--dark" width="24" height="24" loading="lazy" />
+      </Fragment>
+    ) : (
+      <img src={logo.src} alt={logo.alt} class="donor-badge-logo" width="24" height="24" loading="lazy" />
+    )
   ) : (
     <span class="donor-badge-logo donor-badge-logo--placeholder" aria-hidden="true">{donor.family.charAt(0)}</span>
   )}

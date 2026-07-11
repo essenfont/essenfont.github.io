@@ -569,3 +569,7 @@ main hr {
     gap: 0.5rem;
   }
 }
+
+/* ─── Donor logo light/dark mode switching ──────────────────────── */
+html:not(.dark) .donor-logo--dark { display: none; }
+html.dark .donor-logo--light { display: none; }

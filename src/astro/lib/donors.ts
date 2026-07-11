@@ -183,14 +183,15 @@ export function loadDonorCoverage(donor: DonorDetail): CoverageRow[] {
 
 export interface DonorLogo {
   src: string;
+  srcDark?: string;
   alt: string;
 }
 
 const VENDOR_LOGOS: readonly { match: string; logo: DonorLogo }[] = [
-  { match: 'noto',     logo: { src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' } },
-  { match: 'google',   logo: { src: '/img/donor-logos/google-fonts.svg', alt: 'Google Fonts logo' } },
-  { match: 'sil',      logo: { src: '/img/donor-logos/sil.svg',          alt: 'SIL International logo' } },
-  { match: 'synthetic',logo: { src: '/img/donor-logos/unicode-org.svg',  alt: 'Unicode Consortium logo' } },
+  { match: 'noto',     logo: { src: '/img/donor-logos/google-fonts-logo.svg', alt: 'Google Fonts logo' } },
+  { match: 'google',   logo: { src: '/img/donor-logos/google-fonts-logo.svg', alt: 'Google Fonts logo' } },
+  { match: 'sil',      logo: { src: '/img/donor-logos/sil-logo_light.svg', srcDark: '/img/donor-logos/sil-logo_dark.svg', alt: 'SIL International logo' } },
+  { match: 'synthetic',logo: { src: '/img/donor-logos/unicode-logo_light.svg', srcDark: '/img/donor-logos/unicode-logo_dark.svg', alt: 'Unicode Consortium logo' } },
 ];
 
 export function donorLogo(family: string, vendor: string): DonorLogo | null {
