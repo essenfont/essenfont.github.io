@@ -95,10 +95,15 @@ const stats = (() => {
     out.donorCount = readYamlFrontmatterOnly(manifestPath).length;
   }
 
-  // Font binary sizes from sibling essenfont/
-  out.fontBinaries.otcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otc'));
-  out.fontBinaries.ttcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.ttc'));
-  out.fontBinaries.otfSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otf'));
+  // Font binary sizes from sibling essenfont/ — fall back to previously
+  // committed site-stats.json when the sibling repo isn't available (CI).
+  const prevStatsPath = path.join(PUBLIC, 'site-stats.json');
+  const prevFontBinaries = fs.existsSync(prevStatsPath)
+    ? (JSON.parse(fs.readFileSync(prevStatsPath, 'utf8')).fontBinaries ?? {})
+    : {};
+  out.fontBinaries.otcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otc')) ?? prevFontBinaries.otcSizeBytes ?? null;
+  out.fontBinaries.ttcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.ttc')) ?? prevFontBinaries.ttcSizeBytes ?? null;
+  out.fontBinaries.otfSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otf')) ?? prevFontBinaries.otfSizeBytes ?? null;
 
   // Website subsets from public/fonts/
   const fontsDir = path.join(PUBLIC, 'fonts');
