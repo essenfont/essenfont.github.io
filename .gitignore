@@ -1,6 +1,7 @@
 node_modules
 dist
 .cache
+.astro
 .vitepress-cache
 .vite-ssg-temp
 .DS_Store
@@ -14,4 +15,10 @@ public/search-index.json.gz
 public/releases/
 *.log
 .env
-.env.localTODO.*
+.env.local
+TODO.*
+docs/
+check_ots.js
+scripts/test-*.mjs
+scripts/inspect-block.mjs
+scripts/screenshot-fix.mjs
