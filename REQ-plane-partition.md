@@ -45,18 +45,18 @@ Today, all 5 planes fit with at least 3,000 glyphs of headroom.
 
 ## Single source of truth
 
-Plane metadata lives in `src/lib/unicode/constants.ts` (the `PLANES`
+Plane metadata lives in `src/astro/lib/unicode/constants.ts` (the `PLANES`
 array) and is propagated to `public/planes.json` by
 `scripts/gen-planes-data.mjs`. Pages consume the `PlaneInfo` type
-from `src/lib/unicode/types.ts`. No page may define its own plane
+from `src/astro/lib/unicode/types.ts`. No page may define its own plane
 metadata.
 
 ## Affected files
 
-- `src/lib/unicode/constants.ts` — `PLANES` constant (static metadata)
-- `src/lib/unicode/types.ts` — `PlaneInfo` interface
+- `src/astro/lib/unicode/constants.ts` — `PLANES` constant (static metadata)
+- `src/astro/lib/unicode/types.ts` — `PlaneInfo` interface
 - `scripts/gen-planes-data.mjs` — generates `public/planes.json`
-- `src/lib/unicode/data/loader.ts` — `loadPlanes()`
-- `src/pages/SubfontsPage.vue` — plane atlas
-- `src/pages/DownloadPage.vue` — per-plane download cards
-- `src/components/CoverageMap.vue` — "color by subfont" mode
+- `src/astro/lib/unicode/data/loader.ts` — `loadPlanes()`
+- `src/astro/pages/subfonts.astro` — plane atlas
+- `src/astro/pages/download.astro` — per-plane download cards
+- `src/astro/components/CoverageHeatmap.astro` — "color by subfont" mode
