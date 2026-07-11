@@ -279,7 +279,6 @@ main hr {
 .mono { font-family: var(--spec-font-mono); }
 .display { font-family: var(--spec-font-display); }
 .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
-.container-narrow { max-width: 880px; margin: 0 auto; padding: 0 1.5rem; }
 
 .btn {
   display: inline-flex;
@@ -383,179 +382,10 @@ main hr {
   font-size: 0.85rem;
 }
 
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  margin: 1.5rem 0;
-}
-.data-table th, .data-table td {
-  text-align: left;
-  padding: 0.65rem 0.75rem;
-  border-bottom: 1px solid var(--ef-rule);
-}
-.data-table thead th {
-  font-family: var(--spec-font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ef-text-3);
-  border-bottom: 2px solid var(--ef-rule-strong);
-}
-.data-table tbody tr:hover { background: var(--ef-accent-soft); }
-
 .btn-arrow::after { content: "→"; transition: transform 0.2s; }
 .btn-arrow:hover::after { transform: translateX(3px); }
 
-/* ─── Cards / specimens ──────────────────────────────────────────── */
-.specimen-card {
-  background: var(--ef-surface);
-  border: 1px solid var(--ef-rule);
-  padding: 1.5rem;
-  transition: border-color 0.25s, transform 0.25s, background 0.25s;
-  position: relative;
-  overflow: hidden;
-}
-.specimen-card:hover {
-  border-color: var(--ef-accent);
-  background: var(--ef-raised);
-  transform: translateY(-2px);
-}
-.specimen-card .glyph {
-  font-family: var(--spec-font-glyph);
-  line-height: 1;
-  color: var(--ef-text);
-}
-.specimen-card .glyph-meta {
-  font-family: var(--spec-font-mono);
-  font-size: 0.6875rem;
-  color: var(--ef-text-3);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-top: 1rem;
-}
-
-/* ─── Masthead (global header) ───────────────────────────────────── */
-.masthead {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: color-mix(in srgb, var(--ef-bg) 85%, transparent);
-  backdrop-filter: saturate(180%) blur(12px);
-  -webkit-backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--ef-rule);
-}
-.masthead-inner {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
-  height: var(--nav-h);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-.masthead-brand {
-  display: flex;
-  align-items: baseline;
-  gap: 0.625rem;
-  font-family: var(--spec-font-display);
-  font-weight: 500;
-  font-size: 1.375rem;
-  letter-spacing: -0.02em;
-  color: var(--ef-text);
-  text-decoration: none;
-  border: none;
-}
-.masthead-brand:hover { color: var(--ef-accent); }
-.masthead-brand .brand-mark {
-  width: 1.5rem;
-  height: 1.5rem;
-  display: inline-block;
-}
-.masthead-nav {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.masthead-nav a {
-  color: var(--ef-text-2);
-  text-decoration: none;
-  border: none;
-  padding-block: 0.25rem;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s, border-color 0.2s;
-}
-.masthead-nav a:hover { color: var(--ef-accent); border-bottom-color: var(--ef-accent); }
-.masthead-nav a.active { color: var(--ef-accent); }
-
-/* ─── Footer (colophon) ──────────────────────────────────────────── */
-.colophon {
-  border-top: 1px solid var(--ef-rule);
-  padding-block: 4rem 3rem;
-  margin-top: 6rem;
-  background: var(--ef-surface);
-}
-.colophon-inner {
-  max-width: var(--container);
-  margin: 0 auto;
-  padding-inline: var(--gutter);
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-}
-.colophon h5 {
-  font-family: var(--spec-font-mono);
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ef-text-3);
-  margin-bottom: 1rem;
-}
-.colophon ul { list-style: none; }
-.colophon li { margin-bottom: 0.5rem; font-size: 0.875rem; }
-.colophon a { color: var(--ef-text-2); }
-.colophon a:hover { color: var(--ef-accent); }
-.colophon-base {
-  max-width: var(--container);
-  margin: 3rem auto 0;
-  padding-inline: var(--gutter);
-  padding-top: 2rem;
-  border-top: 1px solid var(--ef-rule);
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-family: var(--spec-font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ef-text-3);
-}
-
-/* ─── Utilities ──────────────────────────────────────────────────── */
-.text-ochre  { color: var(--ef-accent); }
-.text-ink-2  { color: var(--ef-text-2); }
-.text-ink-3  { color: var(--ef-text-3); }
-.text-right  { text-align: right; }
-.text-center { text-align: center; }
-.mono        { font-family: var(--spec-font-mono); }
-.serif       { font-family: var(--spec-font-display); }
-.italic      { font-style: italic; }
-.glyph       { font-family: var(--spec-font-glyph); }
-.hidden-mobile { display: initial; }
-
-@media (max-width: 768px) {
-  .colophon-inner { grid-template-columns: 1fr 1fr; }
-  .masthead-nav { gap: 1rem; }
-  .masthead-nav a:nth-child(n+4) { display: none; }
-}
-
-/* ─── Reveal animations (CSS scroll-driven, progressive enhancement) ─ */
+/* ===================================================================
 @supports (animation-timeline: view()) {
   .reveal {
     animation: ef-reveal both;
@@ -568,18 +398,6 @@ main hr {
   }
 }
 
-/* Page-load staggered reveal — used on hero */
-@keyframes ef-rise {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.rise-1 { animation: ef-rise 0.8s 0.05s both cubic-bezier(0.22, 1, 0.36, 1); }
-.rise-2 { animation: ef-rise 0.8s 0.20s both cubic-bezier(0.22, 1, 0.36, 1); }
-.rise-3 { animation: ef-rise 0.8s 0.35s both cubic-bezier(0.22, 1, 0.36, 1); }
-.rise-4 { animation: ef-rise 0.8s 0.50s both cubic-bezier(0.22, 1, 0.36, 1); }
-.rise-5 { animation: ef-rise 0.8s 0.70s both cubic-bezier(0.22, 1, 0.36, 1); }
-.rise-6 { animation: ef-rise 0.8s 0.90s both cubic-bezier(0.22, 1, 0.36, 1); }
-
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -588,11 +406,6 @@ main hr {
     scroll-behavior: auto !important;
   }
 }
-
-.section-rule { border: 0; border-top: 1px solid var(--ef-rule); margin: 3rem 0; }
-/* Use the .glyph-glyph selector on a span around the actual glyph character only.
-   Never set font-family to the Essenfont family on a wrapper that contains text. */
-.glyph-glyph { font-family: var(--spec-font-glyph); }
 
 /* ===================================================================
    Header / Navigation
