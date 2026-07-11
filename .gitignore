@@ -17,7 +17,7 @@ public/releases/
 .env
 .env.local
 TODO.*
-docs/
+/docs/
 check_ots.js
 scripts/test-*.mjs
 scripts/inspect-block.mjs
