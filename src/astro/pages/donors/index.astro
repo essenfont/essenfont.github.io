@@ -30,7 +30,14 @@ const roleOrder = ['primary', 'secondary', 'specialist', 'contributor']
         return (
         <a href={`/donors/${d.slug}`} class="donor-card">
           {logo ? (
-            <img src={logo.src} alt={logo.alt} class="donor-card-logo" width="28" height="28" loading="lazy" />
+            logo.srcDark ? (
+              <Fragment>
+                <img src={logo.src} alt={logo.alt} class="donor-card-logo donor-logo--light" width="28" height="28" loading="lazy" />
+                <img src={logo.srcDark} alt={logo.alt} class="donor-card-logo donor-logo--dark" width="28" height="28" loading="lazy" />
+              </Fragment>
+            ) : (
+              <img src={logo.src} alt={logo.alt} class="donor-card-logo" width="28" height="28" loading="lazy" />
+            )
           ) : (
             <span class="donor-card-logo donor-card-logo--placeholder" aria-hidden="true">{d.family.charAt(0)}</span>
           )}
