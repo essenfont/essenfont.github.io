@@ -103,7 +103,7 @@ fontist install "Essenfont"</code></pre>
           </a>
         </div>
         <ul>
-          {releases.map(r => (
+          {releases.filter(r => !/DO NOT USE|Broken/i.test(r.notes ?? '')).map(r => (
             <li class:list={["release-row", { 'release-latest': r.isLatest }]}>
               <div class="release-row-head">
                 <a href={r.url} target="_blank" rel="noopener">
@@ -117,6 +117,32 @@ fontist install "Essenfont"</code></pre>
             </li>
           ))}
         </ul>
+        {(() => {
+          const broken = releases.filter(r => /DO NOT USE|Broken/i.test(r.notes ?? ''));
+          return broken.length > 0 ? (
+            <details class="releases-broken">
+              <summary>
+                <span class="broken-icon" aria-hidden="true">⚠</span>
+                {broken.length} invalid release{broken.length === 1 ? '' : 's'} — collapsed
+                <span class="broken-hint mono">do not download</span>
+              </summary>
+              <ul>
+                {broken.map(r => (
+                  <li class="release-row release-row--invalid">
+                    <div class="release-row-head">
+                      <a href={r.url} target="_blank" rel="noopener">
+                        <span class="release-tag release-tag--invalid">{r.tag}</span>
+                      </a>
+                      <span class="release-invalid-badge">INVALID FOR USAGE</span>
+                      {r.date && <time class="release-date">{r.date}</time>}
+                    </div>
+                    {r.notes && <p class="release-notes">{r.notes}</p>}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : null;
+        })()}
         <p class="releases-foot">
           Looking for an older binary? Each release includes OTC + per-plane
           WOFF2, SVG exports, codepoint map, and provenance data.
@@ -370,6 +396,57 @@ h1 {
   margin: 1rem 0 0;
   max-width: 640px;
 }
+
+.releases-broken {
+  margin-top: 1rem;
+  border: 1px solid color-mix(in srgb, var(--ef-red) 30%, var(--ef-rule));
+  border-radius: var(--ef-radius-sm);
+  background: color-mix(in srgb, var(--ef-red) 4%, var(--ef-surface));
+}
+.releases-broken > summary {
+  cursor: pointer;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ef-text-2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  user-select: none;
+}
+.releases-broken > summary::-webkit-details-marker { display: none; }
+.releases-broken > summary::before {
+  content: '▸';
+  font-size: 0.7rem;
+  color: var(--ef-text-3);
+  transition: transform 0.15s;
+}
+.releases-broken[open] > summary::before { transform: rotate(90deg); }
+.broken-icon { color: var(--ef-red); font-size: 0.9rem; }
+.broken-hint {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ef-red);
+  opacity: 0.7;
+  margin-left: auto;
+}
+.releases-broken ul { padding: 0 0.85rem 0.65rem; margin: 0; }
+.release-row--invalid { opacity: 0.65; }
+.release-tag--invalid { text-decoration: line-through; color: var(--ef-text-3); }
+.release-invalid-badge {
+  font-family: var(--spec-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  background: var(--ef-red);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
+.mono { font-family: var(--spec-font-mono); }
 
 @media (max-width: 600px) {
   .releases-head { flex-direction: column; align-items: flex-start; }
