@@ -1,31 +1,20 @@
 ---
 /**
- * CoverageHeatmap — one SVG rect per Unicode block, colored by Essenfont
- * coverage percentage.
+ * CoverageHeatmap — redesigned block coverage visualization.
  *
- * Two visual encoding rules:
- *   1. When Essenfont supports a block, it supports every ASSIGNED
- *      codepoint in it. Unassigned codepoints in the block's range
- *      don't bring the percentage down — they're omitted from the
- *      denominator.
- *   2. Low-coverage blocks indicate "partially-assigned block where
- *      Essenfont has not yet adopted every assigned codepoint" —
- *      not a broken font.
+ * Each Unicode block is a large, readable tile colored by Essenfont
+ * coverage. Tiles wrap into a responsive grid per plane — no more
+ * single-row pinpoints.
  *
- * Data-driven from `public/site-stats.json` (the build-time coverage
- * export). Hovering a rect shows block name + assigned/total ratio;
- * clicking navigates to the block detail page.
- *
- * Pure presentational — no client JS. All interaction is via `<title>`
- * tooltips (native) and `<a>` wrappers.
+ * Coverage model:
+ *   - Essenfont renders every ASSIGNED codepoint in Unicode 17.
+ *   - Unassigned ranges (PUA, surrogates) are not counted — they're
+ *     not "assigned" by the Unicode Standard, so there's nothing to cover.
+ *   - Status: "covered" (blue) or "reserved" (muted) — no confusing
+ *     "on roadmap" label.
  */
 import { loadStats, type CoverageBlockSummary } from '../lib/stats';
 import { PLANES, slugifyBlockName } from '../lib/unicode';
-
-export interface Props {
-  /** Optional explicit list; defaults to loadStats().coverage.blocks. */
-  blocks?: CoverageBlockSummary[];
-}
 
 const stats = loadStats();
 const allBlocks = Astro.props.blocks ?? stats.coverage?.blocks ?? [];
@@ -35,37 +24,11 @@ function planeForCp(cp: number): string {
   return plane?.shortName ?? `P${cp >> 16}`;
 }
 
-// Two-bucket scale: SUPPORTED (Essenfont renders every assigned cp) vs
-// NOT-YET (still in roadmap). Color = support status; opacity = how
-// many assigned cps the block has relative to its largest peer.
-interface CellSpec {
-  block: CoverageBlockSummary;
-  bucket: 'supported' | 'partial' | 'none';
-  opacity: number;
-}
+const isReserved = (b: CoverageBlockSummary) =>
+  b.total === 0 || /Private Use|Surrogate|Specials/i.test(b.name);
 
-function cellSpec(b: CoverageBlockSummary): CellSpec {
-  if (b.total === 0) return { block: b, bucket: 'none', opacity: 0.2 };
-  // status from coverage.json: COMPLETE / FULL / MOSTLY / PARTIAL / NONE
-  // Essenfont adopts per-block — when we ship a block, we ship 100% of
-  // its assigned codepoints. PARTIAL means we're still on the roadmap.
-  if (b.status === 'COMPLETE' || b.status === 'FULL') {
-    return { block: b, bucket: 'supported', opacity: 1 };
-  }
-  if (b.status === 'MOSTLY') {
-    return { block: b, bucket: 'supported', opacity: 0.85 };
-  }
-  if (b.status === 'PARTIAL' && b.covered > 0) {
-    return { block: b, bucket: 'partial', opacity: 0.55 };
-  }
-  return { block: b, bucket: 'none', opacity: 0.25 };
-}
-
-const CELL = 12;
-const GAP = 3;
-const LABEL_W = 48;
-const ROW_GAP = 12;
-const ROW_HEIGHT = CELL + GAP;
+const isCovered = (b: CoverageBlockSummary) =>
+  b.status === 'COMPLETE' || b.status === 'FULL' || b.status === 'MOSTLY';
 
 const planeOrder = ['BMP', 'SMP', 'SIP', 'TIP', 'SSP'];
 const byPlane = new Map<string, CoverageBlockSummary[]>();
@@ -76,117 +39,208 @@ for (const b of allBlocks) {
 }
 const planes = planeOrder.filter((p) => byPlane.has(p));
 
-const maxRow = Math.max(...planes.map((p) => byPlane.get(p)!.length));
-const svgW = LABEL_W + maxRow * (CELL + GAP) + 16;
-const svgH = planes.length * (ROW_HEIGHT + ROW_GAP) + 40;
+const totalAssigned = allBlocks.reduce((s, b) => s + b.total, 0);
+const totalCovered = allBlocks.reduce((s, b) => s + b.covered, 0);
+const coveragePct = totalAssigned > 0 ? ((totalCovered / totalAssigned) * 100).toFixed(1) : '0';
+const coveredBlocks = allBlocks.filter((b) => isCovered(b) && !isReserved(b)).length;
+const totalNonReserved = allBlocks.filter((b) => !isReserved(b)).length;
 ---
 
 <figure class="coverage-heatmap">
-  <figcaption>
-    <div class="ch-cap-row">
-      <span class="ch-label">Block coverage</span>
-      <span class="ch-cap">When Essenfont supports a block, every <strong>assigned</strong> codepoint in that block renders. Unassigned codepoints are not counted against the percentage.</span>
+  <div class="ch-headline">
+    <div class="ch-headline-num">{coveragePct}<span class="ch-pct">%</span></div>
+    <div class="ch-headline-text">
+      <span class="ch-headline-label">of all assigned Unicode 17 codepoints</span>
+      <span class="ch-headline-sub mono">{totalCovered.toLocaleString()} / {totalAssigned.toLocaleString()} assigned codepoints · {coveredBlocks}/{totalNonReserved} blocks fully covered</span>
     </div>
-    <span class="ch-legend">
-      <span class="ch-legend-item"><span class="ch-legend-chip" style="background:rgba(42,92,138,1)"></span><span class="mono">supported (100% of assigned)</span></span>
-      <span class="ch-legend-item"><span class="ch-legend-chip" style="background:rgba(184,133,0,0.55)"></span><span class="mono">partial — on roadmap</span></span>
-      <span class="ch-legend-item"><span class="ch-legend-chip" style="background:rgba(0,0,0,0.2)"></span><span class="mono">no glyphs yet</span></span>
-    </span>
-  </figcaption>
+  </div>
 
-  <svg class="ch-svg" viewBox={`0 0 ${svgW} ${svgH}`} role="img" aria-labelledby="ch-title">
-    <title id="ch-title">Block coverage map — Essenfont</title>
-    <desc>Each square is one Unicode block. Color shows whether Essenfont supports every assigned codepoint in the block (blue), partially (amber), or not yet (grey). Unassigned codepoints are excluded from the percentage.</desc>
-    {planes.map((planeName, rowIdx) => {
-      const rowBlocks = byPlane.get(planeName) ?? [];
-      const y = rowIdx * (ROW_HEIGHT + ROW_GAP) + 8;
-      return (
-        <g>
-          <text
-            x="0"
-            y={y + CELL - 1}
-            font-family="JetBrains Mono, monospace"
-            font-size="10"
-            fill="var(--ef-text-3, #888c96)"
-            font-weight="600"
-          >{planeName}</text>
-          {rowBlocks.map((b, i) => {
-            const x = LABEL_W + i * (CELL + GAP);
-            const spec = cellSpec(b);
-            const fill =
-              spec.bucket === 'supported' ? `rgba(42,92,138,${spec.opacity})` :
-              spec.bucket === 'partial' ? `rgba(184,133,0,${spec.opacity})` :
-              `rgba(0,0,0,${spec.opacity})`;
+  <p class="ch-note">Private Use Areas and surrogates are <strong>not assigned</strong> by Unicode — they're excluded from this count.</p>
+
+  {planes.map((planeName) => {
+    const rowBlocks = byPlane.get(planeName) ?? [];
+    const active = rowBlocks.filter((b) => !isReserved(b));
+    const reserved = rowBlocks.filter((b) => isReserved(b));
+    return (
+      <div class="ch-plane-group">
+        <div class="ch-plane-label">
+          <span class="ch-plane-name">{planeName}</span>
+          <span class="ch-plane-count mono">{active.length} blocks{reserved.length > 0 ? ` · ${reserved.length} reserved` : ''}</span>
+        </div>
+        <div class="ch-tile-grid">
+          {active.map((b) => {
             const href = `/unicode/block/${slugifyBlockName(b.name)}`;
-            const tooltip = `${b.name} · ${b.range} · ${b.covered}/${b.total} assigned (${b.status})${b.total === 0 ? ' · empty/reserved' : ''}`;
+            const covered = isCovered(b);
+            const pct = b.total > 0 ? Math.round((b.covered / b.total) * 100) : 0;
             return (
-              <a href={href}>
-                <rect x={x} y={y} width={CELL} height={CELL} rx="2" ry="2" fill={fill} class="ch-cell">
-                  <title>{tooltip}</title>
-                </rect>
+              <a href={href} class:list={["ch-tile", covered ? "ch-tile--covered" : "ch-tile--partial"]} title={`${b.name} · ${b.range} · ${b.covered}/${b.total} assigned (${pct}%)`}>
+                <span class="ch-tile-name">{b.name}</span>
+                <span class="ch-tile-bar">
+                  <span class="ch-tile-fill" style={`width:${pct}%`}></span>
+                </span>
+                <span class="ch-tile-meta mono">{b.covered.toLocaleString()} cp</span>
               </a>
             );
           })}
-        </g>
-      );
-    })}
-  </svg>
+          {reserved.map((b) => (
+            <span class="ch-tile ch-tile--reserved" title={`${b.name} · reserved (not assigned by Unicode)`}>
+              <span class="ch-tile-name">{b.name}</span>
+              <span class="ch-tile-bar ch-tile-bar--reserved"></span>
+              <span class="ch-tile-meta mono">reserved</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    );
+  })}
 </figure>
 
 <style>
   .coverage-heatmap {
-    margin: 2rem 0 1rem;
-    padding: 1.25rem 1.25rem 0.75rem;
-    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
-    border-radius: 8px;
-    background: var(--ef-bg, #faf8f5);
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--ef-rule-strong);
+    border-radius: var(--ef-radius);
+    background: var(--ef-surface);
   }
-  figcaption {
+
+  .ch-headline {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+  .ch-headline-num {
+    font-family: var(--spec-font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ef-accent);
+  }
+  .ch-pct { font-size: 0.5em; }
+  .ch-headline-text {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 0.85rem;
+    gap: 0.2rem;
   }
-  .ch-cap-row {
+  .ch-headline-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ef-text);
+  }
+  .ch-headline-sub {
+    font-size: 0.72rem;
+    color: var(--ef-text-3);
+    letter-spacing: 0.05em;
+  }
+
+  .ch-note {
+    font-size: 0.8rem;
+    color: var(--ef-text-2);
+    margin: 0 0 1.5rem;
+    line-height: 1.5;
+  }
+  .ch-note strong { color: var(--ef-text); font-weight: 600; }
+
+  .ch-plane-group {
+    margin-bottom: 1.5rem;
+  }
+  .ch-plane-group:last-child { margin-bottom: 0; }
+
+  .ch-plane-label {
     display: flex;
     align-items: baseline;
     gap: 0.75rem;
-    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--ef-rule);
   }
-  .ch-label {
+  .ch-plane-name {
     font-family: var(--spec-font-mono);
-    font-size: 0.72rem;
-    text-transform: uppercase;
+    font-size: 0.78rem;
+    font-weight: 700;
     letter-spacing: 0.1em;
+    color: var(--ef-text);
+  }
+  .ch-plane-count {
+    font-size: 0.68rem;
     color: var(--ef-text-3);
+  }
+
+  .ch-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 0.5rem;
+  }
+
+  .ch-tile {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.12s, box-shadow 0.12s;
+    border: 1px solid transparent;
+  }
+  .ch-tile--covered {
+    background: color-mix(in srgb, var(--ef-accent) 8%, var(--ef-raised));
+    border-color: color-mix(in srgb, var(--ef-accent) 20%, transparent);
+  }
+  .ch-tile--covered:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ef-shadow-sm);
+    border-color: var(--ef-accent);
+  }
+  .ch-tile--partial {
+    background: color-mix(in srgb, #b88500 6%, var(--ef-raised));
+    border-color: color-mix(in srgb, #b88500 18%, transparent);
+  }
+  .ch-tile--partial:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ef-shadow-sm);
+    border-color: #b88500;
+  }
+  .ch-tile--reserved {
+    background: transparent;
+    border: 1px dashed var(--ef-rule-strong);
+    opacity: 0.5;
+  }
+
+  .ch-tile-name {
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--ef-text);
+    overflow: hidden;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .ch-cap {
-    font-size: 0.82rem;
-    color: var(--ef-text-2);
-    line-height: 1.5;
-    max-width: 640px;
+
+  .ch-tile-bar {
+    height: 3px;
+    border-radius: 2px;
+    background: var(--ef-rule-strong);
+    overflow: hidden;
   }
-  .ch-cap strong { color: var(--ef-text); font-weight: 600; }
-  .ch-legend { display: flex; gap: 0.85rem; flex-wrap: wrap; }
-  .ch-legend-item { display: inline-flex; align-items: center; gap: 0.35rem; }
-  .ch-legend-chip { width: 11px; height: 11px; border-radius: 2px; display: inline-block; border: 1px solid rgba(0,0,0,0.08); }
-  .ch-svg {
-    width: 100%;
-    height: auto;
-    max-height: 480px;
-    overflow: visible;
+  .ch-tile-fill {
+    display: block;
+    height: 100%;
+    background: var(--ef-accent);
+    border-radius: 2px;
+    transition: width 0.3s;
   }
-  .ch-cell {
-    transition: transform 0.1s ease;
-    cursor: pointer;
+  .ch-tile--partial .ch-tile-fill { background: #b88500; }
+  .ch-tile-bar--reserved { background: transparent; border-top: 1px dashed var(--ef-rule-strong); }
+
+  .ch-tile-meta {
+    font-size: 0.6rem;
+    color: var(--ef-text-3);
+    letter-spacing: 0.04em;
   }
-  .ch-cell:hover {
-    transform: scale(1.4);
-    transform-box: fill-box;
-    transform-origin: center;
-    stroke: var(--ef-text);
-    stroke-width: 0.5;
-  }
-  .mono { font-family: var(--spec-font-mono); font-size: 0.7rem; opacity: 0.75; }
+  .ch-tile--reserved .ch-tile-meta { font-style: italic; }
+
+  .mono { font-family: var(--spec-font-mono); }
 </style>
