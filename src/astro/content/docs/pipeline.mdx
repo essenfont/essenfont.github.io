@@ -1,0 +1,94 @@
+---
+title: "Build pipeline"
+description: "How 160k glyphs from 38 donors become one OTC — five stages: read donors, build the codepoint map, partition by plane, stitch subfonts, pack the collection."
+order: 5
+---
+
+
+
+Essenfont is assembled, not drawn. Five stages take 38 donor fonts and produce one OpenType Collection with five plane subfonts, all reproducible from the committed manifest in `essenfont/essenfont`.
+
+## The whole pipeline at a glance
+
+```
+   donor fonts (TTF / OTF / TTC / WOFF2 / CBDT)
+            │
+            ▼  Fontisan::FontLoader
+   CpMap  ─── per-codepoint { donor_label, gid } ─── ucode's universal-set manifest
+            │
+            ▼  Essenfont::Otc::PlanePartitioner
+   Blueprint ── 5 Partitions (BMP / SMP / SIP / TIP / SSP), each ≤ 65,484 glyphs
+            │
+            ▼  Essenfont::Otc::StitcherSession + Fontisan::Stitcher
+   5 stitched subfonts (outlines + propagated CBDT/CBLC)
+            │
+            ▼  Fontisan::Collection::Builder  (table dedup by SHA256)
+   Essenfont-Regular.otc  ── validated by Fontisan::Collection::Reader
+```
+
+## The five stages, in detail
+
+1. **Read donors** — Open each of the 38 donor files via fontisan's `FontLoader`. Each donor declares its license, its sha256, and the codepoint ranges it covers. The build refuses anything outside the OFL-compatible policy before a single glyph is read.
+
+2. **Build the codepoint map (CpMap)** — For every assigned Unicode 17 codepoint, decide which donor owns it. ucode's universal-set manifest is the authoritative per-codepoint donor assignment. PUA, surrogate, and reserved codepoints are filtered out. CBDT-only color-bitmap donors are kept out of the outline map.
+
+3. **Partition by plane** — Group the 159,866 codepoints into named subfonts, each under the 65,535-glyph cap. The partitioner groups by Unicode plane — BMP, SMP, SIP, TIP, SSP — which is MECE, stable across version bumps, and discoverable in O(1) via `cp >> 16`.
+
+4. **Stitch subfonts** — Copy each donor's outline glyphs into the right subfont via fontisan's Stitcher. Outlines are stitched first, so cmap.build's first-wins policy binds codepoints to real outline GIDs. CBDT/CBLC color-bitmap tables are propagated afterward via raw-byte `table_data` reads.
+
+5. **Pack the collection** — Pass the compiled subfonts to `Collection::Builder`, which writes the OTC. Tables are deduplicated by SHA256 across the five faces. After writing, `Fontisan::Collection::Reader` opens the file back up and asserts face count, per-face glyph count ≤ 65,535, and cmap union size ≥ 99% of the input.
+
+## Why partition by plane: the 65,535-glyph cap
+
+TrueType and OpenType address glyphs by a 16-bit ID, so a single face can hold at most 65,535 glyphs (one reserved for `.notdef`). Unicode 17 has 159,866 assigned codepoints — nearly 2.5× the cap.
+
+| Subfont | Range | Carries |
+|---------|-------|---------|
+| `:plane_0` (BMP) | U+0000–U+FFFF | World scripts — Latin, Cyrillic, Greek, Arabic, Hebrew, CJK |
+| `:plane_1` (SMP) | U+10000–U+1FFFF | Historical scripts, emoji, music, math symbols |
+| `:plane_2` (SIP) | U+20000–U+2FFFF | CJK Extensions B / C / D / E / F / I |
+| `:plane_3` (TIP) | U+30000–U+3FFFF | CJK Extension C + J, Tangut, Khitan Small Script |
+| `:plane_14` (SSP) | U+E0000–U+EFFFF | Language tags (~100 codepoints) |
+
+Why planes (not script families, not blocks)?
+
+- **MECE.** Every codepoint lives in exactly one plane — no gaps, no overlap.
+- **Stable.** Plane assignment never changes under a Unicode version bump.
+- **O(1) lookup.** `cp >> 16` gives the plane number directly.
+- **Semantically meaningful.** Each plane is a coherent unit to ship in one face.
+
+The default cap is `PlanePartitioner::DEFAULT_CAP = 65,484`. If a future Unicode version balloons one plane past the cap, the partitioner sub-splits by block: `plane_2_a`, `plane_2_b`, etc.
+
+## Outline format: glyf vs CFF2
+
+- **glyf (TrueType)** — quadratic Béziers, hinting, universally supported.
+- **CFF2 (OpenType 1.8+)** — cubic Béziers, variation stores, ~35% smaller via subroutinization.
+
+CFF1 is not shipped — CFF2 strictly dominates it.
+
+## How color emoji survives into the OTC
+
+Noto Color Emoji glyphs are CBDT/CBLC (color bitmaps), not outlines. Two problems solved:
+
+1. **CBDT donors filtered from outline map** — prevents empty `.notdef` placeholders.
+2. **CFF2 preserved on round-trip** — table bytes are read raw via `table_data` and spliced directly.
+
+Per-block WOFF2 subsetting for this website cannot yet carry CBDT (fontisan subsetter drops unrecognized tables), so color-emoji blocks render in monochrome on the site. See [Coverage & gaps](/docs/coverage).
+
+## Reproducibility
+
+```bash
+git clone https://github.com/essenfont/essenfont
+cd essenfont
+bundle install
+bundle exec ucode fetch fonts
+
+bundle exec ruby scripts/build.rb
+bundle exec ruby scripts/verify.rb release/Essenfont-Regular.otc
+```
+
+Donor binaries are **never committed to git**. Each donor's sha256 is verified before use.
+
+---
+
+Next: [Donor strategy →](/docs/sources)
