@@ -44,7 +44,7 @@ const PER_PLANE = [
         <h2>Essenfont-Regular.otc</h2>
         <p class="format">OpenType Collection (CFF2) · {OTC_SIZE ? formatBytes(OTC_SIZE) : '—'} · 5 faces</p>
         <p>The full universal font in one file. Covers every assigned Unicode {stats.unicode.version} codepoint with real outlines from {stats.donorCount} donors.</p>
-        <a href={LATEST.otc_url || `${CDN_BASE}/Essenfont-Regular.otc`} class="btn-primary">Download OTC</a>
+        <a href={LATEST.otc_url || `${CDN_BASE}/Essenfont-Regular.otc`} class="btn btn-primary">Download OTC</a>
         <p class="meta">{LATEST.tag} · Mixed license — see <a href="/license">details</a></p>
       </div>
 
@@ -191,21 +191,6 @@ h1 {
   letter-spacing: 0.04em;
 }
 .option-card p { font-size: 0.9rem; line-height: 1.55; margin: 0 0 0.75rem; color: var(--ef-text-2); }
-.btn-primary, .btn-ghost {
-  display: inline-block;
-  padding: 0.7rem 1.3rem;
-  border-radius: var(--ef-radius-sm);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-  width: fit-content;
-}
-.btn-primary {
-  background: var(--ef-accent);
-  color: white;
-}
-.btn-primary:hover { background: var(--ef-accent-hover); }
 .meta {
   font-family: var(--spec-font-mono);
   font-size: 0.7rem;
@@ -391,20 +376,3 @@ h1 {
   .release-row { flex-wrap: wrap; }
 }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLButtonElement>('.snippet-copy').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.copy;
-      const target = id ? document.getElementById(id) : null;
-      if (target) {
-        const text = target.innerText;
-        navigator.clipboard?.writeText(text).then(() => {
-          const original = btn.textContent;
-          btn.textContent = 'copied';
-          setTimeout(() => { btn.textContent = original; }, 1500);
-        });
-      }
-    });
-  });
-</script>
