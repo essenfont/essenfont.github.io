@@ -17,7 +17,6 @@
     "useDefineForClassFields": true,
     "baseUrl": ".",
     "paths": {
-      "~/*": ["src/*"],
       "@astro/*": ["src/astro/*"]
     }
   },
