@@ -17,76 +17,28 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [0, 1, 2, 3, 4, 5]
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
         with:
-          node-version: 20
-          cache: npm
+          lfs: true
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+          cache: 'npm'
 
       - run: npm ci
 
-      - name: Cache Unihan data
-        id: unihan-cache
-        uses: actions/cache@v4
-        with:
-          path: data/unihan
-          key: unihan-v17-${{ hashFiles('scripts/gen-unihan-data.mjs') }}
-
-      - name: Generate Unihan data
-        if: steps.unihan-cache.outputs.cache-hit != 'true'
-        run: node scripts/gen-unihan-data.mjs
-
-      - name: Generate SSG route shards
-        run: |
-          node scripts/gen-planes-data.mjs
-          node scripts/gen-ssg-routes.mjs --shards=6
-
-      - name: Build shard ${{ matrix.shard }}
+      - run: npm run build
         env:
-          SHARD: ${{ matrix.shard }}
           NODE_OPTIONS: --max-old-space-size=6144
-        run: npx vite-ssg build
 
-      - name: Upload shard artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-shard-${{ matrix.shard }}
-          path: dist
-          retention-days: 1
-
-  merge:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download all shard artifacts
-        uses: actions/download-artifact@v4
-        with:
-          pattern: dist-shard-*
-          path: shards
-          merge-multiple: false
-
-      - name: Merge into single dist
-        run: |
-          mkdir -p dist
-          for d in shards/dist-shard-*/; do
-            cp -a "$d/." dist/
-          done
-          echo "Merged dist/ contents:"
-          find dist -type f | wc -l | xargs echo "  files:"
-
-      - name: Upload pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
-    needs: merge
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
