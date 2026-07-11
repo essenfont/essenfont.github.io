@@ -1,0 +1,57 @@
+---
+title: "CSS integration"
+description: "Embed Essenfont in a stylesheet via CDN, per-block unicode-range, or self-host."
+order: 3
+---
+
+Essenfont ships as 200+ per-block WOFF2 subsets, each declared with its own `@font-face` and `unicode-range`. The browser only fetches subsets for codepoints the page actually uses — you can embed the full catalog for free and pay only for what renders.
+
+## Option A — CDN
+
+The simplest path. One `<link>` pulls the catalog stylesheet from this site's `/fonts.css`. The browser downloads WOFF2 subsets lazily.
+
+```html
+<link rel="stylesheet" href="https://essenfont.github.io/fonts.css">
+
+<style>
+  body {
+    font-family: "Essenfont", "Noto Sans", sans-serif;
+  }
+</style>
+```
+
+## Option B — Per-block `unicode-range`
+
+Self-host specific subsets. The browser fetches a WOFF2 only when the page contains a codepoint in that block's range.
+
+```css
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/cjk-unified-ideographs.woff2") format("woff2");
+  unicode-range: U+4E00-9FFF;
+  font-display: swap;
+}
+```
+
+## Option C — Self-host all subsets
+
+Copy the `fonts/` directory from the npm package into your public assets. Each `@font-face` entry covers one block.
+
+```css
+/* one @font-face per subset you want to serve */
+@font-face {
+  font-family: "Essenfont";
+  src: url("/fonts/basic-latin.woff2") format("woff2");
+  unicode-range: U+0000-007F;
+  font-display: swap;
+}
+/* the browser only fetches subsets it actually needs */
+```
+
+## `font-display` recommendation
+
+Use `font-display: swap` for body text (fast first paint, fallback while loading). Use `font-display: block` for specimen pages where flash-of-fallback is visually jarring.
+
+---
+
+Next: [npm API reference →](/docs/api)

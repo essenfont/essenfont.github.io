@@ -1,0 +1,48 @@
+---
+title: "npm API reference"
+description: "The essenfont npm package — TypeScript types for the font path, metadata, and build hooks."
+order: 4
+---
+
+The `essenfont` package is a thin shell: it exposes the canonical OTC path on disk, build-time metadata (version, donor count, character count, sha256), and a TypeScript-typed surface for build pipelines that need to know which file to embed.
+
+## Imports
+
+```ts
+import { path, metadata } from "essenfont";
+
+// path    → absolute path to the OTC on disk
+// metadata → { version, donorCount, charCount, sha256, ... }
+```
+
+## Metadata
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `version` | `string` | Semver string from the source repo |
+| `donorCount` | `number` | Count of OFL-licensed donor fonts |
+| `charCount` | `number` | Assigned Unicode 17 codepoints covered |
+| `sha256` | `string` | OTC binary digest (integrity check) |
+
+## Using the font binary in a build
+
+```ts
+import { path } from "essenfont";
+import { readFileSync } from "node:fs";
+
+// Use with fontTools, fontisan, or any SFNT parser
+const otcBytes = readFileSync(path);
+```
+
+## Build pipeline reference
+
+The full build is a Ruby pipeline in the [`essenfont/essenfont`](https://github.com/essenfont/essenfont) repo:
+
+```ruby
+# Donor registry → CpMap → Stitcher → OTC
+const cpMap     = Essenfont::CpMap.from_donors(donors)
+const stitcher  = Fontisan::Stitcher.new
+# ... (see the essenfont repo for the full pipeline)
+```
+
+See [Build pipeline](/docs/pipeline) for the full architecture.
