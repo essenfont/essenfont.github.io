@@ -29,6 +29,17 @@ jobs:
 
       - run: npm ci
 
+      - name: Cache Unihan data
+        id: unihan-cache
+        uses: actions/cache@v4
+        with:
+          path: data/unihan
+          key: unihan-v17-${{ hashFiles('scripts/gen-unihan-data.mjs') }}
+
+      - name: Generate Unihan data
+        if: steps.unihan-cache.outputs.cache-hit != 'true'
+        run: node scripts/gen-unihan-data.mjs
+
       - run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=6144
