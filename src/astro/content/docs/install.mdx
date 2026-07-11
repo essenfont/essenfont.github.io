@@ -1,0 +1,58 @@
+---
+title: "Install"
+description: "Install Essenfont via Fontist, npm, CDN, or direct download."
+order: 2
+---
+
+Essenfont ships as a single OpenType Collection (OTC) containing CFF2 outlines + CBDT color bitmaps. It's also available as per-plane WOFF2 subsets for the web.
+
+## Fontist (recommended for tooling)
+
+[Fontist](https://github.com/fontist/fontist) is the Ruby-based font package manager. It downloads the OTC, registers it with the local font system, and tracks updates via `fontist update`.
+
+```bash
+# Install the Fontist gem
+gem install fontist
+
+# Install Essenfont (downloads the OTC + registers it locally)
+fontist install "Essenfont"
+```
+
+## npm (for build pipelines)
+
+Pull the font into any Node-based build (Vite, Astro, Next.js). The package exports per-plane WOFF2 files and TypeScript types.
+
+```bash
+npm install essenfont
+```
+
+## Direct download
+
+Latest release binaries live at [GitHub Releases](https://github.com/essenfont/essenfont/releases).
+
+```bash
+# macOS / Linux
+curl -L -o Essenfont-Regular.otc \
+  https://github.com/essenfont/essenfont/releases/latest/download/Essenfont-Regular.otc
+
+# Windows (PowerShell)
+Invoke-WebRequest \
+  https://github.com/essenfont/essenfont/releases/latest/download/Essenfont-Regular.otc \
+  -OutFile Essenfont-Regular.otc
+```
+
+## Per-plane WOFF2 (web embed)
+
+For sites that don't want the full OTC, the build emits per-plane WOFF2 subsets. Each one covers its plane's entire assigned range via a single `@font-face` entry.
+
+| Plane | Range | File |
+|-------|-------|------|
+| BMP   | U+0000–U+FFFF    | `Essenfont-BMP.woff2` |
+| SMP   | U+10000–U+1FFFF  | `Essenfont-SMP.woff2` |
+| SIP   | U+20000–U+2FFFF  | `Essenfont-SIP.woff2` |
+| TIP   | U+30000–U+3FFFF  | `Essenfont-TIP.woff2` |
+| SSP   | U+E0000–U+EFFFF  | `Essenfont-SSP.woff2` |
+
+---
+
+Next: [CSS integration →](/docs/css)
