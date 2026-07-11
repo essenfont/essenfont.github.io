@@ -8,7 +8,6 @@
     "build": "node scripts/gen-site-stats.mjs && node scripts/gen-search-index.mjs && astro build",
     "preview": "astro preview",
     "gen-stats": "node scripts/gen-site-stats.mjs",
-    "gen-routes": "node scripts/gen-ssg-routes.mjs",
     "gen-unicode": "node scripts/gen-unicode-data.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
