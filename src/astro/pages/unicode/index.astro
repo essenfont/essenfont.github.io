@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { loadAllBlocks, getPlanes, slugifyBlockName, loadUnicodeVersion } from '../../lib/unicode';
+import { loadAllBlocks, getPlanes, loadUnicodeVersion } from '../../lib/unicode';
+import { loadStats } from '../../lib/stats';
 import RandomCodepoint from '../../components/RandomCodepoint.vue';
 import CoverageHeatmap from '../../components/CoverageHeatmap.astro';
 import UnicodeTimeline from '../../components/UnicodeTimeline.astro';
@@ -8,149 +9,209 @@ import UnicodeTimeline from '../../components/UnicodeTimeline.astro';
 const allBlocks = loadAllBlocks();
 const version = loadUnicodeVersion();
 const planes = getPlanes(allBlocks);
-const totalAssigned = planes.reduce((sum, p) => sum + p.blocks.length, 0);
+const stats = loadStats();
 
-// Each plane gets a "specimen glyph" — its most iconic character.
-const planeSpecimens: Record<string, number> = {
-  bmp: 0x0041,        // A
-  smp: 0x1F4A9,       // 💩
-  sip: 0x20000,       // CJK Ext B
-  tip: 0x30F4D,       // CJK Ext G (recovered!)
-  ssp: 0xE0001,       // Language tag
-  spua_a: 0xF0000,    // Private Use
-  spua_b: 0x100000,   // Private Use
+const totalAssigned = stats.unicode?.assignedCodepointCount ?? 0;
+const totalCovered = stats.coverage?.totals?.covered ?? stats.coverage?.overall?.covered ?? 0;
+const coveragePct = totalAssigned > 0 ? ((totalCovered / totalAssigned) * 100).toFixed(1) : '0';
+
+const PLANE_CODES: Record<string, string> = {
+  bmp: '0', smp: '1', sip: '2', tip: '3', ssp: 'E', spua_a: 'F', spua_b: '10',
 };
-
-function safeGlyph(cp: number | undefined): string {
-  if (!cp) return '·';
-  try { return String.fromCodePoint(cp); } catch { return '·'; }
-}
 ---
+
 <BaseLayout
   title="Unicode Browser — Essenfont"
   description="Explore every Unicode 17 plane, block, and codepoint. Real glyphs rendered from the Essenfont."
   canonical="/unicode"
 >
   <div class="uc">
-    <header class="uc-header">
-      <h1>Unicode Browser</h1>
-      <p>Every Unicode {version.version} plane, every block, every assigned codepoint.</p>
-      <p class="uc-sub">All glyphs render with the Essenfont — install it locally for the same view everywhere.</p>
-      <div class="uc-actions">
+    <header class="uc-hero">
+      <span class="uc-eyebrow">Unicode {version.version}</span>
+      <h1>Every assigned<br/>codepoint, covered.</h1>
+      <p class="uc-lede">
+        Essenfont renders <strong>{totalCovered.toLocaleString()}</strong> of the
+        <strong>{totalAssigned.toLocaleString()}</strong> codepoints the Unicode Standard
+        has assigned across {version.version} — from Basic Latin to Tangut, from
+        Egyptian Hieroglyphs to CJK Extension J.
+      </p>
+      <div class="uc-hero-actions">
         <RandomCodepoint client:idle />
       </div>
     </header>
 
-    <CoverageHeatmap />
+    <div class="uc-coverage-stat">
+      <div class="uc-cov-num">{coveragePct}<span class="uc-cov-pct">%</span></div>
+      <div class="uc-cov-text">
+        <span class="uc-cov-label">of all assigned Unicode {version.version} codepoints</span>
+        <span class="uc-cov-sub mono">Private Use Areas are not assigned by Unicode and are excluded</span>
+      </div>
+    </div>
 
-    <UnicodeTimeline />
+    <section class="uc-section">
+      <UnicodeTimeline />
+    </section>
 
-    {planes.map(plane => (
-      <section class="plane-section" id={plane.key}>
-        <div class="plane-header">
-          <h2>
-            <span class="plane-roman">{plane.range.split('–')[0].replace('U+', '')}</span>
-            {plane.name}
-          </h2>
-          <span class="plane-range">{plane.range}</span>
-          <span class="plane-count">{plane.blocks.length} blocks</span>
-        </div>
-      </section>
-    ))}
+    <section class="uc-section">
+      <CoverageHeatmap />
+    </section>
+
+    <section class="uc-section">
+      <h2 class="uc-section-title">Browse by plane</h2>
+      <div class="uc-plane-grid">
+        {planes.map(plane => (
+          <a href={`/unicode/plane/${PLANE_CODES[plane.key] ?? '0'}`} class="uc-plane-card">
+            <span class="uc-plane-roman">{plane.range.split('–')[0].replace('U+', '')}</span>
+            <span class="uc-plane-info">
+              <span class="uc-plane-name">{plane.name}</span>
+              <span class="uc-plane-range mono">{plane.range}</span>
+            </span>
+            <span class="uc-plane-blocks">{plane.blocks.length} blocks →</span>
+          </a>
+        ))}
+      </div>
+    </section>
   </div>
 </BaseLayout>
 
 <style>
-.uc { padding: 3rem 0; }
-.uc-header { text-align: center; margin-bottom: 3rem; }
-.uc-header h1 {
-  font-family: var(--spec-font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin: 0 0 0.5rem;
-}
-.uc-stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-.uc-stat { text-align: center; }
-.uc-stat-num {
-  display: block;
-  font-family: var(--spec-font-display);
-  font-weight: 600;
-  font-size: clamp(2.5rem, 5vw, 3.25rem);
-  font-feature-settings: "lnum" 1, "tnum" 1;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--ef-accent, #2a5c8a);
-}
-.uc-stat-label {
-  display: block;
-  margin-top: 0.5rem;
-  font-family: var(--spec-font-mono);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  opacity: 0.55;
-}
-.plane-section { margin-bottom: 3rem; }
-.plane-header {
-  display: flex;
-  align-items: baseline;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
-}
-.plane-header h2 {
-  font-family: var(--spec-font-display);
-  font-size: 1.5rem;
-  margin: 0;
-}
-.plane-roman {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  color: var(--ef-accent);
-  margin-right: 0.5rem;
-}
-.plane-range {
-  font-family: var(--spec-font-mono);
-  font-size: 0.75rem;
-  opacity: 0.6;
-}
-.plane-count {
-  font-size: 0.75rem;
-  opacity: 0.5;
-  margin-left: auto;
-}
-.block-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 0.5rem;
-}
-.block-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.1s;
-}
-.block-link:hover {
-  background: rgba(191, 78, 106, 0.08);
-}
-.block-name {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-.block-cp-count {
-  font-family: var(--spec-font-mono);
-  font-size: 0.7rem;
-  opacity: 0.5;
-}
+  .uc { padding: 2rem 0; }
+
+  .uc-hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+  }
+  .uc-eyebrow {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--ef-accent);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+  .uc-hero h1 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.25rem;
+    color: var(--ef-text);
+  }
+  .uc-lede {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.6;
+    max-width: 580px;
+    margin: 0 auto 1.5rem;
+    color: var(--ef-text-2);
+  }
+  .uc-lede strong { color: var(--ef-text); font-weight: 600; }
+
+  .uc-coverage-stat {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 1.5rem 2rem;
+    margin: 0 auto 3rem;
+    max-width: 640px;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule-strong);
+    border-radius: var(--ef-radius);
+  }
+  .uc-cov-num {
+    font-family: var(--spec-font-display);
+    font-size: clamp(3rem, 8vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ef-accent);
+  }
+  .uc-cov-pct { font-size: 0.45em; }
+  .uc-cov-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: left;
+  }
+  .uc-cov-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--ef-text);
+  }
+  .uc-cov-sub {
+    font-size: 0.68rem;
+    color: var(--ef-text-3);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+  }
+
+  .uc-section { margin-bottom: 3rem; }
+  .uc-section-title {
+    font-family: var(--spec-font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    color: var(--ef-text);
+  }
+
+  .uc-plane-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem;
+  }
+  .uc-plane-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  }
+  .uc-plane-card:hover {
+    border-color: var(--ef-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--ef-shadow-sm);
+  }
+  .uc-plane-roman {
+    font-family: var(--spec-font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ef-accent);
+    min-width: 3ch;
+  }
+  .uc-plane-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex: 1;
+  }
+  .uc-plane-name {
+    font-family: var(--spec-font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--ef-text);
+  }
+  .uc-plane-range {
+    font-size: 0.68rem;
+    color: var(--ef-text-3);
+  }
+  .uc-plane-blocks {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    color: var(--ef-text-2);
+    white-space: nowrap;
+  }
+
+  .mono { font-family: var(--spec-font-mono); }
+
+  @media (max-width: 640px) {
+    .uc-coverage-stat { flex-direction: column; text-align: center; }
+    .uc-cov-text { text-align: center; align-items: center; }
+  }
 </style>

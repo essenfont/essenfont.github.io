@@ -1,95 +1,156 @@
 ---
 /**
- * UnicodeTimeline — vertical waterfall chart of codepoints added per
+ * UnicodeTimeline — step-line staircase chart of codepoints added per
  * Unicode version, 1.1 → 17.0.
  *
- * Each row is one version, drawn as a horizontal bar growing left→right
- * with width proportional to codepoints added that version. Bars stack
- * top→bottom chronologically, so the silhouette resembles a waterfall
- * (wider at the bottom for recent additions, narrower at the top for
- * v1.1).
+ * Each row is one version. Bars are connected: the right end of bar N
+ * is joined to the left start of bar N+1 by a vertical segment, creating
+ * a continuous descending staircase from v1.1 (top) to v17.0 (bottom).
  *
- * Vertical room means labels fit without truncation — version, year,
- * new codepoint count, and the names of new blocks all render inline.
+ * Bar width is proportional to √(codepoints added) — compresses the range
+ * so small versions (v14: +593 cp) are still visible alongside huge ones
+ * (v13: +55k cp). All bars are then normalized to fit the canvas width.
  *
- * Pure SVG + native `<title>` tooltips; no client JS.
+ * Pure SVG + native <title> tooltips; no client JS.
  */
 import { loadVersionTimeline } from '../lib/unicode-history';
 
 const timeline = loadVersionTimeline();
-const MAX = Math.max(...timeline.map((v) => v.newCodepoints));
 
-const ROW_H = 36;
-const BAR_H = 18;
-const PAD = 16;
-const LABEL_W = 240;
-const BAR_X = LABEL_W + 8;
-const W = 920;
-const innerW = W - BAR_X - PAD;
+const ROW_H = 34;
+const BAR_H = 16;
+const PAD = 20;
+const LABEL_W = 210;
+const BAR_START_X = LABEL_W + 8;
+const W = 940;
+const innerW = W - BAR_START_X - PAD;
+
+// √-scale each bar, then normalize so all bars + connectors fit innerW.
+const sqrtWidths = timeline.map((v) => Math.sqrt(v.newCodepoints));
+const sqrtTotal = sqrtWidths.reduce((s, w) => s + w, 0);
+const scale = innerW / sqrtTotal;
+const barWidths = sqrtWidths.map((w) => Math.max(w * scale, 2));
+
+// Cumulative start X for each bar — bar i starts where bar i-1 ends.
+const startXs: number[] = [];
+let cumX = BAR_START_X;
+for (const w of barWidths) {
+  startXs.push(cumX);
+  cumX += w;
+}
+
 const H = timeline.length * ROW_H + PAD * 2;
+const totalCps = timeline.reduce((s, v) => s + v.newCodepoints, 0);
 ---
 
 <figure class="unicode-timeline">
   <figcaption>
     <div class="ut-cap-row">
-      <span class="ut-label">Unicode growth, 1.1 → 17.0</span>
-      <span class="ut-cap">Each row is one Unicode version. Bar width is proportional to codepoints added in that version. The waterfall makes recent additions (huge CJK / emoji blocks) visually dwarf the early ones.</span>
+      <span class="ut-label">Unicode growth staircase, 1.1 → 17.0</span>
+      <span class="ut-cap">Each step is one Unicode version. Width = codepoints added (√-scaled). The right edge of each step drops vertically to meet the left edge of the next — a single continuous path from 1991 to 2025.</span>
     </div>
-    <span class="ut-sub mono">{timeline.length} versions · {timeline.reduce((s, v) => s + v.newCodepoints, 0).toLocaleString()} codepoints added</span>
+    <span class="ut-sub mono">{timeline.length} versions · {totalCps.toLocaleString()} codepoints added</span>
   </figcaption>
 
   <svg class="ut-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="ut-title">
-    <title id="ut-title">Unicode growth chart, version 1.1 (1993) through {timeline[timeline.length - 1].version} ({timeline[timeline.length - 1].year})</title>
-    <desc>Vertical waterfall: each row is one Unicode version with bar width proportional to codepoints added.</desc>
+    <title id="ut-title">Unicode growth staircase, version 1.1 (1993) through {timeline[timeline.length - 1].version} ({timeline[timeline.length - 1].year})</title>
+    <desc>Step-line chart: each row is one Unicode version with bar width proportional to codepoints added. Bars are connected by vertical segments, forming a continuous descending staircase.</desc>
 
     {timeline.map((slice, i) => {
       const y = PAD + i * ROW_H + (ROW_H - BAR_H) / 2;
-      const barW = Math.max((slice.newCodepoints / MAX) * innerW, 1);
+      const x = startXs[i];
+      const barW = barWidths[i];
+      const endX = x + barW;
+      const nextY = i < timeline.length - 1 ? PAD + (i + 1) * ROW_H + (ROW_H - BAR_H) / 2 : y;
+      const hue = 215 - (i / timeline.length) * 200;
+      const fillOpacity = 0.25 + (i / timeline.length) * 0.65;
+      const isBig = slice.newCodepoints > 5000;
+      const isLast = i === timeline.length - 1;
       const cumulativePct = (slice.cumulative / timeline[timeline.length - 1].cumulative) * 100;
-      const isBig = slice.newCodepoints > 1000;
-      const fillOpacity = 0.3 + (i / timeline.length) * 0.6;
+
       return (
         <g class="ut-row">
+          {/* Vertical connector: this bar's end → next bar's start */}
+          {i < timeline.length - 1 && (
+            <line
+              x1={endX}
+              y1={y + BAR_H}
+              x2={endX}
+              y2={nextY}
+              stroke={`hsl(${hue}, 55%, 50%)`}
+              stroke-width="2.5"
+              stroke-linecap="round"
+              opacity={fillOpacity + 0.15}
+              class="ut-connector"
+            />
+          )}
+
+          {/* The horizontal bar */}
+          <rect
+            x={x}
+            y={y}
+            width={barW}
+            height={BAR_H}
+            fill={`hsl(${hue}, 58%, 52%)`}
+            fill-opacity={fillOpacity.toFixed(2)}
+            rx="2"
+            class="ut-seg"
+          />
+
+          {/* Glow cap on the last bar */}
+          {isLast && (
+            <rect
+              x={x}
+              y={y}
+              width={barW}
+              height={BAR_H}
+              fill="none"
+              stroke="var(--ef-accent)"
+              stroke-width="1.5"
+              rx="2"
+              class="ut-seg-last"
+            />
+          )}
+
+          {/* Left label: version + year */}
           <text
             x={PAD}
-            y={y + BAR_H / 2 + 3}
+            y={y + BAR_H / 2 + 3.5}
             font-family="JetBrains Mono, monospace"
             font-size="11"
             font-weight="600"
             fill="var(--ef-text)"
           >v{slice.version}</text>
           <text
-            x={PAD + 42}
-            y={y + BAR_H / 2 + 3}
+            x={PAD + 46}
+            y={y + BAR_H / 2 + 3.5}
             font-family="JetBrains Mono, monospace"
             font-size="10"
             fill="var(--ef-text-3)"
           >{slice.year}</text>
           <text
             x={PAD + 88}
-            y={y + BAR_H / 2 + 3}
+            y={y + BAR_H / 2 + 3.5}
             font-family="JetBrains Mono, monospace"
             font-size="10"
             fill="var(--ef-accent)"
-          >+{slice.newCodepoints.toLocaleString()} cp</text>
-          <rect
-            x={BAR_X}
-            y={y}
-            width={barW}
-            height={BAR_H}
-            fill={`rgba(42, 92, 138, ${fillOpacity.toFixed(2)})`}
-            class="ut-seg"
-          />
-          <title>v{slice.version} ({slice.year}) · +{slice.newCodepoints.toLocaleString()} codepoints · cumulative {slice.cumulative.toLocaleString()} ({cumulativePct.toFixed(1)}%) · {slice.newBlocks.length} new block{slice.newBlocks.length === 1 ? '' : 's'}</title>
-          {isBig && (
+          >+{slice.newCodepoints.toLocaleString()}</text>
+
+          {/* Inline bar label for big versions */}
+          {isBig && barW > 80 && (
             <text
-              x={BAR_X + barW + 6}
-              y={y + BAR_H / 2 + 3}
+              x={x + 8}
+              y={y + BAR_H / 2 + 3.5}
               font-family="JetBrains Mono, monospace"
               font-size="9"
-              fill="var(--ef-text-3)"
-            >{slice.newBlocks.slice(0, 2).map((b) => b.name).join(', ')}{slice.newBlocks.length > 2 ? ' …' : ''}</text>
+              fill="white"
+              fill-opacity="0.9"
+              font-weight="500"
+            >{slice.newBlocks.slice(0, 1).map((b) => b.name).join('')}{slice.newBlocks.length > 1 ? ' +' + (slice.newBlocks.length - 1) : ''}</text>
           )}
+
+          {/* Tooltip */}
+          <title>v{slice.version} ({slice.year}) · +{slice.newCodepoints.toLocaleString()} codepoints · cumulative {slice.cumulative.toLocaleString()} ({cumulativePct.toFixed(1)}%) · {slice.newBlocks.length} new block{slice.newBlocks.length === 1 ? '' : 's'}</title>
         </g>
       );
     })}
@@ -98,17 +159,17 @@ const H = timeline.length * ROW_H + PAD * 2;
 
 <style>
   .unicode-timeline {
-    margin: 2rem 0 1rem;
-    padding: 1rem 1.25rem 0.75rem;
-    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
-    border-radius: 8px;
-    background: var(--ef-bg, #faf8f5);
+    margin: 0;
+    padding: 1.25rem 1.5rem 1rem;
+    border: 1px solid var(--ef-rule-strong);
+    border-radius: var(--ef-radius);
+    background: var(--ef-surface);
   }
   figcaption {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 0.85rem;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
   }
   .ut-cap-row {
     display: flex;
@@ -136,6 +197,19 @@ const H = timeline.length * ROW_H + PAD * 2;
     height: auto;
     display: block;
   }
-  .ut-row:hover .ut-seg { fill: var(--ef-accent); }
-  .ut-seg { transition: fill 0.1s ease; }
+  .ut-row { cursor: default; }
+  .ut-row:hover .ut-seg { fill-opacity: 0.95; }
+  .ut-row:hover .ut-connector { opacity: 0.9; }
+  .ut-seg { transition: fill-opacity 0.12s ease; }
+  .ut-connector { transition: opacity 0.12s ease; }
+  .ut-seg-last { animation: ut-pulse 2.5s ease-in-out infinite; }
+
+  @keyframes ut-pulse {
+    0%, 100% { stroke-opacity: 0.6; }
+    50% { stroke-opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ut-seg-last { animation: none; }
+  }
 </style>
