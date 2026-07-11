@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const pub = resolve(root, 'public')
 
-// Static plane metadata — MUST match src/lib/unicode/constants.ts PLANES.
+// Static plane metadata — MUST match src/astro/lib/unicode/constants.ts PLANES.
 // This is the only place plane colors/romans/labels are defined for the
 // build pipeline (the TS file is the only place for the runtime).
 const PLANES_META = [
