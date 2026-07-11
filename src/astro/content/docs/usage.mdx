@@ -1,0 +1,137 @@
+---
+title: "Which format do I need?"
+description: "Decision matrix for 6 scenarios: OS install, web embed, app bundle, PDF, fleet, npm package."
+order: 1
+---
+
+
+
+Essenfont ships in multiple formats. The right one depends on your use case. This page walks through six common scenarios.
+
+## Quick reference
+
+| Scenario | Pick | Why |
+|----------|------|-----|
+| OS install (no tofu ever) | `Essenfont-Regular.otc` | System-wide, all apps |
+| Web embed (any visitor) | Per-block WOFF2 + `unicode-range` | Browser downloads only what's needed |
+| App bundle (ship with app) | Per-plane TTFs | Works everywhere, pick the planes you need |
+| PDF / document | Per-plane TTF | Must embed; reader can't fetch at view time |
+| Fleet / CI (auto-managed) | Fontist | Package manager handles install + updates |
+| npm build pipeline | `npm install essenfont` | TypeScript types + font path for bundlers |
+
+---
+
+## Plate I — Operating-system user
+
+**Goal:** My OS should never show tofu in any app.
+
+**Pick:** `Essenfont-Regular.otc` (the canonical collection).
+
+**Install:**
+
+```bash
+# macOS: double-click the .otc → Font Book → "Install All"
+# Windows: right-click → "Install for all users"
+# Linux:
+cp Essenfont-Regular.otc ~/.local/share/fonts/ && fc-cache -fv
+```
+
+After install, set Essenfont as the last item in every app's font list — it activates only when no earlier font covers the codepoint.
+
+## Plate II — Web developer
+
+**Goal:** Any character a visitor types or pastes should render.
+
+**Pick:** Per-block WOFF2 with `unicode-range`.
+
+The simplest path — one `<link>` pulls the catalog CSS from this site:
+
+```html
+<link rel="stylesheet" href="https://essenfont.github.io/fonts.css">
+<style>
+  body { font-family: "Essenfont", "Noto Sans", system-ui, sans-serif; }
+</style>
+```
+
+The browser downloads only the WOFF2 subsets for codepoints the page actually renders. A Cyrillic-only page downloads ~30 KB, not the full 105 MB catalog.
+
+**Considerations:**
+- Add `font-display: swap` so the fallback renders first.
+- Pair with `"Noto Sans", system-ui, sans-serif` as fallback.
+- Self-hosted WOFF2s may need CORS headers if loaded cross-origin.
+
+## Plate III — Desktop application developer
+
+**Goal:** Bundle a font with my app for full Unicode coverage without a system install.
+
+**Pick:** Per-plane TTFs.
+
+Five single-face fonts your installer drops into the platform font directory. The OTC is unreachable to apps that enumerate fonts via direct file reads; TTFs work everywhere.
+
+```bash
+# macOS app bundle
+MyApp.app/Contents/Resources/Fonts/Essenfont-BMP.ttf
+
+# Windows installer
+%LOCALAPPAPPDATA%\MyApp\Fonts\Essenfont-BMP.ttf
+
+# Linux Flatpak/Snap: bundle in the sandbox's font directory
+```
+
+BMP alone is ~24 MB. Pick the planes your users need — most apps never see Tangut (TIP) or CJK Ext J.
+
+## Plate IV — PDF or document author
+
+**Goal:** Font embedded in a PDF that survives copy-archive and cross-reader rendering.
+
+**Pick:** Per-plane TTF (PDF ≤ 1.7) or per-plane WOFF2 (PDF 2.0).
+
+PDF readers must embed the actual font — they can't pull a fallback at view time.
+
+```latex
+% LaTeX / XeLaTeX
+\usepackage{fontspec}
+\setmainfont{Essenfont}[Renderer=HarfBuzz]
+```
+
+Most PDF generators subset to only the glyphs the document uses. A Cyrillic-only PDF carries ~118 glyphs, not 62,000.
+
+## Plate V — Fleet / CI administrator
+
+**Goal:** Manage font installs across many machines automatically.
+
+**Pick:** Fontist.
+
+```bash
+gem install fontist
+fontist install "Essenfont"
+# Update when a new version ships:
+fontist update
+```
+
+Fontist downloads the OTC, registers it with the system font cache, and tracks versions. Ideal for Docker images, CI runners, and corporate fleet management.
+
+## Plate VI — npm build pipeline
+
+**Goal:** Use Essenfont in a Vite/Astro/Next.js build with TypeScript types.
+
+**Pick:** `npm install essenfont`.
+
+```ts
+// path     → absolute path to the OTC on disk
+// metadata → { version, donorCount, charCount, sha256 }
+```
+
+The package also exports per-plane WOFF2 files and CSS `@font-face` rules. See the [npm API reference](/docs/api).
+
+---
+
+## License and attribution
+
+Essenfont is assembled from 38 OFL-licensed donor fonts. The combined work is distributed under the [SIL Open Font License 1.1](https://scripts.sil.org/OFL).
+
+When redistributing Essenfont (bundling in an app, hosting on a CDN, embedding in a PDF), include the `LICENSE.txt` from the [license pack](/license) and the font name-table attribution.
+
+---
+
+Next: [Install →](/docs/install)

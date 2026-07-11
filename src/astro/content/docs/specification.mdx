@@ -1,0 +1,87 @@
+---
+title: "Font specification"
+description: "The internal structure of the OTC — faces, UPM strategy, per-face vertical metrics, and donor attribution."
+order: 8
+---
+
+
+
+The Essenfont OTC is a multi-face OpenType Collection. Each face covers one Unicode plane and carries its own `head`, `hhea`, `OS/2`, `maxp`, `cmap`, and outline tables.
+
+## Faces
+
+| Face | Plane | Glyphs | cmap entries |
+|------|-------|--------|-------------|
+| BMP  | 0 (U+0000–U+FFFF)     | ~30,000  | ~28,000 |
+| SMP  | 1 (U+10000–U+1FFFF)   | ~24,000  | ~21,000 |
+| SIP  | 2 (U+20000–U+2FFFF)   | ~4,600   | ~2,100  |
+| TIP  | 3 (U+30000–U+3FFFF)   | ~17,000  | ~14,000 |
+| SSP  | 14 (U+E0000–U+EFFFF)  | ~4,000   | ~1,400  |
+
+Glyph counts include `.notdef`, composites, and format-control codepoints. The cmap covers every assigned codepoint in the plane's range.
+
+## Units per em (UPM)
+
+All faces use **1000 UPM** (units per em), regardless of the donor's native UPM. This is enforced by `Essenfont::Ufo::Normalization`, which scales each donor's outlines to 1000-upm before stitching:
+
+| Donor | Native UPM | Scale factor |
+|-------|-----------|--------------|
+| Noto Sans | 1000 | 1.0× (identity) |
+| FSung | 1024 | ×0.9766 |
+| Noto Sans Math | 1000 | 1.0× |
+| UniHieroglyphica | 1000 | 1.0× |
+| Lentariso | 2400 | ×0.4167 |
+| Noto Serif Tangut | 1000 | 1.0× |
+| Egyptian Text (COLR) | 2048 | ×0.4883 |
+
+Scaling is **per-donor**, not per-glyph — every glyph from the same donor scales by the same factor. This preserves each donor's internal design proportions.
+
+## Vertical metrics
+
+After stitching, `Essenfont::Otc::MetricsPass` recomputes each face's metrics from the actual glyph extents:
+
+| Metric | Source | How it's set |
+|--------|--------|-------------|
+| `head.xMin/yMin/xMax/yMax` | Glyph bounding boxes | Union of all glyph extents |
+| `hhea.ascent/descent` | Typo metrics | `OS/2.sTypoAscender` / `sTypoDescender` |
+| `OS/2.usWinAscent/usWinDescent` | Clipping bounds | Max glyph y / min glyph y |
+
+MetricsPass skips CFF2 faces — the CFF2 compiler sets correct metrics during compilation.
+
+## Donor attribution
+
+Every codepoint in the OTC maps to exactly one donor. The `provenance.json` file in each release records:
+
+```json
+{
+  "codepoints": {
+    "65":         { "donor": "noto-sans" },
+    "94208":      { "donor": "noto-serif-tangut" },
+    "19968":      { "donor": "fsung-2" },
+    "128512":     { "donor": "noto-emoji" }
+  }
+}
+```
+
+This is the authoritative record of which donor contributed which glyph. The [provenance manifest](/provenance) on this site provides a browsable view.
+
+## Table inventory
+
+Each face contains these SFNT tables:
+
+| Table | Purpose |
+|-------|---------|
+| `head` | Font header (UPM, bbox, timestamps) |
+| `hhea` | Horizontal header (ascent, descent, line gap) |
+| `OS/2` | OS/2 and Windows metrics |
+| `maxp` | Maximum profile (glyph count) |
+| `cmap` | Character to glyph mapping |
+| `name` | Name table (family, subfamily, PostScript) |
+| `post` | PostScript name mapping |
+| `CFF2` or `glyf` + `loca` | Outlines |
+| `hmtx` | Horizontal metrics (advance widths) |
+| `CBDT` + `CBLC` | Color bitmap data (BMP face only, for emoji) |
+
+---
+
+Next: [Coverage & gaps →](/docs/coverage)

@@ -1,0 +1,60 @@
+---
+title: "Donor strategy"
+description: "The donor strategy: OFL-compatible donors, the Tier 1/2/3 sourcing model, code-chart SVG extraction, and why Full-Sung is the CJK donor."
+order: 6
+---
+
+
+
+Essenfont contains no hand-drawn glyphs. Every one of the 159,866 characters it covers is sourced from one of three tiers: a canonical OFL-licensed donor font, a synthetic TTF extracted from the Unicode Code Charts PDFs, or a last-resort tofu box.
+
+## The three tiers
+
+### Tier 1 — Real donor outlines (~99% of codepoints)
+
+Canonical OFL-licensed fonts: Noto Sans, Noto Sans Math, Noto Sans Cuneiform, Noto Serif Tangut, Noto Color Emoji + Noto Emoji, UniHieroglyphica, Symbola, BabelStone, Lentariso, Kedebideri, Kelly Tolong, and more.
+
+Each donor declares its license, sha256, and codepoint coverage in `sources/manifest.yml`. The build refuses anything outside the OFL-compatible policy: OFL, Apache, MIT, BSD, CC0, UFL, Bitstream, GUST, CC-BY.
+
+### Tier 2 — Synthetic code-chart extraction (~1%)
+
+For scripts where no OFL donor exists, the build extracts glyph outlines from the Unicode Consortium's official Code Charts PDFs. A custom pipeline (`ucode extract`) reads the PDF, isolates each glyph as an SVG path, and converts it to a TrueType glyph via `fontisan SvgToGlyf`.
+
+| Donor | Coverage | Source |
+|-------|----------|--------|
+| Khitan Small Script (synthetic) | 470 of 471 | Code Charts PDF → SVG → fontisan |
+| Tangut Components Supplement | 114 of 115 | Code Charts PDF → SVG |
+| Nyiakeng Puachue Hmong | 70 of 71 | Code Charts PDF → SVG |
+| Gurung Khema | 56 of 57 | Code Charts PDF → SVG |
+| Kirat Rai | 56 of 57 | Code Charts PDF → SVG |
+| Ottoman Siyaq Numbers | 59 of 60 | Code Charts PDF → SVG |
+
+These are **not** beautiful type designs — they are Unicode's own reference shapes, rendered as monoline outlines. They are sufficient for identification and lookup, not for typographic excellence.
+
+### Tier 3 — Last-resort tofu (under 0.1%)
+
+A handful of codepoints have no donor and no code-chart glyph. These render as a numbered tofu box (a rectangle with the codepoint's hex value inside), so the character is at least identifiable.
+
+## Why Full-Sung is the CJK donor
+
+The CJK Unified Ideographs block (U+4E00–U+9FFF) is by far the largest: ~21,000 characters. The donor must cover every glyph with consistent, high-quality Traditional Chinese outlines.
+
+**Full-Sung** (Taiwan 全宋體, by F.G. Wang) is chosen over Noto Sans CJK because:
+
+1. **Coverage.** Full-Sung covers every CJK ideograph through Extension J (Unicode 17). Noto Sans CJK stops at Extension F.
+2. **License.** Full-Sung is OFL-licensed, same as Noto.
+3. **Quality.** Full-Sung is a Serif (宋體) design — the standard body-text style for Traditional Chinese typography.
+4. **Scope.** Full-Sung's cmap is restricted to CJK blocks via `restrict_to_covers: true` so it doesn't leak Latin glyphs (which would look inconsistent with Noto Sans).
+
+## Adding a new donor
+
+1. Download the font, verify its license is OFL-compatible.
+2. Compute its sha256: `shasum -a 256 font.otf`.
+3. Add an entry to `sources/manifest.yml` with label, file, family, license, sha256, url, and covers (block names).
+4. Run `bundle exec ucode fetch fonts` to stage it.
+5. Run `bundle exec ruby scripts/build.rb` to rebuild.
+6. Run `bundle exec ruby scripts/verify.rb` to validate.
+
+---
+
+Next: [Output formats →](/docs/formats)

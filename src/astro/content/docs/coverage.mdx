@@ -1,0 +1,64 @@
+---
+title: "Coverage & gaps"
+description: "What works today, what is blocked on upstream fontisan fixes, Chrome OTS requirements, and the roadmap."
+order: 9
+---
+
+
+
+## Current coverage
+
+Essenfont covers 137,117 of the 159,866 codepoints assigned by Unicode 17.0.
+
+- **85.8%** of assigned codepoints have real glyph outlines.
+- **92** of 346 blocks are fully covered (every assigned codepoint renders).
+- Private Use Areas are **not assigned** by Unicode and are excluded from coverage counts.
+
+## Known gaps
+
+### CFF outline extraction (Tangut and similar)
+
+**Status:** Fixed in build repo (CffOutlineFiller, commit `7b0166f`). Website WOFF2 subsets for Tangut and Tangut Components have been regenerated directly from the Noto Serif Tangut donor font.
+
+**Root cause:** fontisan's UFO converter (`FromBinData.extract_cff_glyphs`) is a stub in v0.4.23 — it creates UFO glyphs with names and advance widths but zero contours for CFF-based OTF donors. The `CffOutlineFiller` module bridges fontisan's `OutlineExtractor` (which can parse CFF charstrings) into the UFO after the stub conversion.
+
+### Color emoji in per-block WOFF2
+
+**Status:** Blocked on fontisan subsetter.
+
+The OTC carries CBDT/CBLC color-bitmap tables for emoji blocks (Emoticons, Transport and Map Symbols, etc.). When the per-block WOFF2 subsetter processes these blocks, it drops the CBDT/CBLC tables because it doesn't recognize them. The website serves these blocks in monochrome (Noto Emoji glyf outlines) instead of color.
+
+**Fix path:** The fontisan subsetter needs a table-passthrough mode that preserves CBDT/CBLC tables alongside glyf outlines.
+
+### Chrome OTS requirements
+
+Chrome's OpenType Sanitizer (OTS) enforces several requirements that the build must meet:
+
+1. **`loca` indexFormat must be 0** for short loca tables. Fixed in fontisan via `LocaFormat` integration.
+2. **`head.modified` timestamp** must be outside Chrome's rejection window. Fixed by stamping the timestamp explicitly during build.
+3. **WOFF2 must be spec-compliant** — fontisan's WOFF2 encoder had a bug in `origLength` fields for reconstructed short loca. Fixed via `LocaFormat` integration.
+
+All three fixes are verified end-to-end via Puppeteer tests in the build repo.
+
+## Roadmap
+
+| Item | Status | Blocker |
+|------|--------|---------|
+| Tangut glyph outlines | ✅ Fixed | — |
+| CFF2 charstring index corruption | ⚠ Partial | fontisan CFF2 compilation bug |
+| Color emoji WOFF2 subsets | ❌ Blocked | fontisan subsetter CBDT/CBLC passthrough |
+| UFO disk cache | ❌ Blocked | fontisan Ufo::Reader Phase 2 (contour decoding) |
+| Per-codepoint SVG export cache | ✅ Done | BuildCache keyed by OTC sha256 |
+| WOFF2 encoding cache | ✅ Done | BuildCache keyed by TTF sha256 |
+
+## The "missing characters" taxonomy
+
+When a codepoint doesn't render on this site, there are three possible causes:
+
+1. **The font has no glyph for this codepoint.** The donor font's cmap doesn't include it. Tangut and similar CFF-based donors had this issue (now fixed).
+
+2. **The face lookup picks an empty face.** The TTC has 5 faces; if the code-to-face lookup resolves to the wrong face, the glyph is empty. Fixed via the `face_lookup` correct-face-first algorithm.
+
+3. **The WOFF2 subset stripped a table the glyph needs.** CBDT/CBLC tables for color emoji are stripped during per-block WOFF2 subsetting. Fixed for monochrome; blocked for color.
+
+Each is diagnosed and tracked in the coverage data (`public/site-stats.json` → `coverage`).
