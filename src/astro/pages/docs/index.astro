@@ -1,126 +1,124 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
-const cards = [
-  { num: 'I',   slug: 'usage',        title: 'How to use',    desc: 'Which format to grab, when to use each, and what to watch out for. Decision matrix and six use-case plates.', primary: true },
-  { num: 'II',  slug: 'install',      title: 'Install',       desc: 'CLI commands for Fontist, npm, and direct download. The exact syntax per platform.' },
-  { num: 'III', slug: 'css',          title: 'CSS',           desc: '@font-face, unicode-range, fallback chains, self-hosting, CORS, font-display.' },
-  { num: 'IV',  slug: 'api',          title: 'API',           desc: 'The essenfont npm package. TypeScript types for every export.' },
+const quickStart = [
+  { platform: 'npm', cmd: 'npm install essenfont' },
+  { platform: 'Fontist', cmd: 'gem install fontist && fontist install "Essenfont"' },
+  { platform: 'Direct', cmd: 'curl -LO github.com/essenfont/essenfont/releases/latest/download/Essenfont-Regular.otc' },
+];
+
+const gettingStarted = [
+  { num: '01', slug: 'usage',        title: 'Which format do I need?', desc: 'Decision matrix for 6 scenarios: OS install, web embed, app bundle, PDF, fleet, npm package.', featured: true },
+  { num: '02', slug: 'install',      title: 'Install',                 desc: 'CLI commands for Fontist, npm, and direct download — per platform.' },
+  { num: '03', slug: 'css',          title: 'CSS integration',         desc: '@font-face, unicode-range, fallback chains, self-hosting, CORS.' },
+  { num: '04', slug: 'api',          title: 'npm API reference',       desc: 'TypeScript types for every export in the essenfont package.' },
 ];
 
 const engineering = [
-  { num: 'V',   slug: 'pipeline',       title: 'Build pipeline',     desc: 'How 160k glyphs from 38 donors become one OTC — the assembly line, plane partitioning, and why no glyph is ever hand-drawn.' },
-  { num: 'VI',  slug: 'sources',         title: 'Where the glyphs come from', desc: 'The donor strategy: OFL-compatible donors, the Tier 1/2/3 sourcing model, code-chart SVG extraction, and why Full-Sung is the CJK donor.' },
-  { num: 'VII', slug: 'formats',         title: 'Output formats & distribution', desc: 'Why OTC not TTF, why OTC over TTC, why both WOFF and WOFF2. Plus the release pipeline.' },
-  { num: 'VIII',slug: 'specification',   title: 'Font specification', desc: 'The internal structure of Essenfont-Regular.otc — faces, UPM strategy, per-face vertical metrics, and donor attribution.' },
-  { num: 'IX',  slug: 'coverage',        title: 'Coverage, gaps & roadmap', desc: 'What works today, what is blocked on upstream fontisan fixes, what Chrome\'s OpenType Sanitizer enforces, and what is next.' },
+  { num: '05', slug: 'pipeline',      title: 'Build pipeline',           desc: 'How 160k glyphs from 38 donors become one OTC. Plane partitioning, UFO normalization, MetricsPass.' },
+  { num: '06', slug: 'sources',       title: 'Donor strategy',           desc: 'OFL-compatible sourcing. Tier 1/2/3 model, code-chart SVG extraction, why Full-Sung is the CJK donor.' },
+  { num: '07', slug: 'formats',       title: 'Output formats',           desc: 'Why OTC not TTF. Why both WOFF and WOFF2. The release pipeline and SRI hashes.' },
+  { num: '08', slug: 'specification', title: 'Font specification',       desc: 'Internal structure of the OTC — faces, UPM strategy, vertical metrics, donor attribution per block.' },
+  { num: '09', slug: 'coverage',      title: 'Coverage & gaps',          desc: 'What works today, what is blocked on upstream fontisan fixes, Chrome OTS requirements, roadmap.' },
 ];
 ---
+
 <BaseLayout
   title="Docs — Essenfont"
-  description="Which Essenfont format to use, when to use each, and how to wire it in — plus install, CSS, API, and architecture reference docs."
+  description="Which Essenfont format to use, when to use each, and how to wire it in."
   canonical="/docs"
 >
-  <section class="container docs-page">
-    <header class="docs-head">
-      <h1>How to use Essenfont</h1>
-      <p class="lede">
-        Start with <a href="/docs/usage">How to use</a> — it walks you through which format fits your situation (OS install, web embed, app bundle, PDF, fleet, npm package), then links to the syntax reference below.
-      </p>
+  <div class="docs">
+    <header class="docs-hero">
+      <span class="docs-eyebrow">Documentation</span>
+      <h1>Use Essenfont.</h1>
+      <p class="docs-lede">One font. Every Unicode 17 script. Pick your format, wire it in, ship.</p>
     </header>
 
-    <nav class="docs-grid">
-      {cards.map(c => (
-        <a href={`/docs/${c.slug}`} class={'docs-card' + (c.primary ? ' docs-card--primary' : '')}>
-          <span class="docs-num">{c.num}</span>
-          <h2 class="docs-title">{c.title}</h2>
-          <p class="docs-desc">{c.desc}</p>
-          <span class="docs-cta mono">{c.primary ? 'start here →' : 'read →'}</span>
-        </a>
-      ))}
-    </nav>
+    <section class="docs-quick">
+      <h2 class="docs-quick-title">Quick start</h2>
+      <div class="docs-quick-grid">
+        {quickStart.map(q => (
+          <div class="docs-quick-item">
+            <span class="docs-quick-platform mono">{q.platform}</span>
+            <pre class="docs-quick-cmd"><code>{q.cmd}</code></pre>
+          </div>
+        ))}
+      </div>
+    </section>
 
-    <h2 class="docs-section-head">How it's built</h2>
-    <nav class="docs-grid">
-      {engineering.map(c => (
-        <a href={`/docs/${c.slug}`} class="docs-card">
-          <span class="docs-num">{c.num}</span>
-          <h2 class="docs-title">{c.title}</h2>
-          <p class="docs-desc">{c.desc}</p>
-          <span class="docs-cta mono">read →</span>
-        </a>
-      ))}
-    </nav>
-  </section>
+    <section class="docs-track">
+      <div class="docs-track-header">
+        <h2>Getting started</h2>
+        <p>Four pages. Start with the decision matrix.</p>
+      </div>
+      <div class="docs-grid">
+        {gettingStarted.map(c => (
+          <a href={`/docs/${c.slug}`} class:list={["docs-card", { "docs-card--featured": c.featured }]}>
+            <span class="docs-card-num mono">{c.num}</span>
+            <h3 class="docs-card-title">{c.title}</h3>
+            <p class="docs-card-desc">{c.desc}</p>
+            <span class="docs-card-cta">{c.featured ? 'start here' : 'read'} →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="docs-track">
+      <div class="docs-track-header">
+        <h2>Under the hood</h2>
+        <p>How Essenfont is built. For contributors and the curious.</p>
+      </div>
+      <div class="docs-grid docs-grid--engineering">
+        {engineering.map(c => (
+          <a href={`/docs/${c.slug}`} class="docs-card docs-card--engineering">
+            <span class="docs-card-num mono">{c.num}</span>
+            <h3 class="docs-card-title">{c.title}</h3>
+            <p class="docs-card-desc">{c.desc}</p>
+            <span class="docs-card-cta">read →</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
 </BaseLayout>
 
 <style>
-  .docs-page { max-width: 960px; padding: 3rem 1.5rem 6rem; }
-  .docs-head { margin-bottom: 3rem; }
-  
-  h1 {
-    font-family: var(--spec-font-display);
-    font-size: clamp(2rem, 5vw, 3rem); margin: 0;
+  .docs { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  .docs-hero { text-align: center; margin-bottom: 2.5rem; padding-top: 1rem; }
+  .docs-eyebrow { font-family: var(--spec-font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--ef-accent); display: block; margin-bottom: 0.5rem; }
+  .docs-hero h1 { font-family: var(--spec-font-display); font-size: clamp(2.5rem, 7vw, 4rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.03em; margin: 0 0 0.75rem; }
+  .docs-lede { font-size: 1.15rem; color: var(--ef-text-2); margin: 0; }
+
+  .docs-quick { margin-bottom: 3rem; padding: 1.5rem; background: var(--ef-surface); border: 1px solid var(--ef-rule-strong); border-radius: var(--ef-radius); }
+  .docs-quick-title { font-family: var(--spec-font-mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--ef-text-3); margin: 0 0 1rem; }
+  .docs-quick-grid { display: flex; flex-direction: column; gap: 0.6rem; }
+  .docs-quick-item { display: flex; align-items: center; gap: 1rem; }
+  .docs-quick-platform { font-size: 0.7rem; font-weight: 700; color: var(--ef-accent); min-width: 60px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .docs-quick-cmd { flex: 1; margin: 0; padding: 0.5rem 0.75rem; background: var(--ef-raised); border: 1px solid var(--ef-rule); border-radius: 4px; overflow-x: auto; }
+  .docs-quick-cmd code { font-family: var(--spec-font-mono); font-size: 0.78rem; color: var(--ef-text); }
+
+  .docs-track { margin-bottom: 3rem; }
+  .docs-track-header { margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ef-rule-strong); }
+  .docs-track-header h2 { font-family: var(--spec-font-display); font-size: 1.5rem; font-weight: 600; margin: 0 0 0.25rem; }
+  .docs-track-header p { font-size: 0.85rem; color: var(--ef-text-2); margin: 0; }
+
+  .docs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 0.75rem; }
+  .docs-grid--engineering { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+
+  .docs-card { display: flex; flex-direction: column; gap: 0.4rem; padding: 1.1rem 1.25rem; border: 1px solid var(--ef-rule); border-radius: var(--ef-radius-sm); background: var(--ef-raised); text-decoration: none; color: inherit; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; }
+  .docs-card:hover { border-color: var(--ef-accent); transform: translateY(-2px); box-shadow: var(--ef-shadow-sm); }
+  .docs-card--featured { grid-column: span 2; background: color-mix(in srgb, var(--ef-accent) 6%, var(--ef-raised)); border-color: color-mix(in srgb, var(--ef-accent) 25%, transparent); }
+  .docs-card--engineering { background: var(--ef-surface); }
+  .docs-card-num { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; color: var(--ef-text-3); }
+  .docs-card-title { font-family: var(--spec-font-display); font-size: 1.05rem; font-weight: 600; margin: 0; line-height: 1.2; }
+  .docs-card-desc { font-size: 0.78rem; line-height: 1.5; color: var(--ef-text-2); margin: 0; }
+  .docs-card-cta { margin-top: auto; padding-top: 0.4rem; font-family: var(--spec-font-mono); font-size: 0.68rem; color: var(--ef-accent); font-weight: 600; }
+  .docs-card--featured .docs-card-cta { font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  .mono { font-family: var(--spec-font-mono); }
+
+  @media (max-width: 640px) {
+    .docs-card--featured { grid-column: span 1; }
+    .docs-quick-item { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
   }
-  .lede { margin-top: 1rem; font-size: 1.125rem; max-width: 56ch; line-height: 1.6; opacity: 0.85; }
-  .lede a { color: var(--ef-accent); text-decoration: underline; text-underline-offset: 3px; }
-  .docs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
-  }
-  .docs-card {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 1.75rem 1.5rem 1.5rem;
-    border: 1px solid rgba(26, 24, 21, 0.16);
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.15s, transform 0.15s;
-    background: transparent;
-  }
-  .docs-card:hover {
-    border-color: var(--ef-accent);
-    transform: translateY(-2px);
-  }
-  .docs-card--primary {
-    background: rgba(191, 78, 106, 0.06);
-    border: 1px solid rgba(191, 78, 106, 0.4);
-    border-left: 3px solid var(--ef-accent);
-  }
-  .docs-card--primary .docs-cta { color: var(--ef-accent); font-weight: 600; }
-  .docs-num {
-    font-family: var(--spec-font-mono, monospace);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--ef-accent);
-  }
-  .docs-title {
-    font-family: var(--spec-font-display);
-    font-size: 1.5rem;
-    margin: 0;
-  }
-  .docs-desc {
-    flex: 1;
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    opacity: 0.85;
-  }
-  .docs-cta {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    color: var(--ef-accent);
-    text-transform: uppercase;
-    margin-top: 0.5rem;
-    font-family: var(--spec-font-mono, monospace);
-  }
-.docs-section-head {
-  font-family: var(--spec-font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 3rem 0 1rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--ef-rule);
-}
 </style>
