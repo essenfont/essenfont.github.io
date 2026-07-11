@@ -53,7 +53,7 @@ const H = timeline.length * ROW_H + PAD * 2;
           <text
             x={PAD}
             y={y + BAR_H / 2 + 3}
-            font-family="IBM Plex Mono, monospace"
+            font-family="JetBrains Mono, monospace"
             font-size="11"
             font-weight="600"
             fill="var(--ef-text)"
@@ -61,14 +61,14 @@ const H = timeline.length * ROW_H + PAD * 2;
           <text
             x={PAD + 42}
             y={y + BAR_H / 2 + 3}
-            font-family="IBM Plex Mono, monospace"
+            font-family="JetBrains Mono, monospace"
             font-size="10"
             fill="var(--ef-text-3)"
           >{slice.year}</text>
           <text
             x={PAD + 88}
             y={y + BAR_H / 2 + 3}
-            font-family="IBM Plex Mono, monospace"
+            font-family="JetBrains Mono, monospace"
             font-size="10"
             fill="var(--ef-accent)"
           >+{slice.newCodepoints.toLocaleString()} cp</text>
@@ -85,7 +85,7 @@ const H = timeline.length * ROW_H + PAD * 2;
             <text
               x={BAR_X + barW + 6}
               y={y + BAR_H / 2 + 3}
-              font-family="IBM Plex Mono, monospace"
+              font-family="JetBrains Mono, monospace"
               font-size="9"
               fill="var(--ef-text-3)"
             >{slice.newBlocks.slice(0, 2).map((b) => b.name).join(', ')}{slice.newBlocks.length > 2 ? ' …' : ''}</text>

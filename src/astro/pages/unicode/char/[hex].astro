@@ -427,20 +427,6 @@ const escapeSeq = cEscape(cp);
       label.textContent = systemOn ? 'system font' : 'essenfont';
     });
   }
-
-  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(b => {
-    b.addEventListener('click', async () => {
-      const text = b.getAttribute('data-copy') ?? '';
-      const orig = b.textContent;
-      try {
-        await navigator.clipboard.writeText(text);
-        b.textContent = '✓';
-        setTimeout(() => { b.textContent = orig; }, 1200);
-      } catch {
-        // Clipboard blocked (insecure context); silent.
-      }
-    });
-  });
 </script>
 
 <style>

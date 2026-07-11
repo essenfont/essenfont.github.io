@@ -16,10 +16,6 @@ const stats = loadStats();
 // Build-time verification — surfaces broken feature glyphs loudly.
 verifyPanelsForBuild();
 
-function slugify(name: string): string {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-}
-
 // Hand-picked specimens spanning the planes — each tells a story.
 const featured = [
   { cp: 0x0041,   name: 'Latin A',          plane: 'BMP', note: 'The first letter. Where every font begins.' },
@@ -60,9 +56,9 @@ const featured = [
         Built from {stats.donorCount} canonical OFL-licensed donor fonts.
       </p>
       <div class="cta-row">
-        <a href="/download" class="btn-primary">Download ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
-        <a href="/docs/usage" class="btn-ghost">How to use</a>
-        <a href="/unicode" class="btn-ghost">Browse Unicode</a>
+        <a href="/download" class="btn btn-primary">Download ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
+        <a href="/docs/usage" class="btn btn-ghost">How to use</a>
+        <a href="/unicode" class="btn btn-ghost">Browse Unicode</a>
       </div>
       <p class="hero-foot">
         Latest release:
@@ -238,23 +234,6 @@ const featured = [
 .hero-foot a:hover { text-decoration: underline; }
 .hero-version { color: var(--ef-accent); font-family: var(--spec-font-mono); font-weight: 600; }
 .hero-foot a:hover { text-decoration: underline; }
-.btn-primary, .btn-ghost {
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.btn-primary {
-  background: var(--ef-accent);
-  color: white;
-}
-.btn-ghost {
-  border: 1px solid currentColor;
-  color: var(--ef-text);
-}
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -334,20 +313,4 @@ const featured = [
     render();
     resize();
   }
-
-  // Copy-to-clipboard for install snippets
-  document.querySelectorAll<HTMLButtonElement>('.snippet-copy').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.copy;
-      const target = id ? document.getElementById(id) : null;
-      if (target) {
-        const text = target.innerText;
-        navigator.clipboard?.writeText(text).then(() => {
-          const original = btn.textContent;
-          btn.textContent = 'copied';
-          setTimeout(() => { btn.textContent = original; }, 1500);
-        });
-      }
-    });
-  });
 </script>

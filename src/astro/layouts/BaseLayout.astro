@@ -156,9 +156,43 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
         });
       }
 
+      function bindClipboard(): void {
+        document.querySelectorAll<HTMLButtonElement>('[data-copy], .snippet-copy').forEach(btn => {
+          if (btn.dataset.clipboardBound === 'true') return;
+          btn.dataset.clipboardBound = 'true';
+          btn.addEventListener('click', async () => {
+            const raw = btn.getAttribute('data-copy') || '';
+            let text: string;
+            if (btn.classList.contains('snippet-copy') && raw) {
+              const target = document.getElementById(raw);
+              text = target?.innerText ?? raw;
+            } else {
+              text = raw;
+            }
+            if (!text) return;
+            const original = btn.textContent;
+            try {
+              await navigator.clipboard.writeText(text);
+              btn.textContent = '✓';
+              setTimeout(() => { btn.textContent = original; }, 1200);
+            } catch {
+              const ta = document.createElement('textarea');
+              ta.value = text;
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              btn.textContent = '✓';
+              setTimeout(() => { btn.textContent = original; }, 1200);
+            }
+          });
+        });
+      }
+
       applyStoredTheme();
       bindToggle();
       bindHamburger();
+      bindClipboard();
       highlightNav();
       // Pre-paint hook for ViewTransitions: runs before the new page's
       // document is prepared, so the dark class is set on <html> before
@@ -169,6 +203,7 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
         applyStoredTheme();
         bindToggle();
         bindHamburger();
+        bindClipboard();
         highlightNav();
       });
     </script>
