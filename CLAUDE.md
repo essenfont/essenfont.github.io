@@ -48,12 +48,7 @@ All active code lives under `src/astro/`:
 - `layouts/BaseLayout.astro` — shared shell (header, footer, theme toggle,
   font loading).
 - `lib/` — pure TypeScript data loaders and domain logic, no Vue/Astro deps.
-
-**Legacy code:** `src/App.vue`, `src/main.ts`, `src/router.ts`,
-`src/pages/*.vue`, `src/components/*.vue`, `src/layouts/*.vue`,
-`src/composables/*.ts`, and `src/lib/` are remnants from the pre-Astro
-Vite/Vue SSR app. They are not imported by the Astro build and exist only
-as migration reference. Do not extend them — new work goes in `src/astro/`.
+- `styles/main.css` (in `src/styles/`) — global CSS imported by BaseLayout.
 
 ### Routing
 Astro file-based routing with directory-style URLs (both `/foo` and `/foo/`
