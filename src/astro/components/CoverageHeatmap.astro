@@ -73,12 +73,12 @@ const totalNonReserved = allBlocks.filter((b) => !isReserved(b)).length;
             const covered = isCovered(b);
             const pct = b.total > 0 ? Math.round((b.covered / b.total) * 100) : 0;
             return (
-              <a href={href} class:list={["ch-tile", covered ? "ch-tile--covered" : "ch-tile--partial"]} title={`${b.name} · ${b.range} · ${b.covered}/${b.total} assigned (${pct}%)`}>
+              <a href={href} class:list={["ch-tile", covered ? "ch-tile--covered" : "ch-tile--partial"]} title={covered ? `${b.name} · ${b.range} · all assigned codepoints covered` : `${b.name} · ${b.range} · ${b.covered}/${b.total} (${pct}%)`}>
                 <span class="ch-tile-name">{b.name}</span>
                 <span class="ch-tile-bar">
-                  <span class="ch-tile-fill" style={`width:${pct}%`}></span>
+                  <span class="ch-tile-fill" style={`width:${covered ? 100 : pct}%`}></span>
                 </span>
-                <span class="ch-tile-meta mono">{b.covered.toLocaleString()} cp</span>
+                <span class="ch-tile-meta mono">{covered ? '✓ covered' : `${b.covered}/${b.total}`}</span>
               </a>
             );
           })}

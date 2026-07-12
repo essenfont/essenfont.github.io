@@ -17,6 +17,21 @@ import { loadVersionTimeline } from '../lib/unicode-history';
 
 const timeline = loadVersionTimeline();
 
+function planeBreakdown(blocks: Array<{name: string; range: string; size: number}>): string {
+  const byPlane: Record<string, number> = {};
+  for (const b of blocks) {
+    const startHex = b.range.match(/U\+([0-9A-Fa-f]+)/)?.[1] ?? '0';
+    const start = parseInt(startHex, 16);
+    const pn = start >> 16;
+    const name = pn === 0 ? 'BMP' : pn === 1 ? 'SMP' : pn === 2 ? 'SIP' : pn === 3 ? 'TIP' : pn === 14 ? 'SSP' : `P${pn}`;
+    byPlane[name] = (byPlane[name] ?? 0) + b.size;
+  }
+  return Object.entries(byPlane)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([plane, cps]) => `${plane} +${cps.toLocaleString()}`)
+    .join(' · ');
+}
+
 const ROW_H = 34;
 const BAR_H = 16;
 const PAD = 20;
@@ -150,7 +165,7 @@ const totalCps = timeline.reduce((s, v) => s + v.newCodepoints, 0);
           )}
 
           {/* Tooltip */}
-          <title>v{slice.version} ({slice.year}) · +{slice.newCodepoints.toLocaleString()} codepoints · cumulative {slice.cumulative.toLocaleString()} ({cumulativePct.toFixed(1)}%) · {slice.newBlocks.length} new block{slice.newBlocks.length === 1 ? '' : 's'}</title>
+          <title>v{slice.version} ({slice.year}) · +{slice.newCodepoints.toLocaleString()} cps · {planeBreakdown(slice.newBlocks)} · cumulative {slice.cumulative.toLocaleString()} ({cumulativePct.toFixed(1)}%) · {slice.newBlocks.length} new block{slice.newBlocks.length === 1 ? '' : 's'}</title>
         </g>
       );
     })}
