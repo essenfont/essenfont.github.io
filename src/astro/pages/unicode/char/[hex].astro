@@ -684,7 +684,7 @@ const escapeSeq = cEscape(cp);
   .ucp-nav-spacer { width: 40px; }
 }
 
-:global(html.dark) .ucp-guide--cap { border-top-color: rgba(255,255,255,0.18); }
-:global(html.dark) .ucp-guide--xheight { border-top-color: rgba(255,255,255,0.14); }
-:global(html.dark) .ucp-guide--baseline { border-top-color: rgba(212,113,138,0.40); }
+:global(html:not(.light)) .ucp-guide--cap { border-top-color: rgba(255,255,255,0.18); }
+:global(html:not(.light)) .ucp-guide--xheight { border-top-color: rgba(255,255,255,0.14); }
+:global(html:not(.light)) .ucp-guide--baseline { border-top-color: rgba(212,113,138,0.40); }
 </style>

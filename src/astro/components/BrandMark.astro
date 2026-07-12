@@ -69,16 +69,16 @@ const px = sizeMap[size];
   .bm-dark  { display: none; }
 
   /* Manual dark mode (.dark class on <html>): show light-colored logo. */
-  :global(html.dark) .bm-light { display: none; }
-  :global(html.dark) .bm-dark  { display: block; }
+  :global(html:not(.light)) .bm-light { display: none; }
+  :global(html:not(.light)) .bm-dark  { display: block; }
 
   /* OS dark mode fallback (no manual override). */
   @media (prefers-color-scheme: dark) {
     .bm-light { display: none; }
     .bm-dark  { display: block; }
     /* Manual light override wins over OS dark. */
-    :global(html:not(.dark)) .bm-light { display: block; }
-    :global(html:not(.dark)) .bm-dark  { display: none; }
+    :global(html.light) .bm-light { display: block; }
+    :global(html.light) .bm-dark  { display: none; }
   }
 
   .brand-mark.interactive:hover,

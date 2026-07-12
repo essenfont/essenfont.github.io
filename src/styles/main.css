@@ -1,35 +1,34 @@
 /* ===================================================================
    Essenfont — site-wide design system.
-   Brand-driven palette from the Essenfont logo: deep blue + red.
+   Dark-first editorial palette: deep ink + amber gold.
    EB Garamond display + Hanken Grotesk body + JetBrains Mono.
-   Fonts are loaded via <link> in BaseLayout.astro (non-blocking).
    =================================================================== */
 
 /* ─── Tokens ─────────────────────────────────────────────────────── */
 :root {
-  --ef-blue: #2a5c8a;
-  --ef-blue-light: #4a8cc4;
-  --ef-red: #b04040;
-  --ef-red-light: #d06060;
+  --ef-amber: #d4a843;
+  --ef-amber-light: #e8c060;
+  --ef-red: #c85050;
+  --ef-red-light: #e07070;
 
-  /* Light-first (default) */
-  --ef-bg: #faf8f5;
-  --ef-surface: #f0ede6;
-  --ef-raised: #ffffff;
-  --ef-text: #1a1e26;
-  --ef-text-2: #4a4e58;
-  --ef-text-3: #888c96;
-  --ef-accent: var(--ef-blue);
-  --ef-accent-hover: var(--ef-blue-light);
-  --ef-accent-muted: rgba(42, 92, 138, 0.08);
-  --ef-accent-soft: rgba(42, 92, 138, 0.04);
-  --ef-rule: rgba(26, 30, 38, 0.08);
-  --ef-rule-strong: rgba(26, 30, 38, 0.16);
+  /* Dark-first (default) */
+  --ef-bg: #0a0c12;
+  --ef-surface: #141821;
+  --ef-raised: #1c2230;
+  --ef-text: #eceef2;
+  --ef-text-2: #9ca0ac;
+  --ef-text-3: #5c6270;
+  --ef-accent: var(--ef-amber);
+  --ef-accent-hover: var(--ef-amber-light);
+  --ef-accent-muted: rgba(212, 168, 67, 0.12);
+  --ef-accent-soft: rgba(212, 168, 67, 0.05);
+  --ef-rule: rgba(236, 238, 242, 0.07);
+  --ef-rule-strong: rgba(236, 238, 242, 0.15);
   --ef-radius: 10px;
   --ef-radius-sm: 6px;
-  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-  --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-  --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --ef-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.35);
+  --ef-shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.45);
 
   /* Typography */
   --spec-font-display: "EB Garamond", Georgia, serif;
@@ -38,28 +37,28 @@
   --spec-font-glyph: "Essenfont";
 }
 
-html.dark {
-  --ef-bg: #0d1520;
-  --ef-surface: #152030;
-  --ef-raised: #1d2d40;
-  --ef-text: #e0e8f0;
-  --ef-text-2: #90a0b0;
-  --ef-text-3: #5a6a7a;
-  --ef-accent: var(--ef-blue-light);
-  --ef-accent-hover: #6aa0d0;
-  --ef-accent-muted: rgba(74, 140, 196, 0.12);
-  --ef-accent-soft: rgba(74, 140, 196, 0.06);
-  --ef-rule: rgba(224, 232, 240, 0.07);
-  --ef-rule-strong: rgba(224, 232, 240, 0.16);
-  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+html.light {
+  --ef-bg: #f5f2ec;
+  --ef-surface: #ebe6dc;
+  --ef-raised: #ffffff;
+  --ef-text: #1a1e26;
+  --ef-text-2: #4a4e58;
+  --ef-text-3: #888c96;
+  --ef-accent: #8a6d1e;
+  --ef-accent-hover: #a08228;
+  --ef-accent-muted: rgba(138, 109, 30, 0.08);
+  --ef-accent-soft: rgba(138, 109, 30, 0.04);
+  --ef-rule: rgba(26, 30, 38, 0.08);
+  --ef-rule-strong: rgba(26, 30, 38, 0.16);
+  --ef-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --ef-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --ef-shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
 }
 body {
   background: var(--ef-bg);
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(42, 92, 138, 0.05), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(176, 64, 64, 0.04), transparent 70%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212, 168, 67, 0.06), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(200, 80, 80, 0.04), transparent 70%);
   background-attachment: fixed;
   color: var(--ef-text);
   font-family: var(--spec-font-body);
@@ -81,18 +80,18 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  opacity: 0.35;
+  opacity: 0.15;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.91 0 0 0 0 0.82 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-html.dark body {
+html.light body {
   background-image:
-    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(74, 140, 196, 0.08), transparent 60%),
-    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(208, 96, 96, 0.05), transparent 70%);
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(138, 109, 30, 0.05), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 100% 100%, rgba(200, 80, 80, 0.03), transparent 70%);
 }
-html.dark body::before {
-  opacity: 0.12;
+html.light body::before {
+  opacity: 0.15;
 }
 
 /* ─── Type scale ─────────────────────────────────────────────────── */
@@ -571,5 +570,5 @@ main hr {
 }
 
 /* ─── Donor logo light/dark mode switching ──────────────────────── */
-html:not(.dark) .donor-logo--dark { display: none; }
-html.dark .donor-logo--light { display: none; }
+html.light .donor-logo--dark { display: none; }
+.donor-logo--light { display: none; }
