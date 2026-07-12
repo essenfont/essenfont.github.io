@@ -1,5 +1,37 @@
 [
   {
+    "tag": "v0.5.0",
+    "name": "CFF outline fix + compound glyph fix + fontisan 0.4.41",
+    "date": "2026-07-11",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.5.0",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.0/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.0/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.5.0",
+    "isLatest": true,
+    "notes": "CFF outline filler (CffOutlineFiller) bridges fontisan's stubbed CFF glyph extraction — all CFF-based OTF donors (Noto Serif Tangut, etc.) now produce real outlines. Compound (composite) glyph fix from fontisan 0.4.41. cp_map identical to v0.3.7 (123,611 codepoints).",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  {
+    "tag": "v0.4.1",
+    "name": "Compound (composite) glyph fix",
+    "date": "2026-07-11",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.4.1",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.4.1/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.4.1/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.4.1",
+    "notes": "Fixes compound (composite) glyphs that had empty or offset contours. Combined with the CFF outline fix from v0.4.0."
+  },
+  {
+    "tag": "v0.4.0",
+    "name": "CFF-based OTF donors (Tangut, etc.) outline fix",
+    "date": "2026-07-11",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.4.0",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.4.0/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.4.0/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.4.0",
+    "notes": "First release with CffOutlineFiller — fontisan's UFO converter stubs out CFF glyph extraction, producing empty contours for CFF-based OTF donors. This release bridges OutlineExtractor into the UFO to fill real outlines."
+  },
+  {
     "tag": "v0.3.7",
     "name": "Verified — OTC (CFF2) + cache infrastructure (SVG, WOFF2)",
     "date": "2026-07-10",
@@ -7,7 +39,6 @@
     "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.7/Essenfont-Regular.otc",
     "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.3.7/coverage.json",
     "npm_url": "https://www.npmjs.com/package/essenfont/v/0.3.7",
-    "isLatest": true,
     "notes": "Identical coverage to v0.3.4 (cp_map byte-stable: 123,611 codepoints, U+0041→noto-sans, U+13080→uni-hieroglyphica). Canonical OTC with CFF2 outlines. BuildCache infrastructure now wired through the whole release pipeline: per-plane WOFF/WOFF2 encoding keyed by TTF sha256, SVG export keyed by OTC sha256. UFO disk cache scaffolded but disabled pending fontisan Ufo::Reader Phase 2 (contour/component decoding).",
     "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
   },
