@@ -5,29 +5,16 @@ import BrandMark from '../components/BrandMark.astro';
 import SpecimenTile from '../components/SpecimenTile.astro';
 import AutoTypingHeadline from '../components/AutoTypingHeadline.vue';
 import CountUp from '../components/CountUp.vue';
-import { loadAllBlocks, loadUnicodeVersion } from '../lib/unicode';
+import { loadUnicodeVersion } from '../lib/unicode';
 import { loadStats } from '../lib/stats';
-import { formatBytes, formatNumber } from '../lib/ssr';
+import { formatBytes } from '../lib/ssr';
 import { SPECIMEN_PANELS, verifyPanelsForBuild } from '../lib/specimen';
 
-const blocks = loadAllBlocks();
 const version = loadUnicodeVersion();
 const stats = loadStats();
-// Build-time verification — surfaces broken feature glyphs loudly.
 verifyPanelsForBuild();
 
-// Hand-picked specimens spanning the planes — each tells a story.
-const featured = [
-  { cp: 0x0041,   name: 'Latin A',          plane: 'BMP', note: 'The first letter. Where every font begins.' },
-  { cp: 0x4E00,   name: 'CJK 一',           plane: 'BMP', note: 'CJK Unified Ideograph — ten thousand.' },
-  { cp: 0x1F4A9,  name: 'Pile of Poo',      plane: 'SMP', note: 'Color bitmap glyph from NotoColorEmoji.' },
-  { cp: 0x1D11E,  name: 'Musical G clef',   plane: 'SMP', note: 'One staff position. Drawn by Noto Sans.' },
-  { cp: 0x2000B,  name: 'CJK Ext B',        plane: 'SIP', note: 'A rare ideograph — 4,192 in this plane alone.' },
-  { cp: 0x30F4D,  name: 'CJK Ext G',        plane: 'TIP', note: 'Recovered. 4,939 codepoints, was 1,022.' },
-  { cp: 0x12BAD,  name: 'Cuneiform',        plane: 'SMP', note: 'A wedge of Sumero-Akkadian history.' },
-  { cp: 0x13000,  name: 'Egyptian Hieroglyph', plane: 'SMP', note: 'Gardiner sign list. First dynasty onwards.' },
-  { cp: 0xE0001,  name: 'Language Tag',     plane: 'SSP', note: 'Tags — invisible but defined.' },
-];
+const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
 ---
 
 <BaseLayout
@@ -36,281 +23,420 @@ const featured = [
   canonical="/"
   active="specimen"
 >
+  {/* ─── Hero ─── */}
   <section class="hero" id="hero">
+    <div class="hero-glow"></div>
     <div class="hero-logo" id="hero-logo">
       <BrandMark size="hero" animated={true} interactive={true} alt="Essenfont" />
     </div>
-    <div class="hero-content">
-      <h1 class="display">
-        <AutoTypingHeadline client:visible words={[
-          'Essenfont',
-          '美食フォント',
-          'فونت إسن',
-          '𓆎𓃭𓅓𓂻𓈖',
-          'Essenfont',
-        ]} />
-      </h1>
-      <p class="lede">
-        One redistributable TrueType Collection covering every assigned Unicode {version.version} codepoint —
-        {formatNumber(version.charCount)} characters across {version.blockCount} blocks.
-        Built from {stats.donorCount} canonical OFL-licensed donor fonts.
-      </p>
-      <div class="cta-row">
-        <a href="/download" class="btn btn-primary">Download ({formatBytes(stats.fontBinaries.otcSizeBytes)})</a>
-        <a href="/docs/usage" class="btn btn-ghost">How to use</a>
-        <a href="/unicode" class="btn btn-ghost">Browse Unicode</a>
+    <h1 class="hero-title">
+      <AutoTypingHeadline client:visible words={[
+        'Essenfont',
+        '美食フォント',
+        'فونت إسن',
+        '𓆎𓃭𓅓𓂻𓈖',
+        'Essenfont',
+      ]} />
+    </h1>
+    <p class="hero-lede">
+      One font. Every assigned Unicode {version.version} codepoint.
+      <br/>
+      {version.charCount.toLocaleString()} characters across {version.blockCount} blocks,
+      drawn from {stats.donorCount} OFL-licensed donor fonts.
+    </p>
+    <div class="hero-cta">
+      <a href="/download" class="btn btn-primary">Download OTC ({otcMB} MB)</a>
+      <a href="/docs/usage" class="btn btn-ghost">How to use</a>
+      <a href="/unicode" class="btn btn-ghost">Browse Unicode</a>
+    </div>
+    <p class="hero-foot">
+      Latest: <strong>{stats.release?.tag ?? 'v0.5.1'}</strong>
+      <span> · {stats.release?.date ?? '2026-07-12'}</span>
+    </p>
+  </section>
+
+  {/* ─── Stats ─── */}
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={version.charCount} duration={2000} /></div>
+        <div class="stat-cap">Assigned codepoints</div>
       </div>
-      <p class="hero-foot">
-        Latest release:
-        {stats.release?.tag && <strong class="hero-version">{stats.release.tag}</strong>}
-        {stats.release?.date && <span> · {new Date(stats.release.date).toISOString().slice(0, 10)}</span>}
-        {' · '}
-        <a href="https://github.com/essenfont/essenfont/releases" target="_blank" rel="noopener">all releases</a>
-        {' · '}
-        <a href="https://www.npmjs.com/package/essenfont" target="_blank" rel="noopener">npm</a>
-      </p>
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={version.blockCount} duration={1500} /></div>
+        <div class="stat-cap">Unicode blocks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={stats.donorCount} duration={1200} /></div>
+        <div class="stat-cap">Donor fonts</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={otcMB} duration={1400} /> MB</div>
+        <div class="stat-cap">Canonical OTC</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={stats.websiteSubsets.woff2Count} duration={1500} /></div>
+        <div class="stat-cap">WOFF2 subsets</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><CountUp client:visible value={Math.round(stats.websiteSubsets.woff2TotalBytes / 1024 / 1024)} duration={1600} /> MB</div>
+        <div class="stat-cap">Total web payload</div>
+      </div>
     </div>
   </section>
 
+  {/* ─── Type Tester ─── */}
   <section class="tester-section">
-    <div class="container tester-wrap">
+    <div class="section-header">
+      <span class="section-eyebrow">Try it</span>
+      <h2>Type anything.</h2>
+      <p>Every character below renders in Essenfont. If you've installed it locally, you see the same thing everywhere.</p>
+    </div>
+    <div class="tester-wrap">
       <TypeTester client:visible />
     </div>
   </section>
 
-  <section class="stats-grid">
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={version.charCount} duration={2000} /></div>
-      <div class="stat-cap">Assigned Unicode {version.version} codepoints</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={version.blockCount} duration={1500} /></div>
-      <div class="stat-cap">Unicode blocks covered</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={stats.donorCount} duration={1200} /></div>
-      <div class="stat-cap">OFL-licensed donor fonts</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024)} duration={1400} /> MB</div>
-      <div class="stat-cap">Canonical OTC (5 planes)</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={stats.websiteSubsets.woff2Count} duration={1500} /></div>
-      <div class="stat-cap">Per-block WOFF2 subsets</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><CountUp client:visible value={Math.round(stats.websiteSubsets.woff2TotalBytes / 1024 / 1024)} duration={1600} /> MB</div>
-      <div class="stat-cap">Total WOFF2 payload</div>
-    </div>
-  </section>
-
+  {/* ─── Specimens ─── */}
   <section class="specimen-section">
-    <h2>Unicode 17, in six panels</h2>
-    <p>From world scripts to extinct ones. Each glyph below is rendered in Essenfont, sourced from its canonical donor font.</p>
+    <div class="section-header">
+      <span class="section-eyebrow">Unicode 17, in six panels</span>
+      <h2>From world scripts to extinct ones.</h2>
+      <p>Each glyph is sourced from its canonical donor font — Noto, Full-Sung, UniHieroglyphica, and more.</p>
+    </div>
     <div class="specimen-grid">
-      {SPECIMEN_PANELS.map(panel => <SpecimenTile panel={panel} />)}
+      <SpecimenTile panel={SPECIMEN_PANELS[0]} />
+      <SpecimenTile panel={SPECIMEN_PANELS[1]} />
+      <SpecimenTile panel={SPECIMEN_PANELS[2]} />
+      <SpecimenTile panel={SPECIMEN_PANELS[3]} />
+      <SpecimenTile panel={SPECIMEN_PANELS[4]} />
+      <SpecimenTile panel={SPECIMEN_PANELS[5]} />
     </div>
     <a href="/unicode" class="see-all">Browse all {version.blockCount} blocks →</a>
   </section>
 
-  <script>
-    // Mouse parallax — the hero logo tilts in 3D toward the cursor.
-    // Subtle (max 10°), smoothed via requestAnimationFrame.
-    const hero = document.getElementById('hero');
-    const logo = document.getElementById('hero-logo');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (hero && logo && !reduceMotion) {
-      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-      let rafId: number | null = null;
-      const MAX_TILT = 10;
+  {/* ─── How it works ─── */}
+  <section class="how-section">
+    <div class="section-header">
+      <span class="section-eyebrow">The pipeline</span>
+      <h2>Assembled, not drawn.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-step">
+        <span class="how-num">01</span>
+        <h3>Source</h3>
+        <p>{stats.donorCount} OFL-licensed donor fonts — Noto, Full-Sung, UniHieroglyphica, and more. Each glyph is extracted, never hand-drawn.</p>
+      </div>
+      <div class="how-arrow">→</div>
+      <div class="how-step">
+        <span class="how-num">02</span>
+        <h3>Assemble</h3>
+        <p>A Ruby build pipeline normalizes every donor to 1000-upm, partitions by Unicode plane, and stitches {version.charCount.toLocaleString()} glyphs into one OTC.</p>
+      </div>
+      <div class="how-arrow">→</div>
+      <div class="how-step">
+        <span class="how-num">03</span>
+        <h3>Ship</h3>
+        <p>One OTC file ({otcMB} MB), per-plane WOFF2 for the web, per-block subsets for this site. Install via npm, Fontist, or direct download.</p>
+      </div>
+    </div>
+    <a href="/docs/pipeline" class="see-all">Read the full pipeline →</a>
+  </section>
 
-      function tick() {
-        currentX += (targetX - currentX) * 0.12;
-        currentY += (targetY - currentY) * 0.12;
-        logo.style.setProperty('--tilt-x', `${currentY.toFixed(2)}deg`);
-        logo.style.setProperty('--tilt-y', `${currentX.toFixed(2)}deg`);
-        if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
-          rafId = requestAnimationFrame(tick);
-        } else {
-          rafId = null;
-        }
-      }
-      function scheduleTick() {
-        if (rafId === null) rafId = requestAnimationFrame(tick);
-      }
+  {/* ─── Final CTA ─── */}
+  <section class="cta-section">
+    <h2>Ship it.</h2>
+    <p>Install Essenfont in 30 seconds.</p>
+    <div class="cta-cmds">
+      <div class="cta-cmd">
+        <span class="cta-cmd-label">npm</span>
+        <code>npm install essenfont</code>
+      </div>
+      <div class="cta-cmd">
+        <span class="cta-cmd-label">Fontist</span>
+        <code>fontist install "Essenfont"</code>
+      </div>
+      <div class="cta-cmd">
+        <span class="cta-cmd-label">Direct</span>
+        <code><a href="/download">Download OTC →</a></code>
+      </div>
+    </div>
+  </section>
 
-      hero.addEventListener('mousemove', (e) => {
-        const rect = hero.getBoundingClientRect();
-        const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;   // -1..1
-        const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-        targetX = nx * MAX_TILT;
-        targetY = ny * MAX_TILT;
-        scheduleTick();
-      });
-      hero.addEventListener('mouseleave', () => {
-        targetX = 0;
-        targetY = 0;
-        scheduleTick();
-      });
-
-      // Click — quick 360° spin as a playful acknowledgment.
-      const mark = logo.querySelector('.brand-mark');
-      if (mark) {
-        logo.addEventListener('click', () => {
-          mark.classList.remove('is-spinning');
-          // force reflow so the animation restarts.
-          void (mark as HTMLElement).offsetWidth;
-          mark.classList.add('is-spinning');
-        });
-      }
+  <script type="module">
+    var e=document.getElementById(`hero`),t=document.getElementById(`hero-logo`),n=window.matchMedia(`(prefers-reduced-motion: reduce)`).matches;
+    if(e&&t&&!n){
+      var n2=0,r=0,i=0,a=0,o=null;
+      function s(){i+=(n2-i)*.12,a+=(r-a)*.12,t.style.setProperty(`--tilt-x`,`${a.toFixed(2)}deg`),t.style.setProperty(`--tilt-y`,`${i.toFixed(2)}deg`),o=Math.abs(n2-i)>.01||Math.abs(r-a)>.01?requestAnimationFrame(s):null}
+      function c(){o===null&&(o=requestAnimationFrame(s))}
+      e.addEventListener(`mousemove`,t=>{var i=e.getBoundingClientRect(),a=((t.clientX-i.left)/i.width-.5)*2,o=((t.clientY-i.top)/i.height-.5)*2;n2=a*10,r=o*10,c()});
+      e.addEventListener(`mouseleave`,()=>{n2=0,r=0,c()});
+      var l=t.querySelector(`.brand-mark`);
+      l&&t.addEventListener(`click`,()=>{l.classList.remove(`is-spinning`),l.offsetWidth,l.classList.add(`is-spinning`)})
     }
   </script>
 </BaseLayout>
 
 <style>
-.hero {
-  padding: 5rem 0 3rem;
-  text-align: center;
-  perspective: 1200px;
-}
-.hero-logo {
-  margin-bottom: 2.5rem;
-  display: flex;
-  justify-content: center;
-  --tilt-x: 0deg;
-  --tilt-y: 0deg;
-  transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
-  cursor: pointer;
-}
-.hero-logo .brand-mark.is-spinning {
-  animation: bm-spin-once 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-@keyframes bm-spin-once {
-  from { transform: rotate3d(0, 1, 0, 0deg); }
-  to   { transform: rotate3d(0, 1, 0, 360deg); }
-}
-.tester-section {
-  padding: 2rem 0;
-}
-.tester-wrap {
-  max-width: 920px;
-  margin: 0 auto;
-}
-.hero-content {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.display {
-  font-family: var(--spec-font-display);
-  font-weight: 600;
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  margin: 0.5rem 0 1.5rem;
-}
-.lede {
-  font-size: 1.125rem;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 2rem;
-}
-.cta-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.hero-foot {
-  font-family: var(--spec-font-mono);
-  font-size: 0.78rem;
-  color: var(--ef-text-3);
-  margin: 1.25rem 0 0;
-}
-.hero-foot a { color: var(--ef-accent); text-decoration: none; }
-.hero-foot a:hover { text-decoration: underline; }
-.hero-version { color: var(--ef-accent); font-family: var(--spec-font-mono); font-weight: 600; }
-.hero-foot a:hover { text-decoration: underline; }
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1.5rem;
-  padding: 3rem 0;
-  border-top: 1px solid var(--ef-rule);
-  border-bottom: 1px solid var(--ef-rule);
-  margin: 3rem 0;
-}
-.stat-num {
-  font-family: var(--spec-font-display);
-  font-weight: 600;
-  font-size: 2.75rem;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--ef-accent);
-}
-.stat-cap {
-  font-size: 0.875rem;
-  margin-top: 0.5rem;
-  opacity: 0.7;
-}
-.specimen-section {
-  padding: 2rem 0 4rem;
-}
-.specimen-section h2 {
-  font-family: var(--spec-font-display);
-  font-weight: 600;
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-}
-.specimen-section > p {
-  font-size: 0.95rem;
-  opacity: 0.78;
-  margin-bottom: 1rem;
-}
-.specimen-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-.see-all {
-  display: inline-block;
-  margin-top: 1rem;
-  color: var(--ef-accent);
-  text-decoration: none;
-}
-</style>
-
-<script>
-  // Live type tester — render the input through the Essenfont web font
-  // (loaded via the CDN's basic-latin subset), with graceful fallback.
-  const input = document.getElementById('tester-input') as HTMLTextAreaElement;
-  const output = document.getElementById('tester-output') as HTMLDivElement;
-  const folio = document.getElementById('tester-folio');
-  const sizeInput = document.getElementById('tester-size-input') as HTMLInputElement;
-  const sizeValue = document.getElementById('tester-size-value');
-
-  if (input && output) {
-    const render = () => {
-      const text = input.value;
-      output.textContent = text;
-      if (folio) {
-        const chars = [...text].length;
-        const codepoints = text.length;
-        folio.textContent = `${chars} char${chars === 1 ? '' : 's'} · ${codepoints} code unit${codepoints === 1 ? '' : 's'}`;
-      }
-    };
-    const resize = () => {
-      const px = `${sizeInput.value}px`;
-      output.style.fontSize = px;
-      if (sizeValue) sizeValue.textContent = px;
-    };
-    input.addEventListener('input', render);
-    sizeInput.addEventListener('input', resize);
-    render();
-    resize();
+  /* ─── Hero ─── */
+  .hero {
+    position: relative;
+    padding: 4rem 1.5rem 3rem;
+    text-align: center;
+    perspective: 1200px;
+    overflow: hidden;
   }
-</script>
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(212, 168, 67, 0.08), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-logo {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: center;
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
+    transform: perspective(900px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+    cursor: pointer;
+  }
+  .hero-title {
+    position: relative;
+    z-index: 1;
+    font-family: var(--spec-font-display);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 0 0 1.25rem;
+    min-height: 1.2em;
+  }
+  .hero-lede {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    line-height: 1.6;
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    color: var(--ef-text-2);
+  }
+  .hero-cta {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+  .hero-foot {
+    position: relative;
+    z-index: 1;
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    color: var(--ef-text-3);
+    letter-spacing: 0.03em;
+  }
+  .hero-foot strong { color: var(--ef-accent); }
+
+  /* ─── Stats ─── */
+  .stats-section { padding: 2rem 1.5rem; }
+  .stats-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+  }
+  .stat {
+    text-align: center;
+    padding: 1.25rem 0.5rem;
+    border-right: 1px solid var(--ef-rule);
+  }
+  .stat:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--spec-font-display);
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--ef-accent);
+    line-height: 1;
+  }
+  .stat-cap {
+    margin-top: 0.4rem;
+    font-family: var(--spec-font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-text-3);
+  }
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .stat:nth-child(3) { border-right: none; }
+  }
+
+  /* ─── Sections ─── */
+  .tester-section,
+  .specimen-section,
+  .how-section,
+  .cta-section {
+    padding: 4rem 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .section-eyebrow {
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ef-accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .section-header h2 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  .section-header p {
+    font-size: 1rem;
+    color: var(--ef-text-2);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── Type tester ─── */
+  .tester-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ─── Specimens ─── */
+  .specimen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .see-all {
+    display: block;
+    text-align: center;
+    font-family: var(--spec-font-mono);
+    font-size: 0.82rem;
+    color: var(--ef-accent);
+    text-decoration: none;
+    padding: 1rem;
+    transition: color 0.15s;
+  }
+  .see-all:hover { color: var(--ef-accent-hover); }
+
+  /* ─── How it works ─── */
+  .how-grid {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .how-step {
+    flex: 1;
+    min-width: 220px;
+    max-width: 300px;
+    padding: 1.5rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+  }
+  .how-num {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ef-accent);
+  }
+  .how-step h3 {
+    font-family: var(--spec-font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0.4rem 0 0.6rem;
+  }
+  .how-step p {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--ef-text-2);
+    margin: 0;
+  }
+  .how-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--ef-text-3);
+  }
+  @media (max-width: 768px) {
+    .how-arrow { display: none; }
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    text-align: center;
+    padding: 4rem 1.5rem 5rem;
+  }
+  .cta-section h2 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  .cta-section > p {
+    font-size: 1.1rem;
+    color: var(--ef-text-2);
+    margin: 0 0 2rem;
+  }
+  .cta-cmds {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .cta-cmd {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+  }
+  .cta-cmd-label {
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-accent);
+    min-width: 50px;
+    text-align: left;
+  }
+  .cta-cmd code {
+    font-family: var(--spec-font-mono);
+    font-size: 0.8rem;
+    color: var(--ef-text);
+  }
+  .cta-cmd a { color: var(--ef-accent); text-decoration: none; }
+</style>

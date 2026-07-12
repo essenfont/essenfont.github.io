@@ -49,9 +49,9 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <script is:inline>
       (function() {
         var stored = localStorage.getItem('theme');
-        var prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-        if (stored === 'dark' || (!stored && prefersDark)) {
-          document.documentElement.classList.add('dark');
+        var prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+        if (stored === 'light' || (!stored && prefersLight)) {
+          document.documentElement.classList.add('light');
         }
       })();
     </script>
@@ -122,9 +122,9 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
 
       function applyStoredTheme(): void {
         const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const isDark = stored === 'dark' || (!stored && prefersDark);
-        document.documentElement.classList.toggle('dark', isDark);
+        const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+        const isLight = stored === 'light' || (!stored && prefersLight);
+        document.documentElement.classList.toggle('light', isLight);
       }
 
       function bindToggle(): void {
@@ -132,8 +132,8 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
         if (!btn || btn.dataset.bound === 'true') return;
         btn.dataset.bound = 'true';
         btn.addEventListener('click', () => {
-          const isDark = document.documentElement.classList.toggle('dark');
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+          const isLight = document.documentElement.classList.toggle('light');
+          localStorage.setItem('theme', isLight ? 'light' : 'dark');
         });
       }
 
@@ -261,8 +261,10 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
   }
   .sun-icon { display: none; }
   .moon-icon { display: block; }
-  html.dark .sun-icon { display: block; }
-  html.dark .moon-icon { display: none; }
+  .sun-icon { display: block; }
+  .moon-icon { display: none; }
+  html.light .sun-icon { display: none; }
+  html.light .moon-icon { display: block; }
 </style>
 <style is:global>
   .brand-text {
