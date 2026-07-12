@@ -89,18 +89,22 @@ const stats = (() => {
     }
   }
 
-  // Donor count from sibling essenfont/sources/manifest.yml
+  // Donor count from sibling essenfont/sources/manifest.yml — fall back
+  // to committed site-stats.json when sibling repo isn't available (CI).
+  const prevStatsPath = path.join(PUBLIC, 'site-stats.json');
+  const prevStats = fs.existsSync(prevStatsPath)
+    ? JSON.parse(fs.readFileSync(prevStatsPath, 'utf8'))
+    : {};
   const manifestPath = path.join(SIBLING, 'sources', 'manifest.yml');
   if (fs.existsSync(manifestPath)) {
     out.donorCount = readYamlFrontmatterOnly(manifestPath).length;
+  } else {
+    out.donorCount = prevStats.donorCount ?? 0;
   }
 
   // Font binary sizes from sibling essenfont/ — fall back to previously
   // committed site-stats.json when the sibling repo isn't available (CI).
-  const prevStatsPath = path.join(PUBLIC, 'site-stats.json');
-  const prevFontBinaries = fs.existsSync(prevStatsPath)
-    ? (JSON.parse(fs.readFileSync(prevStatsPath, 'utf8')).fontBinaries ?? {})
-    : {};
+  const prevFontBinaries = prevStats.fontBinaries ?? {};
   out.fontBinaries.otcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otc')) ?? prevFontBinaries.otcSizeBytes ?? null;
   out.fontBinaries.ttcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.ttc')) ?? prevFontBinaries.ttcSizeBytes ?? null;
   out.fontBinaries.otfSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otf')) ?? prevFontBinaries.otfSizeBytes ?? null;
