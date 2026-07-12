@@ -43,6 +43,10 @@ onMounted(() => {
   document.querySelectorAll('[data-cmdk-trigger]').forEach(el => {
     el.addEventListener('click', (e: Event) => { e.preventDefault(); open() })
   })
+  if (window.__cmdkOpen) {
+    window.__cmdkOpen = false
+    open()
+  }
 })
 
 onUnmounted(() => {

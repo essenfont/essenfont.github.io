@@ -71,7 +71,7 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
             <a href="/docs" class="nav-link">Docs</a>
             <a href="/about" class="nav-link">About</a>
           </div>
-          <button class="cmdk-trigger" type="button" data-cmdk-trigger aria-label="Open search (Cmd+K)">
+          <button class="cmdk-trigger" type="button" data-cmdk-trigger aria-label="Open search (Cmd+K)" onclick="window.__cmdkOpen=true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="7"/>
               <line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -96,7 +96,7 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <main class="container" transition:animate="fade">
       <slot />
     </main>
-    <CommandPalette client:idle />
+    <CommandPalette client:only="vue" />
     <SiteFooter transition:persist />
     <script>
       // Theme persistence + FOUC prevention.
