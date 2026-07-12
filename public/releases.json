@@ -1,5 +1,17 @@
 [
   {
+    "tag": "v0.5.1",
+    "name": "fontisan 0.4.41 — CFF + compound glyph fixes",
+    "date": "2026-07-12",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.5.1",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.1/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.1/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.5.1",
+    "isLatest": true,
+    "notes": "Same codepoint coverage as v0.5.0 (123,611 codepoints). Published to npm as essenfont@0.5.1.",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  {
     "tag": "v0.5.0",
     "name": "CFF outline fix + compound glyph fix + fontisan 0.4.41",
     "date": "2026-07-11",
@@ -7,7 +19,6 @@
     "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.0/Essenfont-Regular.otc",
     "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.5.0/coverage.json",
     "npm_url": "https://www.npmjs.com/package/essenfont/v/0.5.0",
-    "isLatest": true,
     "notes": "CFF outline filler (CffOutlineFiller) bridges fontisan's stubbed CFF glyph extraction — all CFF-based OTF donors (Noto Serif Tangut, etc.) now produce real outlines. Compound (composite) glyph fix from fontisan 0.4.41. cp_map identical to v0.3.7 (123,611 codepoints).",
     "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
   },
