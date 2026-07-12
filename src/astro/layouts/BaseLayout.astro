@@ -96,7 +96,7 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <main class="container" transition:animate="fade">
       <slot />
     </main>
-    <CommandPalette client:only="vue" />
+    <CommandPalette client:idle />
     <SiteFooter transition:persist />
     <script>
       // Theme persistence + FOUC prevention.
