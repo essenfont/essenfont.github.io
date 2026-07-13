@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-10T11:36:01.619Z",
+  "generatedAt": "2026-07-13T01:21:26.165Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -13,9 +13,9 @@
   },
   "websiteSubsets": {
     "woff2Count": 214,
-    "woff2TotalBytes": 163183468,
+    "woff2TotalBytes": 164502484,
     "woff1Count": 230,
-    "woff1TotalBytes": 114422520,
+    "woff1TotalBytes": 116039512,
     "perPlaneWoff2": {
       "BMP": {
         "file": "Essenfont-BMP.woff2",
@@ -51,7 +51,7 @@
       "donors": 38,
       "planes": 5
     },
-    "notes": "Same codepoint coverage as v0.5.0. Published to npm as essenfont.5.1."
+    "notes": "Same codepoint coverage as v0.5.0 (123,611 codepoints). Published to npm as essenfont@0.5.1."
   },
   "coverage": {
     "generated_at": "2026-07-09T01:05:21Z",
