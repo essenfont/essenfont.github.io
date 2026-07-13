@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/gen-site-stats.mjs && node scripts/gen-search-index.mjs && astro build",
+    "build": "node scripts/gen-releases.mjs && node scripts/gen-site-stats.mjs && node scripts/gen-search-index.mjs && astro build",
     "preview": "astro preview",
     "gen-stats": "node scripts/gen-site-stats.mjs",
+    "gen-releases": "node scripts/gen-releases.mjs",
     "gen-unicode": "node scripts/gen-unicode-data.mjs",
     "test": "vitest run",
     "test:watch": "vitest",

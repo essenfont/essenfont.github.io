@@ -1,0 +1,63 @@
+{
+  "v0.5.2": {
+    "name": "Clamp extreme coordinates from synthetic SVG-generated fonts",
+    "notes": "Fixes distorted glyph proportions in the SMP face. 960 of 1020 phantom glyphs from synthetic SVG-generated donor fonts (Gurung Khema, Nyiakeng Puachue Hmong, Tulu Tigalari, etc.) had coordinates 2–11x the declared UPM, inflating the SMP face head.bbox to yMax=11160 and causing all glyphs — including hieroglyphs — to render with distorted proportions. CoordinateClamp now runs after UFO normalization. Same codepoint coverage as v0.5.0 (123,611 codepoints).",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  "v0.5.1": {
+    "name": "fontisan 0.4.41 — CFF + compound glyph fixes",
+    "notes": "Same codepoint coverage as v0.5.0 (123,611 codepoints). Published to npm as essenfont@0.5.1.",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  "v0.5.0": {
+    "name": "CFF outline fix + compound glyph fix + fontisan 0.4.41",
+    "notes": "CFF outline filler (CffOutlineFiller) bridges fontisan's stubbed CFF glyph extraction — all CFF-based OTF donors (Noto Serif Tangut, etc.) now produce real outlines. Compound (composite) glyph fix from fontisan 0.4.41. cp_map identical to v0.3.7 (123,611 codepoints).",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  "v0.4.1": {
+    "name": "Compound (composite) glyph fix",
+    "notes": "Fixes compound (composite) glyphs that had empty or offset contours. Combined with the CFF outline fix from v0.4.0.",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  "v0.4.0": {
+    "name": "CFF-based OTF donors (Tangut, etc.) outline fix",
+    "notes": "First release with CffOutlineFiller — fontisan's UFO converter stubs out CFF glyph extraction, producing empty contours for CFF-based OTF donors. This release bridges OutlineExtractor into the UFO to fill real outlines.",
+    "stats": { "codepoints": 123611, "donors": 38, "planes": 5 }
+  },
+  "v0.3.7": {
+    "name": "Verified — OTC (CFF2) + cache infrastructure (SVG, WOFF2)",
+    "notes": "Identical coverage to v0.3.4 (cp_map byte-stable: 123,611 codepoints). Canonical OTC with CFF2 outlines. BuildCache infrastructure wired through the whole release pipeline.",
+    "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
+  },
+  "v0.3.6": {
+    "name": "Broken — SVG refactor NameError (superseded by v0.3.7)",
+    "broken": true,
+    "notes": "Broken release — NameError in SVG export. Superseded by v0.3.7."
+  },
+  "v0.3.5": {
+    "name": "Disk-based UFO cache + SVG + WOFF2 caching",
+    "notes": "Disk UFO cache + SVG export + per-plane WOFF2 encoding cache.",
+    "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
+  },
+  "v0.3.4": {
+    "name": "Build cache rescue + stable cp_map",
+    "notes": "Fix rescue for Marshal errors in BuildCache. cp_map stable at 123,611 codepoints.",
+    "stats": { "codepoints": 123611, "donors": 31, "planes": 5 }
+  },
+  "v0.3.3": {
+    "name": "UFO conversion build cache",
+    "notes": "Build cache for UFO conversions — cuts build time ~40%."
+  },
+  "v0.3.2": {
+    "name": "restrict_to_covers for Egyptian donors",
+    "notes": "Add restrict_to_covers to egyptian-text + new-gardiner donors."
+  },
+  "v0.3.1": {
+    "name": "OTC (CFF2) as canonical output",
+    "notes": "Produce OTC (CFF2) as canonical output, not TTC (glyf)."
+  },
+  "v0.3.0": {
+    "name": "Multi-plane OTC architecture",
+    "notes": "First multi-plane OTC release."
+  }
+}
