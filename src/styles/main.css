@@ -570,5 +570,6 @@ main hr {
 }
 
 /* ─── Donor logo light/dark mode switching ──────────────────────── */
-html.light .donor-logo--dark { display: none; }
 .donor-logo--light { display: none; }
+html.light .donor-logo--dark { display: none; }
+html.light .donor-logo--light { display: inline-block; }
