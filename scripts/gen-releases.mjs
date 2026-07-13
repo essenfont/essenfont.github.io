@@ -6,6 +6,9 @@
 // Curated names, notes, and stats come from public/release-notes.json
 // overrides. Releases without overrides fall back to the git commit
 // subjects between this tag and the previous one.
+//
+// If the API call fails (e.g. rate limit, network), the existing
+// public/releases.json is preserved.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -17,20 +20,7 @@ const ROOT = path.resolve(__dirname, '..');
 const PUBLIC = path.join(ROOT, 'public');
 const REPO = 'essenfont/essenfont';
 const SIBLING = path.resolve(ROOT, '..', 'essenfont');
-
-function gh(endpoint) {
-  return JSON.parse(execSync(`gh api ${endpoint} --paginate`, {
-    encoding: 'utf-8',
-    maxBuffer: 50 * 1024 * 1024,
-  }));
-}
-
-function fetchJSON(url) {
-  return JSON.parse(execSync(`curl -sL ${url}`, {
-    encoding: 'utf-8',
-    maxBuffer: 50 * 1024 * 1024,
-  }));
-}
+const API = `https://api.github.com/repos/${REPO}/releases?per_page=100`;
 
 const overridesPath = path.join(PUBLIC, 'release-notes.json');
 const overrides = fs.existsSync(overridesPath)
@@ -39,10 +29,18 @@ const overrides = fs.existsSync(overridesPath)
 
 let releases;
 try {
-  releases = gh('repos/essenfont/essenfont/releases?per_page=100');
+  const res = await fetch(API, {
+    headers: {
+      Accept: 'application/vnd.github+json',
+      ...(process.env.GH_TOKEN && { Authorization: `Bearer ${process.env.GH_TOKEN}` }),
+    },
+  });
+  if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
+  releases = await res.json();
 } catch (e) {
-  console.error('Failed to fetch releases from GitHub API:', e.message);
-  process.exit(1);
+  console.warn(`Warning: could not fetch releases from GitHub API: ${e.message}`);
+  console.warn('Keeping existing public/releases.json.');
+  process.exit(0);
 }
 
 const tags = releases.map(r => r.tag_name).filter(Boolean);
