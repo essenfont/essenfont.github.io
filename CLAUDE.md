@@ -87,9 +87,10 @@ Two CSS systems:
    to the `--ef-*` variables, enabling utility classes like `text-ink`,
    `bg-surface`, `font-mono`.
 
-Dark mode: `html.dark` class on `<html>`, toggled via JS in BaseLayout.
-All color/surface/text variables are overridden in the `html.dark {}` block.
-Light is the default.
+Dark-first design: dark is the `:root` default, light mode is opt-in
+via `html.light` class (toggled by JS in BaseLayout). All color/surface/
+text variables are overridden in the `html.light {}` block. Accent is
+amber gold (`--ef-amber: #d4a843`).
 
 Fonts: EB Garamond (display), Hanken Grotesk (body), JetBrains Mono (code).
 Loaded via `<link>` in BaseLayout.astro with `media="print"` + `onload` swap
@@ -140,15 +141,15 @@ installed essenfont locally, the browser uses it; otherwise it falls back.
 
 ## Logo
 
-The mark is a geometric **E** (three horizontal bars + vertical spine) with
-**17** set in the middle bar in the rose accent. Three variants live in
-`public/`:
-- `logo.svg` — square icon, used as favicon and in the navbar.
-- `logo-full.svg` — horizontal lockup (icon + wordmark + "UNIVERSAL · UNICODE 17" tag).
-- `favicon.svg` — derived from `logo.svg`.
+The mark is a hexagram **Gen** (☶) whose negative space forms the letter
+**E**. Two color variants live in `public/`:
+- `essenfont-logo_light.svg` — light-mode variant (blue gradient).
+- `essenfont-logo_dark.svg` — dark-mode variant (red/vermilion gradient).
+- `essenfont-logo.pdf` — source artwork.
+- `favicon.svg` — derived from the logo.
 
-When editing the logo, keep the three variants in sync — same E, same 17,
-same rose.
+When editing the logo, keep the variants in sync — same Gen/E geometry,
+same viewBox.
 
 ## Conventions inherited from the broader Fontist ecosystem
 
