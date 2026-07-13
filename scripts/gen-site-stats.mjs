@@ -43,7 +43,7 @@ function readYamlFrontmatterOnly(p) {
     .filter(Boolean);
 }
 
-const stats = (() => {
+const stats = await (async () => {
   const unicodeVersion = readJson(path.join(PUBLIC, 'unicode-version.json'));
   const out = {
     generatedAt: new Date().toISOString(),
@@ -102,12 +102,35 @@ const stats = (() => {
     out.donorCount = prevStats.donorCount ?? 0;
   }
 
-  // Font binary sizes from sibling essenfont/ — fall back to previously
-  // committed site-stats.json when the sibling repo isn't available (CI).
+  // Font binary sizes: prefer the latest release's coverage.json (which
+  // has otc_size_bytes), then fall back to the sibling repo's local file,
+  // then to the previously committed site-stats.json.
   const prevFontBinaries = prevStats.fontBinaries ?? {};
-  out.fontBinaries.otcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otc')) ?? prevFontBinaries.otcSizeBytes ?? null;
-  out.fontBinaries.ttcSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.ttc')) ?? prevFontBinaries.ttcSizeBytes ?? null;
-  out.fontBinaries.otfSizeBytes = statOrNil(path.join(SIBLING, 'Essenfont-Regular.otf')) ?? prevFontBinaries.otfSizeBytes ?? null;
+
+  async function fetchCoverage(url) {
+    if (!url) return null;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch { return null; }
+  }
+
+  let releaseCoverage = null;
+  if (out.release?.coverage_url) {
+    releaseCoverage = await fetchCoverage(out.release.coverage_url);
+  }
+
+  out.fontBinaries.otcSizeBytes =
+    releaseCoverage?.otc_size_bytes ??
+    statOrNil(path.join(SIBLING, 'Essenfont-Regular.otc')) ??
+    prevFontBinaries.otcSizeBytes ?? null;
+  out.fontBinaries.ttcSizeBytes =
+    statOrNil(path.join(SIBLING, 'Essenfont-Regular.ttc')) ??
+    prevFontBinaries.ttcSizeBytes ?? null;
+  out.fontBinaries.otfSizeBytes =
+    statOrNil(path.join(SIBLING, 'Essenfont-Regular.otf')) ??
+    prevFontBinaries.otfSizeBytes ?? null;
 
   // Website subsets from public/fonts/
   const fontsDir = path.join(PUBLIC, 'fonts');
