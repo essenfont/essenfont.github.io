@@ -66,7 +66,7 @@ const chartWidth = LABEL_WIDTH + MAX_BAR_WIDTH + VALUE_WIDTH + 40;
       <g>
         <line
           x1={tx} y1="10" x2={tx} y2={chartHeight - 10}
-          stroke="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+          stroke="var(--diagram-stage-new, var(--ef-accent, #d4a843))"
           stroke-width="1.5" stroke-dasharray="4 3"
         />
         <text
@@ -74,7 +74,7 @@ const chartWidth = LABEL_WIDTH + MAX_BAR_WIDTH + VALUE_WIDTH + 40;
           text-anchor="middle"
           font-family="var(--spec-font-mono, monospace)"
           font-size="9" font-weight="700"
-          fill="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+          fill="var(--diagram-stage-new, var(--ef-accent, #d4a843))"
         >target {targetUpm}</text>
       </g>
     );
@@ -99,7 +99,7 @@ const chartWidth = LABEL_WIDTH + MAX_BAR_WIDTH + VALUE_WIDTH + 40;
           text-anchor="end"
           font-family="var(--spec-font-mono, monospace)"
           font-size="12" font-weight="600"
-          fill="var(--ef-text, #1a1a1a)"
+          fill="var(--ef-text, #eceef2)"
         >{group.nativeUpm}</text>
 
         {/* Native bar (gray) */}
@@ -124,7 +124,7 @@ const chartWidth = LABEL_WIDTH + MAX_BAR_WIDTH + VALUE_WIDTH + 40;
           x={LABEL_WIDTH + nativeW + 8} y={y + BAR_HEIGHT / 2 + 4}
           font-family="var(--spec-font-mono, monospace)"
           font-size="10"
-          fill="var(--ef-text-2, #555)"
+          fill="var(--ef-text-2, #9ca0ac)"
         >{group.count} donor{group.count !== 1 ? 's' : ''}{needsScale ? ` · ×${group.scaleFactor}` : ' · no scale'}</text>
       </g>
     );

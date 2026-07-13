@@ -66,8 +66,8 @@ const totalHeight = 100;
     const x = startX + i * (BOX_W + ARROW_W);
     const y = 20;
     const fill = stage.isNew
-      ? 'var(--diagram-stage-new, var(--ef-accent, #2a5c8a))'
-      : 'var(--diagram-stage-existing, var(--ef-text-2, #555))';
+      ? 'var(--diagram-stage-new, var(--ef-accent, #d4a843))'
+      : 'var(--diagram-stage-existing, var(--ef-text-2, #9ca0ac))';
     return (
       <g>
         <title>Stage {stage.n}: {stage.name} ({stage.module})</title>
@@ -97,7 +97,7 @@ const totalHeight = 100;
           text-anchor="middle"
           font-family="var(--spec-font-display, serif)"
           font-size="10" font-weight="600"
-          fill="var(--ef-text, #1a1a1a)"
+          fill="var(--ef-text, #eceef2)"
         >{stage.name}</text>
         <text
           x={x + BOX_W / 2} y={y + 48}
@@ -123,7 +123,7 @@ const totalHeight = 100;
             <rect
               x={x + BOX_W - 24} y={y - 8}
               width="32" height="14" rx="7"
-              fill="var(--diagram-stage-new, var(--ef-accent, #2a5c8a))"
+              fill="var(--diagram-stage-new, var(--ef-accent, #d4a843))"
             />
             <text
               x={x + BOX_W - 8} y={y + 2}

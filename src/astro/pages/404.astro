@@ -81,7 +81,7 @@ const todayHex = todayCp.toString(16).toUpperCase().padStart(4, '0');
     flex-direction: column;
     align-items: center;
     padding: 1.75rem 1.25rem;
-    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
+    border: 1px solid var(--ef-rule-strong, rgba(236,238,242,0.15));
     border-radius: 8px;
     min-height: 220px;
     justify-content: center;
@@ -89,8 +89,8 @@ const todayHex = todayCp.toString(16).toUpperCase().padStart(4, '0');
   }
   .nf-panel--broken { background: rgba(0,0,0,0.02); }
   .nf-panel--fixed {
-    background: rgba(42, 92, 138, 0.04);
-    border-color: rgba(42, 92, 138, 0.25);
+    background: var(--ef-accent-soft);
+    border-color: var(--ef-accent-muted);
   }
   .nf-tag {
     font-size: 0.7rem;
@@ -159,7 +159,7 @@ const todayHex = todayCp.toString(16).toUpperCase().padStart(4, '0');
   }
   .nf-link {
     padding: 0.65rem 1.25rem;
-    border: 1px solid var(--ef-rule-strong, rgba(26,24,21,0.16));
+    border: 1px solid var(--ef-rule-strong, rgba(236,238,242,0.15));
     border-radius: 6px;
     text-decoration: none;
     color: var(--ef-text);
@@ -170,7 +170,7 @@ const todayHex = todayCp.toString(16).toUpperCase().padStart(4, '0');
   .nf-link:hover {
     border-color: var(--ef-accent);
     color: var(--ef-accent);
-    background: rgba(42, 92, 138, 0.04);
+    background: var(--ef-accent-soft);
   }
   .mono { font-family: var(--spec-font-mono); }
   .nf-surprise { margin-top: 1.5rem; }
