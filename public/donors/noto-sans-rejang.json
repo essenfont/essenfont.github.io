@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Rejang",
+  "slug": "noto-sans-rejang",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Rejang"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-rejang",
+      "file": "references/input-fonts/NotoSansRejang-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ac84f549caba39e85d0d22a62f4fcf7dcacdf263d01527eb44388e96ce58d785",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Rejang"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

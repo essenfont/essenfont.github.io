@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans Bengali",
+  "slug": "noto-sans-bengali",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bengali",
+    "Devanagari",
+    "Devanagari_Extended",
+    "Spacing_Modifier_Letters",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-bengali",
+      "file": "references/input-fonts/NotoSansBengali-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b55c62ee531e3214da6c0701daecea89a52ba42db7d8206b92e6b51f397a3193",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bengali",
+        "Devanagari",
+        "Devanagari_Extended",
+        "Spacing_Modifier_Letters",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

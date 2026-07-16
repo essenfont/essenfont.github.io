@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old South Arabian",
+  "slug": "noto-sans-old-south-arabian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_South_Arabian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-south-arabian",
+      "file": "references/input-fonts/NotoSansOldSouthArabian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b8e196d9c4f8b634aa599fd8914179df7a00dce5da61a69762931b0c9cbef603",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Old_South_Arabian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Sunuwar",
+  "slug": "noto-sans-sunuwar",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sunuwar"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sunuwar",
+      "file": "references/input-fonts/NotoSansSunuwar-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "85c10610ce480239a0518f3d4df090d82eaf57a18298c93610fbb9d75cca8c03",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Sunuwar"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

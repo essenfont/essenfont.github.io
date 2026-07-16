@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Miao",
+  "slug": "noto-sans-miao",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Miao"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-miao",
+      "file": "references/input-fonts/NotoSansMiao-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "a172b5da5bf602042cb526172ecb279085c906f23d901d882cf6938909f7e574",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Miao"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Deseret",
+  "slug": "noto-sans-deseret",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Deseret"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-deseret",
+      "file": "references/input-fonts/NotoSansDeseret-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "eb48fcfd3ca13c50906258b5a1bd1775b5260f00e5490cee31b18de11efa6265",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Deseret"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Linear A",
+  "slug": "noto-sans-linear-a",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Linear_A"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-linear-a",
+      "file": "references/input-fonts/NotoSansLinearA-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "af2b1fecbe3e1e96cbd0e22fb514512411e57753c7fef477546d7232eb8211a4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Linear_A"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

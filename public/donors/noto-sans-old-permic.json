@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Old Permic",
+  "slug": "noto-sans-old-permic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Combining_Diacritical_Marks_for_Symbols",
+    "Cyrillic",
+    "Old_Permic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-permic",
+      "file": "references/input-fonts/NotoSansOldPermic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ade73eb88c82cb9dbe7c86179c3f995f4fb9aa661d647c0c3677ae7b7c0d6bac",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Combining_Diacritical_Marks_for_Symbols",
+        "Cyrillic",
+        "Old_Permic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

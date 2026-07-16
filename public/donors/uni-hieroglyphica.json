@@ -1,0 +1,37 @@
+{
+  "family": "UniHieroglyphica",
+  "slug": "uni-hieroglyphica",
+  "license": "OFL",
+  "author": "Michel Suignard (suignard.com)",
+  "url": "https://suignard.com/Ptolemaic/UniHieroglyphica.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Egyptian_Hieroglyphs",
+    "Egyptian_Hieroglyph_Format_Controls",
+    "Egyptian_Hieroglyphs_Extended-A"
+  ],
+  "files": [
+    {
+      "label": "uni-hieroglyphica",
+      "file": "references/input-fonts/UniHieroglyphica.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ad60bb2f469697837b556388d47b500a21d866370a49a8be770b206108aaf664",
+      "url": "https://suignard.com/Ptolemaic/UniHieroglyphica.ttf",
+      "covers": [
+        "Egyptian_Hieroglyphs",
+        "Egyptian_Hieroglyph_Format_Controls",
+        "Egyptian_Hieroglyphs_Extended-A"
+      ]
+    }
+  ],
+  "source_type": "other",
+  "vendor": "Community",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

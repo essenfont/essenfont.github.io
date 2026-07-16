@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old Hungarian",
+  "slug": "noto-sans-old-hungarian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Hungarian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-hungarian",
+      "file": "references/input-fonts/NotoSansOldHungarian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "18d354e16832c85da1cfbcc2a13f95f375955fcab69428b03b566d8ab26959e9",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Old_Hungarian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

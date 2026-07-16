@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Nabataean",
+  "slug": "noto-sans-nabataean",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Nabataean"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nabataean",
+      "file": "references/input-fonts/NotoSansNabataean-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "90e722ed5cbcb21996c73a8156d04474a8a0d465f1b90e77a2152f28cf630fd3",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Nabataean"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

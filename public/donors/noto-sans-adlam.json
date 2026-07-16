@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Adlam",
+  "slug": "noto-sans-adlam",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Adlam",
+    "Arabic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-adlam",
+      "file": "references/input-fonts/NotoSansAdlam-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4b51541536a7b28142a4571c16dc56e386c05f345ac9739ef8599d8ad4ed5e54",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Adlam",
+        "Arabic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

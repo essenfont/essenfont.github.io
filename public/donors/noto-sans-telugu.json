@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Telugu",
+  "slug": "noto-sans-telugu",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Telugu",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-telugu",
+      "file": "references/input-fonts/NotoSansTelugu-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b274780b69d1d23fe84b55e809a152cb2ac5306d33864b1f87622f6971871aae",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Telugu",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

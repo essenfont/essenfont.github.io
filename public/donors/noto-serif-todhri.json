@@ -1,0 +1,35 @@
+{
+  "family": "Noto Serif Todhri",
+  "slug": "noto-serif-todhri",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Spacing_Modifier_Letters",
+    "Todhri"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-todhri",
+      "file": "references/input-fonts/NotoSerifTodhri-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4ded6e98752b13363cf01dad267efdd9481d556b9f2d5291ddcbda7fc7342727",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Spacing_Modifier_Letters",
+        "Todhri"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

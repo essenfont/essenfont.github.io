@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Takri",
+  "slug": "noto-sans-takri",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Takri"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-takri",
+      "file": "references/input-fonts/NotoSansTakri-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c14fb3d442ee9330d54d22aed37a9ee78ec4038055faa195d62661e4bb9988f9",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Takri"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

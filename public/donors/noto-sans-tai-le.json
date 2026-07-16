@@ -1,0 +1,47 @@
+{
+  "family": "Noto Sans Tai Le",
+  "slug": "noto-sans-tai-le",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Symbols_and_Punctuation",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Myanmar",
+    "Spacing_Modifier_Letters",
+    "Tai_Le"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tai-le",
+      "file": "references/input-fonts/NotoSansTaiLe-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "797491c208e7ccd8d42587302e8441710b6baa3ff3f8badb69733672b3cfc229",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "CJK_Symbols_and_Punctuation",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Myanmar",
+        "Spacing_Modifier_Letters",
+        "Tai_Le"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

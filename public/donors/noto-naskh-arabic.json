@@ -1,0 +1,45 @@
+{
+  "family": "Noto Naskh Arabic",
+  "slug": "noto-naskh-arabic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Arabic_Extended-A",
+    "Arabic_Extended-B",
+    "Arabic_Extended-C",
+    "Arabic_Presentation_Forms-A",
+    "Arabic_Presentation_Forms-B",
+    "Arabic_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-naskh-arabic",
+      "file": "references/input-fonts/NotoNaskhArabic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6f0a92031367b2f5a2078fe9d24f3433122b61a0bad57c423aad8f3c39aa2e6e",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Arabic_Extended-A",
+        "Arabic_Extended-B",
+        "Arabic_Extended-C",
+        "Arabic_Presentation_Forms-A",
+        "Arabic_Presentation_Forms-B",
+        "Arabic_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

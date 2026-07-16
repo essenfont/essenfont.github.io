@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Brahmi",
+  "slug": "noto-sans-brahmi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansBrahmi",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Brahmi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-brahmi",
+      "file": "references/input-fonts/NotoSansBrahmi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "5607e874c4793381e22ba7800b748de43f801829e6b9b49f7b7b2cc3973027f6",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansBrahmi",
+      "covers": [
+        "Brahmi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

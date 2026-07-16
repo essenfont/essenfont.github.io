@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Chorasmian",
+  "slug": "noto-sans-chorasmian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Chorasmian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-chorasmian",
+      "file": "references/input-fonts/NotoSansChorasmian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "9d5a0971077f541748b88fa93f8a01c21f6089aaf7fe446b6bd9f20e5300edef",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Chorasmian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

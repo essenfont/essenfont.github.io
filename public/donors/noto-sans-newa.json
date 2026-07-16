@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Newa",
+  "slug": "noto-sans-newa",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Combining_Diacritical_Marks_Supplement",
+    "Newa"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-newa",
+      "file": "references/input-fonts/NotoSansNewa-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3aede9a3ab5740babffe75f7c0d97e2329734b8cb470c999be1871362084a8bd",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Combining_Diacritical_Marks_Supplement",
+        "Newa"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

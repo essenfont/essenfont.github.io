@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Hatran",
+  "slug": "noto-sans-hatran",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Hatran"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-hatran",
+      "file": "references/input-fonts/NotoSansHatran-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "d6d7d780f1b32621bc05d2026f34fabcaa854e01ecdf3af102e204c55e542bf4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Hatran"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

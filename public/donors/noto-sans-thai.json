@@ -1,0 +1,43 @@
+{
+  "family": "Noto Sans Thai",
+  "slug": "noto-sans-thai",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters",
+    "Thai"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-thai",
+      "file": "references/input-fonts/NotoSansThai-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "57f54f86b7666273ca83a4785f73c53c57cce3b27c778a1f7cea01f41bac00ed",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters",
+        "Thai"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

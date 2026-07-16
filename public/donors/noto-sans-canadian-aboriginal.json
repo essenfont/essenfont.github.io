@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Canadian Aboriginal",
+  "slug": "noto-sans-canadian-aboriginal",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Unified_Canadian_Aboriginal_Syllabics",
+    "Unified_Canadian_Aboriginal_Syllabics_Extended",
+    "Unified_Canadian_Aboriginal_Syllabics_Extended-A"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-canadian-aboriginal",
+      "file": "references/input-fonts/NotoSansCanadianAboriginal-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6f489ba696faff1d96f8ace395c0d22fe3b82621f69bf50b337112fb47ff1f17",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Unified_Canadian_Aboriginal_Syllabics",
+        "Unified_Canadian_Aboriginal_Syllabics_Extended",
+        "Unified_Canadian_Aboriginal_Syllabics_Extended-A"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

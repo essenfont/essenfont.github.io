@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Manichaean",
+  "slug": "noto-sans-manichaean",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Manichaean"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-manichaean",
+      "file": "references/input-fonts/NotoSansManichaean-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "29b281b63ca0d2478017a72abcb6c0b44d36af52a0e4eec2b5622be7c3a9442f",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Manichaean"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

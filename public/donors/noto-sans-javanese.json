@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Javanese",
+  "slug": "noto-sans-javanese",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Javanese"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-javanese",
+      "file": "references/input-fonts/NotoSansJavanese-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "81fdea70d379989bafea65eae5a6a96144991b437415744716a49a56f09f747a",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Javanese"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

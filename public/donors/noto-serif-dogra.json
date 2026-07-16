@@ -1,0 +1,35 @@
+{
+  "family": "Noto Serif Dogra",
+  "slug": "noto-serif-dogra",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Dogra"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-dogra",
+      "file": "references/input-fonts/NotoSerifDogra-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "f2a5287a3b9d0a9a833c80b6c037fc998bc70544ee5f91f0245869013e171ae3",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Dogra"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

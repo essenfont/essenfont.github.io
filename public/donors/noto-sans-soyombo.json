@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Soyombo",
+  "slug": "noto-sans-soyombo",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Soyombo"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-soyombo",
+      "file": "references/input-fonts/NotoSansSoyombo-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "31a5e5997360e6d1d574af04da3eefaeb3db18831df795c145634e517e554e1b",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Soyombo"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

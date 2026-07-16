@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Sundanese",
+  "slug": "noto-sans-sundanese",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sundanese",
+    "Sundanese_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sundanese",
+      "file": "references/input-fonts/NotoSansSundanese-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6cf8ae0d063b8af8ab1bc1b8c7041ac92104e74989dcc1217763723ca6a50c9e",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Sundanese",
+        "Sundanese_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

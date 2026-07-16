@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Cherokee",
+  "slug": "noto-sans-cherokee",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cherokee",
+    "Cherokee_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cherokee",
+      "file": "references/input-fonts/NotoSansCherokee-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c052352137ae8d283840a0e2991a675d47859d8fdbae5726d373d4f0d97a8c87",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Cherokee",
+        "Cherokee_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

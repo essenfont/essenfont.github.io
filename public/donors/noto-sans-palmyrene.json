@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Palmyrene",
+  "slug": "noto-sans-palmyrene",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Palmyrene"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-palmyrene",
+      "file": "references/input-fonts/NotoSansPalmyrene-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8085c705fedb4a01ec4b9044fcf55fa2b389aaf89ac48894f14b538381cfd7b6",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Palmyrene"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

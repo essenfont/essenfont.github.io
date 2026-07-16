@@ -1,0 +1,33 @@
+{
+  "family": "Tulu Tigalari (synthetic)",
+  "slug": "tulu-tigalari",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tulu-Tigalari"
+  ],
+  "files": [
+    {
+      "label": "tulu--tigalari",
+      "file": "references/input-fonts/.generated/svg-donors/Tulu_Tigalari.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "e5b89553cec0f8ec9574f414f334670e29d007ba1db5e8b0b796499c9c58aad7",
+      "url": "",
+      "covers": [
+        "Tulu-Tigalari"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

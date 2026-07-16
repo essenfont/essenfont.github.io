@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Shavian",
+  "slug": "noto-sans-shavian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Shavian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-shavian",
+      "file": "references/input-fonts/NotoSansShavian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "221665b2aff2670a55e4eb573e68bc4ecebf2e64225c1dd6c6f62db2041c3b76",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Shavian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

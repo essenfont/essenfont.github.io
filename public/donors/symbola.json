@@ -1,0 +1,29 @@
+{
+  "family": "Symbola",
+  "slug": "symbola",
+  "license": "OFL",
+  "author": "George Douros",
+  "url": "https://raw.githubusercontent.com/zhm/symbola/master/fonts/Symbola.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [],
+  "files": [
+    {
+      "label": "symbola",
+      "file": "references/input-fonts/Symbola.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6f7b0eca56d1e9fbc57f7e60a52fd3bd761a7953ec31c13d7247e142e310604d",
+      "url": "https://raw.githubusercontent.com/zhm/symbola/master/fonts/Symbola.ttf",
+      "covers": []
+    }
+  ],
+  "source_type": "other",
+  "vendor": "Community",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Indic Siyaq Numbers",
+  "slug": "noto-sans-indic-siyaq-numbers",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Indic_Siyaq_Numbers"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-indic-siyaq-numbers",
+      "file": "references/input-fonts/NotoSansIndicSiyaqNumbers-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "68f41d31c85653a9c45d6d7e903c4329a791aee3a8559c2d19ecc88fa28090ae",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Indic_Siyaq_Numbers"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

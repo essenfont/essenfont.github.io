@@ -1,0 +1,39 @@
+{
+  "family": "Noto Sans Myanmar",
+  "slug": "noto-sans-myanmar",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kayah_Li",
+    "Myanmar",
+    "Myanmar_Extended-A",
+    "Myanmar_Extended-B"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-myanmar",
+      "file": "references/input-fonts/NotoSansMyanmar-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "fafce4db400bc0b214907ccdbfb0ad2f18a57bfefd08c8a571830b84088cf2fc",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Kayah_Li",
+        "Myanmar",
+        "Myanmar_Extended-A",
+        "Myanmar_Extended-B"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

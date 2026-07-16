@@ -1,0 +1,33 @@
+{
+  "family": "Noto Serif Toto",
+  "slug": "noto-serif-toto",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Toto"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-toto",
+      "file": "references/input-fonts/NotoSerifToto-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "882a1aebfc4f1824a413628859bdabb1e3a49ba90c2e023b0dd6bbe550c7332c",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Toto"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

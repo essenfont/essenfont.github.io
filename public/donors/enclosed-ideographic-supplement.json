@@ -1,0 +1,33 @@
+{
+  "family": "Enclosed Ideographic Supplement (synthetic)",
+  "slug": "enclosed-ideographic-supplement",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Enclosed_Ideographic_Supplement"
+  ],
+  "files": [
+    {
+      "label": "enclosed--ideographic-supplement",
+      "file": "references/input-fonts/.generated/svg-donors/Enclosed_Ideographic_Supplement.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "d2105f7008c17d23f7500b22ead3303c34dd9b8bc1c19db2b4917d4ce139c51e",
+      "url": "",
+      "covers": [
+        "Enclosed_Ideographic_Supplement"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

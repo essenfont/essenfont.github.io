@@ -1,0 +1,35 @@
+{
+  "family": "Noto Serif Tibetan",
+  "slug": "noto-serif-tibetan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Miscellaneous_Symbols",
+    "Tibetan"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-tibetan",
+      "file": "references/input-fonts/NotoSerifTibetan-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ee97bf3dc56e813651db734c9f35f8f1d41e7e31acf5f7d893e64ad22b292446",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Miscellaneous_Symbols",
+        "Tibetan"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

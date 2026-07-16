@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Kawi",
+  "slug": "noto-sans-kawi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kawi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kawi",
+      "file": "references/input-fonts/NotoSansKawi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "61da5fcc6d5057814b7a940ec3cbe43cc24c64f8f8cd389965e4454ccc6e7a6a",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Kawi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

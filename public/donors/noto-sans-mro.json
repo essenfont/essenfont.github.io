@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Mro",
+  "slug": "noto-sans-mro",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Mro"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-mro",
+      "file": "references/input-fonts/NotoSansMro-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "2ab2149be222d9671ab2edcbe8736381e2d1550662a368b5087fd9e196bc69b4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Mro"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

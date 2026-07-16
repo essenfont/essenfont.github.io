@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Lydian",
+  "slug": "noto-sans-lydian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Lydian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lydian",
+      "file": "references/input-fonts/NotoSansLydian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6dbc48fbf04ae04021c78273492dbab284eb8ffc2cd12fd3d0b61813b123162b",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Lydian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Syriac",
+  "slug": "noto-sans-syriac",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Miscellaneous_Symbols",
+    "Syriac"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-syriac",
+      "file": "references/input-fonts/NotoSansSyriac-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4440929bf1a47bb50179e8d8495641d208c63d607355e451f29ea2d3e5343290",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Miscellaneous_Symbols",
+        "Syriac"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

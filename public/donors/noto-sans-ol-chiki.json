@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Ol Chiki",
+  "slug": "noto-sans-ol-chiki",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ol_Chiki"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-ol-chiki",
+      "file": "references/input-fonts/NotoSansOlChiki-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4b1ad6ec4a30277c75fd66465b0b9ae489e19f8fdf44ef3179b6fda7f5ceb32d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Ol_Chiki"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

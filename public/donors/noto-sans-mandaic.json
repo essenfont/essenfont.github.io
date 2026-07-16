@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Mandaic",
+  "slug": "noto-sans-mandaic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Mandaic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-mandaic",
+      "file": "references/input-fonts/NotoSansMandaic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0ecb2440205b9fe02fce714ddda98bb59892d4f7eacce2c1f12028b172a34de8",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Mandaic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

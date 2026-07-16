@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Samaritan",
+  "slug": "noto-sans-samaritan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Samaritan"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-samaritan",
+      "file": "references/input-fonts/NotoSansSamaritan-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "430aa9e70b6c500c4267e9ecc5165d15bfefc761d86650101deeb7e07260d5ed",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Samaritan"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

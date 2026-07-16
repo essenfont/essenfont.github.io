@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans Ethiopic",
+  "slug": "noto-sans-ethiopic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ethiopic",
+    "Ethiopic_Extended",
+    "Ethiopic_Extended-A",
+    "Ethiopic_Extended-B",
+    "Ethiopic_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-ethiopic",
+      "file": "references/input-fonts/NotoSansEthiopic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "f6f7fc379db9438959a2b0527e7a2cf36ea9c84626d56ec444fff37fc24c3c10",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Ethiopic",
+        "Ethiopic_Extended",
+        "Ethiopic_Extended-A",
+        "Ethiopic_Extended-B",
+        "Ethiopic_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

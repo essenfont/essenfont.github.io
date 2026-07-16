@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Tai Viet",
+  "slug": "noto-sans-tai-viet",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tai_Viet"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tai-viet",
+      "file": "references/input-fonts/NotoSansTaiViet-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "5f7e2a8d5cca567620d101534fc34b432e1577ff01f3f1752750050c90b1ca7f",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Tai_Viet"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

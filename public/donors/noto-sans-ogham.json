@@ -1,0 +1,43 @@
+{
+  "family": "Noto Sans Ogham",
+  "slug": "noto-sans-ogham",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Ogham",
+    "Spacing_Modifier_Letters"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-ogham",
+      "file": "references/input-fonts/NotoSansOgham-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "5eb96352a785e07b1ace661f9af438509eb7b8b60096801f3ee25cd81f134a0d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Ogham",
+        "Spacing_Modifier_Letters"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

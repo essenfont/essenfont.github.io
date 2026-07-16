@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Cuneiform",
+  "slug": "noto-sans-cuneiform",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansCuneiform",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cuneiform",
+    "Cuneiform_Numbers_and_Punctuation",
+    "Early_Dynastic_Cuneiform"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cuneiform",
+      "file": "references/input-fonts/NotoSansCuneiform-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "aad6f345a2f3150aeb51706ecf1d6f62eec299ee215cb77e76f0c33e1419bba2",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansCuneiform",
+      "covers": [
+        "Cuneiform",
+        "Cuneiform_Numbers_and_Punctuation",
+        "Early_Dynastic_Cuneiform"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,43 @@
+{
+  "family": "Noto Sans Duployan",
+  "slug": "noto-sans-duployan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Combining_Diacritical_Marks_for_Symbols",
+    "Dingbats",
+    "Duployan",
+    "Miscellaneous_Symbols",
+    "Miscellaneous_Technical",
+    "Shorthand_Format_Controls"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-duployan",
+      "file": "references/input-fonts/NotoSansDuployan-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "de5ee49ff75acd2195bdb3296577d7527636520a245e9392a40bdb7ee86cdd7b",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Combining_Diacritical_Marks_for_Symbols",
+        "Dingbats",
+        "Duployan",
+        "Miscellaneous_Symbols",
+        "Miscellaneous_Technical",
+        "Shorthand_Format_Controls"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,43 @@
+{
+  "family": "Noto Sans Coptic",
+  "slug": "noto-sans-coptic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Combining_Diacritical_Marks_Supplement",
+    "Coptic",
+    "Coptic_Epact_Numbers",
+    "Greek_and_Coptic",
+    "Spacing_Modifier_Letters"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-coptic",
+      "file": "references/input-fonts/NotoSansCoptic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "e70bd535d7e6cdf2346eab36ea76441059b18ee14d3243e85240b5e65eb0ad45",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Combining_Diacritical_Marks_Supplement",
+        "Coptic",
+        "Coptic_Epact_Numbers",
+        "Greek_and_Coptic",
+        "Spacing_Modifier_Letters"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

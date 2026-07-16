@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old Italic",
+  "slug": "noto-sans-old-italic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Italic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-italic",
+      "file": "references/input-fonts/NotoSansOldItalic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0425fab4a73acba40abc825f56e278fb1d3e721132cf302bb746b3d493706906",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Old_Italic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Oriya",
+  "slug": "noto-sans-oriya",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Oriya"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-oriya",
+      "file": "references/input-fonts/NotoSansOriya-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "a16645d056017927406546aa78e4ce15e782fd8783467267b75450453d007415",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Oriya"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,37 @@
+{
+  "family": "Noto Serif Old Uyghur",
+  "slug": "noto-serif-old-uyghur",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Manichaean",
+    "Old_Uyghur"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-old-uyghur",
+      "file": "references/input-fonts/NotoSerifOldUyghur-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c38515e1174b069b5ddf4d4b1a813b44a6bb697bc380a174931024984efece31",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Manichaean",
+        "Old_Uyghur"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

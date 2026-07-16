@@ -1,0 +1,43 @@
+{
+  "family": "Noto Sans Tifinagh",
+  "slug": "noto-sans-tifinagh",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters",
+    "Tifinagh"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tifinagh",
+      "file": "references/input-fonts/NotoSansTifinagh-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "27ac1790abeb4cfbb3ecd4906860629130a00a31508c1697dd333e8a99bfbc86",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters",
+        "Tifinagh"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Gunjala Gondi",
+  "slug": "noto-sans-gunjala-gondi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Gunjala_Gondi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-gunjala-gondi",
+      "file": "references/input-fonts/NotoSansGunjalaGondi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "bdc8ed1739118d7c1be43cb5b435817fb7a5ae0acb32c89b2ddd66e7e9c2d1b3",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Gunjala_Gondi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

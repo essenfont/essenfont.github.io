@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Cypriot",
+  "slug": "noto-sans-cypriot",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cypriot_Syllabary"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cypriot",
+      "file": "references/input-fonts/NotoSansCypriot-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0b276172afb0624c811c62daf4b8fb6ce3fa018fef94cbae59f4bbbae367988e",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Cypriot_Syllabary"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

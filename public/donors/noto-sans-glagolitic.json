@@ -1,0 +1,39 @@
+{
+  "family": "Noto Sans Glagolitic",
+  "slug": "noto-sans-glagolitic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cyrillic",
+    "Cyrillic_Extended-B",
+    "Glagolitic",
+    "Glagolitic_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-glagolitic",
+      "file": "references/input-fonts/NotoSansGlagolitic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "bb00b6d9cacbab378ef11b1f83250495cd7b6503d143c75d90b1efafa76c691e",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Cyrillic",
+        "Cyrillic_Extended-B",
+        "Glagolitic",
+        "Glagolitic_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

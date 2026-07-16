@@ -1,0 +1,33 @@
+{
+  "family": "Noto Emoji",
+  "slug": "noto-emoji",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.gstatic.com/s/notoemoji/v62/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob-r0jwv.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Emoticons"
+  ],
+  "files": [
+    {
+      "label": "noto-emoji",
+      "file": "references/input-fonts/NotoEmoji-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3c4aea565060fa91575a851e2718a5b14b9fe8856ead696b374c5a7e672179cb",
+      "url": "https://fonts.gstatic.com/s/notoemoji/v62/bMrnmSyK7YY-MEu6aWjPDs-ar6uWaGWuob-r0jwv.ttf",
+      "covers": [
+        "Emoticons"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

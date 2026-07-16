@@ -1,0 +1,45 @@
+{
+  "family": "Noto Sans Limbu",
+  "slug": "noto-sans-limbu",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Limbu",
+    "Spacing_Modifier_Letters"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-limbu",
+      "file": "references/input-fonts/NotoSansLimbu-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "a04b2cc6751e3232bc1ca569b43d46638073bfec731026554baaebc55c340dc1",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Limbu",
+        "Spacing_Modifier_Letters"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

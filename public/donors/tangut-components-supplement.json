@@ -1,0 +1,33 @@
+{
+  "family": "Tangut Components Supplement (synthetic)",
+  "slug": "tangut-components-supplement",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tangut_Components_Supplement"
+  ],
+  "files": [
+    {
+      "label": "tangut--components--supplement",
+      "file": "references/input-fonts/.generated/svg-donors/Tangut_Components_Supplement.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "caed6fe77a78922944d7799fc83eb0cf28959ac217c1bb72e67e0eefc2fbc8d2",
+      "url": "",
+      "covers": [
+        "Tangut_Components_Supplement"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

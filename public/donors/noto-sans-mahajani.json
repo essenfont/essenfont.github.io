@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Mahajani",
+  "slug": "noto-sans-mahajani",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Mahajani"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-mahajani",
+      "file": "references/input-fonts/NotoSansMahajani-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "82116df1a82007b3a3692b9ab52683ccdc134d37d88b1e38921b07541b5afe08",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Mahajani"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

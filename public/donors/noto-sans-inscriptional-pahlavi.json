@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Inscriptional Pahlavi",
+  "slug": "noto-sans-inscriptional-pahlavi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Inscriptional_Pahlavi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-inscriptional-pahlavi",
+      "file": "references/input-fonts/NotoSansInscriptionalPahlavi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "1776a4a688e99a5c9720058e798fb82775b5763d57553f8912ef0fed3433ccbc",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Inscriptional_Pahlavi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

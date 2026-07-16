@@ -1,0 +1,33 @@
+{
+  "family": "Nyiakeng Puachue Hmong (synthetic)",
+  "slug": "nyiakeng-puachue-hmong",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Nyiakeng_Puachue_Hmong"
+  ],
+  "files": [
+    {
+      "label": "nyiakeng--puachue--hmong",
+      "file": "references/input-fonts/.generated/svg-donors/Nyiakeng_Puachue_Hmong.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "60becf7779097ca5c6131292be20dab6616552f3381879121b36ce485eb46ff6",
+      "url": "",
+      "covers": [
+        "Nyiakeng_Puachue_Hmong"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

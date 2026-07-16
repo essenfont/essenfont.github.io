@@ -1,0 +1,51 @@
+{
+  "family": "Noto Sans Yi",
+  "slug": "noto-sans-yi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Symbols_and_Punctuation",
+    "Halfwidth_and_Fullwidth_Forms",
+    "Katakana",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters",
+    "Yi_Radicals",
+    "Yi_Syllables"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-yi",
+      "file": "references/input-fonts/NotoSansYi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "d0d9832de7aaecec0bb6853d037849e3b1235a9edfba464e3d0afbadd6f5aa1b",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "CJK_Symbols_and_Punctuation",
+        "Halfwidth_and_Fullwidth_Forms",
+        "Katakana",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters",
+        "Yi_Radicals",
+        "Yi_Syllables"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

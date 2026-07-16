@@ -1,0 +1,33 @@
+{
+  "family": "Noto Znamenny Musical Notation",
+  "slug": "noto-znamenny-musical-notation",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Znamenny_Musical_Notation"
+  ],
+  "files": [
+    {
+      "label": "noto-znamenny-musical-notation",
+      "file": "references/input-fonts/NotoZnamennyMusicalNotation-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b6ed2a11d2a653e14137a35e4c6fdaf5093434ac12964791ee195270828e7508",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Znamenny_Musical_Notation"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

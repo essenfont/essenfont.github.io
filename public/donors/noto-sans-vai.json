@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Vai",
+  "slug": "noto-sans-vai",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Vai"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-vai",
+      "file": "references/input-fonts/NotoSansVai-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3b454157b5fc64cc21fb9c76cc86390997b1540499906179a1d1375e59d1bf33",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Vai"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

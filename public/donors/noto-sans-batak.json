@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Batak",
+  "slug": "noto-sans-batak",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Batak"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-batak",
+      "file": "references/input-fonts/NotoSansBatak-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "fff67846a9b39bae335b3f5b8331203ffbd4ad9f5f9f3f0b57e8f48627825c12",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Batak"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}
