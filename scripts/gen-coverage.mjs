@@ -17,13 +17,25 @@ const ROOT = path.resolve(__dirname, '..');
 const PUBLIC = path.join(ROOT, 'public');
 
 // Step 1: Extract cmaps from all per-block WOFF2 files using fonttools.
-console.log('Extracting cmaps from WOFF2 subsets...');
+// Falls back to existing coverage.json when fonttools isn't available (CI).
 const scriptPath = path.join(__dirname, 'count-woff2-cmap.py');
-const woff2Cmaps = JSON.parse(execSync(`python3 ${scriptPath}`, {
-  encoding: 'utf-8',
-  maxBuffer: 100 * 1024 * 1024,
-}));
-console.log(`  ${Object.keys(woff2Cmaps).length} WOFF2 files processed`);
+let woff2Cmaps;
+try {
+  console.log('Extracting cmaps from WOFF2 subsets...');
+  woff2Cmaps = JSON.parse(execSync(`python3 ${scriptPath}`, {
+    encoding: 'utf-8',
+    maxBuffer: 100 * 1024 * 1024,
+  }));
+  console.log(`  ${Object.keys(woff2Cmaps).length} WOFF2 files processed`);
+} catch (e) {
+  const coveragePath = path.join(PUBLIC, 'coverage.json');
+  if (fs.existsSync(coveragePath)) {
+    console.warn('Warning: fonttools not available — keeping existing coverage.json.');
+    process.exit(0);
+  }
+  console.error('fonttools not available and no existing coverage.json to fall back on.');
+  process.exit(1);
+}
 
 // Build a global set of covered codepoints
 const coveredCPs = new Set();
