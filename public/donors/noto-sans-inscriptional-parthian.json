@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Inscriptional Parthian",
+  "slug": "noto-sans-inscriptional-parthian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Inscriptional_Parthian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-inscriptional-parthian",
+      "file": "references/input-fonts/NotoSansInscriptionalParthian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "70c2c24e5442cf4ae70af6b8274fccedc4807317fa7c3cf78272349c35bfb506",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Inscriptional_Parthian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

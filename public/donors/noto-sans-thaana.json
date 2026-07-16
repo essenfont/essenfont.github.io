@@ -1,0 +1,47 @@
+{
+  "family": "Noto Sans Thaana",
+  "slug": "noto-sans-thaana",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Arabic_Presentation_Forms-A",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters",
+    "Thaana"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-thaana",
+      "file": "references/input-fonts/NotoSansThaana-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b5f97386b90ecca2f655507014cb5a233a371d704966d4ee8233f416d97ab2ee",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Arabic_Presentation_Forms-A",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters",
+        "Thaana"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

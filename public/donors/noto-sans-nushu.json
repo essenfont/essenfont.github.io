@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Nushu",
+  "slug": "noto-sans-nushu",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ideographic_Symbols_and_Punctuation",
+    "Nushu"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nushu",
+      "file": "references/input-fonts/NotoSansNushu-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "12f749af9fdd185ac807d325499f7c9e04896c4f8ee7ca3c96e96ed8c130b181",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Ideographic_Symbols_and_Punctuation",
+        "Nushu"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

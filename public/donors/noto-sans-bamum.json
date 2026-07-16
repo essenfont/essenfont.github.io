@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Bamum",
+  "slug": "noto-sans-bamum",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bamum",
+    "Bamum_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-bamum",
+      "file": "references/input-fonts/NotoSansBamum-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0282610e6923d06a4d120cff3824e829b4535a8c4c57c07e11dbe73475541084",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bamum",
+        "Bamum_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Marchen",
+  "slug": "noto-sans-marchen",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Marchen"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-marchen",
+      "file": "references/input-fonts/NotoSansMarchen-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "fb40b1294e8f7f4e93f9276b2c3d2972a2643511394eb3db806e0e257b62b893",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Marchen"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

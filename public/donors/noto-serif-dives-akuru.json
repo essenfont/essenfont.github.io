@@ -1,0 +1,33 @@
+{
+  "family": "Noto Serif Dives Akuru",
+  "slug": "noto-serif-dives-akuru",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Dives_Akuru"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-dives-akuru",
+      "file": "references/input-fonts/NotoSerifDivesAkuru-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "330cbe918a0cf52cc3e1eaa27114a077466d680af7819867b85cb27b64a2b07d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Dives_Akuru"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

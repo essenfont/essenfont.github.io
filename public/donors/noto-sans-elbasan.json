@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Elbasan",
+  "slug": "noto-sans-elbasan",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Elbasan"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-elbasan",
+      "file": "references/input-fonts/NotoSansElbasan-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "1d1909ba2b79be2dc01b10fb1dcc9d3db6ca399158c08b490bce829865b4e8fa",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Elbasan"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

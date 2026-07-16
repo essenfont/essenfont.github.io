@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Tamil Supplement",
+  "slug": "noto-sans-tamil-supplement",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tamil_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tamil-supplement",
+      "file": "references/input-fonts/NotoSansTamilSupplement-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "bf332a302459232a2106fbdb72bab4fb096d164dd124c22bb990c67b90efc348",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Tamil_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Meroitic",
+  "slug": "noto-sans-meroitic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Meroitic_Cursive",
+    "Meroitic_Hieroglyphs"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-meroitic",
+      "file": "references/input-fonts/NotoSansMeroitic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "2baf503fa5c041fd025493de311e45b8680c9f0bb471a8a2418aa4e47a4b7edb",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Meroitic_Cursive",
+        "Meroitic_Hieroglyphs"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

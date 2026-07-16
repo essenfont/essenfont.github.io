@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Pau Cin Hau",
+  "slug": "noto-sans-pau-cin-hau",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Pau_Cin_Hau"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-pau-cin-hau",
+      "file": "references/input-fonts/NotoSansPauCinHau-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "e4b6eb939a0033f8b5d0fa0bd7141ff8a30533b86b1594bbbdf9b26f5e0f8b44",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Pau_Cin_Hau"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

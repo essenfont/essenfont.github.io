@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old North Arabian",
+  "slug": "noto-sans-old-north-arabian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_North_Arabian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-north-arabian",
+      "file": "references/input-fonts/NotoSansOldNorthArabian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "533c06d36744a09dc1df0c7bc4f3022a839cedc354446dca203fe0895317ea3d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Old_North_Arabian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

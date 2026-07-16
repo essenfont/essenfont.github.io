@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Osmanya",
+  "slug": "noto-sans-osmanya",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Osmanya"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-osmanya",
+      "file": "references/input-fonts/NotoSansOsmanya-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b4bf50e1eb8078ffbdb570983811e9c3d558ecbebee9419a4c5056d8ca778d2e",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Osmanya"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

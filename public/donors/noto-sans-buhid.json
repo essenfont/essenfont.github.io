@@ -1,0 +1,45 @@
+{
+  "family": "Noto Sans Buhid",
+  "slug": "noto-sans-buhid",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Buhid",
+    "Hanunoo",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-buhid",
+      "file": "references/input-fonts/NotoSansBuhid-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "64318068a7a6a903b1b9ca6423e88b75a3b629abc0ea5d106c0c1c9257b1cee4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Buhid",
+        "Hanunoo",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

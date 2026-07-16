@@ -1,0 +1,33 @@
+{
+  "family": "Kirat Rai (synthetic)",
+  "slug": "kirat-rai",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kirat_Rai"
+  ],
+  "files": [
+    {
+      "label": "kirat--rai",
+      "file": "references/input-fonts/.generated/svg-donors/Kirat_Rai.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8ca235e14b39b9e6c5c850b16dfd11cd0037b2e2d8d64eb1de3555f60d005fac",
+      "url": "",
+      "covers": [
+        "Kirat_Rai"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

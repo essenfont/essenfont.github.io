@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Anatolian Hieroglyphs",
+  "slug": "noto-sans-anatolian-hieroglyphs",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Anatolian_Hieroglyphs"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-anatolian-hieroglyphs",
+      "file": "references/input-fonts/NotoSansAnatolianHieroglyphs-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c7ca66d66264d27f9995a061d4045b4e4a25ea1958acae0f414d0e22992a3546",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Anatolian_Hieroglyphs"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

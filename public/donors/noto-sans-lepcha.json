@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Lepcha",
+  "slug": "noto-sans-lepcha",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Lepcha"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lepcha",
+      "file": "references/input-fonts/NotoSansLepcha-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8dad9629d709f0dba5d769988d1466daf300751f6bba2659465aaa6214261590",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Lepcha"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Sharada Supplement (synthetic)",
+  "slug": "sharada-supplement",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sharada_Supplement"
+  ],
+  "files": [
+    {
+      "label": "sharada--supplement",
+      "file": "references/input-fonts/.generated/svg-donors/Sharada_Supplement.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c26740bce4ceb7f8cd3d3240cc5941c3f6cd08f88c2cbd6b4fc46efa84818a17",
+      "url": "",
+      "covers": [
+        "Sharada_Supplement"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

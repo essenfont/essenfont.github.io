@@ -1,0 +1,47 @@
+{
+  "family": "Noto Sans Lisu",
+  "slug": "noto-sans-lisu",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Symbols_and_Punctuation",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Lisu",
+    "Lisu_Supplement",
+    "Spacing_Modifier_Letters"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lisu",
+      "file": "references/input-fonts/NotoSansLisu-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "f3ce8f9d6361ee0892ff95ace9262e7ed9ed161441101f4f1420bc9a68ee9d82",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "CJK_Symbols_and_Punctuation",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Lisu",
+        "Lisu_Supplement",
+        "Spacing_Modifier_Letters"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

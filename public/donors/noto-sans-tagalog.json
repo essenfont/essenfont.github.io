@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Tagalog",
+  "slug": "noto-sans-tagalog",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Hanunoo",
+    "Tagalog"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tagalog",
+      "file": "references/input-fonts/NotoSansTagalog-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8fdf54f14d3869e5bfabb7c552e32ac39a2f7609cc6e857a2e8480da2ad9031f",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Hanunoo",
+        "Tagalog"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

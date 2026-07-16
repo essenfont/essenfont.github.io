@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Kaithi",
+  "slug": "noto-sans-kaithi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Kaithi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kaithi",
+      "file": "references/input-fonts/NotoSansKaithi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ba33fd78d18df942260c53df4080254901aa7c3b69678c7571d680bf063a5e2d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Kaithi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

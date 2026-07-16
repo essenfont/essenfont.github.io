@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old Turkic",
+  "slug": "noto-sans-old-turkic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Turkic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-turkic",
+      "file": "references/input-fonts/NotoSansOldTurkic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "2bdea6041ab232cb5d88e719dac536d387b0830b690c83d4a501d06265d89d84",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Old_Turkic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

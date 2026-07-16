@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Ugaritic",
+  "slug": "noto-sans-ugaritic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansUgaritic",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ugaritic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-ugaritic",
+      "file": "references/input-fonts/NotoSansUgaritic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "cd372bfa7aaa1d008786ee8097a1e7c47ae8e5c2e23c5dd3343568409c5a7e5c",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansUgaritic",
+      "covers": [
+        "Ugaritic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

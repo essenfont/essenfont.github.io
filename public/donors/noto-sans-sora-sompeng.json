@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Sora Sompeng",
+  "slug": "noto-sans-sora-sompeng",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Sora_Sompeng"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sora-sompeng",
+      "file": "references/input-fonts/NotoSansSoraSompeng-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3499f8e787031f75771e481a53ca41f6c0b65dbdf149dac3cb319c29c53c28c2",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Sora_Sompeng"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans Tirhuta",
+  "slug": "noto-sans-tirhuta",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bengali",
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Tirhuta",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tirhuta",
+      "file": "references/input-fonts/NotoSansTirhuta-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "f7a0d9fa2557ebebbacdc8888556e217c298eb049db6ff6dc210e916a1d9e860",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bengali",
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Tirhuta",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

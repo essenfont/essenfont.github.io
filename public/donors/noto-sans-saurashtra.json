@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Saurashtra",
+  "slug": "noto-sans-saurashtra",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Saurashtra"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-saurashtra",
+      "file": "references/input-fonts/NotoSansSaurashtra-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8ebdec75287c63310a1aff3660d0fa5b3dd027606c17f69217a5a5a5142f6e63",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Saurashtra"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

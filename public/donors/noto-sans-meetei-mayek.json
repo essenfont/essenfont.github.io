@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Meetei Mayek",
+  "slug": "noto-sans-meetei-mayek",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Meetei_Mayek",
+    "Meetei_Mayek_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-meetei-mayek",
+      "file": "references/input-fonts/NotoSansMeeteiMayek-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "66dd434ad6211990d95ba598ad8e44dee30fb32556cb2310bc7f246e00c40990",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Meetei_Mayek",
+        "Meetei_Mayek_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Multani",
+  "slug": "noto-sans-multani",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Gurmukhi",
+    "Multani"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-multani",
+      "file": "references/input-fonts/NotoSansMultani-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "12c2437f98173dbff98fa18bcc73c6a44896634fb6d55d8f6d028394af4fc9b9",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Gurmukhi",
+        "Multani"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

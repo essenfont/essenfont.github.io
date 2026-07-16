@@ -1,0 +1,33 @@
+{
+  "family": "Khitan Small Script (synthetic)",
+  "slug": "khitan-small-script",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Khitan_Small_Script"
+  ],
+  "files": [
+    {
+      "label": "khitan--small--script",
+      "file": "references/input-fonts/.generated/svg-donors/Khitan_Small_Script.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "f662e532b19a258d94fd7bd814d7ca8847d29fa7f53ebe21f576daabdec9002c",
+      "url": "",
+      "covers": [
+        "Khitan_Small_Script"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

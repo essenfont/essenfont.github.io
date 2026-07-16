@@ -1,0 +1,29 @@
+{
+  "family": "NewGardiner",
+  "slug": "new-gardiner",
+  "license": "OFL",
+  "author": "Mark Jan Nederhof",
+  "url": "https://github.com/nederhof/newgardiner/raw/refs/heads/main/fonts/NewGardiner.ttf",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [],
+  "files": [
+    {
+      "label": "new-gardiner",
+      "file": "references/input-fonts/NewGardiner.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3dac59756a78811652c4e1fd1809acd1f0fe03be0221bc2083a9a635189035d3",
+      "url": "https://github.com/nederhof/newgardiner/raw/refs/heads/main/fonts/NewGardiner.ttf",
+      "covers": []
+    }
+  ],
+  "source_type": "other",
+  "vendor": "Community",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

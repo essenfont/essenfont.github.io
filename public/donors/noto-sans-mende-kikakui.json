@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Mende Kikakui",
+  "slug": "noto-sans-mende-kikakui",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Mende_Kikakui"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-mende-kikakui",
+      "file": "references/input-fonts/NotoSansMendeKikakui-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "89496328e57ae33930d147127caf57edb3f23defa835f73ac3f0b1856e16a073",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Mende_Kikakui"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

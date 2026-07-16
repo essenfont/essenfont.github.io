@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Bassa Vah",
+  "slug": "noto-sans-bassa-vah",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bassa_Vah"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-bassa-vah",
+      "file": "references/input-fonts/NotoSansBassaVah-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8218239377452e05634a91ee8a4338daf0aa96a15673a437533a098eb9c06f53",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bassa_Vah"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

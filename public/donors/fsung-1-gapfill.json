@@ -1,0 +1,63 @@
+{
+  "family": "FSung (rare script gapfill)",
+  "slug": "fsung-1-gapfill",
+  "license": "FSung-NC",
+  "author": "F.G. Wang",
+  "url": "https://fgwang.blogspot.com/",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ancient_Greek_Musical_Notation",
+    "Ancient_Greek_Numbers",
+    "Ancient_Symbols",
+    "Arabic_Mathematical_Alphabetic_Symbols",
+    "Byzantine_Musical_Symbols",
+    "Counting_Rod_Numerals",
+    "Domino_Tiles",
+    "Geometric_Shapes_Extended",
+    "Kana_Supplement",
+    "Mahjong_Tiles",
+    "Ornamental_Dingbats",
+    "Phaistos_Disc",
+    "Playing_Cards",
+    "Rumi_Numeral_Symbols",
+    "Supplemental_Arrows-C",
+    "Tai_Xuan_Jing_Symbols"
+  ],
+  "files": [
+    {
+      "label": "fsung-1-gapfill",
+      "file": "references/input-fonts/FSung-1.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b7447da6263246511751b7ecbe7e12ab8831810af7fc5526b381ec9f9b38e262",
+      "url": "https://fgwang.blogspot.com/",
+      "covers": [
+        "Ancient_Greek_Musical_Notation",
+        "Ancient_Greek_Numbers",
+        "Ancient_Symbols",
+        "Arabic_Mathematical_Alphabetic_Symbols",
+        "Byzantine_Musical_Symbols",
+        "Counting_Rod_Numerals",
+        "Domino_Tiles",
+        "Geometric_Shapes_Extended",
+        "Kana_Supplement",
+        "Mahjong_Tiles",
+        "Ornamental_Dingbats",
+        "Phaistos_Disc",
+        "Playing_Cards",
+        "Rumi_Numeral_Symbols",
+        "Supplemental_Arrows-C",
+        "Tai_Xuan_Jing_Symbols"
+      ]
+    }
+  ],
+  "source_type": "fsung",
+  "vendor": "F.G. Wang",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

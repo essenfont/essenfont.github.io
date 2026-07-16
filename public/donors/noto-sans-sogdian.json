@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Sogdian",
+  "slug": "noto-sans-sogdian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Sogdian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-sogdian",
+      "file": "references/input-fonts/NotoSansSogdian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "5941add28bf1ecd63ad663cd2116948ee11d48687cd196c20eeeb0913267a026",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Sogdian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

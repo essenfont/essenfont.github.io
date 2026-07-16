@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Kharoshthi",
+  "slug": "noto-sans-kharoshthi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kharoshthi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kharoshthi",
+      "file": "references/input-fonts/NotoSansKharoshthi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "65962c55e28808d8677810f4afe9f3d7af57508a19632628376a34bb3ecfe0fb",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Kharoshthi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

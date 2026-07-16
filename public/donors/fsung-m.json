@@ -1,0 +1,41 @@
+{
+  "family": "Full-Sung",
+  "slug": "fsung-m",
+  "license": "FSung-NC",
+  "author": "F.G. Wang (fgwang.blogspot.com) — initial style + sources from Taiwan MOE 教育部",
+  "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Unified_Ideographs",
+    "CJK_Symbols_and_Punctuation",
+    "CJK_Radicals_Supplement",
+    "CJK_Strokes",
+    "Enclosed_CJK_Letters_and_Months"
+  ],
+  "files": [
+    {
+      "label": "fsung-m",
+      "file": "references/input-fonts/FSung-m.ttf",
+      "style": "Regular",
+      "version": "1.0",
+      "sha256": "17f432a2cc07e38d9cea266c9cdb370c9021e7ca211e39801216daf1e355a271",
+      "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+      "covers": [
+        "CJK_Unified_Ideographs",
+        "CJK_Symbols_and_Punctuation",
+        "CJK_Radicals_Supplement",
+        "CJK_Strokes",
+        "Enclosed_CJK_Letters_and_Months"
+      ]
+    }
+  ],
+  "source_type": "fsung",
+  "vendor": "F.G. Wang",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

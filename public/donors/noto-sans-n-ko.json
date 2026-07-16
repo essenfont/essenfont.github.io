@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans N Ko",
+  "slug": "noto-sans-n-ko",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Arabic_Presentation_Forms-A",
+    "NKo"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-n-ko",
+      "file": "references/input-fonts/NotoSansNKo-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c756efb2c40f754107d76fa4e401fc3b8b7edec5cc65db549d3d0236ac6d08a1",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Arabic_Presentation_Forms-A",
+        "NKo"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Serif Yezidi",
+  "slug": "noto-serif-yezidi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Yezidi"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-yezidi",
+      "file": "references/input-fonts/NotoSerifYezidi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "fb30c28d72e2dd2468a848a2cb282b2781c9ae9b84a9e2e070673edcc4438f7d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Yezidi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

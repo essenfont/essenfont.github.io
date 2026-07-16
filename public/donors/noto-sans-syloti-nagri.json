@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Syloti Nagri",
+  "slug": "noto-sans-syloti-nagri",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bengali",
+    "Devanagari",
+    "Syloti_Nagri"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-syloti-nagri",
+      "file": "references/input-fonts/NotoSansSylotiNagri-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "b3bb806a5fe533e550a27b51b28961cb09522f2a700c2c858169d9c8ed6573c4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bengali",
+        "Devanagari",
+        "Syloti_Nagri"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

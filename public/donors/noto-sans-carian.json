@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Carian",
+  "slug": "noto-sans-carian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Carian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-carian",
+      "file": "references/input-fonts/NotoSansCarian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0c5ddc0892b44ae1c40fd0734eb2be5b8b73e178f16a475cf1bbb9b5d97d6f1b",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Carian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

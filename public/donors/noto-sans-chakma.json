@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Chakma",
+  "slug": "noto-sans-chakma",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Bengali",
+    "Chakma",
+    "Myanmar"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-chakma",
+      "file": "references/input-fonts/NotoSansChakma-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "60ce1d029e35b432dd68cc9f6c94f69bd84d8c97f28f06130186606dd2c3325d",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Bengali",
+        "Chakma",
+        "Myanmar"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

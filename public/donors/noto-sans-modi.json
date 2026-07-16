@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Modi",
+  "slug": "noto-sans-modi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansModi",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Modi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-modi",
+      "file": "references/input-fonts/NotoSansModi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "7bebf7f16e7f98695e1003adaa3b1438ef977803aa166fa7d5e6b18c9dfa69b8",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansModi",
+      "covers": [
+        "Modi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

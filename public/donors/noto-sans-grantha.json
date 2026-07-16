@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans Grantha",
+  "slug": "noto-sans-grantha",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Combining_Diacritical_Marks_for_Symbols",
+    "Devanagari",
+    "Grantha",
+    "Tamil",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-grantha",
+      "file": "references/input-fonts/NotoSansGrantha-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "41dd39f2f16e9539751c732f8d276079b98277bec2ea5945232a7ac594198000",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Combining_Diacritical_Marks_for_Symbols",
+        "Devanagari",
+        "Grantha",
+        "Tamil",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

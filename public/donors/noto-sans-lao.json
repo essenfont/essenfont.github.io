@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Lao",
+  "slug": "noto-sans-lao",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Lao"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-lao",
+      "file": "references/input-fonts/NotoSansLao-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "0a86e5e1ccfe34ca78c43fac6829dc751b42bcc469272a9a55325aae587bfbe7",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Lao"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

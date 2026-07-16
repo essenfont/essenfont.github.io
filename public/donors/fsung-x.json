@@ -1,0 +1,29 @@
+{
+  "family": "Full-Sung",
+  "slug": "fsung-x",
+  "license": "FSung-NC",
+  "author": "F.G. Wang (fgwang.blogspot.com) — initial style + sources from Taiwan MOE 教育部",
+  "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [],
+  "files": [
+    {
+      "label": "fsung-x",
+      "file": "references/input-fonts/FSung-X.ttf",
+      "style": "Regular",
+      "version": "1.0",
+      "sha256": "5617c1d5c1f249dae88afc06b7db3eda8eef064ae8b6207992ff8413303521f9",
+      "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+      "covers": []
+    }
+  ],
+  "source_type": "fsung",
+  "vendor": "F.G. Wang",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

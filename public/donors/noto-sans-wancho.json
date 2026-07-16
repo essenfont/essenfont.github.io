@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Wancho",
+  "slug": "noto-sans-wancho",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Wancho"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-wancho",
+      "file": "references/input-fonts/NotoSansWancho-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "fb2e48d59128cdea1cee0ba24373bd5ff085a72cf98e53bc1674770c8ac67d9a",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Wancho"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,45 @@
+{
+  "family": "Noto Sans Tagbanwa",
+  "slug": "noto-sans-tagbanwa",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Hanunoo",
+    "Latin_Extended-A",
+    "Latin_Extended-B",
+    "Latin_Extended_Additional",
+    "Letterlike_Symbols",
+    "Spacing_Modifier_Letters",
+    "Tagbanwa"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tagbanwa",
+      "file": "references/input-fonts/NotoSansTagbanwa-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "bdaf5dd85ec5b23eb811c9648a6c0a80fee42678da930b5e4548349d826bb1c4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Hanunoo",
+        "Latin_Extended-A",
+        "Latin_Extended-B",
+        "Latin_Extended_Additional",
+        "Letterlike_Symbols",
+        "Spacing_Modifier_Letters",
+        "Tagbanwa"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Serif Ahom",
+  "slug": "noto-serif-ahom",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ahom"
+  ],
+  "files": [
+    {
+      "label": "noto-serif-ahom",
+      "file": "references/input-fonts/NotoSerifAhom-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8153650d7fc1362a40b6cb355291e1d2718d82835790cd542a2521cba53c8fd4",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Ahom"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

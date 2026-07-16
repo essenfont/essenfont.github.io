@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Tangsa",
+  "slug": "noto-sans-tangsa",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Tangsa"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-tangsa",
+      "file": "references/input-fonts/NotoSansTangsa-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "38d92ec4dbba7a23966c2de72736224f94d02e5fb2b4d839344e732cdf3a4cad",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Tangsa"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

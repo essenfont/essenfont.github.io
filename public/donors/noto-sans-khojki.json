@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Khojki",
+  "slug": "noto-sans-khojki",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Gujarati",
+    "Khojki"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-khojki",
+      "file": "references/input-fonts/NotoSansKhojki-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4cdcae034430ea2b5695d39c1b1fcb8fac1d8c32ef7d66615248e72d41781367",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Gujarati",
+        "Khojki"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Old Persian",
+  "slug": "noto-sans-old-persian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansOldPersian",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Old_Persian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-old-persian",
+      "file": "references/input-fonts/NotoSansOldPersian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "2c360d14a079590fd34d2989e26bbda7edd237701d0c22fed8350a2d8fffdb12",
+      "url": "https://github.com/notofonts/notofonts.github.io/tree/main/fonts/NotoSansOldPersian",
+      "covers": [
+        "Old_Persian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

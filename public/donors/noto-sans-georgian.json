@@ -1,0 +1,39 @@
+{
+  "family": "Noto Sans Georgian",
+  "slug": "noto-sans-georgian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Armenian",
+    "Georgian",
+    "Georgian_Extended",
+    "Georgian_Supplement"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-georgian",
+      "file": "references/input-fonts/NotoSansGeorgian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "d3e33254b09e7bb2c5cf0f17e554b80462056c5a107097f258d495168c3a9346",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Armenian",
+        "Georgian",
+        "Georgian_Extended",
+        "Georgian_Supplement"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

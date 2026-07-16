@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans Nandinagari",
+  "slug": "noto-sans-nandinagari",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Kannada",
+    "Nandinagari",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nandinagari",
+      "file": "references/input-fonts/NotoSansNandinagari-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6a09072dfc8ec18e66827914768dc727d92a5d1f3873ba116c7ecc39715c0ad9",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Kannada",
+        "Nandinagari",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

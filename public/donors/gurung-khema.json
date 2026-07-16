@@ -1,0 +1,33 @@
+{
+  "family": "Gurung Khema (synthetic)",
+  "slug": "gurung-khema",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Gurung_Khema"
+  ],
+  "files": [
+    {
+      "label": "gurung--khema",
+      "file": "references/input-fonts/.generated/svg-donors/Gurung_Khema.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "db5f14a7f01ac6fdb34fce06e6978bd2b3cdb3720ee7be4282e54bbeef6e8084",
+      "url": "",
+      "covers": [
+        "Gurung_Khema"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Nag Mundari",
+  "slug": "noto-sans-nag-mundari",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Nag_Mundari"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-nag-mundari",
+      "file": "references/input-fonts/NotoSansNagMundari-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "e822d0cc7998d8e94f73a734016b6882d9f8d570244cba9a29a1447bda708d26",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Nag_Mundari"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

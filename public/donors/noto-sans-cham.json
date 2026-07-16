@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Cham",
+  "slug": "noto-sans-cham",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Cham"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-cham",
+      "file": "references/input-fonts/NotoSansCham-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "d48a34e02b4096eb3f2e008b74459789540598c2274d65fc53012517d0b08d92",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Cham"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

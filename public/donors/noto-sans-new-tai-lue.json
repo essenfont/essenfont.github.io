@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans New Tai Lue",
+  "slug": "noto-sans-new-tai-lue",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Symbols_and_Punctuation",
+    "Halfwidth_and_Fullwidth_Forms",
+    "New_Tai_Lue"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-new-tai-lue",
+      "file": "references/input-fonts/NotoSansNewTaiLue-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "35499f3b79c2a4683ba2784b0d4c652d58e2c28c48775b33c9e8e94f2dee965a",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "CJK_Symbols_and_Punctuation",
+        "Halfwidth_and_Fullwidth_Forms",
+        "New_Tai_Lue"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

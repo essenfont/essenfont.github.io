@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Gothic",
+  "slug": "noto-sans-gothic",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Gothic"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-gothic",
+      "file": "references/input-fonts/NotoSansGothic-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "6f7260a33ac2f39bd75305de73e4e8663b0084b6865562ca09798ee64abd6401",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Gothic"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

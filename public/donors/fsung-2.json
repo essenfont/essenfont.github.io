@@ -1,0 +1,45 @@
+{
+  "family": "Full-Sung",
+  "slug": "fsung-2",
+  "license": "FSung-NC",
+  "author": "F.G. Wang (fgwang.blogspot.com) — initial style + sources from Taiwan MOE 教育部",
+  "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "CJK_Unified_Ideographs_Extension_B",
+    "CJK_Unified_Ideographs_Extension_C",
+    "CJK_Unified_Ideographs_Extension_D",
+    "CJK_Unified_Ideographs_Extension_E",
+    "CJK_Unified_Ideographs_Extension_F",
+    "CJK_Unified_Ideographs_Extension_I",
+    "CJK_Compatibility_Ideographs_Supplement"
+  ],
+  "files": [
+    {
+      "label": "fsung-2",
+      "file": "references/input-fonts/FSung-2.ttf",
+      "style": "Regular",
+      "version": "1.0",
+      "sha256": "40296ae3899f17bf16976449fcbeadeb43e2c4d3e9f5ec6fd97438deb36d2ca4",
+      "url": "https://drive.google.com/file/d/1m0-WYAXbEz3lxJrti25ZvWv6LkHjMp2X/view?usp=sharing",
+      "covers": [
+        "CJK_Unified_Ideographs_Extension_B",
+        "CJK_Unified_Ideographs_Extension_C",
+        "CJK_Unified_Ideographs_Extension_D",
+        "CJK_Unified_Ideographs_Extension_E",
+        "CJK_Unified_Ideographs_Extension_F",
+        "CJK_Unified_Ideographs_Extension_I",
+        "CJK_Compatibility_Ideographs_Supplement"
+      ]
+    }
+  ],
+  "source_type": "fsung",
+  "vendor": "F.G. Wang",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

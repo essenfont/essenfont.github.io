@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Kayah Li",
+  "slug": "noto-sans-kayah-li",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kayah_Li"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kayah-li",
+      "file": "references/input-fonts/NotoSansKayahLi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "71235e4d51c4e591b20717c525997c72ee906a9d39ce55f8f8bb8c60e96ab807",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Kayah_Li"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Psalter Pahlavi",
+  "slug": "noto-sans-psalter-pahlavi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Arabic",
+    "Psalter_Pahlavi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-psalter-pahlavi",
+      "file": "references/input-fonts/NotoSansPsalterPahlavi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "9760443febd572a8f98cafc0af252ff64a06793d9dc14a9fea225339aaea9e57",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Arabic",
+        "Psalter_Pahlavi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

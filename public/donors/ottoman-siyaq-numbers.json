@@ -1,0 +1,33 @@
+{
+  "family": "Ottoman Siyaq Numbers (synthetic)",
+  "slug": "ottoman-siyaq-numbers",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Ottoman_Siyaq_Numbers"
+  ],
+  "files": [
+    {
+      "label": "ottoman--siyaq--numbers",
+      "file": "references/input-fonts/.generated/svg-donors/Ottoman_Siyaq_Numbers.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "3e8d8065967bed8b4a5318a7bd895586c143ef06936183b9c78baa22f4c3508f",
+      "url": "",
+      "covers": [
+        "Ottoman_Siyaq_Numbers"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

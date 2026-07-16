@@ -1,0 +1,37 @@
+{
+  "family": "Noto Sans Linear B",
+  "slug": "noto-sans-linear-b",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Aegean_Numbers",
+    "Linear_B_Ideograms",
+    "Linear_B_Syllabary"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-linear-b",
+      "file": "references/input-fonts/NotoSansLinearB-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "940af117332cd4ff54fbc19553399be9228aff0da370a7ed36baa18fe1a9f23f",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Aegean_Numbers",
+        "Linear_B_Ideograms",
+        "Linear_B_Syllabary"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

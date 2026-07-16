@@ -1,0 +1,35 @@
+{
+  "family": "Noto Sans Masaram Gondi",
+  "slug": "noto-sans-masaram-gondi",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Devanagari",
+    "Masaram_Gondi"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-masaram-gondi",
+      "file": "references/input-fonts/NotoSansMasaramGondi-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "da26087eb956e722a316a531a42f9f1ee8f8b60bf1a313c5763d71361c729c80",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Devanagari",
+        "Masaram_Gondi"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

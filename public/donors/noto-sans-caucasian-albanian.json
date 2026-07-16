@@ -1,0 +1,33 @@
+{
+  "family": "Noto Sans Caucasian Albanian",
+  "slug": "noto-sans-caucasian-albanian",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Caucasian_Albanian"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-caucasian-albanian",
+      "file": "references/input-fonts/NotoSansCaucasianAlbanian-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "8d06965f605cdd641b17e7aed5498117c3ab5c6792bc28641a6b6c9d53559f3a",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Caucasian_Albanian"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,39 @@
+{
+  "family": "Noto Sans Kannada",
+  "slug": "noto-sans-kannada",
+  "license": "OFL",
+  "author": "Google (Noto Project)",
+  "url": "https://fonts.google.com/noto",
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Common_Indic_Number_Forms",
+    "Devanagari",
+    "Kannada",
+    "Vedic_Extensions"
+  ],
+  "files": [
+    {
+      "label": "noto-sans-kannada",
+      "file": "references/input-fonts/NotoSansKannada-Regular.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "9ad74dc64838c6855b96f671fc08e425a58921b9d0c71712ea79c328a27e6e38",
+      "url": "https://fonts.google.com/noto",
+      "covers": [
+        "Common_Indic_Number_Forms",
+        "Devanagari",
+        "Kannada",
+        "Vedic_Extensions"
+      ]
+    }
+  ],
+  "source_type": "noto",
+  "vendor": "Google",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}
