@@ -30,7 +30,7 @@ jobs:
       - run: npm ci
 
       - name: Install fonttools
-        run: pip install fonttools
+        run: pip install fonttools brotli
 
       - name: Cache Unihan data
         id: unihan-cache
