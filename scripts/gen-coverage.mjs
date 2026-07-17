@@ -44,6 +44,17 @@ for (const cps of Object.values(woff2Cmaps)) {
 }
 console.log(`  ${coveredCPs.size} unique codepoints across all WOFF2`);
 
+// Safety check: if brotli is missing, fonttools silently returns empty
+// cmaps for all WOFF2 files. Don't overwrite good committed data with zeros.
+if (coveredCPs.size === 0) {
+  const coveragePath = path.join(PUBLIC, 'coverage.json');
+  if (fs.existsSync(coveragePath)) {
+    console.warn('Warning: 0 codepoints extracted — WOFF2 decoding failed (brotli missing?).');
+    console.warn('Keeping existing coverage.json.');
+    process.exit(0);
+  }
+}
+
 // Step 2: Cross-reference with Unicode block data.
 const blocksDir = path.join(PUBLIC, 'unicode', 'blocks');
 const blockFiles = fs.readdirSync(blocksDir).filter(f => f.endsWith('.json'));
