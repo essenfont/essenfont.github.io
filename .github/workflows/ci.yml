@@ -34,7 +34,6 @@ jobs:
           node-version: '24'
           cache: 'npm'
       - run: npm ci
-      - run: pip install fonttools brotli
       - run: npm run build
         env:
           NODE_OPTIONS: --max-old-space-size=6144
