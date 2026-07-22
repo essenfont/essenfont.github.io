@@ -1,0 +1,33 @@
+{
+  "family": "Mongolian Supplement (synthetic)",
+  "slug": "mongolian-supplement-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Mongolian_Supplement"
+  ],
+  "files": [
+    {
+      "label": "mongolian--supplement--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Mongolian_Supplement.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "94491fa9ec8b593f03d13f8868911411936cc1e80d3fd77adcbc4f28935992b8",
+      "url": "",
+      "covers": [
+        "Mongolian_Supplement"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

@@ -1,0 +1,33 @@
+{
+  "family": "Kana Extended-B (synthetic)",
+  "slug": "kana-extended-b-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Kana_Extended-B"
+  ],
+  "files": [
+    {
+      "label": "kana--extended-b--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Kana_Extended_B.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "4965b5f65719534117a63846e91294c478fed20d276f9b5f1949c819714164c9",
+      "url": "",
+      "covers": [
+        "Kana_Extended-B"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

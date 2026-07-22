@@ -1,0 +1,33 @@
+{
+  "family": "Syriac Supplement (synthetic)",
+  "slug": "syriac-supplement-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Syriac_Supplement"
+  ],
+  "files": [
+    {
+      "label": "syriac--supplement--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Syriac_Supplement.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "50631c14ab8e634ad913ecc6b14cea24ac47b80aced56514c45793106b5db838",
+      "url": "",
+      "covers": [
+        "Syriac_Supplement"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

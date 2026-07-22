@@ -1,0 +1,33 @@
+{
+  "family": "Garay (synthetic)",
+  "slug": "garay-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Garay"
+  ],
+  "files": [
+    {
+      "label": "garay--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Garay.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "ea6c4cd9c861795a360c86e2cf6bab6bf34a474d8cc3c86fed490bcbf0c978b6",
+      "url": "",
+      "covers": [
+        "Garay"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

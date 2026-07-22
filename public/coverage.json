@@ -1,21 +1,21 @@
 {
-  "generated_at": "2026-07-17T16:14:16.560Z",
+  "generated_at": "2026-07-22T10:18:24.201Z",
   "unicode_version": "17.0.0",
   "source": "donor manifest (../essenfont/sources/manifest.yml)",
-  "manifest_blocks_covered": 329,
+  "manifest_blocks_covered": 337,
   "overall": {
-    "covered": 159310,
+    "covered": 159524,
     "total": 159866,
-    "pct": 99.65,
+    "pct": 99.79,
     "block_count": 340
   },
   "totals": {
     "blocks": 340,
-    "empty": 11,
-    "complete": 329,
-    "covered": 159310,
+    "empty": 3,
+    "complete": 337,
+    "covered": 159524,
     "assigned": 159866,
-    "pct": 99.65
+    "pct": 99.79
   },
   "blocks": [
     {
@@ -1234,10 +1234,10 @@
       "range": "U+10D40-U+10D8F",
       "first": 68928,
       "last": 69007,
-      "covered": 0,
+      "covered": 69,
       "total": 69,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "General_Punctuation",
@@ -1652,10 +1652,10 @@
       "range": "U+1B100-U+1B12F",
       "first": 110848,
       "last": 110895,
-      "covered": 0,
+      "covered": 35,
       "total": 35,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Kana_Extended-B",
@@ -1663,10 +1663,10 @@
       "range": "U+1AFF0-U+1AFFF",
       "first": 110576,
       "last": 110591,
-      "covered": 0,
+      "covered": 13,
       "total": 13,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Kana_Supplement",
@@ -2356,10 +2356,10 @@
       "range": "U+11660-U+1167F",
       "first": 71264,
       "last": 71295,
-      "covered": 0,
+      "covered": 13,
       "total": 13,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Mongolian",
@@ -2433,10 +2433,10 @@
       "range": "U+116D0-U+116FF",
       "first": 71376,
       "last": 71423,
-      "covered": 0,
+      "covered": 20,
       "total": 20,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Myanmar",
@@ -2576,10 +2576,10 @@
       "range": "U+1E5D0-U+1E5FF",
       "first": 124368,
       "last": 124415,
-      "covered": 0,
+      "covered": 44,
       "total": 44,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Old_Hungarian",
@@ -3016,10 +3016,10 @@
       "range": "U+1B130-U+1B16F",
       "first": 110896,
       "last": 110959,
-      "covered": 0,
+      "covered": 9,
       "total": 9,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Sogdian",
@@ -3247,10 +3247,10 @@
       "range": "U+0860-U+086F",
       "first": 2144,
       "last": 2159,
-      "covered": 0,
+      "covered": 11,
       "total": 11,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Syriac",
