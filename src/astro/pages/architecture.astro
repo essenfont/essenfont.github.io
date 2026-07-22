@@ -26,6 +26,65 @@ const donorCount = stats.donorCount;
       </p>
     </header>
 
+    {/* ─── Font technology primer ─── */}
+    <section class="arch-section primer">
+      <div class="phase-header">
+        <span class="phase-num">?</span>
+        <h2>What are all these acronyms?</h2>
+      </div>
+      <p class="phase-lede">
+        If you're not a font engineer, here's what the pieces are. Skip this
+        section if you already know.
+      </p>
+
+      <div class="primer-grid">
+        <div class="primer-card">
+          <h3><span class="pc-tag">Concept</span> Glyph</h3>
+          <p>A single visual character shape. <span class="glyph-demo">A</span>, <span class="glyph-demo">★</span>, <span class="glyph-demo">𓀀</span>, <span class="glyph-demo">あ</span> are all glyphs. Each has an <strong>outline</strong> (the shape drawn with lines and curves) plus metadata like width and spacing.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Source</span> UFO</h3>
+          <p><strong>Unified Font Object.</strong> An open format that stores font source data as folders of XML and PNG files — not a binary blob. You can <code>git diff</code> individual glyph edits, review changes, and fix typos. Think of it as <em>source code</em> for a font.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Compiled</span> TTF / OTF</h3>
+          <p>The binary files your computer loads. <strong>TTF</strong> (TrueType) uses quadratic curves; <strong>OTF</strong> (OpenType with CFF) uses cubic curves. Both render identically on screen — they're just different internal storage.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Web</span> WOFF2</h3>
+          <p><strong>Web Open Font Format 2.</strong> A TTF/OTF compressed with Brotli for fast download. Browsers load it via <code>@font-face</code>. ~35% smaller than the raw TTF. This website serves 214 per-block WOFF2 files so you only download what you see.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Bundle</span> OTC</h3>
+          <p><strong>OpenType Collection.</strong> One file containing multiple font faces. Essenfont's OTC holds 5 faces — one per Unicode plane (BMP, SMP, SIP, TIP, SSP). More efficient than shipping 5 separate files.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Outline</span> CFF2</h3>
+          <p><strong>Compact Font Format 2.</strong> A modern outline format ~35% smaller than the older CFF. Used inside the canonical OTC. Renders identically to TrueType outlines — the difference is file size.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Input</span> Donor font</h3>
+          <p>A source font whose glyphs Essenfont extracts and reuses. <strong>Noto Sans</strong> covers Latin/Cyrillic/Greek. <strong>FSung</strong> covers CJK. <strong>UniHieroglyphica</strong> covers Egyptian. Essenfont assembles 186 donors into one font.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Tool</span> fontisan</h3>
+          <p>A Ruby library that reads, transforms, and writes font files. It's the <strong>compiler</strong> in this pipeline — it reads donor TTFs/OTFs, normalizes coordinates, and compiles UFOs into the final OTC/WOFF2 binaries.</p>
+        </div>
+
+        <div class="primer-card">
+          <h3><span class="pc-tag">Grid</span> 1000-upm</h3>
+          <p><strong>Units Per Em.</strong> The coordinate grid a font uses. Different donor fonts use different grids (1000, 2048, 4096). Essenfont normalizes all to <strong>1000-upm</strong> so glyphs from different donors align correctly on the same baseline.</p>
+        </div>
+      </div>
+    </section>
+
     {/* ─── SSOT Diagram ─── */}
     <section class="arch-section">
       <div class="diagram-frame">
@@ -327,6 +386,64 @@ const donorCount = stats.donorCount;
 
 <style>
   .arch-page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Primer */
+  .primer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .primer-card {
+    padding: 1.25rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    transition: border-color 0.15s;
+  }
+  .primer-card:hover { border-color: var(--ef-accent); }
+  .primer-card h3 {
+    font-family: var(--spec-font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .pc-tag {
+    font-family: var(--spec-font-mono);
+    font-size: 0.62rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-accent);
+    background: var(--ef-accent-muted);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .primer-card p {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: var(--ef-text-2);
+    margin: 0;
+  }
+  .primer-card p code {
+    font-family: var(--spec-font-mono);
+    font-size: 0.82em;
+    background: var(--ef-accent-muted);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+  }
+  .glyph-demo {
+    font-family: var(--spec-font-glyph), var(--spec-font-display);
+    font-size: 1.15em;
+    color: var(--ef-accent);
+    background: var(--ef-accent-muted);
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    line-height: 1;
+  }
 
   /* Hero */
   .arch-hero { margin-bottom: 3rem; }
