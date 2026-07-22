@@ -1,4 +1,9 @@
 {
+  "v0.6.0": {
+    "name": "UFO-first build + 186 donors + 99.79% coverage",
+    "notes": "Major rebuild: UFO-first architecture with committed per-plane UFO sources (BMP 48k glyphs, SMP 28k, SIP 61k, TIP 13k, SSP 338). 8 new code-chart donors via ucode 0.5.0–0.5.2 CID-font extraction cover the last remaining blocks (Syriac Supplement, Mongolian Supplement, Myanmar Extended-C, Garay, Kana Extended-A/B, Ol Onal, Small Kana Extension). fontisan 0.4.43 viewBox fix for correct glyph coordinates. Only Tags and Variation Selectors Supplement remain uncovered — both are invisible formatting characters with no visual glyph.",
+    "stats": { "codepoints": 159529, "donors": 186, "planes": 5 }
+  },
   "v0.5.2": {
     "name": "Clamp extreme coordinates from synthetic SVG-generated fonts",
     "notes": "Fixes distorted glyph proportions in the SMP face. 960 of 1020 phantom glyphs from synthetic SVG-generated donor fonts (Gurung Khema, Nyiakeng Puachue Hmong, Tulu Tigalari, etc.) had coordinates 2–11x the declared UPM, inflating the SMP face head.bbox to yMax=11160 and causing all glyphs — including hieroglyphs — to render with distorted proportions. CoordinateClamp now runs after UFO normalization. Same codepoint coverage as v0.5.0 (123,611 codepoints).",
