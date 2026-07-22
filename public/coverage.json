@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-07-22T10:18:24.201Z",
+  "generated_at": "2026-07-22T15:19:59.556Z",
   "unicode_version": "17.0.0",
   "source": "donor manifest (../essenfont/sources/manifest.yml)",
-  "manifest_blocks_covered": 337,
+  "manifest_blocks_covered": 338,
   "overall": {
-    "covered": 159524,
+    "covered": 159529,
     "total": 159866,
     "pct": 99.79,
     "block_count": 340
   },
   "totals": {
     "blocks": 340,
-    "empty": 3,
-    "complete": 337,
-    "covered": 159524,
+    "empty": 2,
+    "complete": 338,
+    "covered": 159529,
     "assigned": 159866,
     "pct": 99.79
   },
@@ -3071,10 +3071,10 @@
       "range": "U+FFF0-U+FFFF",
       "first": 65520,
       "last": 65535,
-      "covered": 0,
+      "covered": 5,
       "total": 5,
-      "pct": 0,
-      "status": "EMPTY"
+      "pct": 100,
+      "status": "COMPLETE"
     },
     {
       "id": "Sundanese_Supplement",
