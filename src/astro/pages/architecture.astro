@@ -1,0 +1,593 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { loadStats } from '../lib/stats';
+import { loadUnicodeVersion } from '../lib/unicode';
+import { formatNumber, formatBytes } from '../lib/ssr';
+
+const stats = loadStats();
+const version = loadUnicodeVersion();
+const donorCount = stats.donorCount;
+---
+
+<BaseLayout
+  title="Architecture — Essenfont"
+  description="The UFO database is the single source of truth. Fontisan imports glyphs from 186 donor fonts into committed per-plane UFOs, then compiles them into OTC, TTF, WOFF2, and SVG outputs."
+  canonical="/architecture"
+>
+  <article class="arch-page">
+    {/* ─── Hero ─── */}
+    <header class="arch-hero">
+      <span class="section-eyebrow">Architecture</span>
+      <h1>UFO is the single source of truth.</h1>
+      <p class="lede">
+        Every Essenfont glyph lives in a committed UFO database on GitHub.
+        Fontisan imports from donor fonts; the compiler turns UFOs into every
+        output format. No black boxes, no hidden state.
+      </p>
+    </header>
+
+    {/* ─── SSOT Diagram ─── */}
+    <section class="arch-section">
+      <div class="diagram-frame">
+        <svg class="ssot-diagram" viewBox="0 0 900 420" role="img" aria-labelledby="ssot-title">
+          <title id="ssot-title">UFO as Single Source of Truth</title>
+          <desc>Per-plane UFOs committed in the essenfont GitHub repo are the canonical source. All output formats derive from them.</desc>
+
+          {/* Central UFO hub */}
+          <rect x="300" y="140" width="300" height="140" rx="14"
+            fill="var(--ef-accent-muted)" stroke="var(--ef-accent)" stroke-width="2" />
+          <text x="450" y="175" text-anchor="middle" font-family="var(--spec-font-display)" font-size="22" font-weight="600" fill="var(--ef-text)">
+            UFO Database
+          </text>
+          <text x="450" y="200" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="12" fill="var(--ef-accent)">
+            SSOT · github.com/essenfont/essenfont
+          </text>
+          <text x="450" y="225" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="11" fill="var(--ef-text-2)">
+            ufo/bmp.ufo · ufo/smp.ufo · ufo/sip.ufo
+          </text>
+          <text x="450" y="245" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="11" fill="var(--ef-text-2)">
+            ufo/tip.ufo · ufo/ssp.ufo
+          </text>
+          <text x="450" y="268" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)">
+            committed to git · 5 planes · ~152k glyphs
+          </text>
+
+          {/* Import arrow (left) */}
+          <line x1="180" y1="210" x2="295" y2="210" stroke="var(--ef-accent)" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="140" y="185" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)" letter-spacing="0.1em">PHASE 1 · IMPORT</text>
+          <text x="140" y="205" text-anchor="middle" font-family="var(--spec-font-display)" font-size="14" font-weight="600" fill="var(--ef-text)">Fontisan</text>
+          <text x="140" y="250" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="9" fill="var(--ef-text-2)">donor fonts → UFO</text>
+
+          {/* Compile arrow (right) */}
+          <line x1="605" y1="210" x2="720" y2="210" stroke="var(--ef-accent)" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="760" y="185" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)" letter-spacing="0.1em">PHASE 2 · COMPILE</text>
+          <text x="760" y="205" text-anchor="middle" font-family="var(--spec-font-display)" font-size="14" font-weight="600" fill="var(--ef-text)">fontisan</text>
+          <text x="760" y="250" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="9" fill="var(--ef-text-2)">UFO → outputs</text>
+
+          {/* Donor inputs (left side) */}
+          <g class="donor-list">
+            <text x="50" y="80" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)" letter-spacing="0.08em">DONOR FONTS ({donorCount})</text>
+            <text x="50" y="100" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-2)">Noto Sans · FSung · UniHieroglyphica</text>
+            <text x="50" y="118" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-2)">Egyptian Text · Symbola · code-charts</text>
+            <text x="50" y="136" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-3)">OFL · Apache · MIT · BSD</text>
+          </g>
+
+          {/* Outputs (right side) */}
+          <g class="output-list">
+            <text x="680" y="80" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)" letter-spacing="0.08em">OUTPUT FORMATS</text>
+            <text x="680" y="100" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-2)">Essenfont-Regular.otc (CFF2)</text>
+            <text x="680" y="118" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-2)">Per-plane TTF · WOFF2</text>
+            <text x="680" y="136" font-family="var(--spec-font-body)" font-size="12" fill="var(--ef-text-3)">SVG exports · npm package</text>
+          </g>
+
+          {/* Bottom: distribution */}
+          <line x1="450" y1="285" x2="450" y2="345" stroke="var(--ef-rule-strong)" stroke-width="1.5" marker-end="url(#arrow-muted)" />
+          <text x="450" y="370" text-anchor="middle" font-family="var(--spec-font-mono)" font-size="10" fill="var(--ef-text-3)" letter-spacing="0.1em">DISTRIBUTION</text>
+          <text x="450" y="392" text-anchor="middle" font-family="var(--spec-font-body)" font-size="13" fill="var(--ef-text-2)">
+            GitHub Releases · npm · Fontist · this website
+          </text>
+
+          {/* Arrow markers */}
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+              <path d="M0,0 L8,3 L0,6 Z" fill="var(--ef-accent)" />
+            </marker>
+            <marker id="arrow-muted" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+              <path d="M0,0 L6,3 L0,6 Z" fill="var(--ef-text-3)" />
+            </marker>
+          </defs>
+        </svg>
+      </div>
+    </section>
+
+    {/* ─── Phase 1: Import ─── */}
+    <section class="arch-section">
+      <div class="phase-header">
+        <span class="phase-num">01</span>
+        <h2>Import: donor fonts → UFO</h2>
+      </div>
+      <p class="phase-lede">
+        <code>import-to-ufos.rb</code> reads {donorCount} donor fonts, normalizes each to
+        1000-upm, extracts glyph outlines via <strong>fontisan</strong>, and writes
+        per-plane UFOs to <code>ufo/&#123;plane&#125;.ufo/</code>. The UFOs are committed
+        to git — they survive across builds and are diffable.
+      </p>
+      <div class="phase-grid">
+        <div class="phase-step">
+          <span class="step-label">Normalize</span>
+          <p>Every donor is scaled to 1000-upm. Coordinates beyond 2x UPM are clamped (the v0.5.2 fix for synthetic SVG donors).</p>
+        </div>
+        <div class="phase-step">
+          <span class="step-label">Partition</span>
+          <p>Glyphs are split into 5 planes: BMP, SMP, SIP, TIP, SSP. Each plane gets its own UFO with its own glyph set.</p>
+        </div>
+        <div class="phase-step">
+          <span class="step-label">Commit</span>
+          <p>UFOs are committed to the repo. Manual edits survive re-imports in gaps-only mode. The UFO IS the source of truth.</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ─── Phase 2: Compile ─── */}
+    <section class="arch-section">
+      <div class="phase-header">
+        <span class="phase-num">02</span>
+        <h2>Compile: UFO → output formats</h2>
+      </div>
+      <p class="phase-lede">
+        <code>build-from-ufos.rb</code> reads the committed UFOs and compiles them into
+        every output format. No donor loading, no CpMap, no normalization — just a fast
+        UFO-to-binary compile. Build time: 5–10 minutes.
+      </p>
+      <div class="format-matrix">
+        <div class="format-card format-card--primary">
+          <span class="format-tag">Canonical</span>
+          <h3>Essenfont-Regular.otc</h3>
+          <p class="format-desc">OpenType Collection with CFF2 outlines. One file, 5 faces, every assigned codepoint.</p>
+          <span class="format-size">{formatBytes(stats.fontBinaries.otcSizeBytes ?? 0)}</span>
+        </div>
+        <div class="format-card">
+          <span class="format-tag">Per-plane</span>
+          <h3>Essenfont-&#123;BMP,SMP,SIP,TIP,SSP&#125;.ttf</h3>
+          <p class="format-desc">Individual TTFs per Unicode plane. For systems that can't load OTC.</p>
+        </div>
+        <div class="format-card">
+          <span class="format-tag">Web</span>
+          <h3>Essenfont-&#123;plane&#125;.woff2</h3>
+          <p class="format-desc">WOFF2-compressed per-plane fonts for @font-face. ~35% smaller than TTF.</p>
+        </div>
+        <div class="format-card">
+          <span class="format-tag">Per-block</span>
+          <h3>&#123;block-slug&#125;.woff2</h3>
+          <p class="format-desc">{stats.websiteSubsets.woff2Count} subsets, one per Unicode block. This website serves them so visitors don't download the full font.</p>
+        </div>
+        <div class="format-card">
+          <span class="format-tag">SVG</span>
+          <h3>svg-exports.zip</h3>
+          <p class="format-desc">Every glyph as a standalone SVG file. For design tools, documentation, archival.</p>
+        </div>
+        <div class="format-card">
+          <span class="format-tag">Package</span>
+          <h3>npm: essenfont</h3>
+          <p class="format-desc">Node package with all formats + provenance + license pack. <code>npm install essenfont</code></p>
+        </div>
+      </div>
+    </section>
+
+    {/* ─── Reproducibility ─── */}
+    <section class="arch-section">
+      <div class="phase-header">
+        <span class="phase-num">03</span>
+        <h2>Provenance &amp; reproducibility</h2>
+      </div>
+      <p class="phase-lede">
+        Every release ships with full provenance: which donor provided each codepoint,
+        which license applies, and the exact build inputs. The build is deterministic —
+        same UFOs produce byte-identical outputs.
+      </p>
+      <div class="provenance-grid">
+        <a href="/provenance" class="prov-link">
+          <span class="prov-icon">📊</span>
+          <span class="prov-text">View provenance data</span>
+          <span class="prov-arrow">→</span>
+        </a>
+        <a href="/donors" class="prov-link">
+          <span class="prov-icon">🎨</span>
+          <span class="prov-text">Browse {donorCount} donor fonts</span>
+          <span class="prov-arrow">→</span>
+        </a>
+        <a href="/license" class="prov-link">
+          <span class="prov-icon">⚖</span>
+          <span class="prov-text">License attribution</span>
+          <span class="prov-arrow">→</span>
+        </a>
+        <a href="https://github.com/essenfont/essenfont" target="_blank" rel="noopener" class="prov-link">
+          <span class="prov-icon">📦</span>
+          <span class="prov-text">UFO source on GitHub</span>
+          <span class="prov-arrow">↗</span>
+        </a>
+      </div>
+    </section>
+
+    {/* ─── Use Cases ─── */}
+    <section class="arch-section use-cases">
+      <div class="phase-header">
+        <span class="phase-num">★</span>
+        <h2>Why this matters</h2>
+      </div>
+      <p class="phase-lede">
+        One font covering {formatNumber(version.charCount)} characters changes what's
+        possible. Here's who benefits and how.
+      </p>
+
+      <div class="uc-grid">
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3>Developers</h3>
+          <p>One <code>npm install essenfont</code>. No more tofu boxes, no font-stack juggling, no per-script <code>@font-face</code> rules. Every character your users type renders.</p>
+          <code class="uc-snippet">npm install essenfont</code>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/>
+            </svg>
+          </div>
+          <h3>Designers</h3>
+          <p>One typeface for every script. Design multilingual interfaces without switching fonts mid-sentence. CJK, Arabic, Devanagari, hieroglyphs — all from the same family.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+            </svg>
+          </div>
+          <h3>Researchers</h3>
+          <p>Every historical and extinct script in one download: Egyptian Hieroglyphs, Cuneiform, Linear B, Tangut, Phoenician, Ogham. Study ancient texts without hunting for specialist fonts.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3>Web &amp; app teams</h3>
+          <p>Ship a universal font subset per page. This site serves {stats.websiteSubsets.woff2Count} per-block WOFF2 files — visitors only download the scripts they actually see. No 100 MB font payload.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
+          <h3>Publishers</h3>
+          <p>Print-ready multilingual documents without embedding 20 font files. Academic journals, government forms, international documentation — one font covers them all.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <h3>NLP &amp; AI</h3>
+          <p>Consistent glyph rendering for training data across {version.blockCount} Unicode blocks. OCR models, translation pipelines, and text-to-speech systems get uniform character coverage.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <h3>Educators</h3>
+          <p>Teach world writing systems with consistent rendering. Students see every script — from Cyrillic to Cherokee to Cuneiform — in the same typeface, at the same quality.</p>
+        </div>
+
+        <div class="uc-card">
+          <div class="uc-icon-wrap">
+            <svg class="uc-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+            </svg>
+          </div>
+          <h3>Digital preservation</h3>
+          <p>Archive texts in any script knowing they'll render identically decades from now. The UFO source is committed, diffable, and license-attributed — a permanent record.</p>
+        </div>
+      </div>
+    </section>
+
+    {/* ─── CTA ─── */}
+    <section class="arch-cta">
+      <h2>Get Essenfont</h2>
+      <div class="cta-cmds">
+        <div class="cta-cmd">
+          <span class="cta-cmd-label">npm</span>
+          <code>npm install essenfont</code>
+        </div>
+        <div class="cta-cmd">
+          <span class="cta-cmd-label">Fontist</span>
+          <code>fontist install "Essenfont"</code>
+        </div>
+        <div class="cta-cmd">
+          <span class="cta-cmd-label">Direct</span>
+          <code><a href="/download">Download OTC →</a></code>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .arch-page { max-width: 960px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* Hero */
+  .arch-hero { margin-bottom: 3rem; }
+  .arch-hero h1 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin: 0.5rem 0 1rem;
+  }
+  .arch-hero .lede {
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--ef-text-2);
+    max-width: 62ch;
+  }
+
+  /* Sections */
+  .arch-section { margin-bottom: 3.5rem; }
+  .phase-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 1rem; }
+  .phase-num {
+    font-family: var(--spec-font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ef-accent);
+    letter-spacing: 0.1em;
+  }
+  .phase-header h2 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    margin: 0;
+  }
+  .phase-lede {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ef-text-2);
+    margin-bottom: 1.5rem;
+    max-width: 70ch;
+  }
+  .phase-lede code {
+    font-family: var(--spec-font-mono);
+    font-size: 0.875em;
+    background: var(--ef-accent-muted);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    color: var(--ef-text);
+  }
+
+  /* Diagram */
+  .diagram-frame {
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule-strong);
+    border-radius: var(--ef-radius);
+    padding: 1.5rem;
+    overflow-x: auto;
+  }
+  .ssot-diagram { width: 100%; height: auto; min-width: 700px; display: block; }
+
+  /* Phase steps */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+  .phase-step {
+    padding: 1.25rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    border-left: 3px solid var(--ef-accent);
+  }
+  .step-label {
+    font-family: var(--spec-font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ef-accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .phase-step p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ef-text-2);
+    margin: 0;
+  }
+
+  /* Format matrix */
+  .format-matrix {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .format-card {
+    padding: 1.25rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .format-card:hover { border-color: var(--ef-rule-strong); transform: translateY(-2px); }
+  .format-card--primary {
+    border-color: var(--ef-accent);
+    background: var(--ef-accent-soft);
+  }
+  .format-tag {
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ef-accent);
+  }
+  .format-card h3 {
+    font-family: var(--spec-font-mono);
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin: 0.4rem 0 0.5rem;
+    color: var(--ef-text);
+    word-break: break-all;
+  }
+  .format-desc {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ef-text-2);
+    margin: 0 0 0.5rem;
+  }
+  .format-size {
+    font-family: var(--spec-font-mono);
+    font-size: 0.78rem;
+    color: var(--ef-text-3);
+  }
+
+  /* Provenance links */
+  .provenance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+  }
+  .prov-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    text-decoration: none;
+    color: var(--ef-text);
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .prov-link:hover { border-color: var(--ef-accent); background: var(--ef-accent-soft); }
+  .prov-icon { font-size: 1.1rem; }
+  .prov-text { font-size: 0.88rem; flex: 1; }
+  .prov-arrow { color: var(--ef-text-3); font-family: var(--spec-font-mono); }
+
+  /* Use cases */
+  .uc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .uc-card {
+    padding: 1.5rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .uc-card:hover { border-color: var(--ef-accent); transform: translateY(-3px); }
+  .uc-icon-wrap {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ef-accent-muted);
+    border-radius: var(--ef-radius-sm);
+    margin-bottom: 1rem;
+  }
+  .uc-icon { width: 22px; height: 22px; color: var(--ef-accent); }
+  .uc-card h3 {
+    font-family: var(--spec-font-display);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+  }
+  .uc-card p {
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--ef-text-2);
+    margin: 0;
+  }
+  .uc-card p code {
+    font-family: var(--spec-font-mono);
+    font-size: 0.82em;
+    background: var(--ef-accent-muted);
+    padding: 0.1em 0.3em;
+    border-radius: 3px;
+  }
+  .uc-snippet {
+    display: block;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--ef-raised);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+    font-family: var(--spec-font-mono);
+    font-size: 0.8rem;
+    color: var(--ef-accent);
+  }
+
+  /* CTA */
+  .arch-cta {
+    text-align: center;
+    padding: 3rem 0 1rem;
+  }
+  .arch-cta h2 {
+    font-family: var(--spec-font-display);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+  }
+  .cta-cmds {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .cta-cmd {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule);
+    border-radius: var(--ef-radius-sm);
+  }
+  .cta-cmd-label {
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-accent);
+    min-width: 50px;
+    text-align: left;
+  }
+  .cta-cmd code {
+    font-family: var(--spec-font-mono);
+    font-size: 0.8rem;
+    color: var(--ef-text);
+  }
+  .cta-cmd a { color: var(--ef-accent); text-decoration: none; }
+
+  @media (max-width: 768px) {
+    .diagram-frame { padding: 1rem 0.5rem; }
+    .phase-grid { grid-template-columns: 1fr; }
+  }
+</style>
