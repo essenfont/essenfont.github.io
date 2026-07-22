@@ -1,0 +1,33 @@
+{
+  "family": "Small Kana Extension (synthetic)",
+  "slug": "small-kana-extension-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Small_Kana_Extension"
+  ],
+  "files": [
+    {
+      "label": "small--kana--extension--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Small_Kana_Extension.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "bf451401bb34726dbd3eb55e07fea4d53cfcb09c008a48ba678f13fabcaeaac6",
+      "url": "",
+      "covers": [
+        "Small_Kana_Extension"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}

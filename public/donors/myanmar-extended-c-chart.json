@@ -1,0 +1,33 @@
+{
+  "family": "Myanmar Extended-C (synthetic)",
+  "slug": "myanmar-extended-c-chart",
+  "license": "OFL",
+  "author": "Unicode Consortium (synthetic from code charts)",
+  "url": null,
+  "url_mirror": null,
+  "web": null,
+  "notes": "",
+  "author_note": null,
+  "file_count": 1,
+  "covers": [
+    "Myanmar_Extended-C"
+  ],
+  "files": [
+    {
+      "label": "myanmar--extended-c--chart",
+      "file": "references/input-fonts/.generated/svg-donors/Myanmar_Extended_C.ttf",
+      "style": "Regular",
+      "version": "",
+      "sha256": "c903ebbb859865da72b768a28ac5839df3097c1fd05ce3623939fba121325ec0",
+      "url": "",
+      "covers": [
+        "Myanmar_Extended-C"
+      ]
+    }
+  ],
+  "source_type": "synthetic",
+  "vendor": "Synthetic",
+  "role": "",
+  "planes": [],
+  "parsed_coverage": []
+}
