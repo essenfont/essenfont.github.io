@@ -100,6 +100,7 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     <CommandPalette client:only="vue" />
     <SiteFooter transition:persist />
     <script>
+      import { initEasterEggs, initCursorTrail } from '../lib/easter-eggs';
       // Theme persistence + FOUC prevention.
       //
       // Two passes:
@@ -206,6 +207,8 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
         bindHamburger();
         bindClipboard();
         highlightNav();
+        initEasterEggs();
+        initCursorTrail();
       });
     </script>
   </body>
