@@ -63,6 +63,9 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
           <BrandMark size="sm" alt="Essenfont" />
           <span class="brand-text">Essenfont</span>
         </a>
+        <a href="/unicode" class="coverage-badge" title="100% of all assigned Unicode 17 codepoints">
+          <span class="coverage-badge-num">100%</span>
+        </a>
         <div class="nav-right">
           <div class="nav-links" id="nav-links">
             <a href="/unicode" class="nav-link">Unicode</a>
@@ -275,5 +278,35 @@ const canonicalURL = canonical ? new URL(canonical, site).href : undefined;
     font-size: 1.25rem;
     letter-spacing: -0.02em;
     line-height: 1;
+  }
+  .coverage-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    background: linear-gradient(135deg, var(--ef-accent-muted), var(--ef-accent-soft));
+    border: 1px solid var(--ef-accent);
+    border-radius: 999px;
+    text-decoration: none;
+    font-family: var(--spec-font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--ef-accent);
+    line-height: 1.4;
+    transition: box-shadow 0.2s, transform 0.15s;
+    animation: badge-pulse 4s ease-in-out infinite;
+  }
+  .coverage-badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 16px var(--ef-accent-muted);
+  }
+  @keyframes badge-pulse {
+    0%, 100% { box-shadow: 0 0 8px var(--ef-accent-muted); }
+    50% { box-shadow: 0 0 20px var(--ef-accent-muted); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .coverage-badge { animation: none; }
+  }
+  @media (max-width: 640px) {
+    .coverage-badge { display: none; }
   }
 </style>
