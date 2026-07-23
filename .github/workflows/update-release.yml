@@ -98,7 +98,7 @@ jobs:
         if: steps.latest.outputs.changed == 'true'
         run: |
           TAG="${{ steps.latest.outputs.tag }}"
-          ESSENFONT_TTF="public/releases/${TAG}/Essenfont-BMP.ttf" \
+          ESSENFONT_TTF="public/releases/${TAG}" \
             ruby scripts/gen-coverage-detail.rb || true
 
       - name: Regenerate planes + donors data
@@ -129,6 +129,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/releases/ public/releases.json public/coverage.json public/coverage/ public/planes.json public/donors.json public/donors/ .release-cache
+          git add -f public/releases/ public/releases.json public/coverage.json public/coverage/ public/planes.json public/donors.json public/donors/ .release-cache
           git commit -m "chore: update to ${{ steps.latest.outputs.tag }}" || echo "no changes"
           git push

@@ -17,10 +17,13 @@
 require "yaml"
 require "json"
 require "fileutils"
+require "open-uri"
+require "tmpdir"
 
 ROOT = File.expand_path("..", __dir__)
 ESSENFONT_REPO = File.expand_path("../../essenfont", __dir__)
 MANIFEST_YML = File.join(ESSENFONT_REPO, "sources", "manifest.yml")
+MANIFEST_URL = "https://raw.githubusercontent.com/essenfont/essenfont/main/sources/manifest.yml"
 PUBLIC = File.join(ROOT, "public")
 BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 DONORS_JSON = File.join(PUBLIC, "donors.json")
@@ -238,11 +241,12 @@ def group_by_family(donors)
 end
 
 def load_manifest
-  unless File.exist?(MANIFEST_YML)
-    warn "Manifest not found at #{MANIFEST_YML}"
-    exit 1
+  if File.exist?(MANIFEST_YML)
+    YAML.load_file(MANIFEST_YML)
+  else
+    warn "Manifest not found at #{MANIFEST_YML}; fetching from #{MANIFEST_URL}"
+    YAML.safe_load(URI.open(MANIFEST_URL).read, aliases: true)
   end
-  YAML.load_file(MANIFEST_YML)
 end
 
 def build_family_detail(family_entry, manifest)

@@ -27,14 +27,37 @@ BLOCKS_JSON = File.join(PUBLIC, "unicode-blocks.json")
 COVERAGE_DIR = File.join(PUBLIC, "coverage")
 COVERAGE_JSON = File.join(PUBLIC, "coverage.json")
 
+# Essenfont ships as one TTF per Unicode plane (BMP, SMP, SIP, TIP, SSP).
+# Coverage is the union of all five cmaps, so ESSENFONT_TTF may be:
+#   - a directory containing Essenfont-<PLANE>.ttf files (CI passes this)
+#   - a single Essenfont-<PLANE>.ttf (sibling planes are picked up automatically)
+#   - any other single .ttf (loaded alone — legacy fallback)
+#
 # Default: search the sibling essenfont repo for any Essenfont-Regular.ttf*,
-# preferring the plain .ttf and falling back to the newest backup. Override
-# with ESSENFONT_TTF env var.
+# preferring the plain .ttf and falling back to the newest backup.
+PLANE_NAMES = %w[BMP SMP SIP TIP SSP].freeze
 DEFAULT_TTF_PATTERN = File.expand_path("../../essenfont/Essenfont-Regular.ttf*", __dir__)
-ESSENFONT_TTF = ENV.fetch("ESSENFONT_TTF") do
+
+def resolve_ttf_paths(input)
+  return Dir.glob("Essenfont-{#{PLANE_NAMES.join(",")}}.ttf", base: input).map { |rel| File.join(input, rel) } if File.directory?(input)
+
+  if input =~ /Essenfont-[A-Z]+\.ttf$/
+    dir = File.dirname(input)
+    PLANE_NAMES.filter_map do |plane|
+      path = File.join(dir, "Essenfont-#{plane}.ttf")
+      path if File.exist?(path)
+    end
+  else
+    [input]
+  end
+end
+
+ESSENFONT_INPUT = ENV.fetch("ESSENFONT_TTF") do
   candidates = Dir.glob(DEFAULT_TTF_PATTERN)
   candidates.find { |p| p.end_with?(".ttf") } || candidates.max_by { |p| File.mtime(p) }
 end
+ESSENFONT_TTFS = resolve_ttf_paths(ESSENFONT_INPUT)
+ESSENFONT_TTFS << ESSENFONT_INPUT if ESSENFONT_TTFS.empty? && ESSENFONT_INPUT && File.exist?(ESSENFONT_INPUT)
 
 def block_slug(name)
   name.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/^-|-$/, "")
@@ -46,10 +69,15 @@ end
 
 log = ->(msg) { warn "\x1b[1;34mcoverage:\x1b[0m #{msg}" }
 
-log.call("loading #{ESSENFONT_TTF}")
-font = Fontisan::FontLoader.load(ESSENFONT_TTF)
-cmap = font.table("cmap").unicode_mappings
-log.call("cmap has #{cmap.size} codepoints")
+cmap = {}
+ESSENFONT_TTFS.each do |path|
+  log.call("loading #{path}")
+  font = Fontisan::FontLoader.load(path)
+  plane_cmap = font.table("cmap").unicode_mappings
+  log.call("  #{File.basename(path)}: #{plane_cmap.size} codepoints")
+  cmap.merge!(plane_cmap)
+end
+log.call("union cmap has #{cmap.size} codepoints across #{ESSENFONT_TTFS.size} plane(s)")
 
 blocks = JSON.parse(File.read(BLOCKS_JSON))
 FileUtils.mkdir_p(COVERAGE_DIR)
@@ -154,7 +182,7 @@ end
 
 summary = {
   generated_at: Time.now.utc.iso8601,
-  source: File.basename(ESSENFONT_TTF),
+  source: ESSENFONT_TTFS.map { |p| File.basename(p) }.join(", "),
   blocks: summary_blocks,
   totals: totals,
 }
@@ -162,4 +190,4 @@ summary = {
 File.write(COVERAGE_JSON, JSON.generate(summary))
 log.call("wrote #{summary_blocks.count { |b| b[:status] != "RESERVED" && b[:covered] > 0 }} block detail files → public/coverage/")
 log.call("wrote summary → public/coverage.json")
-log.call("totals: #{totals[:covered]}}/#{totals[:assigned]} cps, #{totals[:complete]} complete, #{totals[:empty]} empty")
+log.call("totals: #{totals[:covered]}/#{totals[:assigned]} cps, #{totals[:complete]} complete, #{totals[:empty]} empty")
