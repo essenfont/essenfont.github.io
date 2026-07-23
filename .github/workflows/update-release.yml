@@ -1,18 +1,15 @@
 name: Update release data
 
-# Polls essenfont/essenfont for new releases, downloads the latest
-# OTC + per-plane TTFs, regenerates coverage data, and commits to
-# main. The existing deploy.yml then rebuilds the site.
+# Downloads the latest release assets from essenfont/essenfont, regenerates
+# coverage / donors / planes data, and commits to main. The existing
+# deploy.yml then rebuilds the site.
 #
 # Triggers:
-#   - schedule: every 6 hours (catch up if dispatch missed)
 #   - workflow_dispatch: manual
-#   - repository_dispatch: fired by essenfont release.yml (event_type
-#     must match ESSENFONT_RELEASE_EVENT below)
+#   - repository_dispatch: fired by essenfont's release.yml when a new
+#     release is published (event_type=essenfont-release)
 
 on:
-  schedule:
-    - cron: "0 */6 * * *"
   workflow_dispatch:
   repository_dispatch:
     types: [essenfont-release]
