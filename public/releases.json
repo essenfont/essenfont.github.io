@@ -1,5 +1,31 @@
 [
   {
+    "tag": "v0.6.2",
+    "name": "100% coverage — all assigned Unicode 17 codepoints",
+    "date": "2026-07-22",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.6.2",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.2/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.2/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.6.2",
+    "notes": "Completes coverage of all remaining invisible/formatting codepoints: Hangul fillers (U+3164, U+FFA0), Mongolian FVS/MVS (U+180B-E), and confirms Tags + Variation Selectors Supplement are included. Essenfont now covers every single assigned Unicode 17.0.0 codepoint — 159,866 out of 159,866 across all 340 blocks.",
+    "isLatest": true,
+    "stats": {
+      "codepoints": 159866,
+      "donors": 186,
+      "planes": 5
+    }
+  },
+  {
+    "tag": "v0.6.1",
+    "name": "v0.6.1",
+    "date": "2026-07-22",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.6.1",
+    "otc_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.1/Essenfont-Regular.otc",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.1/coverage.json",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.6.1",
+    "notes": "fix: cover Specials block (U+FFF9..U+FFFD)"
+  },
+  {
     "tag": "v0.6.0",
     "name": "UFO-first build + 186 donors + 99.79% coverage",
     "date": "2026-07-22",
@@ -8,7 +34,6 @@
     "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.0/coverage.json",
     "npm_url": "https://www.npmjs.com/package/essenfont/v/0.6.0",
     "notes": "Major rebuild: UFO-first architecture with committed per-plane UFO sources (BMP 48k glyphs, SMP 28k, SIP 61k, TIP 13k, SSP 338). 8 new code-chart donors via ucode 0.5.0–0.5.2 CID-font extraction cover the last remaining blocks (Syriac Supplement, Mongolian Supplement, Myanmar Extended-C, Garay, Kana Extended-A/B, Ol Onal, Small Kana Extension). fontisan 0.4.43 viewBox fix for correct glyph coordinates. Only Tags and Variation Selectors Supplement remain uncovered — both are invisible formatting characters with no visual glyph.",
-    "isLatest": true,
     "stats": {
       "codepoints": 159529,
       "donors": 186,

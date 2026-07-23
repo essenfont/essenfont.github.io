@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T15:19:59.604Z",
+  "generatedAt": "2026-07-23T04:44:45.556Z",
   "unicode": {
     "version": "17.0.0",
     "blockCount": 346,
@@ -7,70 +7,70 @@
   },
   "donorCount": 186,
   "fontBinaries": {
-    "otcSizeBytes": 109855524,
+    "otcSizeBytes": 109857260,
     "ttcSizeBytes": 99468656,
     "otfSizeBytes": 11223440
   },
   "websiteSubsets": {
     "woff2Count": 214,
-    "woff2TotalBytes": 165193440,
+    "woff2TotalBytes": 165195284,
     "woff1Count": 230,
     "woff1TotalBytes": 116039512,
     "perPlaneWoff2": {
       "BMP": {
         "file": "Essenfont-BMP.woff2",
-        "size": 15442260
+        "size": 15443832
       },
       "SIP": {
         "file": "Essenfont-SIP.woff2",
-        "size": 9711040
+        "size": 9710984
       },
       "SMP": {
         "file": "Essenfont-SMP.woff2",
-        "size": 15472104
+        "size": 15472272
       },
       "SSP": {
         "file": "Essenfont-SSP.woff2",
-        "size": 9501096
+        "size": 9501172
       },
       "TIP": {
         "file": "Essenfont-TIP.woff2",
-        "size": 13820216
+        "size": 13820300
       }
     }
   },
   "release": {
-    "tag": "v0.6.0",
-    "name": "UFO-first build + 186 donors + 99.79% coverage",
+    "tag": "v0.6.2",
+    "name": "100% coverage — all assigned Unicode 17 codepoints",
     "date": "2026-07-22",
-    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.6.0",
-    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.6.0",
-    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.0/coverage.json",
+    "url": "https://github.com/essenfont/essenfont/releases/tag/v0.6.2",
+    "npm_url": "https://www.npmjs.com/package/essenfont/v/0.6.2",
+    "coverage_url": "https://github.com/essenfont/essenfont/releases/download/v0.6.2/coverage.json",
     "stats": {
-      "codepoints": 159529,
+      "codepoints": 159866,
       "donors": 186,
       "planes": 5
     },
-    "notes": "Major rebuild: UFO-first architecture with committed per-plane UFO sources (BMP 48k glyphs, SMP 28k, SIP 61k, TIP 13k, SSP 338). 8 new code-chart donors via ucode 0.5.0–0.5.2 CID-font extraction cover the last remaining blocks (Syriac Supplement, Mongolian Supplement, Myanmar Extended-C, Garay, Kana Extended-A/B, Ol Onal, Small Kana Extension). fontisan 0.4.43 viewBox fix for correct glyph coordinates. Only Tags and Variation Selectors Supplement remain uncovered — both are invisible formatting characters with no visual glyph."
+    "notes": "Completes coverage of all remaining invisible/formatting codepoints: Hangul fillers (U+3164, U+FFA0), Mongolian FVS/MVS (U+180B-E), and confirms Tags + Variation Selectors Supplement are included. Essenfont now covers every single assigned Unicode 17.0.0 codepoint — 159,866 out of 159,866 across all 340 blocks."
   },
   "coverage": {
-    "generated_at": "2026-07-22T15:19:59.556Z",
+    "generated_at": "2026-07-23T04:44:45.526Z",
     "unicode_version": "17.0.0",
     "source": "donor manifest (../essenfont/sources/manifest.yml)",
-    "manifest_blocks_covered": 338,
+    "manifest_blocks_covered": 340,
     "overall": {
-      "covered": 159529,
+      "covered": 159866,
       "total": 159866,
-      "pct": 99.79,
+      "pct": 100,
       "block_count": 340
     },
     "totals": {
       "blocks": 340,
-      "empty": 2,
-      "complete": 338,
-      "covered": 159529,
+      "empty": 0,
+      "complete": 340,
+      "covered": 159866,
       "assigned": 159866,
-      "pct": 99.79
+      "pct": 100
     },
     "blocks": [
       {
@@ -3346,10 +3346,10 @@
         "range": "U+E0000-U+E007F",
         "first": 917504,
         "last": 917631,
-        "covered": 0,
+        "covered": 97,
         "total": 97,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Tai_Le",
@@ -3676,10 +3676,10 @@
         "range": "U+E0100-U+E01EF",
         "first": 917760,
         "last": 917999,
-        "covered": 0,
+        "covered": 240,
         "total": 240,
-        "pct": 0,
-        "status": "EMPTY"
+        "pct": 100,
+        "status": "COMPLETE"
       },
       {
         "id": "Variation_Selectors",
