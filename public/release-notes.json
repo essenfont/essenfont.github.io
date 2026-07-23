@@ -1,4 +1,9 @@
 {
+  "v0.6.2": {
+    "name": "100% coverage — all assigned Unicode 17 codepoints",
+    "notes": "Completes coverage of all remaining invisible/formatting codepoints: Hangul fillers (U+3164, U+FFA0), Mongolian FVS/MVS (U+180B-E), and confirms Tags + Variation Selectors Supplement are included. Essenfont now covers every single assigned Unicode 17.0.0 codepoint — 159,866 out of 159,866 across all 340 blocks.",
+    "stats": { "codepoints": 159866, "donors": 186, "planes": 5 }
+  },
   "v0.6.0": {
     "name": "UFO-first build + 186 donors + 99.79% coverage",
     "notes": "Major rebuild: UFO-first architecture with committed per-plane UFO sources (BMP 48k glyphs, SMP 28k, SIP 61k, TIP 13k, SSP 338). 8 new code-chart donors via ucode 0.5.0–0.5.2 CID-font extraction cover the last remaining blocks (Syriac Supplement, Mongolian Supplement, Myanmar Extended-C, Garay, Kana Extended-A/B, Ol Onal, Small Kana Extension). fontisan 0.4.43 viewBox fix for correct glyph coordinates. Only Tags and Variation Selectors Supplement remain uncovered — both are invisible formatting characters with no visual glyph.",
