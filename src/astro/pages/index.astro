@@ -38,6 +38,24 @@ const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
         'Essenfont',
       ]} />
     </h1>
+    <div class="hero-chips">
+      <span class="hero-chip hero-chip--100">
+        <span class="hero-chip-num">100%</span>
+        <span class="hero-chip-label">Coverage</span>
+      </span>
+      <span class="hero-chip">
+        <span class="hero-chip-num">{version.charCount.toLocaleString()}</span>
+        <span class="hero-chip-label">Codepoints</span>
+      </span>
+      <span class="hero-chip">
+        <span class="hero-chip-num">{version.blockCount}</span>
+        <span class="hero-chip-label">Blocks</span>
+      </span>
+      <span class="hero-chip">
+        <span class="hero-chip-num">{stats.donorCount}</span>
+        <span class="hero-chip-label">Donors</span>
+      </span>
+    </div>
     <p class="hero-lede">
       One font. Every assigned Unicode {version.version} codepoint.
       <br/>
@@ -58,6 +76,10 @@ const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
   {/* ─── Stats ─── */}
   <section class="stats-section">
     <div class="stats-grid">
+      <div class="stat stat--100">
+        <div class="stat-num">100<span class="stat-pct">%</span></div>
+        <div class="stat-cap">Unicode coverage</div>
+      </div>
       <div class="stat">
         <div class="stat-num"><CountUp client:visible value={version.charCount} duration={2000} /></div>
         <div class="stat-cap">Assigned codepoints</div>
@@ -77,10 +99,6 @@ const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
       <div class="stat">
         <div class="stat-num"><CountUp client:visible value={stats.websiteSubsets.woff2Count} duration={1500} /></div>
         <div class="stat-cap">WOFF2 subsets</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"><CountUp client:visible value={Math.round(stats.websiteSubsets.woff2TotalBytes / 1024 / 1024)} duration={1600} /> MB</div>
-        <div class="stat-cap">Total web payload</div>
       </div>
     </div>
   </section>
@@ -221,6 +239,55 @@ const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
     margin: 0 0 1.25rem;
     min-height: 1.2em;
   }
+  .hero-chips {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    padding: 0.35rem 0.8rem;
+    background: var(--ef-surface);
+    border: 1px solid var(--ef-rule-strong);
+    border-radius: 999px;
+    font-family: var(--spec-font-mono);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .hero-chip:hover { border-color: var(--ef-accent); transform: translateY(-2px); }
+  .hero-chip-num {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ef-text);
+  }
+  .hero-chip-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ef-text-3);
+  }
+  .hero-chip--100 {
+    background: linear-gradient(135deg, var(--ef-accent-muted), var(--ef-accent-soft));
+    border-color: var(--ef-accent);
+    box-shadow: 0 0 24px var(--ef-accent-muted);
+    animation: chip-glow 3s ease-in-out infinite;
+  }
+  .hero-chip--100 .hero-chip-num {
+    color: var(--ef-accent);
+    font-size: 1.05rem;
+  }
+  @keyframes chip-glow {
+    0%, 100% { box-shadow: 0 0 20px var(--ef-accent-muted); }
+    50% { box-shadow: 0 0 36px var(--ef-accent-muted), 0 0 8px var(--ef-accent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-chip--100 { animation: none; }
+  }
   .hero-lede {
     position: relative;
     z-index: 1;
@@ -264,6 +331,19 @@ const otcMB = Math.round((stats.fontBinaries.otcSizeBytes ?? 0) / 1024 / 1024);
     border-right: 1px solid var(--ef-rule);
   }
   .stat:last-child { border-right: none; }
+  .stat--100 {
+    background: var(--ef-accent-soft);
+    border-radius: var(--ef-radius-sm);
+    border-right: none;
+  }
+  .stat--100 .stat-num {
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    background: linear-gradient(135deg, var(--ef-accent), var(--ef-accent-hover));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-pct { font-size: 0.65em; }
   .stat-num {
     font-family: var(--spec-font-display);
     font-size: clamp(1.3rem, 3vw, 2rem);
